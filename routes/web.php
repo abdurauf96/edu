@@ -39,7 +39,9 @@ Route::middleware(['auth'])->group(function(){
 
     Route::resource('admin/teachers', 'App\Http\Controllers\Admin\TeachersController');
     Route::resource('admin/courses', 'App\Http\Controllers\Admin\CoursesController');
+    Route::resource('admin/groups', 'App\Http\Controllers\Admin\GroupsController');
 });
 
 require __DIR__.'/auth.php';
+
 

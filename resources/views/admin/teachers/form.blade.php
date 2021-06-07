@@ -18,7 +18,7 @@
    
    <select name="course_id[]" class="form-control select2" id="" multiple data-placeholder="Yo'nalishni tanlang" required>
        @foreach ($courses as $course)
-           <option {{ in_array($course->id, $course_ids) ? 'selected' : '' }} value="{{ $course->id }}">{{ $course->name }}</option>
+           <option @isset($course_ids) {{ in_array($course->id, $course_ids) ? 'selected' : '' }} @endisset value="{{ $course->id }}">{{ $course->name }}</option>
        @endforeach
    </select>
 </div>
