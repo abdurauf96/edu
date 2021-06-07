@@ -4,38 +4,38 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-            <div class="box-header">%%crudNameCap%% 
-                <a href="{{ url('/%%routeGroup%%%%viewName%%/create') }}" class="btn btn-success btn-sm" title="Add New %%modelName%%">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Yangi qo'shish
-                </a>
-            </div>
+            <div class="box-header">O'qituvchilar  <a href="{{ url('/admin/teachers/create') }}" class="btn btn-success btn-sm" title="Add New Teacher">
+                <i class="fa fa-plus" aria-hidden="true"></i> Yagni qo'shish
+            </a></div>
             <div class="box-body">
-                
+
                 <div class="table-responsive dataTables_wrapper form-inline" role="grid">
                     <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
                     
                         <thead>
                             <tr>
-                                <th>#</th>%%formHeadingHtml%%<th>Amallar</th>
+                                <th>#</th><th>F.I.O</th><th>Mutahasisligi</th><th>Telefon raqami</th><th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($%%crudName%% as $item)
+                        @foreach($teachers as $item)
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
-                                %%formBodyHtml%%
+                                <td>{{ $item->name }}</td><td>@foreach ($item->courses as $course)
+                                    {{ $course->name }}  @if(!$loop->last) , @endif
+                                @endforeach</td><td>{{ $item->phone }}</td>
                                 <td>
-                                    <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%%) }}" title="View %%modelName%%"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                    <a href="{{ url('/%%routeGroup%%%%viewName%%/' . $item->%%primaryKey%% . '/edit') }}" title="Edit %%modelName%%"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <a href="{{ url('/admin/teachers/' . $item->id) }}" title="View Teacher"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                    <a href="{{ url('/admin/teachers/' . $item->id . '/edit') }}" title="Edit Teacher"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'url' => ['/%%routeGroup%%%%viewName%%', $item->%%primaryKey%%],
+                                        'url' => ['/admin/teachers', $item->id],
                                         'style' => 'display:inline'
                                     ]) !!}
                                         {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
                                                 'type' => 'submit',
                                                 'class' => 'btn btn-danger btn-sm',
-                                                'title' => 'Delete %%modelName%%',
+                                                'title' => 'Delete Teacher',
                                                 'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}
                                     {!! Form::close() !!}
@@ -44,7 +44,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                   
+                    
                 </div>
 
             </div>

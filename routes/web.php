@@ -37,6 +37,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
     Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
+    Route::resource('admin/teachers', 'App\Http\Controllers\Admin\TeachersController');
+    Route::resource('admin/courses', 'App\Http\Controllers\Admin\CoursesController');
 });
 
 require __DIR__.'/auth.php';
+

@@ -16,6 +16,9 @@
     <link href="/admin/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <link href="/admin/css/my.css" rel="stylesheet" type="text/css" />
 
+     <!-- Select2 -->
+    <link rel="stylesheet" href="/admin/css/select2/select2.min.css">
+
     {{-- datatables --}}
     <link href="/admin/css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -114,6 +117,18 @@
               @endif
             </li>
             @endforeach
+            <li class="treeview">
+              <a href="/admin/courses">
+                <i class="fa fa-edit"></i> <span>Kurslar</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="/admin/teachers">
+                <i class="fa fa-edit"></i> <span>O'qituvchilar</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+            </li>
           </ul>
           
          
@@ -155,7 +170,9 @@
     <script src="/admin/js/datatable/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="/admin/js/datatable/dataTables.bootstrap.min.js" type="text/javascript"></script>
   
-   
+    <!-- Select2 -->
+    <script src="/admin/js/select2/select2.full.min.js"></script>
+    
     @yield('js')
     
   </body>
