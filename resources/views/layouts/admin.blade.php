@@ -120,20 +120,21 @@
             <li class="treeview">
               <a href="/admin/courses">
                 <i class="fa fa-edit"></i> <span>Kurslar</span>
-                
               </a>
             </li>
             <li class="treeview">
               <a href="/admin/teachers">
                 <i class="fa fa-edit"></i> <span>O'qituvchilar</span>
-                
               </a>
             </li>
-
             <li class="treeview">
               <a href="/admin/groups">
                 <i class="fa fa-edit"></i> <span>Guruhlar</span>
-                
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="/admin/students">
+                <i class="fa fa-edit"></i> <span>O'quvchilar</span>
               </a>
             </li>
           </ul>

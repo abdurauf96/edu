@@ -40,8 +40,13 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('admin/teachers', 'App\Http\Controllers\Admin\TeachersController');
     Route::resource('admin/courses', 'App\Http\Controllers\Admin\CoursesController');
     Route::resource('admin/groups', 'App\Http\Controllers\Admin\GroupsController');
+    Route::get('admin/groups/{id}/add-student', ['App\Http\Controllers\Admin\StudentsController', 'create']);
+    Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
+    Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
+    Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController');
 });
 
 require __DIR__.'/auth.php';
+
 
 

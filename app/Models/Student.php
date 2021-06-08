@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Group extends Model
+class Student extends Model
 {
     use LogsActivity;
     
@@ -15,7 +15,7 @@ class Group extends Model
      *
      * @var string
      */
-    protected $table = 'groups';
+    protected $table = 'students';
 
     /**
     * The database primary key value.
@@ -29,22 +29,13 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'teacher_id', 'course_id', 'start_date', 'end_date', 'duration', 'time'];
+    protected $fillable = ['name', 'image', 'phone', 'year', 'address', 'passport', 'code'];
 
-    public function teacher()
+    public function groups()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsToMany(Group::class, 'student_group');
     }
-
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
-
-    public function students()
-    {
-        return $this->belongsToMany(Student::class, 'student_group');
-    }
+    
 
     /**
      * Change activity log event description

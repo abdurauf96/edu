@@ -27,6 +27,8 @@
                                 <td>
                                     <a href="{{ url('/admin/groups/' . $item->id) }}" title="View Group"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                     <a href="{{ url('/admin/groups/' . $item->id . '/edit') }}" title="Edit Group"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    
+                                    
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'url' => ['/admin/groups', $item->id],
@@ -39,6 +41,7 @@
                                                 'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}
                                     {!! Form::close() !!}
+                                    <a href="{{ url('/admin/groups/' . $item->id . '/add-student') }}" title="Add Student"><button class="btn btn-primary btn-md"><i class="fa fa-user-plus" aria-hidden="true"></i></button></a>
                                 </td>
                             </tr>
                         @endforeach
