@@ -119,27 +119,27 @@
             @endforeach
             <li class="treeview">
               <a href="/admin/courses">
-                <i class="fa fa-edit"></i> <span>Kurslar</span>
+                <i class="fa fa-desktop"></i> <span>Kurslar</span>
               </a>
             </li>
             <li class="treeview">
               <a href="/admin/teachers">
-                <i class="fa fa-edit"></i> <span>O'qituvchilar</span>
+                <i class="fa fa-graduation-cap"></i> <span>O'qituvchilar</span>
               </a>
             </li>
             <li class="treeview">
               <a href="/admin/groups">
-                <i class="fa fa-edit"></i> <span>Guruhlar</span>
+                <i class="fa fa-group"></i> <span>Guruhlar</span>
               </a>
             </li>
             <li class="treeview">
               <a href="/admin/students">
-                <i class="fa fa-edit"></i> <span>O'quvchilar</span>
+                <i class="fa fa-user"></i> <span>O'quvchilar</span>
               </a>
             </li>
             <li class="treeview">
               <a href="/admin/payments">
-                <i class="fa fa-edit"></i> <span>To'lovlar</span>
+                <i class="fa fa-money"></i> <span>To'lovlar</span>
               </a>
             </li>
           </ul>
