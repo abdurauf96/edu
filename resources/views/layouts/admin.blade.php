@@ -10,15 +10,15 @@
     <link href="/admin/fontawesome/css/all.css" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="/admin/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+   
     
     <link href="/admin/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <link href="/admin/css/my.css" rel="stylesheet" type="text/css" />
 
      <!-- Select2 -->
     <link rel="stylesheet" href="/admin/css/select2/select2.min.css">
-
+     <!-- Theme style -->
+     <link href="/admin/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     {{-- datatables --}}
     <link href="/admin/css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -30,7 +30,7 @@
     <div class="wrapper">
       
       <header class="main-header">
-        <a href="/admin/dashboard" class="logo">
+        <a href="/dashboard" class="logo">
             <img src="/admin/images/logo.png" style="width:33px;" alt="">
             <b>Admin Panel</b></a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -135,6 +135,11 @@
             <li class="treeview">
               <a href="/admin/students">
                 <i class="fa fa-edit"></i> <span>O'quvchilar</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="/admin/payments">
+                <i class="fa fa-edit"></i> <span>To'lovlar</span>
               </a>
             </li>
           </ul>

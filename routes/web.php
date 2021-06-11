@@ -44,9 +44,13 @@ Route::middleware(['auth'])->group(function(){
     Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
     Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
     Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController');
+    Route::resource('admin/payments', 'App\Http\Controllers\Admin\PaymentsController');
+
+    Route::post('/get-groups', 'App\Http\Controllers\Admin\PaymentsController@getGroups');
 });
 
 require __DIR__.'/auth.php';
+
 
 
 
