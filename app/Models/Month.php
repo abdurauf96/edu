@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Payment extends Model
+class Month extends Model
 {
     use LogsActivity;
     
@@ -15,7 +15,7 @@ class Payment extends Model
      *
      * @var string
      */
-    protected $table = 'payments';
+    protected $table = 'months';
 
     /**
     * The database primary key value.
@@ -29,27 +29,9 @@ class Payment extends Model
      *
      * @var array
      */
-    protected $fillable = ['student_id', 'course_id', 'group_id', 'month_id', 'amount', 'type', 'description'];
+    protected $fillable = ['name', 'number'];
 
-    public function student()
-    {
-        return $this->belongsTo(Student::class);
-    }
-
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
-
-    public function group()
-    {
-        return $this->belongsTo(Group::class);
-    }
-
-    public function month()
-    {
-        return $this->belongsTo(Month::class);
-    }
+    
 
     /**
      * Change activity log event description

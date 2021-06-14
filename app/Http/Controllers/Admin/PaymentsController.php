@@ -33,7 +33,8 @@ class PaymentsController extends Controller
         $students=\App\Models\Student::all();
         $courses=\App\Models\Course::all();
         $groups=\App\Models\Group::all();
-        return view('admin.payments.create', compact('courses', 'students', 'groups'));
+        $months=\App\Models\Month::all();
+        return view('admin.payments.create', compact('courses', 'students', 'groups', 'months'));
     }
 
     /**
@@ -49,7 +50,7 @@ class PaymentsController extends Controller
 			'student_id' => 'required',
 			'course_id' => 'required',
 			'group_id' => 'required',
-			'month' => 'required',
+			'month_id' => 'required',
 			'amount' => 'required',
 			'type' => 'required',
 			'description' => 'required'
@@ -88,7 +89,8 @@ class PaymentsController extends Controller
         $students=\App\Models\Student::all();
         $courses=\App\Models\Course::all();
         $groups=\App\Models\Group::all();
-        return view('admin.payments.edit', compact('payment', 'students', 'courses', 'groups'));
+        $months=\App\Models\Month::all();
+        return view('admin.payments.edit', compact('payment', 'students', 'courses', 'groups', 'months'));
     }
 
     /**
@@ -105,7 +107,7 @@ class PaymentsController extends Controller
 			'student_id' => 'required',
 			'course_id' => 'required',
 			'group_id' => 'required',
-			'month' => 'required',
+			'month_id' => 'required',
 			'amount' => 'required',
 			'type' => 'required',
 			'description' => 'required'

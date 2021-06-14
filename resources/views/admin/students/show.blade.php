@@ -40,11 +40,67 @@
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
                             <tr><th> Code</th><td> {{ $student->code }} </td></tr>
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
+                            {{-- <tr><th>Status</th><td>
+                                @php
+                                    $status=true;
+                                @endphp
+                                @foreach ($student->groups as $group)
+                                    @if (!$student->checkStatus($group->id))
+                                        @php
+                                            $status=false ; 
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @if ($status)
+                                    <span class="label label-success"> Qarzdorligi yo'q </span>
+                                @else 
+                                    <span class="label label-danger"> Qarzdorligi bor </span>
+                                @endif   
+                            </td></tr> --}}
                         </tbody>
                     </table>
                 </div>
 
             </div>
+
+            
+        </div>
+        <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">O'quvchining kurslar uchun qilgan to'lovlari</h3>
+              
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody><tr>
+                  <th>ID</th>
+                  <th>Kurs</th>
+                  <th>Guruh</th>
+                  <th>O'qituvchi</th>
+                  <th>To'lov qilingan oylar</th>
+                  <th>To'lov summasi</th>
+                  <th>To'lov usuli</th>
+                  <th>To'lov sanasi</th>
+                </tr>
+                @foreach ($student->payments as $payment)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $payment->course->name }}</td>
+                    <td>{{ $payment->group->name }}</td>
+                    <td>{{ $payment->group->teacher->name }}</td>
+                    <td> {{ $payment->month->name }}</td>
+                    <td> {{ $payment->amount }}</td>
+                    <td> {{ $payment->type }}</td>
+                    <td> {{ $payment->created_at->format('d.m.Y') }}</td>
+                    
+                </tr> 
+                @endforeach
+                
+               
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
         </div>
     </div>
 </div>

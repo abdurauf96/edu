@@ -34,25 +34,12 @@
     </div>
     <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
         {!! Form::label('month', 'Qaysi oy uchun', ['class' => 'control-label']) !!}
-        <select name="month" class="form-control select2" required >
-            @if(isset($payment))
-                <option value="{{ $payment->month }}">{{ $payment->month }}</option>
-            @else
+        <select name="month_id" class="form-control select2" required >
             <option></option>
-            @endif
             
-           <option value="Yanvar">Yanvar</option>
-           <option value="Fevral">Fevral</option>
-           <option value="Mart">Mart</option>
-           <option value="Aprel">Aprel</option>
-           <option value="May">May</option>
-           <option value="Iyun">Iyun</option>
-           <option value="Iyul">Iyul</option>
-           <option value="Avgust">Avgust</option>
-           <option value="Sentyabr">Sentyabr</option>
-           <option value="Oktyabr">Oktyabr</option>
-           <option value="Noyabr">Noyabr</option>
-           <option value="Dekabr">Dekabr</option>
+            @foreach ($months as $month)
+            <option @if(isset($payment))  {{ $payment->month==$month->number? 'selected' : '' }} @endif value="{{ $month->number }}">{{ $month->name }}</option>
+            @endforeach
         </select>
     </div>
 </div>

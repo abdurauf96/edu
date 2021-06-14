@@ -156,4 +156,6 @@ class StudentsController extends Controller
         $group->students()->attach($request->student_id);
         return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
     }
+
+    
 }
