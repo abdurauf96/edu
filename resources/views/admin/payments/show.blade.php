@@ -36,7 +36,7 @@
                             <tr><th> O'qituvchi </th><td> {{ $payment->group->teacher->name }} </td></tr>
                             <tr><th> To'lov miqdori </th><td> {{ $payment->amount }} </td></tr>
                             <tr><th> To'lov turi </th><td> {{ $payment->type }} </td></tr>
-                            <tr><th> To'lov oyi </th><td> {{ $payment->month }} uchun </td></tr>
+                            <tr><th> To'lov oyi </th><td> {{ $payment->month->name }} </td></tr>
                             <tr><th> To'lov haqida </th><td> {{ $payment->description }} </td></tr>
                             <tr><th> To'lov qilingan vaqt </th><td> {{ $payment->created_at }} </td></tr>
                         </tbody>

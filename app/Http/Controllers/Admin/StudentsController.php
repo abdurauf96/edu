@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Student;
+use App\Http\Requests\StudentRequest;
 use App\Models\Group;
 use Illuminate\Http\Request;
 
@@ -45,25 +46,31 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $this->validate($request, [
-			'name' => 'required',
-			'phone' => 'required',
-			'year' => 'required',
-			'address' => 'required',
-			'passport' => 'required'
-		]);
-        $requestData = $request->except(['group_id']);
+       
+        $requestData = $request->except(['group_id', 'code']);
+        
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
             $file->move('admin/images/students', $image);
             $requestData['image']=$image;
-           
         }
+        $requestData['code']='admin/images/qrcode_'.$request->name.'.png';
         $student=Student::create($requestData);
         $student->groups()->attach($request->group_id);
+        
+
+        $qrcode_info=<<<TEXT
+        O`quvchi:
+        Ismi: {$request->name},
+        Telefon raqami: {$request->phone},
+TEXT;
+        \QrCode::size(500)
+        ->format('png')
+        ->generate($qrcode_info, public_path('admin/images/qrcode_'.$request->name.'.png'));
+    
         return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
     }
 
@@ -103,24 +110,33 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(StudentRequest $request, $id)
     {
-        $this->validate($request, [
-			'name' => 'required',
-			'phone' => 'required',
-			'year' => 'required',
-			'address' => 'required',
-			'passport' => 'required'
-		]);
-        $requestData = $request->except('group_id');
+        $requestData = $request->except(['group_id', 'code']);
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
             $file->move('admin/images/students', $image);
             $requestData['image']=$image;   
         }
+
         $student = Student::findOrFail($id);
+        $payments_str='';
+        foreach($student->payments as $payment){
+            $payments_str.='Guruh nomi - '.$payment->group->name.', To`lov oyi - '.$payment->month->name.' <br>'; 
+        }
+        $qrcode_info=<<<TEXT
+       
+        Ismi: {$request->name};
+        Telefon raqami: {$request->phone};
+        To'lovlari: {$payments_str};
+TEXT;
+        \QrCode::size(100)
+        ->format('png')
+        ->generate($qrcode_info, public_path('admin/images/qrcode_'.$student->name.'.png'));
+        $requestData['code']='qrcode_'.$student->name.'.png';
         $student->update($requestData);
+        
         if(!empty($request->group_id)){
             return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi yangilandi!');
         }else{

@@ -38,7 +38,7 @@
             <option></option>
             
             @foreach ($months as $month)
-            <option @if(isset($payment))  {{ $payment->month==$month->number? 'selected' : '' }} @endif value="{{ $month->number }}">{{ $month->name }}</option>
+            <option @if(isset($payment))  {{ $payment->month_id==$month->number? 'selected' : '' }} @endif value="{{ $month->number }}">{{ $month->name }}</option>
             @endforeach
         </select>
     </div>

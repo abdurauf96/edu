@@ -32,11 +32,11 @@
     {!! Form::file('image', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
+{{-- <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
     {!! Form::label('passport', 'Code', ['class' => 'control-label']) !!}
     {!! Form::text('code', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
-</div>
+</div> --}}
 
 
 <div class="form-group">

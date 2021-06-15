@@ -59,6 +59,23 @@ class PaymentsController extends Controller
         
         Payment::create($requestData);
 
+
+        $student=\App\Models\Student::findOrFail($request->student_id);
+        $payments_str='';
+        foreach($student->payments as $payment){
+            $payments_str.='Guruh nomi - '.$payment->group->name.', To`lov oyi - '.$payment->month->name.' <br>'; 
+        }
+        $qrcode_info=<<<TEXT
+       
+        Ismi: {$student->name};
+        Telefon raqami: {$student->phone};
+        To'lovlari: {$payments_str};
+TEXT;
+        \QrCode::size(100)
+        ->format('png')
+        ->generate($qrcode_info, public_path('admin/images/qrcode_'.$student->name.'.png'));
+        $student->code='qrcode_'.$student->name.'.png';
+        $student->save();
         return redirect('admin/payments')->with('flash_message', 'To`lov qo`shildi!');
     }
 
@@ -116,7 +133,22 @@ class PaymentsController extends Controller
         
         $payment = Payment::findOrFail($id);
         $payment->update($requestData);
-
+        $student=\App\Models\Student::findOrFail($request->student_id);
+        $payments_str='';
+        foreach($student->payments as $payment){
+            $payments_str.='Guruh nomi - '.$payment->group->name.', To`lov oyi - '.$payment->month->name.';'; 
+        }
+        $qrcode_info=<<<TEXT
+       
+        Ismi: {$student->name};
+        Telefon raqami: {$student->phone};
+        To'lovlari: {$payments_str};
+TEXT;
+        \QrCode::size(100)
+        ->format('png')
+        ->generate($qrcode_info, public_path('admin/images/qrcode_'.$student->name.'.png'));
+        $student->code='qrcode_'.$student->name.'.png';
+        $student->save();
         return redirect('admin/payments')->with('flash_message', 'To`lov yangilandi!');
     }
 

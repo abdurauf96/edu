@@ -38,8 +38,9 @@
                             <tr><th> Manzili </th><td> {{ $student->address }} </td></tr>
                             <tr><th> Tug'ilgan yili </th><td> {{ $student->year }} </td></tr>
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
-                            <tr><th> Code</th><td> {{ $student->code }} </td></tr>
+                            
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
+                            <tr><th>QR Code</th> <td><img src="/admin/images/{{ $student->code }}" width="100" alt=""></td></tr>
                             {{-- <tr><th>Status</th><td>
                                 @php
                                     $status=true;
@@ -68,7 +69,6 @@
         <div class="box">
             <div class="box-header">
               <h3 class="box-title">O'quvchining kurslar uchun qilgan to'lovlari</h3>
-              
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
