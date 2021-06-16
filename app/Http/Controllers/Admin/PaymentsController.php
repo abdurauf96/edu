@@ -6,7 +6,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Payment;
+use App\Http\Requests\PaymentRequest;
 use Illuminate\Http\Request;
+use App\Repositories\Interfaces\PaymentRepositoryInterface;
+use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class PaymentsController extends Controller
 {
@@ -15,11 +18,19 @@ class PaymentsController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    private $paymentRepo;
+    private $studentRepo;
+    
+    public function __construct(PaymentRepositoryInterface $paymentRepo, StudentRepositoryInterface $studentRepo)
+    {
+        $this->paymentRepo=$paymentRepo;
+        $this->studentRepo=$studentRepo;
+    }
+
     public function index(Request $request)
     {
        
-        $payments = Payment::latest()->get();
-    
+        $payments = $this->paymentRepo->getAll();
         return view('admin.payments.index', compact('payments'));
     }
 
@@ -30,7 +41,7 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        $students=\App\Models\Student::all();
+        $students=$this->studentRepo->getAll();
         $courses=\App\Models\Course::all();
         $groups=\App\Models\Group::all();
         $months=\App\Models\Month::all();
@@ -44,38 +55,11 @@ class PaymentsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(PaymentRequest $request)
     {
-        $this->validate($request, [
-			'student_id' => 'required',
-			'course_id' => 'required',
-			'group_id' => 'required',
-			'month_id' => 'required',
-			'amount' => 'required',
-			'type' => 'required',
-			'description' => 'required'
-		]);
-        $requestData = $request->all();
         
-        Payment::create($requestData);
-
-
-        $student=\App\Models\Student::findOrFail($request->student_id);
-        $payments_str='';
-        foreach($student->payments as $payment){
-            $payments_str.='Guruh nomi - '.$payment->group->name.', To`lov oyi - '.$payment->month->name.' <br>'; 
-        }
-        $qrcode_info=<<<TEXT
-       
-        Ismi: {$student->name};
-        Telefon raqami: {$student->phone};
-        To'lovlari: {$payments_str};
-TEXT;
-        \QrCode::size(100)
-        ->format('png')
-        ->generate($qrcode_info, public_path('admin/images/qrcode_'.$student->name.'.png'));
-        $student->code='qrcode_'.$student->name.'.png';
-        $student->save();
+        $this->paymentRepo->create($request);
+        
         return redirect('admin/payments')->with('flash_message', 'To`lov qo`shildi!');
     }
 
@@ -102,8 +86,8 @@ TEXT;
      */
     public function edit($id)
     {
-        $payment = Payment::findOrFail($id);
-        $students=\App\Models\Student::all();
+        $payment = $this->paymentRepo->findOne($id);
+        $students=$this->studentRepo->getAll();
         $courses=\App\Models\Course::all();
         $groups=\App\Models\Group::all();
         $months=\App\Models\Month::all();
@@ -118,37 +102,9 @@ TEXT;
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(PaymentRequest $request, $id)
     {
-        $this->validate($request, [
-			'student_id' => 'required',
-			'course_id' => 'required',
-			'group_id' => 'required',
-			'month_id' => 'required',
-			'amount' => 'required',
-			'type' => 'required',
-			'description' => 'required'
-		]);
-        $requestData = $request->all();
-        
-        $payment = Payment::findOrFail($id);
-        $payment->update($requestData);
-        $student=\App\Models\Student::findOrFail($request->student_id);
-        $payments_str='';
-        foreach($student->payments as $payment){
-            $payments_str.='Guruh nomi - '.$payment->group->name.', To`lov oyi - '.$payment->month->name.';'; 
-        }
-        $qrcode_info=<<<TEXT
-       
-        Ismi: {$student->name};
-        Telefon raqami: {$student->phone};
-        To'lovlari: {$payments_str};
-TEXT;
-        \QrCode::size(100)
-        ->format('png')
-        ->generate($qrcode_info, public_path('admin/images/qrcode_'.$student->name.'.png'));
-        $student->code='qrcode_'.$student->name.'.png';
-        $student->save();
+        $this->paymentRepo->update($request, $id);
         return redirect('admin/payments')->with('flash_message', 'To`lov yangilandi!');
     }
 

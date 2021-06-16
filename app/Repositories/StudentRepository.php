@@ -4,8 +4,9 @@ namespace App\Repositories;
 use App\Models\Student;
 use App\Models\Group;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
+use App\Repositories\BaseRepository;
 
-class StudentRepository implements StudentRepositoryInterface{
+class StudentRepository extends BaseRepository implements StudentRepositoryInterface{
     public function getAll(){
         return Student::latest()->get();
     }
@@ -18,10 +19,11 @@ class StudentRepository implements StudentRepositoryInterface{
             $file->move('admin/images/students', $image);
             $requestData['image']=$image;
         }
-        $requestData['code']='qrcode_'.time().'.png';
+        $filename=time().'.png';
+        $requestData['code']=$filename;
         $student=Student::create($requestData);
         $student->groups()->attach($request->group_id);
-        $this->createQRCode($request->name, $request->phone); 
+        $this->createQRCode($request->name, $request->phone, $filename); 
     }
 
     public function findOne($id)
@@ -45,10 +47,9 @@ class StudentRepository implements StudentRepositoryInterface{
         foreach($student->payments as $payment){
             $payments_str.='Guruh nomi - '.$payment->group->name.', To`lov oyi - '.$payment->month->name.' <br>'; 
         }
-        
-        $this->createQRCode($request->name, $request->phone, $payments_str);
-
-        $requestData['code']=time().'.png';
+        $filename=time().'.png';
+        $this->createQRCode($request->name, $request->phone, $filename, $payments_str);
+        $requestData['code']=$filename;
         $student->update($requestData);
     }
 
@@ -60,25 +61,5 @@ class StudentRepository implements StudentRepositoryInterface{
     public function addStudentToGroup($group_id, $student_id)
     {
         Group::find($group_id)->students()->attach($student_id);
-    }
-
-    public function createQRCode($name, $phone, $payments_str=null)
-    {
-        if($payments_str!=null){
-            $qrcode_info=<<<TEXT
-            Ismi: {$request->name};
-            Telefon raqami: {$request->phone};
-            To'lovlari: {$payments_str};
-TEXT;
-        }else{
-            $qrcode_info=<<<TEXT
-            O`quvchi:
-            Ismi: {$name},
-            Telefon raqami: {$phone},
-TEXT;
-        }
-        \QrCode::size(100)
-        ->format('png')
-        ->generate($qrcode_info, public_path('admin/images/qrcodes/'.time().'.png'));
     }
 }

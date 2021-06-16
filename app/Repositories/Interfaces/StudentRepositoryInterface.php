@@ -6,7 +6,6 @@ interface StudentRepositoryInterface{
     public function create($data);
     public function findOne($id);
     public function update($data,$id);
-    public function createQRCode($name, $phone);
     public function removeFromGroup($group_id, $student_id);
     public function addStudentToGroup($group_id, $student_id);
 }
