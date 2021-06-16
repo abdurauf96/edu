@@ -40,7 +40,7 @@
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
                             
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
-                            <tr><th>QR Code</th> <td><img src="/admin/images/{{ $student->code }}" width="100" alt=""></td></tr>
+                            <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->code }}" width="100" alt=""></td></tr>
                             {{-- <tr><th>Status</th><td>
                                 @php
                                     $status=true;
