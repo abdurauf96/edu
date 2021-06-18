@@ -21,6 +21,7 @@ class CreateGroupsTable extends Migration
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('duration')->nullable();
+            $table->string('status')->nullable();
             $table->time('time')->nullable();
             });
     }

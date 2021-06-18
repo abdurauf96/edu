@@ -185,7 +185,18 @@
   
     <!-- Select2 -->
     <script src="/admin/js/select2/select2.full.min.js"></script>
-    
+    <script type="text/javascript">
+      $(function () {
+          // Navigation active
+          var url=window.location.pathname;
+          
+         $("a[href='"+ url +"']").parent().addClass('active');
+         $("a[href='"+ url +"']").parent().parent().addClass('active');
+         $("a[href='"+ url +"']").parent().parent().parent().addClass('active');
+          
+          console.log(url);
+      });
+  </script>
     @yield('js')
     
   </body>

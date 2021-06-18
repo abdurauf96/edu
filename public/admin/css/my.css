@@ -32,3 +32,9 @@
 .skin-blue .sidebar a{
     color: rgb(248, 234, 234);
 }
+.skin-blue .sidebar-menu>li>a{
+    font-size: 18px;
+}
+.skin-blue .sidebar-menu>li.active>a{
+    background-color: #355467;
+}

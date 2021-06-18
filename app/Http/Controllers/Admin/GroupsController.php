@@ -20,7 +20,7 @@ class GroupsController extends Controller
     public function index(Request $request)
     {
        
-        $groups = Group::latest()->get();
+        $groups = Group::orderBy('status')->latest()->get();
     
         return view('admin.groups.index', compact('groups'));
     }
@@ -50,8 +50,6 @@ class GroupsController extends Controller
 			'name' => 'required',
 			'teacher_id' => 'required',
 			'course_id' => 'required',
-			'start_date' => 'required',
-			'end_date' => 'required',
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
@@ -104,8 +102,6 @@ class GroupsController extends Controller
 			'name' => 'required',
 			'teacher_id' => 'required',
 			'course_id' => 'required',
-			'start_date' => 'required',
-			'end_date' => 'required',
 			'duration' => 'required'
 		]);
         $requestData = $request->all();

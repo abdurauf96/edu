@@ -29,7 +29,7 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'teacher_id', 'course_id', 'start_date', 'end_date', 'duration', 'time'];
+    protected $fillable = ['name', 'teacher_id', 'course_id', 'start_date', 'end_date', 'duration', 'time', 'status'];
 
     public function teacher()
     {
