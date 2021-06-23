@@ -4,23 +4,15 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 
 class BaseRepository implements BaseRepositoryInterface{
-    public function createQRCode($name, $phone, $filename, $payments_str=null)
+    public function createQRCode($id, $filename)
     {
-        if($payments_str!=null){
-            $qrcode_info=<<<TEXT
-            Ismi: {$name};
-            Telefon raqami: {$phone};
-            To'lovlari: {$payments_str};
+        $qrcode_info=<<<TEXT
+        O'quvchi ID raqami: {$id};
 TEXT;
-        }else{
-            $qrcode_info=<<<TEXT
-            O`quvchi:
-            Ismi: {$name},
-            Telefon raqami: {$phone},
-TEXT;
-        }
+        
         \QrCode::size(100)
         ->format('png')
+        ->merge('\public\admin\images\DC.png', .3)
         ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
     }
 }

@@ -15,9 +15,18 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', function () {
     
-    return view('welcome');
+    return redirect('/login');
 });
 
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
+    Route::resource('roles', 'App\Http\Controllers\Admin\RolesController');
+    Route::resource('permissions', 'App\Http\Controllers\Admin\PermissionsController');
+    Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
+    Route::resource('activitylogs', 'App\Http\Controllers\Admin\ActivityLogsController')->only([
+        'index', 'show', 'destroy'
+    ]);
+    Route::resource('settings', 'App\Http\Controllers\Admin\SettingsController');
+});
 
 Route::middleware(['auth'])->group(function(){
 
@@ -26,16 +35,8 @@ Route::middleware(['auth'])->group(function(){
     })->middleware(['auth'])->name('dashboard');
 
     Route::get('/admin', 'App\Http\Controllers\Admin\AdminController@index');
-    Route::resource('admin/roles', 'App\Http\Controllers\Admin\RolesController');
-    Route::resource('admin/permissions', 'App\Http\Controllers\Admin\PermissionsController');
-    Route::resource('admin/users', 'App\Http\Controllers\Admin\UsersController');
-    Route::resource('admin/pages', 'App\Http\Controllers\Admin\PagesController');
-    Route::resource('admin/activitylogs', 'App\Http\Controllers\Admin\ActivityLogsController')->only([
-        'index', 'show', 'destroy'
-    ]);
-    Route::resource('admin/settings', 'App\Http\Controllers\Admin\SettingsController');
-    Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
-    Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
+    // Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
+    // Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
     Route::resource('admin/teachers', 'App\Http\Controllers\Admin\TeachersController');
     Route::resource('admin/courses', 'App\Http\Controllers\Admin\CoursesController');

@@ -23,7 +23,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $requestData['code']=$filename;
         $student=Student::create($requestData);
         $student->groups()->attach($request->group_id);
-        $this->createQRCode($request->name, $request->phone, $filename); 
+        $this->createQRCode($student->id, $filename); 
     }
 
     public function findOne($id)
@@ -42,13 +42,8 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         }
 
         $student = $this->findOne($id);
-
-        $payments_str='';
-        foreach($student->payments as $payment){
-            $payments_str.='Guruh nomi - '.$payment->group->name.', To`lov oyi - '.$payment->month->name.' <br>'; 
-        }
         $filename=time().'.png';
-        $this->createQRCode($request->name, $request->phone, $filename, $payments_str);
+        $this->createQRCode($id, $filename);
         $requestData['code']=$filename;
         $student->update($requestData);
     }

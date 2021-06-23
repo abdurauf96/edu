@@ -69,8 +69,8 @@
                                 <td>{{ $student->address }}</td>
                                 <td>{{ $student->year }}</td>
                                 <td>{{ $student->phone }}</td>
-                                <td>{{ $student->code }}</td>
                                 <td>{{ $student->passport }}</td>
+                                <td>{{ $student->code }}</td>
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
                                 <td>
                                     

@@ -102,21 +102,23 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           
           <ul class="sidebar-menu "> 
-            @foreach($laravelAdminMenus->menus as $section)
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-edit"></i> <span>{{ $section->section }}</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              @if($section->items)
-              <ul class="treeview-menu" >
-                @foreach($section->items as $menu)
-                <li><a class="menu-url" href="{{ url($menu->url) }}"><i class="fa fa-circle-o"></i> {{ $menu->title }}</a></li>
-                @endforeach
-              </ul>
-              @endif
-            </li>
-            @endforeach
+            @if(Auth::check() && Auth::user()->hasRole('admin'))
+              @foreach($laravelAdminMenus->menus as $section)
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-edit"></i> <span>{{ $section->section }}</span>
+                  <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                @if($section->items)
+                <ul class="treeview-menu" >
+                  @foreach($section->items as $menu)
+                  <li><a class="menu-url" href="{{ url($menu->url) }}"><i class="fa fa-circle-o"></i> {{ $menu->title }}</a></li>
+                  @endforeach
+                </ul>
+                @endif
+              </li>
+              @endforeach
+            @endif
             <li class="treeview">
               <a href="/admin/courses">
                 <i class="fa fa-desktop"></i> <span>Kurslar</span>
