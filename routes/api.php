@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('register', ['App\Http\Controllers\Api\RegisterController', 'register']);
+Route::post('login', ['App\Http\Controllers\Api\RegisterController', 'login']);
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::middleware('auth:api')->get('/student/{$id}', ['App\Http\Controllers\Api\StudentController', 'findOne']);
