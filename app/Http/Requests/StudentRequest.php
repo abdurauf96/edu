@@ -27,8 +27,7 @@ class StudentRequest extends FormRequest
             'name' => 'required',
 			'phone' => 'required',
 			'year' => 'required',
-			'address' => 'required',
-			'passport' => 'required'
+			'address' => 'required'
         ];
     }
 }

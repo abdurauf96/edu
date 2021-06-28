@@ -24,7 +24,7 @@
 </div>
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
     {!! Form::label('passport', 'Passport malumotlari', ['class' => 'control-label']) !!}
-    {!! Form::text('passport', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::text('passport', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">

@@ -7,12 +7,13 @@ class BaseRepository implements BaseRepositoryInterface{
     public function createQRCode($id, $filename)
     {
         $qrcode_info=<<<TEXT
-        O'quvchi ID raqami: {$id};
+        id: {$id}
+        type: student
 TEXT;
         
-        \QrCode::size(100)
+        \QrCode::size(200)
         ->format('png')
-        ->merge('\public\admin\images\DC.png', .3)
+        ->merge('/public/admin/images/DC.png', .3)
         ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
     }
 }

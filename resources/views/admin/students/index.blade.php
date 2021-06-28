@@ -4,16 +4,16 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-            <div class="box-header"> <h3> O'quvchilar</h3> 
+            <div class="box-header"> <h3> O'quvchilar</h3>
                 {{-- <a href="{{ url('/admin/students/create') }}" class="btn btn-success btn-sm" title="Add New Student">
                         <i class="fa fa-plus" aria-hidden="true"></i> Yangi qo'shish
                 </a> --}}
             </div>
             <div class="box-body">
-                
+
                 <div class="table-responsive dataTables_wrapper form-inline" role="grid">
                     <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
-                    
+
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -38,7 +38,7 @@
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->address }}</td>
                                 <td>{{ $item->passport }}</td>
-                                <td>{{ $item->code }}</td>
+                                <td> <img width="200" src="/admin/images/qrcodes/{{ $item->code }}" alt=""> </td>
                                 <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td>
                                 <td>
                                     <a href="{{ url('/admin/students/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
@@ -60,7 +60,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                   
+
                 </div>
 
             </div>
