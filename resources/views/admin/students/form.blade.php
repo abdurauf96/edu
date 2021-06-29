@@ -27,6 +27,23 @@
     {!! Form::text('passport', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
+<div class="form-group">
+    <label for="">Jinsi</label> &nbsp; &nbsp;
+    <input type="radio" value="1"  @if(isset($student))
+        {{ $student->sex==1 ? 'checked' : '' }} @else checked
+    @endif name="sex"  > O'g'il &nbsp;&nbsp;
+    <input type="radio" @isset($student)
+    {{ $student->sex==0 ? 'checked' : '' }}
+@endisset value="0" name="sex"> Qiz 
+</div>
+
+<div class="form-group">
+    <label for="">Grant</label> &nbsp; &nbsp;
+    <input type="checkbox" value="1"  @if(isset($student))
+        {{ $student->type==1 ? 'checked' : '' }}  
+    @endif name="type"  > 
+</div>
+
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
     {!! Form::label('image', 'Rasm', ['class' => 'control-label']) !!}
     {!! Form::file('image', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}

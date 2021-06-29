@@ -22,6 +22,8 @@ class CreateStudentsTable extends Migration
             $table->string('passport')->nullable();
             $table->string('code')->nullable();
             $table->string('image')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('type')->nullable();
             $table->string('status')->nullable();
             });
     }

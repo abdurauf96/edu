@@ -38,6 +38,8 @@
                             <tr><th> Manzili </th><td> {{ $student->address }} </td></tr>
                             <tr><th> Tug'ilgan yili </th><td> {{ $student->year }} </td></tr>
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
+                            <tr><th> Jinsi </th><td> {{ $student->sex==1 ? 'O\'g\'il' : 'Qiz'  }} </td></tr>
+                            <tr><th> O'qish turi </th><td> {{ $student->type==1 ? 'Grant' : 'Oddiy'  }} </td></tr>
                             
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->code }}" width="100" alt=""></td></tr>

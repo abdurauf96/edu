@@ -29,7 +29,7 @@ class Student extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'image', 'phone', 'year', 'address', 'passport', 'code'];
+    protected $fillable = ['name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type'];
 
     public function groups()
     {
