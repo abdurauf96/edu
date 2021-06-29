@@ -31,7 +31,22 @@ class Teacher extends Model
      */
     protected $fillable = ['name', 'birthday', 'address', 'passport', 'phone'];
 
-    
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'teacher_course');
+    }
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($teacher) {
+             $teacher->groups()->delete();
+        });
+    }
 
     /**
      * Change activity log event description
@@ -45,8 +60,5 @@ class Teacher extends Model
         return __CLASS__ . " model has been {$eventName}";
     }
 
-    public function courses()
-    {
-        return $this->belongsToMany(Course::class, 'teacher_course');
-    }
+    
 }

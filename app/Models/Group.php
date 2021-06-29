@@ -46,6 +46,13 @@ class Group extends Model
         return $this->belongsToMany(Student::class, 'student_group')->latest();
     }
 
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($group) {
+             $group->students()->delete();
+        });
+    }
+
     /**
      * Change activity log event description
      *

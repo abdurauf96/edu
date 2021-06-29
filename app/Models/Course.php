@@ -9,7 +9,17 @@ class Course extends Model
 {
     use LogsActivity;
     
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
 
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'teacher_course');
+    }
+
+    
     /**
      * The database table used by the model.
      *
@@ -31,7 +41,13 @@ class Course extends Model
      */
     protected $fillable = ['name', 'duration'];
 
-    
+    public static function boot() {
+        parent::boot();
+        static::deleting(function($course) {
+             $course->groups()->delete();
+             $course->teachers()->delete();
+        });
+    }
 
     /**
      * Change activity log event description
