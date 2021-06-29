@@ -25,6 +25,7 @@ class CreateStudentsTable extends Migration
             $table->string('sex')->nullable();
             $table->string('type')->nullable();
             $table->string('status')->nullable();
+            $table->string('is_debt')->nullable();
             });
     }
 

@@ -15,7 +15,8 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
     public function create($request)
     {
         Payment::create($request->all());
-        //$student=\App\Models\Student::findOrFail($request->student_id);
+        $student=\App\Models\Student::findOrFail($request->student_id);
+        
         // $filename=time().'.png';;
         // $this->createQRCode($student->id,  $filename);
         // $student->code=$filename;

@@ -14,8 +14,12 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', function () {
-    
     return redirect('/login');
+});
+
+Route::get('/cache', function () {
+    \Artisan::call('config:cache');
+    return back();
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {

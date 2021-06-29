@@ -27,7 +27,7 @@ class RegisterController extends BaseController
         $user=User::create($data);
         $success['token']=$user->createToken('Laravel')->accessToken;
         $success['name']=$user->name;
-        return $this->sendResponse($success, 'User created successfully');
+        return $this->sendResponse($success);
     }
 
     public function login(Request $request)
@@ -35,7 +35,7 @@ class RegisterController extends BaseController
         if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password])){
             $success['token']=auth()->user()->createToken('Laravel')->accessToken;
             $success['name']=auth()->user()->name;
-            return $this->sendResponse($success, 'User login successfully');
+            return $this->sendResponse($success);
         }else{
             return $this->sendError('Unauthorised', ['error'=>'Unauthorised']);
         }

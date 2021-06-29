@@ -21,8 +21,7 @@
                                 <th>Guruhlari</th>
                                 <th>Telefon</th>
                                 <th>Manzil</th>
-                                <th>Passport</th>
-                                <th>Code</th>
+                               
                                 <th>Rasm</th>
                                 <th>Amallar</th>
                             </tr>
@@ -37,8 +36,7 @@
                                 @endforeach </td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->address }}</td>
-                                <td>{{ $item->passport }}</td>
-                                <td> <img width="100" src="/admin/images/qrcodes/{{ $item->code }}" alt=""> </td>
+                               
                                 <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td>
                                 <td>
                                     <a href="{{ url('/admin/students/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>

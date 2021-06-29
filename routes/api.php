@@ -21,4 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::middleware('auth:api')->get('/student/{$id}', ['App\Http\Controllers\Api\StudentController', 'findOne']);
+Route::middleware('auth:api')->get('/student/{$id}', ['App\Http\Controllers\Api\StudentController', 'findOne']);
+
+Route::get('/student/{id}', ['App\Http\Controllers\Api\StudentController', 'test']);

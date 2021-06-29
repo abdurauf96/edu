@@ -9,7 +9,6 @@ class Student extends Model
 {
     use LogsActivity;
     
-
     /**
      * The database table used by the model.
      *
@@ -29,7 +28,7 @@ class Student extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type'];
+    protected $fillable = ['name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt'];
 
     public function groups()
     {
@@ -41,17 +40,16 @@ class Student extends Model
         return $this->hasMany(Payment::class)->orderBy('course_id')->orderBy('month_id');
     }
     
-    // public function checkStatus($group_id)
-    // {
-    //     $res=true;
-    //     //$group=\App\Models\Group::findOrFail($group_id);
-    //     $payment=$this->payments->where('group_id', $group_id)->where('month_id', date('m'))->first();
-    //     if(!$payment){
-    //         $res=false;
-    //     }
-    //     return $res;
+    public function is_debt()
+    {
+        $res=count($this->payments->where('month_id', date("m", strtotime("first day of previous month"))));
         
-    // }
+        if($res>0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
     /**
      * Change activity log event description

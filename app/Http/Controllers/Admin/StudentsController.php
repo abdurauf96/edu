@@ -70,7 +70,6 @@ class StudentsController extends Controller
     public function show($id)
     {
         $student = $this->studentRepo->findOne($id);
-
         return view('admin.students.show', compact('student'));
     }
 

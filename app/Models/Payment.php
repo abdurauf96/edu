@@ -51,6 +51,11 @@ class Payment extends Model
         return $this->belongsTo(Month::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     /**
      * Change activity log event description
      *
