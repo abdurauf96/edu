@@ -32,8 +32,8 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->student->name }}</td>
-                                <td>{{ $item->group->name }}</td>
-                                <td>{{ $item->group->teacher->name }}</td>
+                                <td>{{ $item->student->group->name }}</td>
+                                <td>{{ $item->student->group->teacher->name }}</td>
                                 <td>{{ $item->amount }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>{{ $item->month->name}} uchun</td>

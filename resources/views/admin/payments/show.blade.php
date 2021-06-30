@@ -31,9 +31,9 @@
                                 <th>ID</th><td>{{ $payment->id }}</td>
                             </tr>
                             <tr><th> O'quvchi </th><td> {{ $payment->student->name }} </td></tr>
-                            <tr><th> Kurs</th><td> {{ $payment->course->name }} </td></tr>
-                            <tr><th> Guruh </th><td> {{ $payment->group->name }} </td></tr>
-                            <tr><th> O'qituvchi </th><td> {{ $payment->group->teacher->name }} </td></tr>
+                            <tr><th> Kurs</th><td> {{ $payment->student->group->course->name }} </td></tr>
+                            <tr><th> Guruh </th><td> {{ $payment->student->group->name }} </td></tr>
+                            <tr><th> O'qituvchi </th><td> {{ $payment->student->group->teacher->name }} </td></tr>
                             <tr><th> To'lov miqdori </th><td> {{ $payment->amount }} </td></tr>
                             <tr><th> To'lov turi </th><td> {{ $payment->type }} </td></tr>
                             <tr><th> To'lov oyi </th><td> {{ $payment->month->name }} </td></tr>

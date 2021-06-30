@@ -46,8 +46,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('admin/courses', 'App\Http\Controllers\Admin\CoursesController');
     Route::resource('admin/groups', 'App\Http\Controllers\Admin\GroupsController');
     Route::get('admin/groups/{id}/add-student', ['App\Http\Controllers\Admin\StudentsController', 'create']);
-    Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
-    Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
+    // Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
+    // Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
     Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController');
     Route::resource('admin/payments', 'App\Http\Controllers\Admin\PaymentsController');
     Route::resource('admin/months', 'App\Http\Controllers\Admin\MonthsController');

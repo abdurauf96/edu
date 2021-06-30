@@ -31,9 +31,7 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td> @foreach ($item->groups as $group)
-                                    {{ $group->name }} @if(!$loop->last) , @endif
-                                @endforeach </td>
+                                <td> {{ $item->group->name }} </td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->address }}</td>
                                

@@ -4,7 +4,10 @@
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
 
+@isset($group_id)
 <input type="hidden" value="{{ $group_id }}" name="group_id">  
+@endisset
+
 
 
 <div class="form-group{{ $errors->has('phone') ? 'has-error' : ''}}">

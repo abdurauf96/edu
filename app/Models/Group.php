@@ -43,7 +43,7 @@ class Group extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'student_group')->latest();
+        return $this->hasMany(Student::class)->latest();
     }
 
     public static function boot() {

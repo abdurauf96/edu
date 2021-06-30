@@ -28,16 +28,16 @@ class Student extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt'];
 
-    public function groups()
+    public function group()
     {
-        return $this->belongsToMany(Group::class, 'student_group');
+        return $this->belongsTo(Group::class);
     }
 
     public function payments()
     {
-        return $this->hasMany(Payment::class)->orderBy('course_id')->orderBy('month_id');
+        return $this->hasMany(Payment::class)->orderBy('month_id');
     }
     
     public function is_debt()

@@ -12,7 +12,7 @@ class StudentController extends BaseController
 
     public function getStudent($id)
     {
-        $student=Student::with('groups')->findOrFail($id);
+        $student=Student::with('group')->findOrFail($id);
         return $this->sendResponse(new StudentResource($student));
     }
 }

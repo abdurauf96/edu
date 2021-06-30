@@ -31,9 +31,9 @@
                                 <th>ID</th><td>{{ $student->id }}</td>
                             </tr>
                             <tr><th> F.I.O </th><td> {{ $student->name }} </td></tr>
-                            <tr><th> Guruh </th><td> @foreach ($student->groups as $group)
-                                {{ $group->name }} @if(!$loop->last) , @endif 
-                            @endforeach </td></tr>
+                            <tr><th> Guruh </th><td> 
+                                {{ $student->group->name }} 
+                            </td></tr>
                             <tr><th> Telefon </th><td> {{ $student->phone }} </td></tr>
                             <tr><th> Manzili </th><td> {{ $student->address }} </td></tr>
                             <tr><th> Tug'ilgan yili </th><td> {{ $student->year }} </td></tr>
@@ -43,23 +43,7 @@
                             <tr><th>Xolati </th> <td>  @if($student->is_debt()) <span class='label label-danger'> qarzi bor</span> @else <span class='label label-success'> qarzi yo'q</span>  @endif  </td> </tr>
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->code }}" width="300" alt=""></td></tr>
-                            {{-- <tr><th>Status</th><td>
-                                @php
-                                    $status=true;
-                                @endphp
-                                @foreach ($student->groups as $group)
-                                    @if (!$student->checkStatus($group->id))
-                                        @php
-                                            $status=false ; 
-                                        @endphp
-                                    @endif
-                                @endforeach
-                                @if ($status)
-                                    <span class="label label-success"> Qarzdorligi yo'q </span>
-                                @else 
-                                    <span class="label label-danger"> Qarzdorligi bor </span>
-                                @endif   
-                            </td></tr> --}}
+                            
                         </tbody>
                     </table>
                 </div>

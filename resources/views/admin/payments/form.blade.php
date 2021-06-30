@@ -10,28 +10,7 @@
             @endforeach
         </select>
     </div>
-    <div class="form-group{{ $errors->has('course_id') ? 'has-error' : ''}}">
-        {!! Form::label('course_id', 'Kurslar', ['class' => 'control-label']) !!}
-        <select id="courses" name="course_id" class="form-control select2 " required>
-            <option></option>
-            @foreach ($courses as $course)
-                <option @isset($payment)
-                {{ $payment->course_id==$course->id ? 'selected' : '' }}
-            @endisset value="{{ $course->id }}">{{ $course->name }}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="form-group{{ $errors->has('group_id') ? 'has-error' : ''}}">
-        {!! Form::label('group_id', 'Guruhlar', ['class' => 'control-label']) !!}
-        <select name="group_id" id="groups" class="form-control select2" required >
-            <option></option>
-            @foreach ($groups as $group)
-                <option @isset($payment)
-                {{ $payment->group_id==$group->id ? 'selected' : '' }}
-            @endisset value="{{ $group->id }}" data-course_id="{{ $group->course->id }}">{{ $group->name }}</option>
-            @endforeach
-        </select>
-    </div>
+  
     <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
         {!! Form::label('month', 'Qaysi oy uchun', ['class' => 'control-label']) !!}
         <select name="month_id" class="form-control select2" required >
@@ -42,14 +21,15 @@
             @endforeach
         </select>
     </div>
-</div>
-
-<div class="col-md-6">
     <div class="form-group{{ $errors->has('amount') ? 'has-error' : ''}}">
         {!! Form::label('amount', 'To`lov miqdori', ['class' => 'control-label']) !!}
         {!! Form::number('amount', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
         {!! $errors->first('amount', '<p class="help-block">:message</p>') !!}
     </div>
+</div>
+
+<div class="col-md-6">
+    
     <div class="form-group{{ $errors->has('type') ? 'has-error' : ''}}">
         {!! Form::label('type', 'To`lov turi', ['class' => 'control-label']) !!}
         <select name="type"  class="form-control select2" required >

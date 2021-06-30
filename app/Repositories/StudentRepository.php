@@ -12,7 +12,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
     }
 
     public function create($request){
-        $requestData = $request->except(['group_id']);
+        $requestData = $request->all();
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
@@ -22,7 +22,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $filename=time().'.png';
         $requestData['code']=$filename;
         $student=Student::create($requestData);
-        $student->groups()->attach($request->group_id);
+       
         $this->createQRCode($student->id, $filename); 
     }
 
@@ -33,7 +33,8 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
 
     public function update($request, $id)
     {
-        $requestData = $request->except(['group_id']);
+        $requestData = $request->all();
+        
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
@@ -48,13 +49,13 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $student->update($requestData);
     }
 
-    public function removeFromGroup($group_id, $student_id)
-    {
-        Group::find($group_id)->students()->detach($student_id);
-    }
+    // public function removeFromGroup($group_id, $student_id)
+    // {
+    //     Group::find($group_id)->students()->detach($student_id);
+    // }
 
-    public function addStudentToGroup($group_id, $student_id)
-    {
-        Group::find($group_id)->students()->attach($student_id);
-    }
+    // public function addStudentToGroup($group_id, $student_id)
+    // {
+    //     Group::find($group_id)->students()->attach($student_id);
+    // }
 }

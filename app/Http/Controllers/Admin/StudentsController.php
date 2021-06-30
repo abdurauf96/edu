@@ -83,8 +83,8 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = $this->studentRepo->findOne($id);
-        $group_id=request()->get('group_id');
-        return view('admin.students.edit', compact('student', 'group_id'));
+        //$group_id=request()->get('group_id');
+        return view('admin.students.edit', compact('student'));
     }
 
     /**

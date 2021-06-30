@@ -27,7 +27,7 @@
         </div>
     </div>
     
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
         <div class="box box-info">
             <div class="box-header">
             <h3 class="box-title">Mavjud o'quvchini biriktirish</h3>
@@ -52,7 +52,7 @@
             </div>
             <!-- /.box-body -->
         </div>
-    </div>  
+    </div>   --}}
     
 </div>
 @endsection
