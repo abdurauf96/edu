@@ -38,6 +38,20 @@
         {!! Form::text('duration', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
         {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
     </div>
+
+    <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">
+        {!! Form::label('status', 'Dars kunlari', ['class' => 'control-label']) !!}
+       <select name="course_days" id="" class="form-control select2" required>
+           <option ></option>
+           <option @isset($group)
+               {{ $group->course_days==1 ? 'selected' : ''}}
+           @endisset value="1">Dush-Chor-Jum</option>
+           <option  @isset($group)
+           {{ $group->course_days==2 ? 'selected' : '' }}
+       @endisset value="2">Sesh-Pay-Shan</option>
+       </select>
+    </div>
+
     <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">
         {!! Form::label('time', 'Dars vaqti', ['class' => 'control-label']) !!}
         {!! Form::input('time', 'time', null, ('' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}

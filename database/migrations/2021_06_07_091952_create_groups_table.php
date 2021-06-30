@@ -23,6 +23,7 @@ class CreateGroupsTable extends Migration
             $table->string('duration')->nullable();
             $table->string('status')->nullable();
             $table->time('time')->nullable();
+            $table->string('course_days')->nullable();
             });
     }
 
