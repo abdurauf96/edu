@@ -121,18 +121,24 @@ class StudentsController extends Controller
         return redirect('admin/students')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
-    public function removeFromGroup($group_id, $student_id)
-    {
-        $this->studentRepo->removeFromGroup($group_id, $student_id);
+    // public function removeFromGroup($group_id, $student_id)
+    // {
+    //     $this->studentRepo->removeFromGroup($group_id, $student_id);
 
-        return back()->with('flash_message', 'o`quvchi guruhdan o`chirib yuborildi!');
-    }
+    //     return back()->with('flash_message', 'o`quvchi guruhdan o`chirib yuborildi!');
+    // }
 
-    public function addStudentToGroup(Request $request)
-    {
-        $this->studentRepo->addStudentToGroup($request->group_id, $request->student_id);
-        return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
-    }
+    // public function addStudentToGroup(Request $request)
+    // {
+    //     $this->studentRepo->addStudentToGroup($request->group_id, $request->student_id);
+    //     return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
+    // }
+
+        public function events()
+        {
+            $events=\App\Models\StudentEvent::latest()->with('student')->get();
+            return view('admin.students.events', compact('events'));
+        }
 
     
 }

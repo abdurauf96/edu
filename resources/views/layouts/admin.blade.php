@@ -140,7 +140,12 @@
               </a>
             </li>
             <li class="treeview">
-              <a href="/admin/payments">
+              <a href="/admin/student-events">
+                <i class="fa fa-user"></i> <span>Monitoring</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="/admin/student">
                 <i class="fa fa-money"></i> <span>To'lovlar</span>
               </a>
             </li>
