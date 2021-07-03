@@ -23,11 +23,12 @@
     <link href="/admin/css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     @yield('css')
   </head>
   <body class="skin-blue">
     <!-- Site wrapper -->
-    <div class="wrapper">
+    <div class="wrapper" id='app'>
       
       <header class="main-header">
         <a href="/dashboard" class="logo">
@@ -55,7 +56,7 @@
                   <li class="user-header">
                     <img src="/admin/images/logo.png" class="img-circle" alt="User Image" />
                     <p>
-                      Raqamli shahar
+                      Raqamli shahar 
                       <small>2021</small>
                     </p>
                   </li>
@@ -145,7 +146,7 @@
               </a>
             </li>
             <li class="treeview">
-              <a href="/admin/student">
+              <a href="/admin/payments">
                 <i class="fa fa-money"></i> <span>To'lovlar</span>
               </a>
             </li>
@@ -178,7 +179,7 @@
        
       </footer>
     </div><!-- ./wrapper -->
-    
+    <script src="{{ mix('/js/app.js') }}"></script>
     <!-- jQuery 2.1.3 -->
     <script src="/admin/js/jquery.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->

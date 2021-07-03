@@ -18,7 +18,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>F.I.O</th>
-                                <th>Guruhlari</th>
+                                <th>Guruh</th>
+                                <th>Kurs</th>
                                 <th>Telefon</th>
                                 <th>Manzil</th>
                                
@@ -32,6 +33,7 @@
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td> {{ $item->group->name }} </td>
+                                <td> {{ $item->group->course->name }} </td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->address }}</td>
                                

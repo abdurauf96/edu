@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Events\StudentEvent;
+use App\Models\StudentEvent as StudentEventModel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +18,8 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return redirect('/login');
 });
+
+
 
 Route::get('/cache', function () {
     \Artisan::call('config:cache');
@@ -50,6 +54,7 @@ Route::middleware(['auth'])->group(function(){
     // Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
     Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController');
     Route::get('admin/student-events', 'App\Http\Controllers\Admin\StudentsController@events');
+    Route::get('admin/student/{id}/information', 'App\Http\Controllers\Admin\StudentsController@studentInfo');
     Route::resource('admin/payments', 'App\Http\Controllers\Admin\PaymentsController');
     Route::resource('admin/months', 'App\Http\Controllers\Admin\MonthsController');
 

@@ -58,34 +58,11 @@
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'To`lovni amalga oshirish', ['class' => 'btn btn-success']) !!}
     </div>
 </div>
-
-
-
-
 @section('js')
     <script>
          $('.select2').select2({
             placeholder: "Tanlang...",
             allowClear: true
          });
-
-         $('#courses').change(function() {
-            
-            var course_id=$(this).val();
-            console.log(course_id);
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                method: 'POST',
-                data: {course_id:course_id},
-                url: '/get-groups',
-                success:function(data){
-                    $('#groups').html(data);
-                }
-            })
-       
-        })
-
     </script>
 @endsection

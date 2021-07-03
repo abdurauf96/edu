@@ -140,5 +140,11 @@ class StudentsController extends Controller
             return view('admin.students.events', compact('events'));
         }
 
+        public function studentInfo($id)
+        {
+            $student=Student::findOrFail($id);
+            return view('admin.students.info', compact('student'));
+        }
+
     
 }

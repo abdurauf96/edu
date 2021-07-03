@@ -47,9 +47,9 @@
 @endsection
 
 @section('js')
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(function () {
       $("#example1_wrapper").dataTable();
     })
-</script>
+</script> --}}
 @endsection
