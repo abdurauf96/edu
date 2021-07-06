@@ -4,11 +4,11 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 
 class BaseRepository implements BaseRepositoryInterface{
-    public function createQRCode($id, $filename)
+    public function createQRCode($id, $filename, $type)
     {
         $qrcode_info=<<<TEXT
         id: {$id}
-        type: student
+        type: {$type}
 TEXT;
         
         \QrCode::size(600)

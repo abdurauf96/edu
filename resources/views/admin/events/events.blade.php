@@ -17,7 +17,8 @@
                         <thead>
                             <tr>
                                 <th>T/r</th>
-                                <th>O'quvchi</th>
+                                <th>Shaxs</th>
+                                <th>Turi</th>
                                 <th>Xodisa</th>
                                 <th>Vaqt</th>
                                 <th>Sana</th>
@@ -27,7 +28,14 @@
                         @foreach($events as $event)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td> <a href="{{ route('students.show', $event->student_id) }}"> {{ $event->student->name  }} </a> </td>
+                                <td> 
+                                    @if ($event->type=='staff')
+                                    <a href="{{ route('staffs.show', $event->person_id) }}"> {{ $event->name  }} </a> 
+                                    @else
+                                    <a href="{{ route('students.show', $event->person_id) }}"> {{ $event->name  }} </a> 
+                                    @endif
+                                    </td>
+                                    <td>{{ $event->type=='staff' ? 'Xodim' : 'O\'quvchi' }}</td>
                                 <td> @if($event->status==1) <span class='label label-success'>Keldi </span> @else <span class='label label-danger'>Chiqib ketdi </span> @endif </td>
                                 <td> {{ $event->time }} </td>
                                 <td> {{ $event->created_at->format('d-M-Y') }} </td>
@@ -47,9 +55,9 @@
 @endsection
 
 @section('js')
-{{-- <script type="text/javascript">
+<script type="text/javascript">
     $(function () {
       $("#example1_wrapper").dataTable();
     })
-</script> --}}
+</script>
 @endsection

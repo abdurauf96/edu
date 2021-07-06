@@ -16,11 +16,6 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
     {
         Payment::create($request->all());
         $student=\App\Models\Student::findOrFail($request->student_id);
-        
-        // $filename=time().'.png';;
-        // $this->createQRCode($student->id,  $filename);
-        // $student->code=$filename;
-        // $student->save();
     }
 
     public function findOne($id)
@@ -32,10 +27,5 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
     {
         $payment = $this->findOne($id);
         $payment->update($request->all());
-        // $student=\App\Models\Student::findOrFail($request->student_id);
-        // $filename=time().'.png';
-        // $this->createQRCode($student->id,$filename);
-        // $student->code=$filename;
-        // $student->save();
     }
 }

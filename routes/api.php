@@ -22,4 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/student/{id}', ['App\Http\Controllers\Api\StudentController', 'getStudent']);
-Route::get('/student/{id}/{status}/{time}', ['App\Http\Controllers\Api\StudentController', 'getStudentEvent']);
+Route::get('/event/{type}/{id}/{status}/{time}', ['App\Http\Controllers\Api\EventsController', 'event']);

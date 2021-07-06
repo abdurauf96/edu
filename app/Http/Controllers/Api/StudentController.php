@@ -19,20 +19,10 @@ class StudentController extends BaseController
         return $this->sendResponse(new StudentResource($student));
     }
 
-    public function getStudentEvent($id, $status, $time)
+    public function getStudentEvent($type, $id, $status, $time)
     {
-        $student=Student::findOrFail($id);
-        StudentEventModel::create([
-            'student_id'=>$id,
-            'status'=>$status=='in'? 1 : 0,
-            'time'=>$time,
-        ]);
-        $students=StudentEventModel::latest()->get();
-        //if(Auth::check() && Auth::user()->hasRole('viewer')){
-        event(new StudentEvent($id));
-        //}
+
         
-        return $this->sendResponse(new StudentResource($student));
         //return redirect()->route('students.show', $student->id);
     }
 }

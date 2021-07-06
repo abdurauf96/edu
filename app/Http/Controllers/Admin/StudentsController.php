@@ -134,12 +134,6 @@ class StudentsController extends Controller
     //     return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
     // }
 
-        public function events()
-        {
-            $events=\App\Models\StudentEvent::latest()->with('student')->get();
-            return view('admin.students.events', compact('events'));
-        }
-
         public function studentInfo($id)
         {
             $student=Student::findOrFail($id);

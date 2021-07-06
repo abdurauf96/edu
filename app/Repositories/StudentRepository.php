@@ -19,11 +19,11 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
             $file->move('admin/images/students', $image);
             $requestData['image']=$image;
         }
-        $filename=time().'.png';
+        $filename=$request->name.'-'.time().'.png';
         $requestData['code']=$filename;
         $student=Student::create($requestData);
        
-        $this->createQRCode($student->id, $filename); 
+        $this->createQRCode($student->id, $filename, 'student'); 
     }
 
     public function findOne($id)
@@ -43,9 +43,6 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         }
 
         $student = $this->findOne($id);
-        $filename=time().'.png';
-        $this->createQRCode($id, $filename);
-        $requestData['code']=$filename;
         $student->update($requestData);
     }
 

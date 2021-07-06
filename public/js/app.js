@@ -1911,10 +1911,13 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app',
   created: function created() {
-    Echo["private"]('studentsChannel').listen('StudentEvent', function (data) {
+    Echo["private"]('studentsChannel').listen('StudentStaffEvent', function (data) {
       //this.students=data.data;
-      console.log(data.data);
-      window.location.href = '/admin/student/' + data.data + '/information';
+      if (data.data.type == 'staff') {
+        window.location.href = '/admin/staffs/' + data.data.id;
+      } else {
+        window.location.href = '/admin/student/' + data.data.id + '/information';
+      }
     });
   }
 });

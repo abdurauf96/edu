@@ -141,8 +141,13 @@
               </a>
             </li>
             <li class="treeview">
-              <a href="/admin/student-events">
-                <i class="fa fa-user"></i> <span>Monitoring</span>
+              <a href="/admin/events">
+                <i class="fa fa-clock-o"></i> <span>Monitoring</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="/admin/staffs">
+                <i class="fa fa-group"></i> <span>Xodimlar</span>
               </a>
             </li>
             <li class="treeview">

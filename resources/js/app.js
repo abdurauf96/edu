@@ -31,10 +31,14 @@ const app = new Vue({
     el: '#app',
     created(){
         Echo.private('studentsChannel')
-        .listen('StudentEvent', (data)=>{
+        .listen('StudentStaffEvent', (data)=>{
             //this.students=data.data;
-            console.log(data.data);
-            window.location.href = '/admin/student/'+data.data+'/information';
+            if(data.data.type=='staff'){
+                window.location.href = '/admin/staffs/'+data.data.id;
+            }else{
+                window.location.href = '/admin/student/'+data.data.id+'/information';
+            }
+            
         });
     }
 });
