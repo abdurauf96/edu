@@ -22,20 +22,29 @@ class EventsController extends BaseController
             $student=Student::findOrFail($id);
             $name=$student->name;
         }
-        EventModel::create([
+
+        $status=$status=='in' ? 1 : 0;
+        $newRecord=[
             'person_id'=>$id,
             'type'=>$type,
             'name'=>$name,
-            'status'=>$status=='in'? 1 : 0,
+            'status'=>$status,
             'time'=>$time,
-        ]);
-        $data=['type'=>$type, 'id'=>$id];
-        event(new StudentStaffEvent($data));
-        if($type=='staff'){
-            return $this->sendResponse(new StaffResource($staff));
+        ];
+        $event=EventModel::where(['type'=>$type, 'person_id'=>$id])->latest()->first();
+        if($event){
+            if($event->status!=$status){
+                EventModel::create($newRecord);
+                $data=['type'=>$type, 'id'=>$id];
+                event(new StudentStaffEvent($data));
+            }else{
+                return response()->json(['success'=>false]);
+            }
         }else{
-            return $this->sendResponse(new StudentResource($student));
+            EventModel::create($newRecord);
         }
+        
+        return response()->json(['success'=>true]);
         
     }
 }

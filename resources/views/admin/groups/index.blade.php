@@ -16,7 +16,7 @@
                     
                         <thead>
                             <tr>
-                                <th>#</th><th>Nomi</th><th>O'qituvchi</th><th>Kurs</th> <th>Status</th> <th>Amallar</th>
+                                <th>#</th><th>Nomi</th><th>O'qituvchi</th><th>Kurs</th> <th>Status</th><th>O'quvchilar soni</th>  <th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,7 +25,9 @@
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->name }}</td><td>{{ $item->teacher->name }}</td>
                                 <td>{{ $item->course->name }}</td>
+                                
                                 <td>{{ $item->status==1 ? 'Guruh to`lgan' : 'Guruh to\'lmoqda' }}</td>
+                                <td>{{ count($item->students) }} ta</td>
                                 <td>
                                     <a href="{{ url('/admin/groups/' . $item->id) }}" title="View Group"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                     <a href="{{ url('/admin/groups/' . $item->id . '/edit') }}" title="Edit Group"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>

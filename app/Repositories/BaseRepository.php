@@ -14,7 +14,9 @@ TEXT;
         \QrCode::size(600)
         ->format('png')
         ->color(41,38,91)
-        ->merge('/public/admin/images/DC.png')
+        ->margin(5) 
+        ->errorCorrection('H')
+        ->merge('/public/admin/images/DC.png', .3)
         ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
     }
 }

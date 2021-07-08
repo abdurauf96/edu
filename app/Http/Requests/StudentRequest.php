@@ -24,10 +24,11 @@ class StudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:students,name',
 			'phone' => 'required',
 			'year' => 'required',
 			'address' => 'required'
         ];
     }
+
 }
