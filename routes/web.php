@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Events\StudentEvent;
 use App\Models\StudentEvent as StudentEventModel;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,30 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/test', function () {
+
+    $students=\App\Models\Student::all();
+    
+    set_time_limit(300);
+    foreach($students as $student){
+        $qrcode_info=<<<TEXT
+        id: {$student->id}
+        type: student
+TEXT;
+        $filename=$student->name.'-'.time().'.png';
+        \QrCode::size(600)
+            ->format('png')
+            ->color(41,38,91)
+            ->margin(5) 
+            ->errorCorrection('H')
+            ->merge('/public/admin/images/DC.png', .3)
+            ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
+            $student->code=$filename;
+            $student->save();
+    }
+    
+    return redirect('/');
+});
 
 
 Route::get('/cache', function () {

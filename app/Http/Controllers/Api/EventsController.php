@@ -36,7 +36,7 @@ class EventsController extends BaseController
             if($event->status!=$status){
                 EventModel::create($newRecord);
                 $data=['type'=>$type, 'id'=>$id];
-                event(new StudentStaffEvent($data));
+                //event(new StudentStaffEvent($data));
             }else{
                 return response()->json(['success'=>false]);
             }
