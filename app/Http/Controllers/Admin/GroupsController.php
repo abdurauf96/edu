@@ -21,7 +21,6 @@ class GroupsController extends Controller
     {
        
         $groups = Group::orderBy('status')->latest()->get();
-    
         return view('admin.groups.index', compact('groups'));
     }
 

@@ -63,11 +63,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
 Route::middleware(['auth'])->group(function(){
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth'])->name('dashboard');
+    Route::get('/dashboard', 'App\Http\Controllers\Admin\AdminController@index')->middleware(['auth'])->name('dashboard');
 
-    Route::get('/admin', 'App\Http\Controllers\Admin\AdminController@index');
     Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
     Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 

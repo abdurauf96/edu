@@ -23,14 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('dashboard', function($view){
-            $num_students=\App\Models\Student::all()->count();
-            $num_courses=\App\Models\Course::all()->count();
-            $num_groups=\App\Models\Group::all()->count();
-            $num_teachers=\App\Models\Teacher::all()->count();
-            $girls=\App\Models\Student::whereSex('0')->count();
-            $boys=\App\Models\Student::whereSex(1)->count();
-            $view->with(compact('num_students', 'num_courses', 'num_groups', 'num_teachers'));
-        });
+        //
     }
 }

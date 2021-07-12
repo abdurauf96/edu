@@ -19,7 +19,10 @@ class Course extends Model
         return $this->belongsToMany(Teacher::class, 'teacher_course');
     }
 
-    
+    public function students()
+    {
+        return $this->hasManyThrough(Student::class, Group::class);
+    }
     /**
      * The database table used by the model.
      *
