@@ -46,6 +46,26 @@ class Teacher extends Model
         return $this->hasManyThrough(Student::class, Group::class);
     }
 
+    public function is_debt_students()
+    {
+        $students=[];
+        foreach ($this->students as $student) {
+            array_push($students, $student);
+        }
+      
+        foreach($students as $student){
+            $res=array_filter($students, function($student){
+                return $student->is_debt();
+            });
+        }
+        return $res;
+    }
+
+    public function get_percent_debt_students()
+    {
+        return (count($this->is_debt_students())*100)/count($this->students);
+    }
+
     public static function boot() {
         parent::boot();
         static::deleting(function($teacher) {

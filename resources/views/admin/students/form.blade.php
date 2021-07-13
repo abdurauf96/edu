@@ -8,8 +8,6 @@
 <input type="hidden" value="{{ $group_id }}" name="group_id">  
 @endisset
 
-
-
 <div class="form-group{{ $errors->has('phone') ? 'has-error' : ''}}">
     {!! Form::label('phone', 'Telefon raqami', ['class' => 'control-label']) !!}
     {!! Form::text('phone', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -58,8 +56,28 @@
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div> --}}
 
+<div class="form-group">
+    <label for="">Status</label> 
+    <select  name="status" class="form-control select2" id="" required>
+        <option @isset ($student)
+            {{ $student->status==1 ? 'selected': '' }}
+        @endisset  value="1">O'qimoqda</option>
+        <option @isset ($student)
+        {{ $student->status==0 ? 'selected': '' }}
+    @endisset value="0">Bitirib ketgan</option>
+    </select>
+</div>
 
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
 </div>
 
+@section('js')
+    <script>
+         $('.select2').select2({
+            placeholder: "Tanlang...",
+            allowClear: true,
+            required: true
+         });
+    </script>
+@endsection

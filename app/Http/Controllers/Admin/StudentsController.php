@@ -6,7 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Student;
-use App\Http\Requests\StudentRequest;
+use App\Http\Requests\AddStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
@@ -53,8 +54,9 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(StudentRequest $request)
+    public function store(AddStudentRequest $request)
     {
+       
         $this->studentRepo->create($request);
     
         return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
@@ -95,7 +97,7 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(StudentRequest $request, $id)
+    public function update(UpdateStudentRequest $request, $id)
     {
         $this->studentRepo->update($request, $id);
         

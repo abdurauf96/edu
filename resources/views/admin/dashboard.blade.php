@@ -79,7 +79,7 @@
                 @foreach ($teachers as $teacher)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $teacher->name }}</td>
+                    <td> <a href="{{ route('teachers.show', $teacher->id) }}"> {{ $teacher->name }} </a></td>
                     <td>
                        @foreach ($teacher->courses as $course)
                         {{ $course->name }}
