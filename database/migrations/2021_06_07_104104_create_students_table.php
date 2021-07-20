@@ -14,6 +14,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('group_id');
             $table->timestamps();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();

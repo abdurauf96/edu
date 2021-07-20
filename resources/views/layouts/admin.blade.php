@@ -150,10 +150,27 @@
                 <i class="fa fa-group"></i> <span>Xodimlar</span>
               </a>
             </li>
+
             <li class="treeview">
-              <a href="/admin/payments">
-                <i class="fa fa-money"></i> <span>To'lovlar</span>
+              <a href="#">
+                <i class="fa fa-money"></i> <span>Buxgalteriya</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
+              
+              <ul class="treeview-menu" >
+                
+                <li class="treeview">
+                  <a href="/admin/payments">
+                    <i class="fa fa-money"></i> <span>To'lovlar</span>
+                  </a>
+                </li>
+                
+                <li class="treeview">
+                  <a href="{{ route('cashierTable') }}">
+                    <i class="fa fa-money"></i> <span>Ko'rish</span>
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
           

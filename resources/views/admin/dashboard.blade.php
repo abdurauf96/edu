@@ -39,7 +39,7 @@
         </span>
 
         <div class="info-box-content">
-          <span class="info-box-text">Guruhlar</span>
+          <span class="info-box-text">Guruxlar</span>
           <span class="info-box-number">{{ $num_groups }}<small>ta</small></span>
         </div>
         <!-- /.info-box-content -->
@@ -60,7 +60,7 @@
       <!-- /.info-box -->
     </div>
     <!-- /.col -->
-    <div class="col-md-7">
+     <div class="col-md-7">
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">O'qituvchilar</h3>
@@ -118,6 +118,52 @@
             </tr>
             @endforeach
             
+          </tbody></table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+
+    <div class="col-md-5">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Jami o'quvchilar haqida ma'lumot</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table class="table table-bordered">
+            <tbody>
+            
+            <tr>
+                <td>1</td>
+                <td>Jami o'quvchilar</td>
+                <td><span class="badge bg-green">{{ $num_students }} ta</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Ayni vaqt o'qimoqda</td>
+              <td><span class="badge bg-green">{{ $active_students }} ta</span></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Bitirib ketgan </td>
+              <td><span class="badge bg-green">{{ $num_students - $active_students }} ta</span></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Grant o'qimoqda</td>
+              <td><span class="badge bg-green">{{ $grant_students }} ta</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Bolalar soni</td>
+              <td><span class="badge bg-green">{{ $boys }} ta</span></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Qizlar soni</td>
+              <td><span class="badge bg-green">{{ $girls }} ta</span></td>
+            </tr>
           </tbody></table>
         </div>
         <!-- /.box-body -->

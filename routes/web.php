@@ -78,6 +78,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('admin/student/{id}/information', 'App\Http\Controllers\Admin\StudentsController@studentInfo');
     Route::get('admin/events', 'App\Http\Controllers\Admin\EventsController@events');
     Route::resource('admin/payments', 'App\Http\Controllers\Admin\PaymentsController');
+    Route::get('admin/cashier/table', 'App\Http\Controllers\Admin\CashierController@index')->name('cashierTable');
     Route::resource('admin/months', 'App\Http\Controllers\Admin\MonthsController');
     Route::resource('admin/staffs', 'App\Http\Controllers\Admin\StaffsController');
     Route::post('/get-groups', 'App\Http\Controllers\Admin\PaymentsController@getGroups');

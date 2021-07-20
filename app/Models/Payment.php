@@ -36,10 +36,10 @@ class Payment extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
+    // public function courses()
+    // {
+    //     return $this->hasManyThrough(Course::class, Student::class, Group::class);
+    // }
 
     public function group()
     {
