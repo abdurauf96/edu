@@ -29,17 +29,17 @@ class Payment extends Model
      *
      * @var array
      */
-    protected $fillable = ['student_id',  'month_id', 'amount', 'type', 'description'];
+    protected $fillable = ['student_id', 'course_id', 'month_id', 'amount', 'type', 'description'];
 
     public function student()
     {
         return $this->belongsTo(Student::class);
     }
 
-    // public function courses()
-    // {
-    //     return $this->hasManyThrough(Course::class, Student::class, Group::class);
-    // }
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 
     public function group()
     {

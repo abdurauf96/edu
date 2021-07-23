@@ -74,8 +74,8 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $payment->course->name }}</td>
-                    <td>{{ $payment->group->name }}</td>
-                    <td>{{ $payment->group->teacher->name }}</td>
+                    <td>{{ $payment->student->group->name }}</td>
+                    <td>{{ $payment->student->group->teacher->name }}</td>
                     <td> {{ $payment->month->name }}</td>
                     <td> {{ $payment->amount }}</td>
                     <td> {{ $payment->type }}</td>

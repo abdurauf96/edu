@@ -14,8 +14,11 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
 
     public function create($request)
     {
-        Payment::create($request->all());
+        
+        $requestData=$request->all();
         $student=\App\Models\Student::findOrFail($request->student_id);
+        $requestData['course_id']=$student->group->course_id;
+        Payment::create($requestData);
     }
 
     public function findOne($id)

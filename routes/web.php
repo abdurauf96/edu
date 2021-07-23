@@ -23,24 +23,35 @@ Route::get('/', function () {
 Route::get('/test', function () {
 
     $students=\App\Models\Student::all();
+    $payments=\App\Models\Payment::all();
     
     set_time_limit(300);
-    foreach($students as $student){
-        $qrcode_info=<<<TEXT
-        id: {$student->id}
-        type: student
-TEXT;
-        $filename=$student->name.'-'.time().'.png';
-        \QrCode::size(600)
-            ->format('png')
-            ->color(41,38,91)
-            ->margin(5) 
-            ->errorCorrection('H')
-            ->merge('/public/admin/images/DC.png', .3)
-            ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
-            $student->code=$filename;
-            $student->save();
+    foreach ($payments as $payment) {
+        $payment->course_id=$payment->student->group->course_id;
+        $payment->save();
     }
+    // foreach ($students as $student) {
+    //     $student->username=$student->name;
+    //     $student->password=\Hash::make('123456');
+    //     $student->save();
+    // }
+//     foreach($students as $student){
+//         $qrcode_info=<<<TEXT
+//         id: {$student->id}
+//         type: student
+// TEXT;
+//         $student_name=str_replace(' ', '-', $student->name);
+//         $filename=$student_name.'-'.time().'.png';
+//         \QrCode::size(600)
+//             ->format('png')
+//             ->color(41,38,91)
+//             ->margin(5) 
+//             ->errorCorrection('H')
+//             ->merge('/public/admin/images/DC.png', .3)
+//             ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
+//             $student->code=$filename;
+//             $student->save();
+//     }
     
     return redirect('/');
 });

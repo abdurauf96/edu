@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
-class Student extends Model
+class Student extends Authenticatable
 {
-    use LogsActivity;
+    use LogsActivity, HasApiTokens;
     
     /**
      * The database table used by the model.
@@ -39,6 +41,7 @@ class Student extends Model
     {
         return $this->hasMany(Payment::class)->orderBy('month_id');
     }
+
     
     public function is_debt()
     {

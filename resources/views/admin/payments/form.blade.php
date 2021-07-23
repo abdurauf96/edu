@@ -10,7 +10,7 @@
             @endforeach
         </select>
     </div>
-  
+    
     <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
         {!! Form::label('month', 'Qaysi oy uchun', ['class' => 'control-label']) !!}
         <select name="month_id" class="form-control select2" required >
