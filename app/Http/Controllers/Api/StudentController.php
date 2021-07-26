@@ -12,15 +12,14 @@ use App\Http\Resources\StudentPaymentHistory;
 class StudentController extends BaseController
 {
    
-    public function studentFullInfo($id)
+    public function studentFullInfo(Request $request)
     {
-        $student=Student::with('group')->findOrFail($id);
-        return $this->sendResponse(new StudentFullInfo($student));
+        return $this->sendResponse(new StudentFullInfo($request->user()));
     }
 
-    public function getStudentPayments($id)
+    public function getStudentPayments(Request $request)
     {
-        $student=Student::with('group')->findOrFail($id);
+        $student=$request->user();
         $histories=[];
         foreach ($student->payments as $payment) {
             $history=new StudentPaymentHistory($payment);

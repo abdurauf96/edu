@@ -23,8 +23,8 @@ Route::post('/student/login', ['App\Http\Controllers\Api\StudentLoginController'
 // });
 
 Route::middleware(['auth:student-api'])->group(function () {
-    Route::get('/student/fullinfo/{id}', ['App\Http\Controllers\Api\StudentController', 'studentFullInfo']);
-    Route::get('/student/{id}/payments', ['App\Http\Controllers\Api\StudentController', 'getStudentPayments']);
+    Route::get('/student/fullinfo', ['App\Http\Controllers\Api\StudentController', 'studentFullInfo']);
+    Route::get('/student/payments', ['App\Http\Controllers\Api\StudentController', 'getStudentPayments']);
 });
 
 Route::get('/student/{id}', ['App\Http\Controllers\Api\StudentController', 'getStudent']);
