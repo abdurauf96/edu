@@ -29,7 +29,7 @@ class Payment extends Model
      *
      * @var array
      */
-    protected $fillable = ['student_id', 'course_id', 'month_id', 'amount', 'type', 'description'];
+    protected $fillable = ['student_id', 'course_id', 'month_id', 'amount', 'type', 'description', 'year'];
 
     public function student()
     {

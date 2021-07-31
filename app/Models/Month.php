@@ -31,7 +31,22 @@ class Month extends Model
      */
     protected $fillable = ['name', 'number'];
 
-    
+    public function payments()
+    {
+        return $this->hasMany(Payment::class)->whereYear('created_at', 2021);
+    }
+
+    public function getMonthPayments()
+    {
+
+        $summ=0;
+        $payments=$this->payments;
+        
+        foreach ($payments as $payment) {
+            $summ+=$payment->amount;
+        }
+        return $summ;
+    }
 
     /**
      * Change activity log event description

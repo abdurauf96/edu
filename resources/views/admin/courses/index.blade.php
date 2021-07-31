@@ -18,14 +18,16 @@
                     
                         <thead>
                             <tr>
-                                <th>#</th><th>Nomi</th><th>Davomiyligi</th><th>Amallar</th>
+                                <th>#</th><th>Nomi</th><th>Davomiyligi</th><th>Narxi</th><th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($courses as $item)
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
-                                <td>{{ $item->name }}</td><td>{{ $item->duration }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->duration }}</td>
+                                <td>{{ $item->price }}</td>
                                 <td>
                                     <a href="{{ url('/admin/courses/' . $item->id) }}" title="View Course"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                     <a href="{{ url('/admin/courses/' . $item->id . '/edit') }}" title="Edit Course"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>

@@ -30,7 +30,9 @@
                             <tr>
                                 <th>ID</th><td>{{ $course->id }}</td>
                             </tr>
-                            <tr><th> Nomi </th><td> {{ $course->name }} </td></tr><tr><th> Davomiyligi </th><td> {{ $course->duration }} </td></tr>
+                            <tr><th> Nomi </th><td> {{ $course->name }} </td></tr>
+                            <tr><th> Davomiyligi </th><td> {{ $course->duration }} </td></tr>
+                            <tr><th> Narxi </th><td> {{ $course->price }} </td></tr>
                         </tbody>
                     </table>
                 </div>

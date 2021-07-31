@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Course;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\BaseRepository;
 use App\Models\Payment;
@@ -14,7 +15,7 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
 
     public function create($request)
     {
-        
+
         $requestData=$request->all();
         $student=\App\Models\Student::findOrFail($request->student_id);
         $requestData['course_id']=$student->group->course_id;
@@ -30,5 +31,26 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
     {
         $payment = $this->findOne($id);
         $payment->update($request->all());
+    }
+
+    public function getPaymentResultsByMonth($year, $month)
+    {
+        $courses= Course::all();
+        $statistika=['all'=> ['fact_sum'=>0, 'real_sum'=>0] ];
+
+        foreach ($courses as $course) {
+
+            array_push($statistika, [
+                'course_name'=>$course->name,
+                'number_students'=>count($course->activeStudents),
+                'fact_sum'=>$course->price*count($course->activeStudents),
+                'real_sum'=>collect($course->getPaymentsByMonth($month, $year))->sum('amount')
+            ]);
+
+            $statistika['all']['fact_sum']+=$course->price*count($course->activeStudents);
+            $statistika['all']['real_sum']+=collect($course->getPaymentsByMonth($month, $year))->sum('amount');
+        };
+
+        return $statistika;
     }
 }

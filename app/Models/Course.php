@@ -8,7 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Course extends Model
 {
     use LogsActivity;
-    
+
     public function groups()
     {
         return $this->hasMany(Group::class);
@@ -23,6 +23,22 @@ class Course extends Model
     {
         return $this->hasManyThrough(Student::class, Group::class);
     }
+
+    public function activeStudents()
+    {
+        return $this->hasManyThrough(Student::class, Group::class)->where('students.status', 1);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function getPaymentsByMonth($month_id, $year)
+    {
+        return $this->payments->where('month_id', $month_id)->where('year', $year);
+    }
+
     /**
      * The database table used by the model.
      *
@@ -42,7 +58,7 @@ class Course extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'duration'];
+    protected $fillable = ['name', 'duration', 'price'];
 
     public static function boot() {
         parent::boot();

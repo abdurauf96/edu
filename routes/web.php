@@ -24,12 +24,12 @@ Route::get('/test', function () {
 
     $students=\App\Models\Student::all();
     $payments=\App\Models\Payment::all();
-    
+
     set_time_limit(300);
-    foreach ($payments as $payment) {
-        $payment->course_id=$payment->student->group->course_id;
-        $payment->save();
-    }
+    // foreach ($payments as $payment) {
+    //     $payment->course_id=$payment->student->group->course_id;
+    //     $payment->save();
+    // }
     // foreach ($students as $student) {
     //     $student->username=$student->name;
     //     $student->password=\Hash::make('123456');
@@ -45,14 +45,14 @@ Route::get('/test', function () {
 //         \QrCode::size(600)
 //             ->format('png')
 //             ->color(41,38,91)
-//             ->margin(5) 
+//             ->margin(5)
 //             ->errorCorrection('H')
 //             ->merge('/public/admin/images/DC.png', .3)
 //             ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
 //             $student->code=$filename;
 //             $student->save();
 //     }
-    
+
     return redirect('/');
 });
 
@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
         'index', 'show', 'destroy'
     ]);
     Route::resource('settings', 'App\Http\Controllers\Admin\SettingsController');
+    Route::get('payment-statistics', 'App\Http\Controllers\Admin\AdminController@paymentStatistics')->name('paymentStatistics');
 });
 
 Route::middleware(['auth'])->group(function(){

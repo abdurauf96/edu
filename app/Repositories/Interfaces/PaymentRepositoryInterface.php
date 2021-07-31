@@ -8,4 +8,5 @@ interface PaymentRepositoryInterface{
     public function create($data);
     public function findOne($id);
     public function update($request,$id);
+    public function getPaymentResultsByMonth($year, $month);
 }

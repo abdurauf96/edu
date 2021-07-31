@@ -7,7 +7,7 @@
         <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
 
         <div class="info-box-content">
-          <span class="info-box-text">O'quvchilar</span>
+          <span class="info-box-text">Jami o'quvchilar</span>
           <span class="info-box-number">{{ $num_students }}<small>ta</small></span>
         </div>
         <!-- /.info-box-content -->
@@ -74,8 +74,8 @@
                     <th>F.I.O</th>
                     <th>Yo'nalishi</th>
                     <th style="width: 40px">O'quvchilar soni</th>
-                </tr>  
-              
+                </tr>
+
                 @foreach ($teachers as $teacher)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
@@ -107,17 +107,17 @@
               <th style="width: 10px">#</th>
               <th>Kurs nomi</th>
               <th>O'quvchilar soni</th>
-             
+
             </tr>
             @foreach ($courses as $course)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $course->name }}</td>
-               
-                <td><span class="badge bg-green">{{ count($course->students) }}</span></td>
+
+                <td><span class="badge bg-green">{{ count($course->activeStudents) }}</span></td>
             </tr>
             @endforeach
-            
+
           </tbody></table>
         </div>
         <!-- /.box-body -->
@@ -133,7 +133,7 @@
         <div class="box-body">
           <table class="table table-bordered">
             <tbody>
-            
+
             <tr>
                 <td>1</td>
                 <td>Jami o'quvchilar</td>

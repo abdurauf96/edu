@@ -10,8 +10,8 @@
     <link href="/admin/fontawesome/css/all.css" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-   
-    
+
+
     <link href="/admin/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <link href="/admin/css/my.css" rel="stylesheet" type="text/css" />
 
@@ -23,13 +23,13 @@
     <link href="/admin/css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     @yield('css')
   </head>
   <body class="skin-blue">
     <!-- Site wrapper -->
     <div class="wrapper" id='app'>
-      
+
       <header class="main-header">
         <a href="/dashboard" class="logo">
             <img src="/admin/images/logo.png" style="width:33px;" alt="">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
           </a>
           <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">      
+            <ul class="nav navbar-nav">
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -56,12 +56,12 @@
                   <li class="user-header">
                     <img src="/admin/images/logo.png" class="img-circle" alt="User Image" />
                     <p>
-                      Raqamli shahar 
+                      Raqamli shahar
                       <small>2021</small>
                     </p>
                   </li>
                   <!-- Menu Body -->
-                 
+
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
@@ -99,10 +99,10 @@
               <a href="#"><i class="fa fa-circle text-success"></i> Online </a>
             </div>
           </div>
-          
+
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          
-          <ul class="sidebar-menu "> 
+
+          <ul class="sidebar-menu ">
             @if(Auth::check() && Auth::user()->hasRole('admin'))
               @foreach($laravelAdminMenus->menus as $section)
               <li class="treeview">
@@ -156,25 +156,32 @@
                 <i class="fa fa-money"></i> <span>Buxgalteriya</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              
+
               <ul class="treeview-menu" >
-                
+
                 <li class="treeview">
                   <a href="/admin/payments">
                     <i class="fa fa-money"></i> <span>To'lovlar</span>
                   </a>
                 </li>
-                
+
                 <li class="treeview">
                   <a href="{{ route('cashierTable') }}">
                     <i class="fa fa-money"></i> <span>Ko'rish</span>
                   </a>
                 </li>
+                  @if(Auth::check() && Auth::user()->hasRole('admin'))
+                  <li class="treeview">
+                      <a href="{{ route('paymentStatistics') }}">
+                          <i class="fa fa-money"></i> <span>Statistika</span>
+                      </a>
+                  </li>
+                  @endif
               </ul>
             </li>
           </ul>
-          
-         
+
+
       </aside>
 
       <!-- =============================================== -->
@@ -198,7 +205,7 @@
       </div><!-- /.content-wrapper -->
 
       <footer class="main-footer">
-       
+
       </footer>
     </div><!-- ./wrapper -->
     <script src="{{ mix('/js/app.js') }}"></script>
@@ -206,28 +213,28 @@
     <script src="/admin/js/jquery.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->
     <script src="/admin/js/bootstrap.min.js" type="text/javascript"></script>
-    
+
     <!-- AdminLTE App -->
     <script src="/admin/js/app.min.js" type="text/javascript"></script>
 
     <script src="/admin/js/datatable/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="/admin/js/datatable/dataTables.bootstrap.min.js" type="text/javascript"></script>
-  
+
     <!-- Select2 -->
     <script src="/admin/js/select2/select2.full.min.js"></script>
     <script type="text/javascript">
       $(function () {
           // Navigation active
           var url=window.location.pathname;
-          
+
          $("a[href='"+ url +"']").parent().addClass('active');
          $("a[href='"+ url +"']").parent().parent().addClass('active');
          $("a[href='"+ url +"']").parent().parent().parent().addClass('active');
-          
+
           console.log(url);
       });
   </script>
     @yield('js')
-    
+
   </body>
 </html>

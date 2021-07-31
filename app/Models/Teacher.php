@@ -43,7 +43,7 @@ class Teacher extends Model
 
     public function students()
     {
-        return $this->hasManyThrough(Student::class, Group::class);
+        return $this->hasManyThrough(Student::class, Group::class)->where('students.status', 1);
     }
 
     public function is_debt_students()

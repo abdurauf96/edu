@@ -8,6 +8,11 @@
     {!! Form::text('duration', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
 </div>
+<div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
+    {!! Form::label('duration', 'Kurs narxi', ['class' => 'control-label']) !!}
+    {!! Form::number('price', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
+</div>
 
 
 <div class="form-group">
