@@ -122,6 +122,8 @@ class StaffsController extends Controller
 
     public function staffEvent($id)
     {
-        dd($id);
+        $staff = Staff::findOrFail($id);
+
+        return view('admin.staffs.event', compact('staff'));
     }
 }

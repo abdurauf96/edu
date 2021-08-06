@@ -238,7 +238,6 @@
          $("a[href='"+ url +"']").parent().parent().addClass('active');
          $("a[href='"+ url +"']").parent().parent().parent().addClass('active');
 
-          console.log(url);
       });
   </script>
     @yield('js')

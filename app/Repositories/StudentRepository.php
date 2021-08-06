@@ -19,7 +19,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
             $file->move('admin/images/students', $image);
             $requestData['image']=$image;
         }
-        $filename=$request->name.'-'.time().'.png';
+        $filename=str_replace(' ', '-', $request->name).'-'.time().'.png';
         $requestData['code']=$filename;
         $student=Student::create($requestData);
        

@@ -19,7 +19,7 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
             $requestData['image']=$image;
         }
 
-        $filename=$request->name.'-'.time().'.png';
+        $filename=str_replace(' ', '-', $request->name).'-'.time().'.png';
         $requestData['qrcode']=$filename;
         $staff=Staff::create($requestData);
         $this->createQRCode($staff->id, $filename, 'staff'); 
