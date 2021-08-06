@@ -119,4 +119,9 @@ class StaffsController extends Controller
 
         return redirect('admin/staffs')->with('flash_message', 'Xodim o`chirib yuborildi!');
     }
+
+    public function staffEvent($id)
+    {
+        dd($id);
+    }
 }

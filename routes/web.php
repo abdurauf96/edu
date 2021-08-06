@@ -73,9 +73,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     Route::get('payment-statistics', 'App\Http\Controllers\Admin\AdminController@paymentStatistics')->name('paymentStatistics');
 });
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware('auth')->group(function(){
 
-    Route::get('/dashboard', 'App\Http\Controllers\Admin\AdminController@index')->middleware(['auth'])->name('dashboard');
+    Route::get('/dashboard', 'App\Http\Controllers\Admin\AdminController@index')->name('dashboard');
 
     Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
     Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
@@ -87,14 +87,24 @@ Route::middleware(['auth'])->group(function(){
     // Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
     // Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
     Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController');
-    Route::get('admin/student/{id}/information', 'App\Http\Controllers\Admin\StudentsController@studentInfo');
+   
     Route::get('admin/events', 'App\Http\Controllers\Admin\EventsController@events');
     Route::resource('admin/payments', 'App\Http\Controllers\Admin\PaymentsController');
     Route::get('admin/cashier/table', 'App\Http\Controllers\Admin\CashierController@index')->name('cashierTable');
     Route::resource('admin/months', 'App\Http\Controllers\Admin\MonthsController');
     Route::resource('admin/staffs', 'App\Http\Controllers\Admin\StaffsController');
     Route::post('/get-groups', 'App\Http\Controllers\Admin\PaymentsController@getGroups');
+    Route::get('/reception', function(){
+        return view('admin.reception');
+    });
+    //event routes
+    Route::get('/student/{id}', 'App\Http\Controllers\Admin\StudentsController@studentEvent')->middleware('cors');
+    Route::get('/staff/{id}', 'App\Http\Controllers\Admin\StaffsController@staffEvent');
 });
+
+// Route::get('/fire', function () {
+//     event(new \App\Events\StudentStaffEvent('test'));
+// });
 
 require __DIR__.'/auth.php';
 

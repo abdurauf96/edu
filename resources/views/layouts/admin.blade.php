@@ -28,7 +28,7 @@
   </head>
   <body class="skin-blue">
     <!-- Site wrapper -->
-    <div class="wrapper" id='app'>
+    <div class="wrapper" >
 
       <header class="main-header">
         <a href="/dashboard" class="logo">
@@ -179,6 +179,13 @@
                   @endif
               </ul>
             </li>
+            @if(Auth::check() && Auth::user()->hasRole('admin'))
+            <li class="treeview">
+              <a href="/reception">
+                <i class="fa fa-check-circle"></i> <span>Reception</span>
+              </a>
+            </li>
+            @endif
           </ul>
 
 
@@ -208,7 +215,7 @@
 
       </footer>
     </div><!-- ./wrapper -->
-    <script src="{{ mix('/js/app.js') }}"></script>
+    
     <!-- jQuery 2.1.3 -->
     <script src="/admin/js/jquery.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->

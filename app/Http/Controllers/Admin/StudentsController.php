@@ -136,11 +136,11 @@ class StudentsController extends Controller
     //     return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
     // }
 
-        public function studentInfo($id)
-        {
-            $student=Student::findOrFail($id);
-            return view('admin.students.info', compact('student'));
-        }
+    public function studentEvent($id)
+    {
+        $student=Student::findOrFail($id);
+        return view('admin.students.event', compact('student'));
+    }
 
     
 }

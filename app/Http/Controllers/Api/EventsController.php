@@ -31,17 +31,18 @@ class EventsController extends BaseController
             'status'=>$status,
             'time'=>$time,
         ];
+        $data=['type'=>$type, 'id'=>$id];
         $event=EventModel::where(['type'=>$type, 'person_id'=>$id])->latest()->first();
         if($event){
             if($event->status!=$status){
                 EventModel::create($newRecord);
-                $data=['type'=>$type, 'id'=>$id];
-                //event(new StudentStaffEvent($data));
+                event(new StudentStaffEvent($data));
             }else{
                 return response()->json(['success'=>false]);
             }
         }else{
             EventModel::create($newRecord);
+            event(new StudentStaffEvent($data));
         }
         
         return response()->json(['success'=>true]);

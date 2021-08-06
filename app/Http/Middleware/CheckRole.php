@@ -22,7 +22,7 @@ class CheckRole
         if ($request->user()->hasRole($role) || !$role) {
             return $next($request);
         }
-
+        
         abort(403, 'This action is unauthorized.');
     }
 }

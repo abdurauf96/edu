@@ -30,13 +30,14 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     created(){
-        Echo.private('studentsChannel')
+        window.Echo.channel('ReceptionChannel')
         .listen('StudentStaffEvent', (data)=>{
             //this.students=data.data;
+            console.log("firing");
             if(data.data.type=='staff'){
-                window.location.href = '/admin/staffs/'+data.data.id;
+                window.location.href = '/staff/'+data.data.id;
             }else{
-                window.location.href = '/admin/student/'+data.data.id+'/information';
+                window.location.href = '/student/'+data.data.id;
             }
             
         });

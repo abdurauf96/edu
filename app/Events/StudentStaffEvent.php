@@ -32,7 +32,7 @@ class StudentStaffEvent implements ShouldBroadcast
     public function broadcastOn()
     {
         
-        return new PrivateChannel('studentsChannel');
+        return new Channel('ReceptionChannel');
         
     }
 }
