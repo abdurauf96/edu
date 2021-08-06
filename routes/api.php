@@ -18,9 +18,9 @@ Route::post('register', ['App\Http\Controllers\Api\RegisterController', 'registe
 Route::post('login', ['App\Http\Controllers\Api\RegisterController', 'login']);
 Route::post('/student/login', ['App\Http\Controllers\Api\StudentLoginController', 'login']);
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:api')->group(function () {
+    Route::get('/payment-statistics/{year}/{month}', '\App\Http\Controllers\Api\PaymentController@paymentStatistics')->name('user');
+});
 
 Route::middleware(['auth:student-api'])->group(function () {
     Route::get('/student/fullinfo', ['App\Http\Controllers\Api\StudentController', 'studentFullInfo']);
