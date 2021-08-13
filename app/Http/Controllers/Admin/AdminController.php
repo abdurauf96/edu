@@ -21,7 +21,7 @@ class AdminController extends Controller
 
     public function index()
     {
-
+        
         $num_students=\App\Models\Student::all()->count();
         $num_groups=\App\Models\Group::all()->count();
 
@@ -43,5 +43,43 @@ class AdminController extends Controller
         return view('admin.payments.statistics', compact('statistika'));
     }
 
+
+    public function test()
+    {
+        $students=\App\Models\Student::all();
+        
+        set_time_limit(600);
+        
+        // $num=1;
+        // foreach ($students as $student) {
+            
+        //     //21MDC001 ~ year - course_code - student_number
+        //     $number = str_pad($num, 4, 0, STR_PAD_LEFT);
+        //     $course_code=$student->group->course->code;
+        //     $current_year=date('y');
+        //     $student->student_number=$current_year.$course_code.$number;
+            
+        //     $year=explode('-', $student->year);
+        //     $reversed=array_reverse($year);
+        //     $year=implode('', $reversed);
+           
+        //     $student->password=bcrypt($year);
+        //     $student->save();
+           
+        // }
+
+
+        // foreach($students as $student){
+        //     $filename=str_replace(' ', '-', $student->name).'-'.time().'.png';
+        //     $student->code=$filename;
+        //     $student->save();
+
+        //     $this->createQRCode($student->id, $filename, 'student');
+             
+        // }       
+       
+        return redirect('/dashboard');
+
+    }
 
 }

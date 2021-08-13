@@ -21,6 +21,11 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         }
         $filename=str_replace(' ', '-', $request->name).'-'.time().'.png';
         $requestData['code']=$filename;
+
+        $lastStudent=$this->getLastStudent();
+        $requestData['username']=$this->generateIdNumber($lastStudent);
+        $requestData['password']=$this->generatePassword($requestData['year']);
+
         $student=Student::create($requestData);
        
         $this->createQRCode($student->id, $filename, 'student'); 
@@ -44,6 +49,31 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
 
         $student = $this->findOne($id);
         $student->update($requestData);
+    }
+
+    public function getLastStudent()
+    {
+        return Student::latest()->first();
+    }
+
+    public function generateIdNumber($student)
+    {
+        //21MDC001 ~ year - course_code - student_number
+        $last_number=intval(substr($student->username, -4));
+        $number = str_pad($last_number+1, 4, 0, STR_PAD_LEFT);
+        $course_code=$student->group->course->code;
+        $current_year=date('y');
+        $idNumber=$current_year.$course_code.$number;
+        return $idNumber;
+    }
+
+    public function generatePassword($year)
+    {
+        $yearToArray=explode('-', $year);
+        $reversed=array_reverse($yearToArray);
+        $yearToString=implode('', $reversed);
+        
+        return bcrypt($yearToString);
     }
 
     // public function removeFromGroup($group_id, $student_id)

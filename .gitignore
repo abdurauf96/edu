@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/admin/images/qrcodes
+/public/admin/images/students
 /storage/*.key
 /vendor
 .env

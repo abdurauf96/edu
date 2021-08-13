@@ -7,7 +7,7 @@
             <div class="box-header">Filter 
                 <hr>
                 @foreach ($courses as $course)
-                <a href="?course_id={{ $course->id }}" class="btn {{ \Request::get('course_id')==$course->id? 'btn-primary' : 'btn-info' }} btn-sm" title="Add New Payment">
+                <a href="?course_id={{ $course->id }}" class="btn {{ \Request::get('course_id')==$course->id? 'btn-primary' : 'btn-info' }} btn-sm" >
                     {{ $course->name }}
                 </a>    
                 @endforeach

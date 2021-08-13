@@ -98,10 +98,7 @@ class StaffsController extends Controller
         $this->validate($request, [
 			'name' => 'required'
 		]);
-        $requestData = $request->all();
-        
-        $staff = Staff::findOrFail($id);
-        $staff->update($requestData);
+        $this->staffRepo->update($request, $id);
 
         return redirect('admin/staffs')->with('flash_message', 'Xodim yangilandi!');
     }

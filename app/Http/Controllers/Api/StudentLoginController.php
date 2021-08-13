@@ -11,6 +11,7 @@ class StudentLoginController extends BaseController
 {
     public function login(Request $request)
     {
+        
         $request->validate([
             'username'=>'required',
             'password'=>'required' 

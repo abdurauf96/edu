@@ -25,4 +25,17 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
         $this->createQRCode($staff->id, $filename, 'staff'); 
         
     }
+
+    public function update($request, $id)
+    {
+        $requestData=$request->all();
+        if($request->hasFile('image')){
+            $file=$request->file('image');
+            $image=time().$file->getClientOriginalName();
+            $file->move('admin/images/staffs', $image);
+            $requestData['image']=$image;
+        }
+        $staff = Staff::findOrFail($id);
+        $staff->update($requestData);
+    }
 }

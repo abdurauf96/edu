@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Group;
 use App\Models\Student;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File; 
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Models\Group;
-use Illuminate\Http\Request;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentsController extends Controller
@@ -118,7 +119,10 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        Student::destroy($id);
+        $student = $this->studentRepo->findOne($id);
+        File::delete(public_path()."/admin/images/students/".$student->image);
+       
+        $student->destroy($id);
 
         return redirect('admin/students')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
