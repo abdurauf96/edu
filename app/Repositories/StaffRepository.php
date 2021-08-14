@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\StaffRepositoryInterface;
 use App\Repositories\StaffRepository;
 
 class StaffRepository extends BaseRepository implements StaffRepositoryInterface{
-    
+
     public function store($request)
     {
         $requestData=$request->all();
@@ -22,8 +22,8 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
         $filename=str_replace(' ', '-', $request->name).'-'.time().'.png';
         $requestData['qrcode']=$filename;
         $staff=Staff::create($requestData);
-        $this->createQRCode($staff->id, $filename, 'staff'); 
-        
+        $this->createQRCode($staff->id, $filename, 'staff');
+
     }
 
     public function update($request, $id)
@@ -38,4 +38,5 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
         $staff = Staff::findOrFail($id);
         $staff->update($requestData);
     }
+
 }

@@ -150,7 +150,7 @@
                 <i class="fa fa-group"></i> <span>Xodimlar</span>
               </a>
             </li>
-
+           @if(Auth::check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cashier')) )
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-money"></i> <span>Buxgalteriya</span>
@@ -165,12 +165,12 @@
                   </a>
                 </li>
 
-                <li class="treeview">
-                  <a href="{{ route('cashierTable') }}">
-                    <i class="fa fa-money"></i> <span>Ko'rish</span>
-                  </a>
-                </li>
-                  @if(Auth::check() && Auth::user()->hasRole('admin'))
+                 <li class="treeview">
+                   <a href="{{ route('cashierTable') }}">
+                     <i class="fa fa-money"></i> <span>Ko'rish</span>
+                   </a>
+                 </li>
+                  @if(Auth::user()->hasRole('admin'))
                   <li class="treeview">
                       <a href="{{ route('paymentStatistics') }}">
                           <i class="fa fa-money"></i> <span>Statistika</span>
@@ -179,13 +179,13 @@
                   @endif
               </ul>
             </li>
-            @if(Auth::check() && Auth::user()->hasRole('admin'))
+            @endif
             <li class="treeview">
               <a href="/reception">
                 <i class="fa fa-check-circle"></i> <span>Reception</span>
               </a>
             </li>
-            @endif
+
           </ul>
 
 
@@ -215,7 +215,7 @@
 
       </footer>
     </div><!-- ./wrapper -->
-    
+
     <!-- jQuery 2.1.3 -->
     <script src="/admin/js/jquery.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->

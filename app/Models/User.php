@@ -12,7 +12,11 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, HasApiTokens;
-
+    public function isAdmin(){
+        if($this->hasRole('admin')){
+            return true;
+        }
+    }
     /**
      * The attributes that are mass assignable.
      *
