@@ -14,7 +14,11 @@
     {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
 </div>
 
-
+<div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
+    {!! Form::label('code', 'Kursning maxsus kodi', ['class' => 'control-label']) !!}
+    {!! Form::text('code', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
+</div>
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
 </div>

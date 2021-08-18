@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
-
+use Illuminate\Support\Facades\Http;
 class AdminController extends Controller
 {
     /**
@@ -46,10 +46,17 @@ class AdminController extends Controller
 
     public function test()
     {
-        $students=\App\Models\Student::all();
+        //$students=\App\Models\Student::all();
         
         set_time_limit(600);
+        //$response = Http::get('https://academy.digitalpark.uz/api/payments');
+       //dd($response->json());
+        // foreach ($response->json() as $data) {
+       
+        //     \App\Models\Payment::create($data);
+        // }
         
+
         // $num=1;
         // foreach ($students as $student) {
             

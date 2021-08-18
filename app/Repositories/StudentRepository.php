@@ -23,7 +23,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $requestData['code']=$filename;
 
         $lastStudent=$this->getLastStudent();
-        $requestData['username']=$this->generateIdNumber($lastStudent);
+        $requestData['username']=$this->generateIdNumber($lastStudent, $request->group_id);
         $requestData['password']=$this->generatePassword($requestData['year']);
 
         $student=Student::create($requestData);
@@ -56,12 +56,15 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         return Student::latest()->first();
     }
 
-    public function generateIdNumber($student)
+    public function generateIdNumber($student, $group_id)
     {
+        
+        $group=Group::findOrFail($group_id);
+
         //21MDC001 ~ year - course_code - student_number
         $last_number=intval(substr($student->username, -4));
         $number = str_pad($last_number+1, 4, 0, STR_PAD_LEFT);
-        $course_code=$student->group->course->code;
+        $course_code=$group->course->code;
         $current_year=date('y');
         $idNumber=$current_year.$course_code.$number;
         return $idNumber;
