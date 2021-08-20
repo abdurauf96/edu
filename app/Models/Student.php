@@ -10,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 class Student extends Authenticatable
 {
     use LogsActivity, HasApiTokens;
-    
+
     /**
      * The database table used by the model.
      *
@@ -42,11 +42,11 @@ class Student extends Authenticatable
         return $this->hasMany(Payment::class)->orderBy('month_id');
     }
 
-    
+
     public function is_debt()
     {
         $res=count($this->payments->where('month_id', date("m", strtotime("first day of previous month"))));
-        
+
         if($res>0){
             return false;
         }else{

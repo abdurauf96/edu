@@ -5,9 +5,9 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header"> <h3> O'quvchilar</h3>
-                {{-- <a href="{{ url('/admin/students/create') }}" class="btn btn-success btn-sm" title="Add New Student">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Yangi qo'shish
-                </a> --}}
+{{--                <a href="{{ url('/admin/students/create') }}" class="btn btn-success btn-sm" title="Add New Student">--}}
+{{--                        <i class="fa fa-plus" aria-hidden="true"></i> Yangi qo'shish--}}
+{{--                </a>--}}
             </div>
             <div class="box-body">
 
@@ -22,7 +22,7 @@
                                 <th>Kurs</th>
                                 <th>Telefon</th>
                                 <th>Manzil</th>
-                               
+
                                 <th>Rasm</th>
                                 <th>Amallar</th>
                             </tr>
@@ -36,7 +36,7 @@
                                 <td> {{ $item->group->course->name }} </td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->address }}</td>
-                               
+
                                 <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td>
                                 <td>
                                     <a href="{{ url('/admin/students/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>

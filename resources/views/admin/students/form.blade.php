@@ -4,10 +4,6 @@
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
 
-@isset($group_id)
-<input type="hidden" value="{{ $group_id }}" name="group_id">  
-@endisset
-
 <div class="form-group{{ $errors->has('phone') ? 'has-error' : ''}}">
     {!! Form::label('phone', 'Telefon raqami', ['class' => 'control-label']) !!}
     {!! Form::text('phone', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -35,14 +31,14 @@
     @endif name="sex"  > O'g'il &nbsp;&nbsp;
     <input type="radio" @isset($student)
     {{ $student->sex==0 ? 'checked' : '' }}
-@endisset value="0" name="sex"> Qiz 
+@endisset value="0" name="sex"> Qiz
 </div>
 
 <div class="form-group">
     <label for="">Grant</label> &nbsp; &nbsp;
     <input type="checkbox" value="1"  @if(isset($student))
-        {{ $student->type==1 ? 'checked' : '' }}  
-    @endif name="type"  > 
+        {{ $student->type==1 ? 'checked' : '' }}
+    @endif name="type"  >
 </div>
 
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
@@ -50,14 +46,10 @@
     {!! Form::file('image', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
-{{-- <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
-    {!! Form::label('passport', 'Code', ['class' => 'control-label']) !!}
-    {!! Form::text('code', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
-</div> --}}
+<input type="hidden" value="{{ $group->id }}" name="group_id">
 
 <div class="form-group">
-    <label for="">Status</label> 
+    <label for="">Status</label>
     <select  name="status" class="form-control select2" id="" required>
         <option @isset ($student)
             {{ $student->status==1 ? 'selected': '' }}
@@ -65,6 +57,7 @@
         <option @isset ($student)
         {{ $student->status==0 ? 'selected': '' }}
     @endisset value="0">Bitirib ketgan</option>
+
     </select>
 </div>
 
@@ -72,12 +65,4 @@
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
 </div>
 
-@section('js')
-    <script>
-         $('.select2').select2({
-            placeholder: "Tanlang...",
-            allowClear: true,
-            required: true
-         });
-    </script>
-@endsection
+

@@ -9,6 +9,5 @@ interface StudentRepositoryInterface{
     public function generateIdNumber($student, $group_id);
     public function generatePassword($student);
     public function getLastStudent();
-    // public function removeFromGroup($group_id, $student_id);
-    // public function addStudentToGroup($group_id, $student_id);
+    public function addWaitingStudentToGroup($waitingStudent, $group_id);
 }

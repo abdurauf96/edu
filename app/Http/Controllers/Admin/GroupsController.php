@@ -19,7 +19,7 @@ class GroupsController extends Controller
      */
     public function index(Request $request)
     {
-       
+
         $groups = Group::orderBy('status')->latest()->get();
         return view('admin.groups.index', compact('groups'));
     }
@@ -52,7 +52,7 @@ class GroupsController extends Controller
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         Group::create($requestData);
 
         return redirect('admin/groups')->with('flash_message', 'Guruh qo`shildi!');
@@ -104,7 +104,7 @@ class GroupsController extends Controller
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         $group = Group::findOrFail($id);
         $group->update($requestData);
 

@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Course;
 use App\Models\Group;
 use App\Models\Student;
+use App\Models\WaitingStudent;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
@@ -28,9 +30,8 @@ class StudentsController extends Controller
     }
     public function index(Request $request)
     {
-       
+
         $students = $this->studentRepo->getAll();
-    
         return view('admin.students.index', compact('students'));
     }
 
@@ -39,13 +40,13 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create($id)
+
+    public function createStudentToGroup($id)
     {
-        $group=Group::select('id')->find($id);
-        $group_id=$group->id;
-        $ids=$group->students->pluck('id')->all();
-        $students=Student::whereNotIn('id', $ids)->get();
-        return view('admin.students.create', compact('group_id', 'students'));
+        $group=Group::with('course')->findOrFail($id);
+        $waitingStudents=WaitingStudent::all();
+
+        return view('admin.students.create', compact('group', 'waitingStudents'));
     }
 
     /**
@@ -57,9 +58,7 @@ class StudentsController extends Controller
      */
     public function store(AddStudentRequest $request)
     {
-       
         $this->studentRepo->create($request);
-    
         return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
     }
 
@@ -86,8 +85,8 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = $this->studentRepo->findOne($id);
-        //$group_id=request()->get('group_id');
-        return view('admin.students.edit', compact('student'));
+        $groups=Group::all();
+        return view('admin.students.edit', compact('student', 'groups'));
     }
 
     /**
@@ -101,13 +100,13 @@ class StudentsController extends Controller
     public function update(UpdateStudentRequest $request, $id)
     {
         $this->studentRepo->update($request, $id);
-        
+
         if(!empty($request->group_id)){
             return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi yangilandi!');
         }else{
             return redirect('admin/students')->with('flash_message', 'O`quvchi yangilandi!');
         }
-        
+
     }
 
     /**
@@ -121,24 +120,21 @@ class StudentsController extends Controller
     {
         $student = $this->studentRepo->findOne($id);
         File::delete(public_path()."/admin/images/students/".$student->image);
-       
+
         $student->destroy($id);
 
         return redirect('admin/students')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
-    // public function removeFromGroup($group_id, $student_id)
-    // {
-    //     $this->studentRepo->removeFromGroup($group_id, $student_id);
+     public function addStudentToGroup(Request $request)
+     {
 
-    //     return back()->with('flash_message', 'o`quvchi guruhdan o`chirib yuborildi!');
-    // }
+         $waitingStudent=WaitingStudent::findOrFail($request->waiting_student_id);
 
-    // public function addStudentToGroup(Request $request)
-    // {
-    //     $this->studentRepo->addStudentToGroup($request->group_id, $request->student_id);
-    //     return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
-    // }
+         $this->studentRepo->addWaitingStudentToGroup($waitingStudent, $request->group_id);
+         $waitingStudent->delete();
+         return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
+     }
 
     public function studentEvent($id)
     {
@@ -146,5 +142,5 @@ class StudentsController extends Controller
         return view('admin.students.event', compact('student'));
     }
 
-    
+
 }

@@ -12,6 +12,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
     }
 
     public function create($request){
+
         $requestData = $request->all();
         if($request->hasFile('image')){
             $file=$request->file('image');
@@ -27,8 +28,9 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $requestData['password']=$this->generatePassword($requestData['year']);
 
         $student=Student::create($requestData);
-       
-        $this->createQRCode($student->id, $filename, 'student'); 
+
+        $this->createQRCode($student->id, $filename, 'student');
+
     }
 
     public function findOne($id)
@@ -39,12 +41,12 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
     public function update($request, $id)
     {
         $requestData = $request->all();
-        
+
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
             $file->move('admin/images/students', $image);
-            $requestData['image']=$image;   
+            $requestData['image']=$image;
         }
 
         $student = $this->findOne($id);
@@ -58,7 +60,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
 
     public function generateIdNumber($student, $group_id)
     {
-        
+
         $group=Group::findOrFail($group_id);
 
         //21MDC001 ~ year - course_code - student_number
@@ -75,17 +77,35 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $yearToArray=explode('-', $year);
         $reversed=array_reverse($yearToArray);
         $yearToString=implode('', $reversed);
-        
+
         return bcrypt($yearToString);
     }
 
-    // public function removeFromGroup($group_id, $student_id)
-    // {
-    //     Group::find($group_id)->students()->detach($student_id);
-    // }
+    public function addWaitingStudentToGroup($waitingStudent, $group_id)
+    {
+        $data=[
+            'group_id'=>$group_id,
+            'name'=>$waitingStudent->name,
+            'phone'=>$waitingStudent->phone,
+            'year'=>$waitingStudent->year,
+            'address'=>$waitingStudent->address,
+            'image'=>$waitingStudent->image,
+            'passport'=>$waitingStudent->passport,
+            'sex'=>$waitingStudent->sex,
+            'type'=>$waitingStudent->type,
+            'status'=>1,
+        ];
 
-    // public function addStudentToGroup($group_id, $student_id)
-    // {
-    //     Group::find($group_id)->students()->attach($student_id);
-    // }
+        $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
+        $data['code']=$filename;
+
+        $lastStudent=$this->getLastStudent();
+        $data['username']=$this->generateIdNumber($lastStudent, $group_id);
+        $data['password']=$this->generatePassword($data['year']);
+
+        $student=Student::create($data);
+        $this->createQRCode($student->id, $filename, 'student');
+
+    }
+
 }

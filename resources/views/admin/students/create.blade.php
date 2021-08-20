@@ -3,10 +3,10 @@
 @section('content')
 
 <div class="row">
-    
+
     <div class="col-md-6">
         <div class="box box-info">
-            <div class="box-header"><h3 class="box-title">  Yangi qo'shish </h3> </div>
+            <div class="box-header"><h3 class="box-title"> {{ $group->name }} ({{ $group->course->name }}) guruhiga yangi o'quvchi qo'shish </h3> </div>
             <div class="box-body">
                 @if ($errors->any())
                     <ul class="alert alert-danger">
@@ -19,48 +19,56 @@
                     {!! Form::open(['url' => '/admin/students', 'files'=>true, 'class' => 'form-horizontal add_student_form', 'files' => true]) !!}
 
                     @include ('admin.students.form', ['formMode' => 'create'])
-                   
+
                     {!! Form::close() !!}
                 </div>
 
             </div>
         </div>
     </div>
-    
-    {{-- <div class="col-md-6">
+
+    <div class="col-md-6">
         <div class="box box-info">
             <div class="box-header">
-            <h3 class="box-title">Mavjud o'quvchini biriktirish</h3>
+            <h3 class="box-title">Navbatda turgan o'quvchini biriktirish</h3>
             </div>
             <div class="box-body">
-            
+
                 <form action="/admin/add-student-to-group" method="POST" class="exist_student_form" >
-                    <!-- Dropdown --> 
+                    <!-- Dropdown -->
                     @csrf
-                    <select id='selUser' style='width: 200px;' class="form-control" name="student_id">
-                        @foreach ($students as $student)
-                        <option value='{{ $student->id }}'>{{ $student->name }}</option> 
-                        @endforeach
-                    </select>
-                    <input type="hidden" value="{{ $group_id }}" name="group_id">
-                    <input type='submit' class="btn btn-primary" value='Guruhga qo`shish' >
-                    
+                    <div class="form-group">
+                        <input type="hidden" value="{{$group->id}}" name="group_id">
+                        <select class='select2' style='width: 200px;' class="form-control" name="waiting_student_id">
+                            @foreach ($waitingStudents as $stu)
+                                <option value='{{ $stu->id }}'>{{ $stu->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type='submit' class="btn btn-primary" value='Guruhga qo`shish' >
+                    </div>
                     <br/>
                     <div id='result'></div>
                 </form>
-            
+
             </div>
             <!-- /.box-body -->
         </div>
-    </div>   --}}
-    
+    </div>
 </div>
 @endsection
 
 @section('js')
 <script>
     $(document).ready(function(){
-        $("#selUser").select2();
+
+        $('.select2').select2({
+            placeholder: "Tanlang...",
+            allowClear: true,
+            required: true
+        });
     });
 </script>
 @endsection

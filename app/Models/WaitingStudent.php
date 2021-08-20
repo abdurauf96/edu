@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Group extends Model
+class WaitingStudent extends Model
 {
     use LogsActivity;
 
@@ -15,7 +15,7 @@ class Group extends Model
      *
      * @var string
      */
-    protected $table = 'groups';
+    protected $table = 'waiting_students';
 
     /**
     * The database primary key value.
@@ -29,28 +29,11 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'teacher_id', 'course_id', 'course_days', 'start_date', 'end_date', 'duration', 'time', 'status'];
-
-    public function teacher()
-    {
-        return $this->belongsTo(Teacher::class);
-    }
+    protected $fillable = ['course_id', 'name', 'phone', 'year', 'address', 'passport', 'image', 'sex', 'type'];
 
     public function course()
     {
         return $this->belongsTo(Course::class);
-    }
-
-    public function students()
-    {
-        return $this->hasMany(Student::class)->where('status', 1)->latest();
-    }
-
-    public static function boot() {
-        parent::boot();
-        static::deleting(function($group) {
-             $group->students()->delete();
-        });
     }
 
     /**

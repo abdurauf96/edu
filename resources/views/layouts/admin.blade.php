@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Окно Администратора</title>
+    <title>Edu APP</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -135,11 +135,27 @@
                 <i class="fa fa-group"></i> <span>Guruhlar</span>
               </a>
             </li>
+
             <li class="treeview">
-              <a href="/admin/students">
-                <i class="fa fa-user"></i> <span>O'quvchilar</span>
-              </a>
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>O'quvchilar</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+
+                <ul class="treeview-menu" >
+                    <li class="treeview">
+                        <a href="/admin/students">
+                            <i class="fa fa-user"></i> <span>Joriy o'quvchilar</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="/admin/waiting-students">
+                            <i class="fa fa-user"></i> <span>Navbat kutayotganlar</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
+
             <li class="treeview">
               <a href="/admin/events">
                 <i class="fa fa-clock-o"></i> <span>Monitoring</span>
@@ -185,10 +201,7 @@
                 <i class="fa fa-check-circle"></i> <span>Reception</span>
               </a>
             </li>
-
           </ul>
-
-
       </aside>
 
       <!-- =============================================== -->

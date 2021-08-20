@@ -56,10 +56,10 @@ Route::middleware('auth')->group(function(){
     Route::resource('admin/teachers', 'App\Http\Controllers\Admin\TeachersController');
     Route::resource('admin/courses', 'App\Http\Controllers\Admin\CoursesController');
     Route::resource('admin/groups', 'App\Http\Controllers\Admin\GroupsController');
-    Route::get('admin/groups/{id}/add-student', ['App\Http\Controllers\Admin\StudentsController', 'create']);
+    Route::get('admin/groups/{id}/add-student', ['App\Http\Controllers\Admin\StudentsController', 'createStudentToGroup']);
     // Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
-    // Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
-    Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController');
+    Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
+    Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController')->except('create');
 
     Route::get('admin/events', 'App\Http\Controllers\Admin\EventsController@events');
 
@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/reception', function(){
         return view('admin.reception');
     });
+    Route::resource('admin/waiting-students', 'App\Http\Controllers\Admin\WaitingStudentsController');
+
     //event routes
     Route::get('/student/{id}', 'App\Http\Controllers\Admin\StudentsController@studentEvent')->middleware('cors');
     Route::get('/staff/{id}', 'App\Http\Controllers\Admin\StaffsController@staffEvent');
@@ -83,4 +85,5 @@ Route::middleware('auth')->group(function(){
 
 
 require __DIR__.'/auth.php';
+
 
