@@ -39,11 +39,14 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
         $statistika=['all'=> ['fact_sum'=>0, 'real_sum'=>0] ];
 
         foreach ($courses as $course) {
-
+            $fact_sum=0;
+            foreach ($course->activeStudents as $s) {
+                $fact_sum+=$s->type*$course->price;
+            }
             array_push($statistika, [
                 'course_name'=>$course->name,
                 'number_students'=>count($course->activeStudents),
-                'fact_sum'=>$course->price*count($course->activeStudents),
+                'fact_sum'=>$fact_sum,
                 'real_sum'=>collect($course->getPaymentsByMonth($month, $year))->sum('amount')
             ]);
 

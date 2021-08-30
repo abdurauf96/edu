@@ -35,10 +35,34 @@
 </div>
 
 <div class="form-group">
-    <label for="">Grant</label> &nbsp; &nbsp;
-    <input type="checkbox" value="1"  @if(isset($student))
-        {{ $student->type==1 ? 'checked' : '' }}
-    @endif name="type"  >
+    <label>O'qish turi</label> <br>
+    <div class="vars" style="display: flex; flex-direction:column">
+        <div class="">
+            <input type="radio" name="type" value="1" @if(isset($student))
+            {{ $student->type==1 ? 'checked' : '' }} @else checked
+            @endif >
+            <span for="">Oddiy</span> 
+        </div>
+        
+        <div class="">
+                <input type="radio" value="0.7"  @if(isset($student))
+                    {{ $student->type==0.7 ? 'checked' : '' }}
+                @endif name="type"  > 
+                <span for="">Grant (30%)</span>
+        </div>
+        <div>
+            <input type="radio" value="0.5"  @if(isset($student))
+                {{ $student->type==0.5 ? 'checked' : '' }}
+            @endif name="type"  >
+            <span for="">Grant (50%)</span>
+        </div>
+        <div class="">
+            <input type="radio" value="0"  @if(isset($student))
+                {{ $student->type==0 ? 'checked' : '' }}
+            @endif name="type"  >
+            <span for="">Grant (100%)</span>
+        </div>
+    </div>
 </div>
 
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
@@ -46,8 +70,9 @@
     {!! Form::file('image', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
+@isset($group)
 <input type="hidden" value="{{ $group->id }}" name="group_id">
-
+@endisset
 <div class="form-group">
     <label for="">Status</label>
     <select  name="status" class="form-control select2" id="" required>

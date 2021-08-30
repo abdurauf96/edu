@@ -120,6 +120,7 @@ class StudentsController extends Controller
     {
         $student = $this->studentRepo->findOne($id);
         File::delete(public_path()."/admin/images/students/".$student->image);
+        File::delete(public_path()."/admin/images/qrcodes/".$student->code);
 
         $student->destroy($id);
 

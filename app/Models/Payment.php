@@ -8,7 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Payment extends Model
 {
     use LogsActivity;
-    
+
 
     /**
      * The database table used by the model.
