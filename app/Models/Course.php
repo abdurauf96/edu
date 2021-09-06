@@ -63,7 +63,7 @@ class Course extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'duration', 'price', 'code'];
+    protected $fillable = ['name', 'duration', 'price', 'code', 'description'];
 
     public static function boot() {
         parent::boot();

@@ -4,6 +4,11 @@
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
+    {!! Form::label('description', 'Kurs ta`rifi', ['class' => 'control-label']) !!}
+    {!! Form::text('description', null,  ['class' => 'form-control']) !!}
+    {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
+</div>
+<div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
     {!! Form::label('duration', 'Kurs davomiyligi', ['class' => 'control-label']) !!}
     {!! Form::text('duration', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
