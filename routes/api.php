@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
 Route::middleware(['auth:student-api'])->group(function () {
     Route::get('/student/fullinfo', ['App\Http\Controllers\Api\StudentController', 'studentFullInfo']);
     Route::get('/student/payments', ['App\Http\Controllers\Api\StudentController', 'getStudentPayments']);
+    Route::get('/student/events', ['App\Http\Controllers\Api\StudentController', 'getStudentEvents']);
 });
 
 Route::get('/student/{id}', ['App\Http\Controllers\Api\StudentController', 'getStudent']);

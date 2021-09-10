@@ -39,5 +39,19 @@ class StudentController extends BaseController
         return $this->sendResponse(new StudentResource($student));
     }
 
+    public function getStudentEvents()
+    {
+        $student=request()->user();
+        $events=[];
+        foreach ($student->events as $event) {
+            $data=[
+                'event'=>$event->status==1 ? 'Kirib kelgan' : 'Chiqib ketgan',
+                'time'=>$event->time,
+                'date'=>$event->created_at->format('d-m-Y')
+            ];
+            array_push($events, $data);
+        }
+        return $this->sendResponse($events);
+    }
   
 }

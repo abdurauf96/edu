@@ -32,6 +32,11 @@ class Student extends Authenticatable
      */
     protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt', 'status', 'username', 'password'];
 
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'person_id')->where('type', 'student');
+    }
+
     public function group()
     {
         return $this->belongsTo(Group::class);
