@@ -72,12 +72,12 @@
                                 <td>{{ $student->passport }}</td>
                                 <td>{{ $student->code }}</td>
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
-                                {{-- <td>
+                                <td>
                                     
                                     <a href="{{ url('/admin/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                     
                                 </td>
-                            </tr> --}}
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>

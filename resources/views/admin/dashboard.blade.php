@@ -151,16 +151,21 @@
             </tr>
             <tr>
               <td>4</td>
+              <td>Chiqib ketgan </td>
+              <td><span class="badge bg-green">{{ $out_students }} ta</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
               <td>Grant o'qimoqda</td>
               <td><span class="badge bg-green">{{ $grant_students }} ta</span></td>
             </tr>
             <tr>
-              <td>5</td>
+              <td>6</td>
               <td>Bolalar soni</td>
               <td><span class="badge bg-green">{{ $boys }} ta</span></td>
             </tr>
             <tr>
-              <td>6</td>
+              <td>7</td>
               <td>Qizlar soni</td>
               <td><span class="badge bg-green">{{ $girls }} ta</span></td>
             </tr>

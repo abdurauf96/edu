@@ -9,4 +9,8 @@ class BotStudent extends Model
 {
     use HasFactory;
     protected $fillable=['chat_id', 'course_id', 'fio', 'phone', 'status', 'finished'];
+
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
 }

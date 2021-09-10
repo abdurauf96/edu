@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Group;
 use App\Models\Student;
+use App\Models\BotStudent;
 use App\Models\WaitingStudent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -84,6 +85,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
+      
         $student = $this->studentRepo->findOne($id);
         $groups=Group::all();
         return view('admin.students.edit', compact('student', 'groups'));
@@ -100,12 +102,8 @@ class StudentsController extends Controller
     public function update(UpdateStudentRequest $request, $id)
     {
         $this->studentRepo->update($request, $id);
-
-        if(!empty($request->group_id)){
-            return redirect('admin/groups/'.$request->group_id)->with('flash_message', 'O`quvchi yangilandi!');
-        }else{
-            return redirect('admin/students')->with('flash_message', 'O`quvchi yangilandi!');
-        }
+        $last_route=$request->last_route;
+        return redirect($last_route)->with('flash_message', 'O`quvchi yangilandi!');        
 
     }
 
@@ -143,5 +141,10 @@ class StudentsController extends Controller
         return view('admin.students.event', compact('student'));
     }
 
+    public function botStudents()
+    {
+        $botStudents=BotStudent::latest()->get();
+        return view('admin.students.botStudents', compact('botStudents'));
+    }
 
 }

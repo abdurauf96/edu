@@ -27,13 +27,14 @@ class AdminController extends Controller
 
         $girls=\App\Models\Student::whereSex('0')->count();
         $boys=\App\Models\Student::whereSex(1)->count();
-        $grant_students=\App\Models\Student::whereType(1)->count();
+        $grant_students=\App\Models\Student::whereType(0)->count();
         $active_students=\App\Models\Student::whereStatus(1)->count();
+        $out_students=\App\Models\Student::whereStatus(2)->count();
 
         $teachers=\App\Models\Teacher::with('students')->get();
         $courses=\App\Models\Course::with('students')->get();
 
-        return view('admin.dashboard', compact(  'num_students', 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students'));
+        return view('admin.dashboard', compact(  'num_students', 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students'));
     }
 
     public function paymentStatistics()

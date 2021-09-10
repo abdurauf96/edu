@@ -153,6 +153,11 @@
                             <i class="fa fa-user"></i> <span>Navbat kutayotganlar</span>
                         </a>
                     </li>
+                    <li class="treeview">
+                      <a href="/admin/bot-students">
+                          <i class="fa fa-user"></i> <span>Ariza qoldirganlar</span>
+                      </a>
+                  </li>
                 </ul>
             </li>
 

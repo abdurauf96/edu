@@ -82,10 +82,13 @@
         <option @isset ($student)
         {{ $student->status==0 ? 'selected': '' }}
     @endisset value="0">Bitirib ketgan</option>
+    <option @isset ($student)
+    {{ $student->status==2 ? 'selected': '' }}
+@endisset value="2">Chiqib ketgan</option>
 
     </select>
 </div>
-
+<input type="hidden" value="{{ url()->previous() }}" name="last_route">
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
 </div>
