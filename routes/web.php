@@ -60,7 +60,9 @@ Route::middleware('auth')->group(function(){
     // Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
     Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
     Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController')->except('create');
-    Route::get('admin/bot-students', ['App\Http\Controllers\Admin\StudentsController', 'botStudents']);
+    Route::get('admin/bot-students', ['App\Http\Controllers\Admin\StudentsController', 'botStudents'])->name('botStudents');
+    Route::get('admin/student-qrcodes', ['App\Http\Controllers\Admin\StudentsController', 'studentQrcodes'])->name('studentQrcodes');
+    Route::get('admin/download-qrcode/{id}', ['App\Http\Controllers\Admin\StudentsController', 'downloadQrcode'])->name('downloadQrcode');
 
     Route::get('admin/events', 'App\Http\Controllers\Admin\EventsController@events');
 

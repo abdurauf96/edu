@@ -29,6 +29,7 @@ class CreateStudentsTable extends Migration
             $table->string('is_debt')->nullable();
             $table->string('username')->nullable();
             $table->string('password')->nullable();
+            $table->string('qrcode_status')->nullable();
             });
     }
 

@@ -147,4 +147,21 @@ class StudentsController extends Controller
         return view('admin.students.botStudents', compact('botStudents'));
     }
 
+    public function studentQrcodes()
+    {
+        
+        $students=Student::latest()->select('id', 'name', 'code', 'qrcode_status')->get();
+        
+        return view('admin.students.qrcodes', compact('students'));
+    }
+
+    public function downloadQrcode($id){
+        $headers = array('Content-Type: application/jpg',);
+        $student = $this->studentRepo->findOne($id);
+        $student->qrcode_status=1;
+        $student->save();
+        return response()->download('admin/images/qrcodes/'.$student->code, $student->code, $headers);
+    }
+
+
 }

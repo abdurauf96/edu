@@ -154,10 +154,15 @@
                         </a>
                     </li>
                     <li class="treeview">
-                      <a href="/admin/bot-students">
+                      <a href="{{ route('botStudents') }}">
                           <i class="fa fa-user"></i> <span>Ariza qoldirganlar</span>
                       </a>
-                  </li>
+                    </li>
+                    <li class="treeview">
+                      <a href="{{ route('studentQrcodes') }}">
+                          <i class="fa fa-user"></i> <span>QR kodlar</span>
+                      </a>
+                    </li>
                 </ul>
             </li>
 
