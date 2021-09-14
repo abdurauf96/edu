@@ -150,7 +150,7 @@ class StudentsController extends Controller
     public function studentQrcodes()
     {
         
-        $students=Student::latest()->select('id', 'name', 'code', 'qrcode_status')->get();
+        $students=Student::latest()->select('id', 'name', 'code', 'image', 'qrcode_status')->get();
         
         return view('admin.students.qrcodes', compact('students'));
     }

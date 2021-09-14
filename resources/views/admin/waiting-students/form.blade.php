@@ -16,6 +16,11 @@
     {!! Form::number('phone', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
 </div>
+<div class="form-group{{ $errors->has('phone') ? 'has-error' : ''}}">
+    {!! Form::label('phone', 'Telefon raqam 2', ['class' => 'control-label']) !!}
+    {!! Form::number('phone2', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+</div>
 <div class="form-group{{ $errors->has('year') ? 'has-error' : ''}}">
     {!! Form::label('year', 'Tug`ilgan yili', ['class' => 'control-label']) !!}
     {!! Form::date('year', null, ['class' => 'form-control', 'required' => 'required'] ) !!}
@@ -53,6 +58,15 @@
     @endif name="type"  >
 </div>
 
+<div class="form-group">
+    <label for="">O'qish oralig'i</label> &nbsp; &nbsp;
+    <input type="radio" value="1"  @if(isset($waitingstudent))
+    {{ $waitingstudent->course_time==1 ? 'checked' : '' }} @else checked
+           @endif name="course_time"  > Abetgacha &nbsp;&nbsp;
+    <input type="radio" @isset($waitingstudent)
+    {{ $waitingstudent->course_time==2 ? 'checked' : '' }}
+    @endisset value="2" name="course_time"> Abetdan keyin
+</div>
 
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
