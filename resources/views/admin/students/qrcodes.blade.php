@@ -25,7 +25,7 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td> <img src="/admin/images/students/{{ $item->image }}" alt="" width="100"> </td>
+                                <td> <a href="{{ route('downloadImage', $item->image) }}"><img src="/admin/images/students/{{ $item->image }}" alt="" width="100"> </a> </td>
                                 <td> <a class="downloadQrcode" data-id="{{ $item->id }}" href="{{ route('downloadQrcode', $item->id) }}">Yuklab olish</a> </td>
                                 <td class="qrcode_res{{ $item->id }}">@if($item->qrcode_status==1)
                                     <img src="/admin/images/check.png" width="40" alt=""> 

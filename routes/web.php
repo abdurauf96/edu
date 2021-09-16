@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function(){
     Route::match(['get', 'post'], 'admin/student/change-group', ['App\Http\Controllers\Admin\StudentsController', 'changeGroup'])->name('changeStudentGroup');
     
     Route::get('admin/download-qrcode/{id}', ['App\Http\Controllers\Admin\StudentsController', 'downloadQrcode'])->name('downloadQrcode');
+    Route::get('admin/download-image/{image?}', ['App\Http\Controllers\Admin\StudentsController', 'downloadImage'])->name('downloadImage');
 
     Route::get('admin/events', 'App\Http\Controllers\Admin\EventsController@events');
 

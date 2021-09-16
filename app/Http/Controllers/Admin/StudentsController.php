@@ -164,6 +164,10 @@ class StudentsController extends Controller
         return response()->download('admin/images/qrcodes/'.$student->code, $student->code, $headers);
     }
 
+    public function downloadImage($image){
+        return response()->download(public_path('admin/images/students/'.$image));
+    }
+
     public function changeGroup(Request $request){
         if($request->isMethod('post')){
             $student=$this->studentRepo->findOne($request->student_id);
