@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\Auth\SchoolController;
 use App\Events\StudentEvent;
 use App\Models\StudentEvent as StudentEventModel;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +28,7 @@ Route::get('/cache', function () {
     return back();
 });
 
+Route::get('school/register', [SchoolController::class, 'showRegisterForm']);
 
 //routes for only admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {

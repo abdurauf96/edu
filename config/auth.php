@@ -47,6 +47,11 @@ return [
             'hash' => false,
         ],
 
+        'school' => [
+            'driver' => 'session',
+            'provider' => 'schools',
+        ],
+
         'student' => [
             'driver' => 'session',
             'provider' => 'students',
@@ -84,6 +89,11 @@ return [
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
+        ],
+
+        'schools' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\School::class,
         ],
     ],
 
