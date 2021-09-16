@@ -17,7 +17,7 @@ class CreateWaitingStudentsTable extends Migration
             $table->timestamps();
             $table->integer('course_id')->nullable();
             $table->string('name')->nullable();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->date('year')->nullable();
             $table->string('address')->nullable();
             $table->string('passport')->nullable();

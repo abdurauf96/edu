@@ -10,6 +10,7 @@ use App\Models\Group;
 use App\Models\Student;
 use App\Models\BotStudent;
 use App\Models\WaitingStudent;
+use App\Models\StudentActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\AddStudentRequest;
@@ -46,8 +47,8 @@ class StudentsController extends Controller
     {
         $group=Group::with('course')->findOrFail($id);
         $waitingStudents=WaitingStudent::all();
-
-        return view('admin.students.create', compact('group', 'waitingStudents'));
+        $groups=Group::all();
+        return view('admin.students.create', compact('group', 'waitingStudents', 'groups'));
     }
 
     /**
@@ -161,6 +162,27 @@ class StudentsController extends Controller
         $student->qrcode_status=1;
         $student->save();
         return response()->download('admin/images/qrcodes/'.$student->code, $student->code, $headers);
+    }
+
+    public function changeGroup(Request $request){
+        if($request->isMethod('post')){
+            $student=$this->studentRepo->findOne($request->student_id);
+            $new_group=Group::find($request->new_group_id);
+            $description=<<<TEXT
+{$student->name}  {$student->group->course->name} kursi {$student->group->name} guruhidan {$new_group->course->name} kursi {$new_group->name} guruhiga o'tdi
+TEXT;
+          
+            StudentActivity::create(['student_id'=>$request->student_id, 'description'=>$description ]);
+            $student->group_id=$request->new_group_id;
+            $student->save();
+            return back()->with('flash_message', 'O`quvchi '.$new_group->name. '  ga ko`chirildi');
+        }else{
+            $students = $this->studentRepo->getAll();
+            $groups=Group::all();
+            $courses=Course::all();
+            return view('admin.students.changeGroup', compact('students', 'groups', 'courses'));
+        }
+        
     }
 
 

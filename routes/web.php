@@ -58,10 +58,13 @@ Route::middleware('auth')->group(function(){
     Route::resource('admin/groups', 'App\Http\Controllers\Admin\GroupsController');
     Route::get('admin/groups/{id}/add-student', ['App\Http\Controllers\Admin\StudentsController', 'createStudentToGroup']);
     // Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
+    
     Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
     Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController')->except('create');
     Route::get('admin/bot-students', ['App\Http\Controllers\Admin\StudentsController', 'botStudents'])->name('botStudents');
     Route::get('admin/student-qrcodes', ['App\Http\Controllers\Admin\StudentsController', 'studentQrcodes'])->name('studentQrcodes');
+    Route::match(['get', 'post'], 'admin/student/change-group', ['App\Http\Controllers\Admin\StudentsController', 'changeGroup'])->name('changeStudentGroup');
+    
     Route::get('admin/download-qrcode/{id}', ['App\Http\Controllers\Admin\StudentsController', 'downloadQrcode'])->name('downloadQrcode');
 
     Route::get('admin/events', 'App\Http\Controllers\Admin\EventsController@events');

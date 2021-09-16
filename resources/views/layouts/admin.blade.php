@@ -163,6 +163,11 @@
                           <i class="fa fa-user"></i> <span>QR kodlar</span>
                       </a>
                     </li>
+                    <li class="treeview">
+                      <a href="{{ route('changeStudentGroup') }}">
+                          <i class="fa fa-user"></i> <span>O'quvchilarni ko'chirish</span>
+                      </a>
+                    </li>
                 </ul>
             </li>
 
