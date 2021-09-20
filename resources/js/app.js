@@ -35,9 +35,9 @@ const app = new Vue({
             //this.students=data.data;
             console.log("firing");
             if(data.data.type=='staff'){
-                window.location.href = '/staff/'+data.data.id;
+                window.location.href = '/school/staff/'+data.data.id;
             }else{
-                window.location.href = '/student/'+data.data.id;
+                window.location.href = '/school/student/'+data.data.id;
             }
             
         });

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -102,7 +101,7 @@
 
           <!-- sidebar menu: : style can be found in sidebar.less -->
 
-          <ul class="sidebar-menu ">
+          {{-- <ul class="sidebar-menu ">
             @if(Auth::check() && Auth::user()->hasRole('admin'))
               @foreach($laravelAdminMenus->menus as $section)
               <li class="treeview">
@@ -216,7 +215,7 @@
                 <i class="fa fa-check-circle"></i> <span>Reception</span>
               </a>
             </li>
-          </ul>
+          </ul> --}}
       </aside>
 
       <!-- =============================================== -->

@@ -1,5 +1,5 @@
 @extends('layouts.site')
 
 @section('content')
-    <p>wellcome</p>
+    <p>wellcome</p> 
 @endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SchoolController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -10,12 +11,12 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/register', [RegisteredUserController::class, 'create'])
-//                 ->middleware('guest')
-//                 ->name('register');
+Route::get('/register', [RegisteredUserController::class, 'create'])
+                ->middleware('guest')
+                ->name('register');
 
-// Route::post('/register', [RegisteredUserController::class, 'store'])
-//                ->middleware('guest');
+Route::post('/register', [RegisteredUserController::class, 'store'])
+               ->middleware('guest');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
@@ -62,3 +63,15 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
+//school routes
+Route::get('school/register', [SchoolController::class, 'showRegisterForm'])->name('schoolRegisterForm');
+Route::post('school/register', [SchoolController::class, 'register'])->name('schoolRegister');
+Route::get('school/login', [SchoolController::class, 'showLoginForm'])
+        ->middleware('guest:school')
+        ->name('schoolLoginForm');
+Route::post('school/login', [SchoolController::class, 'login'])->name('schoolLogin');
+
+Route::post('/school/logout', [SchoolController::class, 'destroy'])
+                ->middleware('auth:school')
+                ->name('school.logout');

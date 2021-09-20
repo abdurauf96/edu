@@ -24,6 +24,9 @@ class CreateSchoolsTable extends Migration
             $table->string('card_number')->nullable();
             $table->string('card_date')->nullable();
             $table->string('card_name')->nullable();
+            $table->string('status')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

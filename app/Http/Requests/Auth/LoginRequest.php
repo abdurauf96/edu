@@ -41,11 +41,28 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate()
+    public function adminAuthenticate()
     {
+        
         $this->ensureIsNotRateLimited();
-
+        
         if (! Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        RateLimiter::clear($this->throttleKey());
+    }
+
+    public function schoolAuthenticate()
+    {
+        
+        $this->ensureIsNotRateLimited();
+        
+        if (! Auth::guard('school')->attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

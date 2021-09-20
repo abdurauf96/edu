@@ -1,10 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\SchoolController;
 use App\Events\StudentEvent;
 use App\Models\StudentEvent as StudentEventModel;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\School\RolesController;
+use App\Http\Controllers\School\SchoolController;
+use App\Http\Controllers\School\PermissionsController;
+use App\Http\Controllers\School\UsersController;
+use App\Http\Controllers\School\PaymentsController;
+use App\Http\Controllers\School\CashierController;
+use App\Http\Controllers\School\TeachersController;
+use App\Http\Controllers\School\CoursesController;
+use App\Http\Controllers\School\GroupsController;
+use App\Http\Controllers\School\StudentsController;
+use App\Http\Controllers\School\EventsController;
+use App\Http\Controllers\School\MonthsController;
+use App\Http\Controllers\School\StaffsController;
+use App\Http\Controllers\School\WaitingStudentsController;
+use App\Http\Controllers\Admin\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +31,13 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return redirect('/login');
-});
+    return view('welcome');
+})->name('homepage');
 
-Route::get('/test', 'App\Http\Controllers\Admin\AdminController@test');
+
+// Route::get('/welcome', function(){
+//     return view('welcome');
+// })->middleware('auth:school');
 
 
 Route::get('/cache', function () {
@@ -28,62 +45,58 @@ Route::get('/cache', function () {
     return back();
 });
 
-Route::get('school/register', [SchoolController::class, 'showRegisterForm']);
 
-//routes for only admin
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
-    Route::resource('roles', 'App\Http\Controllers\Admin\RolesController');
-    Route::resource('permissions', 'App\Http\Controllers\Admin\PermissionsController');
-    Route::resource('users', 'App\Http\Controllers\Admin\UsersController');
-    Route::resource('activitylogs', 'App\Http\Controllers\Admin\ActivityLogsController')->only([
-        'index', 'show', 'destroy'
-    ]);
-    Route::resource('settings', 'App\Http\Controllers\Admin\SettingsController');
-    Route::get('payment-statistics', 'App\Http\Controllers\Admin\AdminController@paymentStatistics')->name('paymentStatistics');
+//routes for only school admin
+Route::group(['prefix' => 'school', 'middleware' => ['auth:school', 'role:admin']], function () {
+    Route::resource('roles', RolesController::class);
+    Route::resource('permissions', PermissionsController::class);
+    Route::resource('users', UsersController::class);
+    Route::get('payment-statistics', [SchoolController::class, 'paymentStatistics'])->name('paymentStatistics');
 });
 
-//routes for admin and cashier
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin,cashier']], function () {
-    Route::resource('payments', 'App\Http\Controllers\Admin\PaymentsController');
-    Route::get('cashier/table', 'App\Http\Controllers\Admin\CashierController@index')
+//routes for school admin and cashier
+Route::group(['prefix' => 'school', 'middleware' => ['auth:school', 'role:admin,cashier']], function () {
+    Route::resource('payments', PaymentsController::class);
+    Route::get('cashier/table', [CashierController::class, 'index'])
         ->name('cashierTable');
 });
 
 
-//routes for all auth users
-Route::middleware('auth')->group(function(){
+//routes for all school users
+Route::middleware('auth:school')->prefix('school')->group(function(){
 
-    Route::get('/dashboard', 'App\Http\Controllers\Admin\AdminController@index')->name('dashboard');
-    Route::resource('admin/teachers', 'App\Http\Controllers\Admin\TeachersController');
-    Route::resource('admin/courses', 'App\Http\Controllers\Admin\CoursesController');
-    Route::resource('admin/groups', 'App\Http\Controllers\Admin\GroupsController');
-    Route::get('admin/groups/{id}/add-student', ['App\Http\Controllers\Admin\StudentsController', 'createStudentToGroup']);
-    // Route::get('admin/groups/{group_id}/student/{student_id}', ['App\Http\Controllers\Admin\StudentsController', 'removeFromGroup']);
+    Route::get('/dashboard', [SchoolController::class, 'index'])->name('school.dashboard');
+    Route::resource('/teachers', TeachersController::class);
+    Route::resource('/courses', CoursesController::class);
+    Route::resource('/groups', GroupsController::class);
+    Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
+    // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
     
-    Route::post('admin/add-student-to-group', ['App\Http\Controllers\Admin\StudentsController', 'addStudentToGroup']);
-    Route::resource('admin/students', 'App\Http\Controllers\Admin\StudentsController')->except('create');
-    Route::get('admin/bot-students', ['App\Http\Controllers\Admin\StudentsController', 'botStudents'])->name('botStudents');
-    Route::get('admin/student-qrcodes', ['App\Http\Controllers\Admin\StudentsController', 'studentQrcodes'])->name('studentQrcodes');
-    Route::match(['get', 'post'], 'admin/student/change-group', ['App\Http\Controllers\Admin\StudentsController', 'changeGroup'])->name('changeStudentGroup');
+    Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
+    Route::resource('/students', StudentsController::class)->except('create');
+    Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
+    Route::get('/student-qrcodes', [StudentsController::class, 'studentQrcodes'])->name('studentQrcodes');
+    Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
     
-    Route::get('admin/download-qrcode/{id}', ['App\Http\Controllers\Admin\StudentsController', 'downloadQrcode'])->name('downloadQrcode');
-    Route::get('admin/download-image/{image?}', ['App\Http\Controllers\Admin\StudentsController', 'downloadImage'])->name('downloadImage');
+    Route::get('/download-qrcode/{id}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
+    Route::get('/download-image/{image?}', [StudentsController::class, 'downloadImage'])->name('downloadImage');
 
-    Route::get('admin/events', 'App\Http\Controllers\Admin\EventsController@events');
+    Route::get('/events', [EventsController::class, 'events'])->name('events');
 
-    Route::resource('admin/months', 'App\Http\Controllers\Admin\MonthsController');
-    Route::resource('admin/staffs', 'App\Http\Controllers\Admin\StaffsController');
-    Route::post('/get-groups', 'App\Http\Controllers\Admin\PaymentsController@getGroups');
-    Route::get('/reception', function(){
-        return view('admin.reception');
-    });
-    Route::resource('admin/waiting-students', 'App\Http\Controllers\Admin\WaitingStudentsController');
+    Route::resource('/months', MonthsController::class);
+    Route::resource('/staffs', StaffsController::class);
+    Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
+    Route::get('/reception', [SchoolController::class, 'reception'])->name('schoolReception');
+    Route::resource('/waiting-students', WaitingStudentsController::class);
 
     //event routes
-    Route::get('/student/{id}', 'App\Http\Controllers\Admin\StudentsController@studentEvent')->middleware('cors');
-    Route::get('/staff/{id}', 'App\Http\Controllers\Admin\StaffsController@staffEvent');
+    Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
+    Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
 });
 
+Route::middleware('auth')->prefix('admin')->group(function(){
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
 // Route::get('/fire', function () {
 //     event(new \App\Events\StudentStaffEvent('test'));
 // });
