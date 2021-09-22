@@ -57,12 +57,12 @@ class LoginRequest extends FormRequest
         RateLimiter::clear($this->throttleKey());
     }
 
-    public function schoolAuthenticate()
+    public function userAuthenticate()
     {
         
         $this->ensureIsNotRateLimited();
         
-        if (! Auth::guard('school')->attempt($this->only('email', 'password'), $this->filled('remember'))) {
+        if (! Auth::guard('user')->attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

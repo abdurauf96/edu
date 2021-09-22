@@ -5,7 +5,7 @@ use App\Events\StudentEvent;
 use App\Models\StudentEvent as StudentEventModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\School\RolesController;
-use App\Http\Controllers\School\SchoolController;
+use App\Http\Controllers\School\MainController;
 use App\Http\Controllers\School\PermissionsController;
 use App\Http\Controllers\School\UsersController;
 use App\Http\Controllers\School\PaymentsController;
@@ -19,6 +19,7 @@ use App\Http\Controllers\School\MonthsController;
 use App\Http\Controllers\School\StaffsController;
 use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SchoolController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,15 +48,15 @@ Route::get('/cache', function () {
 
 
 //routes for only school admin
-Route::group(['prefix' => 'school', 'middleware' => ['auth:school', 'role:admin']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']], function () {
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
-    Route::get('payment-statistics', [SchoolController::class, 'paymentStatistics'])->name('paymentStatistics');
+    Route::get('payment-statistics', [MainController::class, 'paymentStatistics'])->name('paymentStatistics');
 });
 
 //routes for school admin and cashier
-Route::group(['prefix' => 'school', 'middleware' => ['auth:school', 'role:admin,cashier']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,cashier']], function () {
     Route::resource('payments', PaymentsController::class);
     Route::get('cashier/table', [CashierController::class, 'index'])
         ->name('cashierTable');
@@ -63,9 +64,9 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:school', 'role:admin,
 
 
 //routes for all school users
-Route::middleware('auth:school')->prefix('school')->group(function(){
+Route::middleware('auth:user')->prefix('school')->group(function(){
 
-    Route::get('/dashboard', [SchoolController::class, 'index'])->name('school.dashboard');
+    Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
@@ -86,7 +87,7 @@ Route::middleware('auth:school')->prefix('school')->group(function(){
     Route::resource('/months', MonthsController::class);
     Route::resource('/staffs', StaffsController::class);
     Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
-    Route::get('/reception', [SchoolController::class, 'reception'])->name('schoolReception');
+    Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
     //event routes
@@ -96,6 +97,8 @@ Route::middleware('auth:school')->prefix('school')->group(function(){
 
 Route::middleware('auth')->prefix('admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/schools', [SchoolController::class, 'index'])->name('admin.schools');
+    Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
 });
 // Route::get('/fire', function () {
 //     event(new \App\Events\StudentStaffEvent('test'));

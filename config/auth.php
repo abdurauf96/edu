@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'admin',
         'passwords' => 'users',
     ],
 
@@ -36,9 +36,9 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
 
         'api' => [
@@ -47,9 +47,9 @@ return [
             'hash' => false,
         ],
 
-        'school' => [
+        'user' => [
             'driver' => 'session',
-            'provider' => 'schools',
+            'provider' => 'users',
         ],
 
         'student' => [
@@ -91,9 +91,9 @@ return [
             'model' => App\Models\Student::class,
         ],
 
-        'schools' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\School::class,
+            'model' => App\Models\Admin::class,
         ],
     ],
 

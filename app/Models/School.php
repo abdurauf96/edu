@@ -11,7 +11,7 @@ class School extends Authenticatable
 {
     use HasFactory, HasRoles;
 
-    protected $fillable=['name', 'phone', 'email', 'addres', 'domain', 'director', 'card_number', 'card_date', 'card_name', 'password'];
+    protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'card_number', 'card_date', 'card_name','status', 'name', 'email', 'password'];
 
     
     /**

@@ -101,27 +101,11 @@
 
           <!-- sidebar menu: : style can be found in sidebar.less -->
 
-          {{-- <ul class="sidebar-menu ">
-            @if(Auth::check() && Auth::user()->hasRole('admin'))
-              @foreach($laravelAdminMenus->menus as $section)
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-edit"></i> <span>{{ $section->section }}</span>
-                  <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                @if($section->items)
-                <ul class="treeview-menu" >
-                  @foreach($section->items as $menu)
-                  <li><a class="menu-url" href="{{ url($menu->url) }}"><i class="fa fa-circle-o"></i> {{ $menu->title }}</a></li>
-                  @endforeach
-                </ul>
-                @endif
-              </li>
-              @endforeach
-            @endif
+          <ul class="sidebar-menu ">
+            
             <li class="treeview">
-              <a href="/admin/courses">
-                <i class="fa fa-desktop"></i> <span>Kurslar</span>
+              <a href="{{ route('admin.schools') }}">
+                <i class="fa fa-desktop"></i> <span>O'quv markazlar</span>
               </a>
             </li>
             <li class="treeview">
@@ -180,42 +164,13 @@
                 <i class="fa fa-group"></i> <span>Xodimlar</span>
               </a>
             </li>
-           @if(Auth::check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cashier')) )
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-money"></i> <span>Buxgalteriya</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-
-              <ul class="treeview-menu" >
-
-                <li class="treeview">
-                  <a href="/admin/payments">
-                    <i class="fa fa-money"></i> <span>To'lovlar</span>
-                  </a>
-                </li>
-
-                 <li class="treeview">
-                   <a href="{{ route('cashierTable') }}">
-                     <i class="fa fa-money"></i> <span>Ko'rish</span>
-                   </a>
-                 </li>
-                  @if(Auth::user()->hasRole('admin'))
-                  <li class="treeview">
-                      <a href="{{ route('paymentStatistics') }}">
-                          <i class="fa fa-money"></i> <span>Statistika</span>
-                      </a>
-                  </li>
-                  @endif
-              </ul>
-            </li>
-            @endif
+           
             <li class="treeview">
               <a href="/reception">
                 <i class="fa fa-check-circle"></i> <span>Reception</span>
               </a>
             </li>
-          </ul> --}}
+          </ul>
       </aside>
 
       <!-- =============================================== -->

@@ -24,15 +24,16 @@ class RegisterSchoolRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'company_name' => 'required',
             'phone' => 'required',
             'addres' => 'required',
-            'email' => 'required|string|email|max:255|unique:schools',
-            'domain' => 'required',
+            'domain' => 'required|unique:schools',
             'director' => 'required',
-            'card_number' => 'required',
+            'card_number' => 'required|unique:schools',
             'card_date' => 'required',
             'card_name' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'name' => 'required|string|max:255',
             'password' => 'required|string|confirmed|min:8',
         ];
     }

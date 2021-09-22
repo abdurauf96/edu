@@ -5,7 +5,7 @@ namespace App\Http\Controllers\School;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use Illuminate\Support\Facades\Http;
-class SchoolController extends Controller
+class MainController extends Controller
 {
     /**
      * Display a listing of the resource.

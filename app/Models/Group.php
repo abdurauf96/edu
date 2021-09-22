@@ -51,6 +51,7 @@ class Group extends Model
         static::deleting(function($group) {
              $group->students()->delete();
         });
+        
     }
 
     /**

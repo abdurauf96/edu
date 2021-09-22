@@ -13,9 +13,9 @@ class RoleUserSeeder extends Seeder
      */
     public function run()
     {
-        return \App\Models\RoleUser::create([
-            'role_id'=>1,
-            'user_id'=>1,
-        ]);
+        // return \App\Models\RoleUser::create([
+        //     'role_id'=>1,
+        //     'user_id'=>1,
+        // ]);
     }
 }

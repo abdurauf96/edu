@@ -68,10 +68,10 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 Route::get('school/register', [SchoolController::class, 'showRegisterForm'])->name('schoolRegisterForm');
 Route::post('school/register', [SchoolController::class, 'register'])->name('schoolRegister');
 Route::get('school/login', [SchoolController::class, 'showLoginForm'])
-        ->middleware('guest:school')
+        ->middleware('guest:user')
         ->name('schoolLoginForm');
 Route::post('school/login', [SchoolController::class, 'login'])->name('schoolLogin');
 
 Route::post('/school/logout', [SchoolController::class, 'destroy'])
-                ->middleware('auth:school')
+                ->middleware('auth:user')
                 ->name('school.logout');

@@ -15,9 +15,8 @@ class CreateSchoolsTable extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('company_name')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
             $table->string('domain')->nullable();
             $table->text('addres')->nullable();
             $table->string('director')->nullable();
@@ -25,7 +24,9 @@ class CreateSchoolsTable extends Migration
             $table->string('card_date')->nullable();
             $table->string('card_name')->nullable();
             $table->string('status')->nullable();
-            $table->string('password');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
