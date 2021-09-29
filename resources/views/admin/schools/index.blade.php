@@ -8,18 +8,19 @@
                 {{-- <a href="{{ route('courses.create') }}" class="btn btn-success btn-sm" title="Add New Course">
                     <i class="fa fa-plus" aria-hidden="true"></i> Yangi qo'shish
                 </a> --}}
-               
+
             </div>
-            
+
             <div class="box-body">
-              
+
                 <div class="table-responsive dataTables_wrapper form-inline" role="grid">
                     <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
-                    
+
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nomi</th>
+                                <th>Status</th>
                                 <th>Amallar</th>
                             </tr>
                         </thead>
@@ -28,19 +29,20 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->company_name }}</td>
-                               
+                                <td>{{ $item->status==1 ? 'faol' : 'faol emas' }}</td>
+
                                 <td>
-                                    
-                                    
+
+                                    Faollashtirish
                                     {!! Form::open([
                                         'method' => 'POST',
                                         'url' => route('activateSchool', $item->id),
                                         'style' => 'display:inline'
                                     ]) !!}
-                                        {!! Form::button('<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array(
+                                        {!! Form::button('<i class="fa fa-check" aria-hidden="true"></i>', array(
                                                 'type' => 'submit',
                                                 'class' => 'btn btn-info btn-sm',
-                                                'title' => 'Delete Course',
+                                                'title' => 'Activate School',
                                                 'onclick'=>'return confirm("Faollashtirmoqchimisiz?")'
                                         )) !!}
                                     {!! Form::close() !!}

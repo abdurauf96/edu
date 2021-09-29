@@ -102,7 +102,7 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
 
           <ul class="sidebar-menu ">
-            
+
             <li class="treeview">
               <a href="{{ route('admin.schools') }}">
                 <i class="fa fa-desktop"></i> <span>O'quv markazlar</span>
@@ -164,7 +164,7 @@
                 <i class="fa fa-group"></i> <span>Xodimlar</span>
               </a>
             </li>
-           
+
             <li class="treeview">
               <a href="/reception">
                 <i class="fa fa-check-circle"></i> <span>Reception</span>

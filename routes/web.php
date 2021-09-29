@@ -36,11 +36,6 @@ Route::get('/', function () {
 })->name('homepage');
 
 
-// Route::get('/welcome', function(){
-//     return view('welcome');
-// })->middleware('auth:school');
-
-
 Route::get('/cache', function () {
     \Artisan::call('config:cache');
     return back();
@@ -72,13 +67,13 @@ Route::middleware('auth:user')->prefix('school')->group(function(){
     Route::resource('/groups', GroupsController::class);
     Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
     // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
-    
+
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     Route::resource('/students', StudentsController::class)->except('create');
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::get('/student-qrcodes', [StudentsController::class, 'studentQrcodes'])->name('studentQrcodes');
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
-    
+
     Route::get('/download-qrcode/{id}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
     Route::get('/download-image/{image?}', [StudentsController::class, 'downloadImage'])->name('downloadImage');
 

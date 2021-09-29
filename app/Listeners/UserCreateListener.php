@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\RoleUser;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\User;
@@ -32,5 +33,6 @@ class UserCreateListener
         $user->email=$event->school->email;
         $user->school_id=$event->school->id;
         $user->save();
+        RoleUser::create(['user_id'=>$user->id, 'role_id'=>1]);
     }
 }

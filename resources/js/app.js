@@ -32,14 +32,13 @@ const app = new Vue({
     created(){
         window.Echo.channel('ReceptionChannel')
         .listen('StudentStaffEvent', (data)=>{
-            //this.students=data.data;
-            console.log("firing");
+            this.students=data.data;
             if(data.data.type=='staff'){
                 window.location.href = '/school/staff/'+data.data.id;
             }else{
                 window.location.href = '/school/student/'+data.data.id;
             }
-            
+
         });
     }
 });

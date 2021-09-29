@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Model
 {
-    use LogsActivity;
+    use LogsActivity, SoftDeletes;
 
 
     /**
@@ -51,7 +52,7 @@ class Group extends Model
         static::deleting(function($group) {
              $group->students()->delete();
         });
-        
+
     }
 
     /**

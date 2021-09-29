@@ -4,7 +4,7 @@
 
 <section class="content">
 
-    <div class="row">
+    <div class="row" id="app">
       <div class="col-md-3">
 
         <!-- Profile Image -->
@@ -28,7 +28,7 @@
               </li>
             </ul>
             @if($student->is_debt()) <a href="#" class="btn btn-danger btn-block"><b>Qarzi bor</b></a> @else <a href="#" class="btn btn-success btn-block"><b>Qarzi yo'q</b></a>  @endif
-            
+
           </div>
           <!-- /.box-body -->
         </div>
@@ -74,7 +74,7 @@
               <th>ID</th>
               <th>Kurs</th>
               <th>Guruh</th>
-           
+
               <th>To'lov qilingan oylar</th>
               <th>To'lov summasi</th>
               <th>To'lov usuli</th>
@@ -85,16 +85,16 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $payment->student->group->course->name }}</td>
                 <td>{{ $payment->student->group->name }}</td>
-                
+
                 <td> {{ $payment->month->name }}</td>
                 <td> {{ $payment->amount }}</td>
                 <td> {{ $payment->type }}</td>
                 <td> {{ $payment->created_at->format('d.m.Y') }}</td>
-                
-            </tr> 
+
+            </tr>
             @endforeach
-            
-           
+
+
           </tbody></table>
         </div>
         <!-- /.nav-tabs-custom -->

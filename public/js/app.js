@@ -61124,13 +61124,11 @@ var app = new Vue({
   created: function created() {
     window.Echo.channel('ReceptionChannel').listen('StudentStaffEvent', function (data) {
       //this.students=data.data;
-      console.log("firing");
+      console.log("firing"); //if(data.data.type=='staff'){
+      //window.location.href = '/school/staff/'+data.data.id;
+      //}else{
 
-      if (data.data.type == 'staff') {
-        window.location.href = '/staff/' + data.data.id;
-      } else {
-        window.location.href = '/student/' + data.data.id;
-      }
+      window.location.href = '/school/student/' + data.id; //}
     });
   }
 });

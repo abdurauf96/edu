@@ -31,8 +31,8 @@ class StudentStaffEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        
+
         return new Channel('ReceptionChannel');
-        
+
     }
 }
