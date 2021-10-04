@@ -20,7 +20,7 @@ class GroupsController extends Controller
     public function index(Request $request)
     {
 
-        $groups = Group::orderBy('status')->latest()->get();
+        $groups = Group::school()->orderBy('status')->latest()->get();
         return view('school.groups.index', compact('groups'));
     }
 
@@ -31,8 +31,8 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        $courses = Course::all();
-        $teachers = Teacher::all();
+        $courses = Course::school()->get();
+        $teachers = Teacher::school()->get();
         return view('school.groups.create', compact('courses', 'teachers'));
     }
 
@@ -82,8 +82,8 @@ class GroupsController extends Controller
     public function edit($id)
     {
         $group = Group::findOrFail($id);
-        $courses = Course::all();
-        $teachers = Teacher::all();
+        $courses = Course::school()->get();
+        $teachers = Teacher::school()->get();
         return view('school.groups.edit', compact('group', 'courses', 'teachers'));
     }
 

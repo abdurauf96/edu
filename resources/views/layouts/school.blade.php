@@ -32,7 +32,7 @@
       <header class="main-header">
         <a href="{{ route('school.dashboard') }}" class="logo">
             <img src="/admin/images/logo.png" style="width:33px;" alt="">
-            <b>Admin Panel</b></a>
+            <b> {{auth()->user()->school->company_name}} </b></a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->

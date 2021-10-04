@@ -4,10 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Traits\School;
 
 class Course extends Model
 {
-    use LogsActivity;
+    use LogsActivity, School;
+
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'courses';
+
+    /**
+    * The database primary key value.
+    *
+    * @var string
+    */
+    protected $primaryKey = 'id';
+
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['school_id', 'name', 'duration', 'price', 'code', 'description'];
 
     public function groups()
     {
@@ -44,32 +66,14 @@ class Course extends Model
         return $this->payments->where('month_id', $month_id)->where('year', $year);
     }
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'courses';
-
-    /**
-    * The database primary key value.
-    *
-    * @var string
-    */
-    protected $primaryKey = 'id';
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'duration', 'price', 'code', 'description'];
-
     public static function boot() {
         parent::boot();
         static::deleting(function($course) {
              $course->groups()->delete();
              $course->teachers()->delete();
+        });
+        static::creating(function ($model){
+            $model->school_id=auth()->guard('user')->user()->school_id;
         });
     }
 

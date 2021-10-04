@@ -35,8 +35,8 @@ class MainController extends Controller
         $active_students=Student::whereStatus(1)->count();
         $out_students=Student::whereStatus(2)->count();
 
-        $teachers=\App\Models\Teacher::with('students')->get();
-        $courses=\App\Models\Course::with('students')->get();
+        $teachers=\App\Models\Teacher::school()->with('students')->get();
+        $courses=\App\Models\Course::school()->with('students')->get();
 
         return view('school.dashboard', compact(  'num_students', 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students'));
     }

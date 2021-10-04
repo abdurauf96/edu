@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \App\Traits\School;
 
 class Group extends Model
 {
-    use LogsActivity, SoftDeletes;
+    use LogsActivity, SoftDeletes, School;
 
 
     /**
@@ -51,6 +52,9 @@ class Group extends Model
         parent::boot();
         static::deleting(function($group) {
              $group->students()->delete();
+        });
+        static::creating(function ($model){
+            $model->school_id=auth()->guard('user')->user()->school_id;
         });
 
     }

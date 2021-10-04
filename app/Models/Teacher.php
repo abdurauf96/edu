@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Traits\School;
 
 class Teacher extends Model
 {
-    use LogsActivity;
-    
+    use LogsActivity, School;
 
     /**
      * The database table used by the model.
@@ -29,7 +29,8 @@ class Teacher extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'birthday', 'address', 'passport', 'phone'];
+
+    protected $fillable = ['school_id', 'name', 'birthday', 'address', 'passport', 'phone'];
 
     public function courses()
     {
@@ -52,7 +53,7 @@ class Teacher extends Model
         foreach ($this->students as $student) {
             array_push($students, $student);
         }
-      
+
         foreach($students as $student){
             $res=array_filter($students, function($student){
                 return $student->is_debt();
@@ -71,6 +72,10 @@ class Teacher extends Model
         static::deleting(function($teacher) {
              $teacher->groups()->delete();
         });
+        static::creating(function ($model){
+            $model->school_id=auth()->guard('user')->user()->school_id;
+        });
+
     }
 
     /**
@@ -85,5 +90,5 @@ class Teacher extends Model
         return __CLASS__ . " model has been {$eventName}";
     }
 
-    
+
 }

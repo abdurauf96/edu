@@ -18,9 +18,8 @@ class TeachersController extends Controller
      */
     public function index(Request $request)
     {
-       
-        $teachers = Teacher::latest()->get();
-    
+        $teachers=Teacher::school()->get();
+
         return view('school.teachers.index', compact('teachers'));
     }
 
@@ -31,7 +30,7 @@ class TeachersController extends Controller
      */
     public function create()
     {
-        $courses = Course::latest()->get();
+        $courses = Course::school()->latest()->get();
         return view('school.teachers.create', compact('courses'));
     }
 
@@ -50,9 +49,8 @@ class TeachersController extends Controller
 			'phone' => 'required'
 		]);
         $requestData = $request->except(['course_id']);
-        
         $teacher=Teacher::create($requestData);
-        
+
         $teacher->courses()->attach($request->course_id);
         return redirect('school/teachers')->with('flash_message', 'O`qituvchi qo`shildi!');
     }
@@ -82,7 +80,7 @@ class TeachersController extends Controller
     {
         $teacher = Teacher::findOrFail($id);
         $course_ids=$teacher->courses->pluck('id')->toArray();
-        $courses = Course::latest()->get();
+        $courses = Course::school()->latest()->get();
         return view('school.teachers.edit', compact('teacher', 'courses', 'course_ids'));
     }
 
@@ -102,7 +100,7 @@ class TeachersController extends Controller
 			'phone' => 'required'
 		]);
         $requestData = $request->except(['course_id']);
-        
+
         $teacher = Teacher::findOrFail($id);
         $teacher->update($requestData);
         $teacher->courses()->sync($request->course_id);

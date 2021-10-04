@@ -17,9 +17,9 @@ class CoursesController extends Controller
      */
     public function index(Request $request)
     {
-       
-        $courses = Course::latest()->get();
-    
+
+        $courses = Course::school()->latest()->get();
+
         return view('school.courses.index', compact('courses'));
     }
 
@@ -47,7 +47,7 @@ class CoursesController extends Controller
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         Course::create($requestData);
 
         return redirect('school/courses')->with('flash_message', 'Kurs qo`shildi!');
@@ -96,7 +96,7 @@ class CoursesController extends Controller
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         $course = Course::findOrFail($id);
         $course->update($requestData);
 
