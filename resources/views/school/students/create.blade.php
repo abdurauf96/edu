@@ -16,7 +16,7 @@
                     </ul>
                 @endif
                 <div class="col-lg-6">
-                    {!! Form::open(['url' => '/admin/students', 'files'=>true, 'class' => 'form-horizontal add_student_form', 'files' => true]) !!}
+                    {!! Form::open(['url' => '/school/students', 'files'=>true, 'class' => 'form-horizontal add_student_form', 'files' => true]) !!}
 
                     @include ('school.students.form', ['formMode' => 'create'])
 
@@ -34,7 +34,7 @@
             </div>
             <div class="box-body">
 
-                <form action="/admin/add-student-to-group" method="POST" class="exist_student_form" >
+                <form action="/school/add-student-to-group" method="POST" class="exist_student_form" >
                     <!-- Dropdown -->
                     @csrf
                     <div class="form-group">

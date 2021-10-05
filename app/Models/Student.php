@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use App\Traits\School;
 
 class Student extends Authenticatable
 {
-    use LogsActivity, HasApiTokens;
+    use LogsActivity, HasApiTokens, School;
 
     /**
      * The database table used by the model.
@@ -63,6 +64,9 @@ class Student extends Authenticatable
         parent::boot();
         static::deleting(function($student) {
              $student->payments()->delete();
+        });
+        static::creating(function ($model){
+            $model->school_id=auth()->guard('user')->user()->school_id;
         });
     }
 

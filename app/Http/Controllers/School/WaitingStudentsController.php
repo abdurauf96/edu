@@ -20,7 +20,7 @@ class WaitingStudentsController extends Controller
     {
 
         $waitingstudents = WaitingStudent::latest()->get();
-        $courses=Course::all();
+        $courses=Course::school()->get();
         return view('school.waiting-students.index', compact('waitingstudents', 'courses'));
     }
 
@@ -31,7 +31,7 @@ class WaitingStudentsController extends Controller
      */
     public function create()
     {
-        $courses=Course::all();
+        $courses=Course::school()->get();
         return view('school.waiting-students.create', compact('courses'));
     }
 
@@ -80,7 +80,7 @@ class WaitingStudentsController extends Controller
     public function edit($id)
     {
         $waitingstudent = WaitingStudent::findOrFail($id);
-        $courses=Course::all();
+        $courses=Course::school()->get();
         return view('school.waiting-students.edit', compact('waitingstudent', 'courses'));
     }
 

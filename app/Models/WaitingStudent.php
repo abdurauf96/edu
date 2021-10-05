@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Traits\School;
 
 class WaitingStudent extends Model
 {
-    use LogsActivity;
+    use LogsActivity, School;
 
 
     /**
@@ -43,6 +44,14 @@ class WaitingStudent extends Model
      *
      * @return string
      */
+
+    public static function boot() {
+        parent::boot();
+        static::creating(function ($model){
+            $model->school_id=auth()->guard('user')->user()->school_id;
+        });
+    }
+
     public function getDescriptionForEvent($eventName)
     {
         return __CLASS__ . " model has been {$eventName}";

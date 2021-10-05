@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 
 class StudentRepository extends BaseRepository implements StudentRepositoryInterface{
     public function getAll(){
-        return Student::latest()->get();
+        return Student::school()->latest()->get();
     }
 
     public function create($request){
@@ -24,6 +24,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $requestData['code']=$filename;
 
         $lastStudent=$this->getLastStudent();
+
         $requestData['username']=$this->generateIdNumber($lastStudent, $request->group_id);
         $requestData['password']=$this->generatePassword($requestData['year']);
 
@@ -55,7 +56,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
 
     public function getLastStudent()
     {
-        return Student::latest()->first();
+        return Student::school()->latest()->first();
     }
 
     public function generateIdNumber($student, $group_id)
@@ -64,7 +65,12 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $group=Group::findOrFail($group_id);
 
         //21MDC001 ~ year - course_code - student_number
-        $last_number=intval(substr($student->username, -4));
+        if(empty($student)){
+            $last_number=0000;
+        }else{
+            $last_number=intval(substr($student->username, -4));
+        }
+
         $number = str_pad($last_number+1, 4, 0, STR_PAD_LEFT);
         $course_code=$group->course->code;
         $current_year=date('y');

@@ -45,9 +45,9 @@ class StudentsController extends Controller
 
     public function createStudentToGroup($id)
     {
-        $group=Group::with('course')->findOrFail($id);
+        $group=Group::school()->with('course')->findOrFail($id);
         $waitingStudents=WaitingStudent::all();
-        $groups=Group::all();
+        $groups=Group::school()->get();
         return view('school.students.create', compact('group', 'waitingStudents', 'groups'));
     }
 
@@ -86,9 +86,9 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-      
+
         $student = $this->studentRepo->findOne($id);
-        $groups=Group::all();
+        $groups=Group::school()->get();
         return view('school.students.edit', compact('student', 'groups'));
     }
 
@@ -104,7 +104,7 @@ class StudentsController extends Controller
     {
         $this->studentRepo->update($request, $id);
         $last_route=$request->last_route;
-        return redirect($last_route)->with('flash_message', 'O`quvchi yangilandi!');        
+        return redirect($last_route)->with('flash_message', 'O`quvchi yangilandi!');
 
     }
 
@@ -144,15 +144,15 @@ class StudentsController extends Controller
 
     public function botStudents()
     {
-        $botStudents=BotStudent::latest()->get();
+        $botStudents=BotStudent::school()->latest()->get();
         return view('school.students.botStudents', compact('botStudents'));
     }
 
     public function studentQrcodes()
     {
-        
-        $students=Student::latest()->select('id', 'name', 'code', 'image', 'qrcode_status')->get();
-        
+
+        $students=Student::school()->latest()->select('id', 'name', 'code', 'image', 'qrcode_status')->get();
+
         return view('school.students.qrcodes', compact('students'));
     }
 
@@ -175,18 +175,18 @@ class StudentsController extends Controller
             $description=<<<TEXT
 {$student->name}  {$student->group->course->name} kursi {$student->group->name} guruhidan {$new_group->course->name} kursi {$new_group->name} guruhiga o'tdi
 TEXT;
-          
+
             StudentActivity::create(['student_id'=>$request->student_id, 'description'=>$description ]);
             $student->group_id=$request->new_group_id;
             $student->save();
             return back()->with('flash_message', 'O`quvchi '.$new_group->name. '  ga ko`chirildi');
         }else{
             $students = $this->studentRepo->getAll();
-            $groups=Group::all();
-            $courses=Course::all();
+            $groups=Group::school()->get();
+            $courses=Course::school()->get();
             return view('school.students.changeGroup', compact('students', 'groups', 'courses'));
         }
-        
+
     }
 
 
