@@ -7,7 +7,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Payment extends Model
 {
-    use LogsActivity;
+    use LogsActivity, \App\Traits\School;
 
 
     /**
@@ -55,6 +55,14 @@ class Payment extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function ($model){
+            $model->school_id=auth()->guard('user')->user()->school_id;
+        });
+    }
+
 
     /**
      * Change activity log event description

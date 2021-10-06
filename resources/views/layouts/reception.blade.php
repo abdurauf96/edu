@@ -30,7 +30,7 @@
 
       <header class="main-header">
 
-        <a href="/dashboard" class="logo">
+        <a href="/school/dashboard" class="logo">
           <img src="/admin/images/logo.png" style="width:33px;" alt="">
           <b>Dashboard</b>
         </a>

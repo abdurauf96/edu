@@ -44,7 +44,7 @@ Route::get('/cache', function () {
 
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']], function () {
-    Route::resource('roles', RolesController::class);
+    //Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
     Route::get('payment-statistics', [MainController::class, 'paymentStatistics'])->name('paymentStatistics');

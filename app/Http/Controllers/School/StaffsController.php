@@ -24,9 +24,9 @@ class StaffsController extends Controller
      */
     public function index(Request $request)
     {
-       
-        $staffs = Staff::latest()->get();
-    
+
+        $staffs = Staff::school()->latest()->get();
+
         return view('school.staffs.index', compact('staffs'));
     }
 

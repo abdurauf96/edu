@@ -37,7 +37,7 @@
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->address }}</td>
 
-                                <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td>
+                                <td><img src="/admin/images/{{$item->getSchool->company_name}}/students/{{ $item->image }}" width="100" alt=""></td>
                                 <td>
                                     <a href="{{ url('/school/students/' . $item->id) }}" title="View Student"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                     <a href="{{ url('/school/students/' . $item->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>

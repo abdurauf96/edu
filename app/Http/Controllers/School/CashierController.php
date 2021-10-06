@@ -22,15 +22,15 @@ class CashierController extends Controller
                 array_push($ids, $student->id);
             }
             $payments=$payments->whereIn('student_id', $ids);
-            
+
         }
         if(request()->get('month_id')){
             $month_id=request()->get('month_id');
             $payments=$payments->where('month_id', $month_id);
         }
         $payments = $payments->get();
-        
-        $courses=\App\Models\Course::all();
+
+        $courses=\App\Models\Course::school()->get();
         $months=\App\Models\Month::all();
         return view('school.cashier.table', compact('payments', 'courses', 'months'));
     }

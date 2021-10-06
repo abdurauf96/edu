@@ -15,13 +15,16 @@ class EventsController extends BaseController
 {
     public function event($type, $id, $status, $time)
     {
+
         if($type=='staff'){
             $staff=Staff::findOrFail($id);
             $name=$staff->name;
+            $school_id=$staff->school_id;
             $resource=new StaffResource($staff);
         }else{
             $student=Student::findOrFail($id);
             $name=$student->name;
+            $school_id=$student->school_id;
             $resource=new StudentResource($student);
         }
 
@@ -32,11 +35,14 @@ class EventsController extends BaseController
             'name'=>$name,
             'status'=>$status,
             'time'=>$time,
+            'school_id'=>$school_id,
         ];
         $data=['type'=>$type, 'id'=>$id];
         $event=EventModel::where(['type'=>$type, 'person_id'=>$id])->latest()->first();
+
         if($event){
             if($event->status!=$status){
+
                 EventModel::create($newRecord);
                 event(new StudentStaffEvent($data));
                 return $this->sendResponse($resource);
@@ -44,7 +50,9 @@ class EventsController extends BaseController
                 return response()->json(['success'=>false, 'data'=>$resource]);
             }
         }else {
+
             EventModel::create($newRecord);
+
             event(new StudentStaffEvent($data));
             return $this->sendResponse($resource);
         }

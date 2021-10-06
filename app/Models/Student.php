@@ -7,6 +7,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use App\Traits\School;
+use App\Models\School as SchoolModel;
 
 class Student extends Authenticatable
 {
@@ -59,6 +60,10 @@ class Student extends Authenticatable
             return true;
         }
     }
+    public function getSchool(){
+        return $this->belongsTo(SchoolModel::class, 'school_id');
+    }
+
 
     public static function boot() {
         parent::boot();

@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-           
+
             <div class="box-body">
 
                 <a href="{{ url()->previous() }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
@@ -31,8 +31,8 @@
                                 <th>ID</th><td>{{ $student->id }}</td>
                             </tr>
                             <tr><th> F.I.O </th><td> {{ $student->name }} </td></tr>
-                            <tr><th> Guruh </th><td> 
-                                {{ $student->group->name }} 
+                            <tr><th> Guruh </th><td>
+                                {{ $student->group->name }}
                             </td></tr>
                             <tr><th> Telefon </th><td> {{ $student->phone }} </td></tr>
                             <tr><th> Manzili </th><td> {{ $student->address }} </td></tr>
@@ -41,17 +41,17 @@
                             <tr><th> Jinsi </th><td> {{ $student->sex==1 ? 'O\'g\'il' : 'Qiz'  }} </td></tr>
                             <tr><th> O'qish turi </th><td> {{ $student->type==1 ? 'Grant' : 'Oddiy'  }} </td></tr>
                             <tr><th>Xolati </th> <td>  @if($student->is_debt()) <span class='label label-danger'> qarzi bor</span> @else <span class='label label-success'> qarzi yo'q</span>  @endif  </td> </tr>
-                            <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
+                            <tr><th> Rasmi </th><td> <img src="/admin/images/{{ $student->getSchool->company_name }}/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>Status</th>  <td>{{ $student->status==1? 'O`qimoqda' : 'Bitirib ketgan'}}</td> </tr>
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->code }}" width="300" alt=""></td></tr>
-                            
+
                         </tbody>
                     </table>
                 </div>
 
             </div>
 
-            
+
         </div>
         <div class="box">
             <div class="box-header">
@@ -80,11 +80,11 @@
                     <td> {{ $payment->amount }}</td>
                     <td> {{ $payment->type }}</td>
                     <td> {{ $payment->created_at->format('d.m.Y') }}</td>
-                    
-                </tr> 
+
+                </tr>
                 @endforeach
-                
-               
+
+
               </tbody></table>
             </div>
             <!-- /.box-body -->

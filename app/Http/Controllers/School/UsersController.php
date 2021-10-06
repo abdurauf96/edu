@@ -16,7 +16,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::latest()->get();
+        $users = User::where('school_id', auth()->guard('user')->user()->school_id)->latest()->get();
         return view('school.users.index', compact('users'));
     }
 

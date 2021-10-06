@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-           
+
             <div class="box-body">
 
                 <a href="{{ url('/school/staffs') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
@@ -36,8 +36,8 @@
                             <tr><th> Tug'ilgan yili </th><td> {{ $staff->year }} </td></tr>
                             <tr><th> Passport malumotlari </th><td> {{ $staff->passport }} </td></tr>
                             <tr><th> Manzili </th><td> {{ $staff->addres }} </td></tr>
-                            <tr><th> Rasm </th><td> <img src="/admin/images/staffs/{{ $staff->image }}" width="100" alt="">  </td></tr>
-                            <tr><th> QR code </th><td> <img src="/admin/images/qrcodes/{{ $staff->qrcode }}" width="200" alt=""> </td></tr>
+                            <tr><th> Rasm </th><td> <img src="/admin/images/{{ $staff->getSchool->company_name }}/staffs/{{ $staff->image }}" width="100" alt="">  </td></tr>
+                            <tr><th> QR code </th><td> <img src="/admin/images/{{ $staff->getSchool->company_name }}/qrcodes/{{ $staff->qrcode }}" width="200" alt=""> </td></tr>
                         </tbody>
                     </table>
                 </div>

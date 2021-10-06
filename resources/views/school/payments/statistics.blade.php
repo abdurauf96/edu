@@ -29,7 +29,7 @@
                         </td>
                         <td>{{ number_format($stat['real_sum'],0,'.', ',') }}</td>
                         <td>{{ number_format($stat['fact_sum']-$stat['real_sum'],0,'.', ',') }}</td>
-                        <td>  {{ number_format(round($stat['real_sum']/$stat['fact_sum']*100),0,'.', ',') }} % </td>
+                        <td> @if($stat['fact_sum']!=0) {{ number_format(round($stat['real_sum']/$stat['fact_sum']*100),0,'.', ',') }} @else 0 @endif % </td>
                     </tr>
                     @endforeach
                     <tr>
@@ -38,7 +38,7 @@
                         <td> <b> {{ number_format($statistika['all']['fact_sum'],0,'.', ',') }}</b></td>
                         <td><b>{{ number_format($statistika['all']['real_sum'],0,'.', ',') }}</b></td>
                         <td><b>{{ number_format($statistika['all']['fact_sum']-$statistika['all']['real_sum'],0,'.', ',') }}</b></td>
-                        <td><b> {{  number_format(round($statistika['all']['real_sum']/$statistika['all']['fact_sum']*100 ),0,'.', ',') }} % </b></td>
+                        <td><b>  {{  number_format(round($statistika['all']['real_sum']/$statistika['all']['fact_sum']*100 ),0,'.', ',') }} % </b></td>
                     </tr>
 
                 </tbody>

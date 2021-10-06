@@ -10,7 +10,7 @@ use App\Models\Payment;
 class PaymentRepository extends BaseRepository implements PaymentRepositoryInterface{
     public function getAll()
     {
-        return Payment::latest()->get();
+        return Payment::school()->latest()->get();
     }
 
     public function create($request)
@@ -35,7 +35,7 @@ class PaymentRepository extends BaseRepository implements PaymentRepositoryInter
 
     public function getPaymentResultsByMonth($year, $month)
     {
-        $courses= Course::all();
+        $courses= Course::school()->get();
         $statistika=['all'=> ['fact_sum'=>0, 'real_sum'=>0] ];
 
         foreach ($courses as $course) {

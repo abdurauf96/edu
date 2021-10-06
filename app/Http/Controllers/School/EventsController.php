@@ -9,7 +9,7 @@ class EventsController extends Controller
 {
     public function events()
     {
-        $events=\App\Models\Event::latest()->get();
+        $events=\App\Models\Event::school()->latest()->get();
         return view('school.events.events', compact('events'));
     }
 }
