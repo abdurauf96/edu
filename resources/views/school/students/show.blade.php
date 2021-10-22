@@ -44,7 +44,7 @@
                             <tr><th> Rasmi </th><td> <img src="/admin/images/{{ $student->getSchool->company_name }}/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>Status</th>  <td>{{ $student->status==1? 'O`qimoqda' : 'Bitirib ketgan'}}</td> </tr>
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->code }}" width="300" alt=""></td></tr>
-
+                            <tr><th>Username</th> <td>{{ $student->username }}</td> </tr>
                         </tbody>
                     </table>
                 </div>

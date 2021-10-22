@@ -14,7 +14,7 @@ class AddSchoolIdToBotStudentsTable extends Migration
     public function up()
     {
         Schema::table('bot_students', function (Blueprint $table) {
-            $table->integer('school_id');
+            $table->integer('school_id')->default(1);
             $table->softDeletes();
         });
     }

@@ -31,7 +31,7 @@ $(function () {
   // bootstrap WYSIHTML5 - text editor
   $('.textarea').wysihtml5();
 
-  $('.daterange').daterangepicker({
+  $('.datepicker').daterangepicker({
     ranges   : {
       'Today'       : [moment(), moment()],
       'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

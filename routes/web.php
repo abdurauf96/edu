@@ -32,7 +32,7 @@ use App\Http\Controllers\Admin\SchoolController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/school/login');
 })->name('homepage');
 
 
@@ -78,6 +78,7 @@ Route::middleware('auth:user')->prefix('school')->group(function(){
     Route::get('/download-image/{image?}', [StudentsController::class, 'downloadImage'])->name('downloadImage');
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');
+    Route::get('/filter', [EventsController::class, 'filter'])->name('filterEvents');
 
     Route::resource('/months', MonthsController::class);
     Route::resource('/staffs', StaffsController::class);
@@ -85,14 +86,17 @@ Route::middleware('auth:user')->prefix('school')->group(function(){
     Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
+
     //event routes
     Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
     Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
 });
 
+//admin routes
 Route::middleware('auth')->prefix('admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/schools', [SchoolController::class, 'index'])->name('admin.schools');
+    Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('admin.schoolDetail');
     Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
 });
 // Route::get('/fire', function () {

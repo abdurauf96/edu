@@ -14,7 +14,7 @@ class AddSchoolIdToStudentActivitiesTable extends Migration
     public function up()
     {
         Schema::table('student_activities', function (Blueprint $table) {
-            $table->integer('school_id');
+            $table->integer('school_id')->default(1);
             $table->softDeletes();
         });
     }

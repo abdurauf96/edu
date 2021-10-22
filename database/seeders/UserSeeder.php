@@ -14,11 +14,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // return \App\Models\User::create([
-        //     'id'=>1,
-        //     'name'=>'Adminstrator',
-        //     'email'=>'admin@admin.com',
-        //     'password'=>Hash::make('password'),
-        // ]);
+         return \App\Models\User::create([
+             'id'=>1,
+             'name'=>'Adminstrator',
+             'email'=>'admin@admin.com',
+             'password'=>Hash::make('password'),
+         ]);
     }
 }

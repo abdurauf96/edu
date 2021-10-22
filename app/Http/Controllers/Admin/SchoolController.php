@@ -13,6 +13,12 @@ class SchoolController extends Controller
         $schools=School::all();
         return view('admin.schools.index', compact('schools'));
     }
+    public function detail(School $school)
+    {
+
+        return view('admin.schools.detail', compact('school'));
+    }
+
 
     public function activate($id)
     {

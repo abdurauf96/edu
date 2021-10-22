@@ -54,6 +54,7 @@ class UsersController extends Controller
 
         $data = $request->except('password');
         $data['password'] = bcrypt($request->password);
+        $data['school_id'] = auth()->guard('user')->user()->school_id;
         $user = User::create($data);
 
         foreach ($request->roles as $role) {

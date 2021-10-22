@@ -151,7 +151,7 @@ class StudentsController extends Controller
     public function studentQrcodes()
     {
 
-        $students=Student::school()->latest()->select('id', 'name', 'code', 'image', 'qrcode_status')->get();
+        $students=Student::school()->latest()->select('id', 'school_id', 'name', 'code', 'image', 'qrcode_status')->get();
 
         return view('school.students.qrcodes', compact('students'));
     }

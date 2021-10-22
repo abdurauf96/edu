@@ -13,15 +13,28 @@ class School extends Authenticatable
 
     protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'card_number', 'card_date', 'card_name','status', 'name', 'email', 'password'];
 
-    
+
     /**
         * The roles that belong to the School
         *
         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
         */
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+    public function teachers()
+    {
+        return $this->hasMany(Teacher::class);
+    }
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
-    
+
 }

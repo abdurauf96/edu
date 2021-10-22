@@ -14,8 +14,8 @@ class AddSchoolIdToGroupsTable extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->integer('school_id');
-            $table->softDeletes();
+            $table->integer('school_id')->default(1);
+            //$table->softDeletes();
         });
     }
 
@@ -28,7 +28,7 @@ class AddSchoolIdToGroupsTable extends Migration
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->dropColumn('school_id');
-            $table->dropColumn('deleted_at');
+            //$table->dropColumn('deleted_at');
         });
     }
 }

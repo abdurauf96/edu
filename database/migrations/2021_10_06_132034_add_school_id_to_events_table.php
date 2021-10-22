@@ -14,7 +14,7 @@ class AddSchoolIdToEventsTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->integer('school_id');
+            $table->integer('school_id')->default(1);
             $table->softDeletes();
         });
     }

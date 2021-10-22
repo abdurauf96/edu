@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleSchoolTable extends Migration
+class AddSchoolIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateRoleSchoolTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_school', function (Blueprint $table) {
-            $table->id();
-            $table->integer('role_id');
-            $table->bigInteger('school_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->bigInteger('school_id')->default(1);
         });
     }
 
@@ -27,6 +25,8 @@ class CreateRoleSchoolTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_school');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('school_id');
+        });
     }
 }

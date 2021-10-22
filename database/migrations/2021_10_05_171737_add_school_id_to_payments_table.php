@@ -14,7 +14,7 @@ class AddSchoolIdToPaymentsTable extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->integer('school_id');
+            $table->integer('school_id')->default(1);
             $table->softDeletes();
         });
     }

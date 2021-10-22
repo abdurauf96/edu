@@ -29,23 +29,25 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->company_name }}</td>
-                                <td>{{ $item->status==1 ? 'faol' : 'faol emas' }}</td>
+                                <td>@if($item->status==1) <span class='label label-success'>Faol </span> @else <span class="label label-danger">Faol emas </span> @endif</td>
 
                                 <td>
 
-                                    Faollashtirish
+
                                     {!! Form::open([
                                         'method' => 'POST',
                                         'url' => route('activateSchool', $item->id),
                                         'style' => 'display:inline'
                                     ]) !!}
-                                        {!! Form::button('<i class="fa fa-check" aria-hidden="true"></i>', array(
+                                        {!! Form::button('Faollashtirish', array(
                                                 'type' => 'submit',
-                                                'class' => 'btn btn-info btn-sm',
+                                                'class' => 'btn btn-primary btn-sm',
                                                 'title' => 'Activate School',
                                                 'onclick'=>'return confirm("Faollashtirmoqchimisiz?")'
                                         )) !!}
                                     {!! Form::close() !!}
+
+                                    <a class="btn btn-primary" href="{{ route('admin.schoolDetail', $item->id) }}">Batafsil</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSchoolIdToStudentsTable extends Migration
+class CreateRoleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddSchoolIdToStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->integer('school_id')->default(1);
-            $table->softDeletes();
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->id();
+            $table->integer('role_id');
+            $table->integer('user_id');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +28,6 @@ class AddSchoolIdToStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->dropColumn('school_id');
-            $table->dropColumn('deleted_at');
-        });
+        Schema::dropIfExists('role_user');
     }
 }

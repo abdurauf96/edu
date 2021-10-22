@@ -12,13 +12,25 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-       
-       
-   
+
+
+        <style>
+            .register-box{
+                display: flex;
+
+            }
+            .register-box div{
+                margin-right: 10px;
+            }
+            h1{
+                font-size: 33px;
+                margin-bottom: 20px;
+            }
+        </style>
 
         <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-       
+
 
     </head>
     <body>

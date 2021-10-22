@@ -1,3 +1,5 @@
+
 {"menus":[{"section":"Adminstratsiya","items":[
-    {"title":"Foydalanuvchilar","url":"\/school\/users"}
+    {"title":"Foydalanuvchilar","url":"\/school\/users"},
+    {"title":"Ro`llar","url":"\/school\/roles"}
 ]}]}

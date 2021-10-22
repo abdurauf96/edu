@@ -57,12 +57,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    public static function boot() {
-        parent::boot();
-
-        static::creating(function ($model){
-            $model->school_id=auth()->guard('user')->user()->school_id;
-        });
-
-    }
+//    public static function boot() {
+//        parent::boot();
+//
+//        static::creating(function ($model){
+//            $model->school_id=auth()->guard('user')->user()->school_id;
+//        });
+//
+//    }
 }

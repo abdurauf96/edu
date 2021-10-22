@@ -14,7 +14,7 @@ class AddSchoolIdToTeachersTable extends Migration
     public function up()
     {
         Schema::table('teachers', function (Blueprint $table) {
-            $table->bigInteger('school_id');
+            $table->bigInteger('school_id')->default(1);
             $table->softDeletes();
         });
     }
