@@ -43,9 +43,9 @@ class LoginRequest extends FormRequest
      */
     public function adminAuthenticate()
     {
-        
+
         $this->ensureIsNotRateLimited();
-        
+
         if (! Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
@@ -59,9 +59,9 @@ class LoginRequest extends FormRequest
 
     public function userAuthenticate()
     {
-        
+
         $this->ensureIsNotRateLimited();
-        
+
         if (! Auth::guard('user')->attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
@@ -71,6 +71,22 @@ class LoginRequest extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+    }
+
+    public function teacherAuthenticate(){
+
+        $this->ensureIsNotRateLimited();
+
+        if (! Auth::guard('teacher')->attempt($this->only('email', 'password'), $this->filled('remember'))) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        RateLimiter::clear($this->throttleKey());
+
     }
 
     /**

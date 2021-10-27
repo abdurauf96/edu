@@ -75,3 +75,9 @@ Route::post('school/login', [SchoolController::class, 'login'])->name('schoolLog
 Route::post('/school/logout', [SchoolController::class, 'destroy'])
                 ->middleware('auth:user')
                 ->name('school.logout');
+
+
+
+Route::get('/teacher/login', [\App\Http\Controllers\Auth\TeacherController::class, 'showLoginForm'])->middleware('guest:teacher');
+Route::post('/teacher/login', [\App\Http\Controllers\Auth\TeacherController::class, 'login'])->name('teacherLogin');
+Route::post('/teacher/logout', [\App\Http\Controllers\Auth\TeacherController::class, 'destroy'])->name('teacherLogout');

@@ -20,18 +20,21 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
-        
+
         foreach ($guards as $guard) {
-           
+
             if (Auth::guard($guard)->check()) {
                 if($guard=='user'){
                     return redirect(RouteServiceProvider::SCHOOL_HOME);
-                }else{
+                }elseif($guard=='teacher'){
+                    return redirect(RouteServiceProvider::TEACHER_HOME);
+                }
+                else{
                     return redirect(RouteServiceProvider::HOME);
                 }
-                
+
             }
-            
+
         }
 
         return $next($request);

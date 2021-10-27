@@ -17,6 +17,6 @@ TEXT;
         ->margin(5)
         ->errorCorrection('H')
         ->merge('/public/admin/images/DC.png')
-        ->generate($qrcode_info, public_path('admin/images/'.auth()->guard('user')->user()->school->company_name.'/qrcodes/'.$filename));
+        ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
     }
 }

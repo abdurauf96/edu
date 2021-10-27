@@ -4,14 +4,14 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-           
+
             <div class="box-body">
 
                 <a href="{{ url('/school/groups') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <a href="{{ url('/school/groups/' . $group->id . '/edit') }}" title="Edit Group"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tahrirlash</button></a>
                 {!! Form::open([
                     'method'=>'DELETE',
-                    'url' => ['admin/groups', $group->id],
+                    'url' => ['school/groups', $group->id],
                     'style' => 'display:inline'
                 ]) !!}
                     {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> O`chirish', array(
@@ -41,22 +41,22 @@
                 <hr>
                 <div class="students-title">
                     <p>Guruh o'quvchilari</p>
-                
-                    <a class="btn btn-success" href="{{ url('/admin/groups/' . $group->id . '/add-student') }}" title="Add Student"><i class="fa fa-user-plus" aria-hidden="true"></i> O'quvchi qo'shish</a>
+
+                    <a class="btn btn-success" href="{{ url('/school/groups/' . $group->id . '/add-student') }}" title="Add Student"><i class="fa fa-user-plus" aria-hidden="true"></i> O'quvchi qo'shish</a>
                 </div>
-                
+
                 <div class="table-responsive dataTables_wrapper form-inline" role="grid">
                     <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
-                    
+
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>F.I.O</th>
                                 <th>Manzil</th>
                                 <th>Tug'ilgan yili</th>
-                                <th>Telefon</th> 
-                                <th>Passport</th> 
-                                <th>Code</th> 
+                                <th>Telefon</th>
+                                <th>Passport</th>
+                                <th>Code</th>
                                 <th>Rasm</th>
                                 {{-- <th>Amallar</th> --}}
                             </tr>
@@ -73,19 +73,19 @@
                                 <td>{{ $student->code }}</td>
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
                                 <td>
-                                    
+
                                     <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    
+
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                   
+
                 </div>
             </div>
 
-            
+
         </div>
     </div>
 </div>

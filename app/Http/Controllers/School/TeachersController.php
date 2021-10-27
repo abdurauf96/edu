@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use App\Repositories\Interfaces\TeacherRepositoryInterface;
 
 class TeachersController extends Controller
 {
@@ -16,6 +17,13 @@ class TeachersController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public $teacherRepo;
+
+    public function __construct(TeacherRepositoryInterface $teacherRepo)
+    {
+        $this->teacherRepo=$teacherRepo;
+    }
+
     public function index(Request $request)
     {
         $teachers=Teacher::school()->get();
@@ -46,12 +54,13 @@ class TeachersController extends Controller
         $this->validate($request, [
 			'name' => 'required',
 			'course_id' => 'required',
-			'phone' => 'required'
+			'phone' => 'required',
+            'passport'=>'required',
+            'birthday'=>'required',
 		]);
-        $requestData = $request->except(['course_id']);
-        $teacher=Teacher::create($requestData);
 
-        $teacher->courses()->attach($request->course_id);
+        $this->teacherRepo->store($request->all());
+
         return redirect('school/teachers')->with('flash_message', 'O`qituvchi qo`shildi!');
     }
 

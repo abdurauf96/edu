@@ -17,7 +17,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
-            $path='admin/images/'.auth()->guard('user')->user()->school->company_name.'/students';
+            $path='admin/images/students';
             $file->move($path, $image);
             $requestData['image']=$image;
         }
@@ -47,7 +47,7 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
-            $path='admin/images/'.auth()->guard('user')->user()->school->company_name.'/students';
+            $path='admin/images/students';
             $file->move($path, $image);
             $requestData['image']=$image;
         }

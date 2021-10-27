@@ -15,7 +15,7 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
-            $path='admin/images/'.auth()->guard('user')->user()->school->company_name.'/staffs';
+            $path='admin/images/staffs';
             $file->move($path, $image);
             $requestData['image']=$image;
         }
@@ -33,7 +33,7 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
-            $path='admin/images/'.auth()->guard('user')->user()->school->company_name.'/staffs';
+            $path='admin/images/staffs';
             $file->move($path, $image);
             $requestData['image']=$image;
         }

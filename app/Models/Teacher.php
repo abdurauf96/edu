@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\School;
-
-class Teacher extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\School as SchoolModel;
+class Teacher extends Authenticatable
 {
     use LogsActivity, School;
 
@@ -30,8 +31,14 @@ class Teacher extends Model
      * @var array
      */
 
-    protected $fillable = ['school_id', 'name', 'birthday', 'address', 'passport', 'phone'];
+    protected $attributes=['email'=>'teacher@teacher.com'];
 
+    protected $fillable = ['school_id', 'name', 'birthday', 'address', 'passport', 'phone', 'email', 'password'];
+
+    public function getSchool()
+    {
+        return $this->belongsTo(SchoolModel::class, 'school_id');
+    }
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'teacher_course');

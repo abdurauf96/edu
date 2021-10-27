@@ -20,6 +20,8 @@ use App\Http\Controllers\School\StaffsController;
 use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SchoolController;
+
+use App\Http\Controllers\Teacher\TeacherController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +34,7 @@ use App\Http\Controllers\Admin\SchoolController;
 */
 
 Route::get('/', function () {
-    return redirect('/school/login');
+    return redirect('/');
 })->name('homepage');
 
 
@@ -99,6 +101,14 @@ Route::middleware('auth')->prefix('admin')->group(function(){
     Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('admin.schoolDetail');
     Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
 });
+
+//teacher routes
+Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(function(){
+    Route::get('dashboard',  [TeacherController::class, 'dashboard'])->name('dashboard');
+    Route::get('students',  [TeacherController::class, 'students'])->name('students');
+    Route::get('profil',  [TeacherController::class, 'profil'])->name('profil');
+});
+
 // Route::get('/fire', function () {
 //     event(new \App\Events\StudentStaffEvent('test'));
 // });
