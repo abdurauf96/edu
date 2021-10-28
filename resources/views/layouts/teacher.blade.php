@@ -22,7 +22,6 @@
     <link href="/admin/css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @yield('css')
 </head>
 <body class="skin-blue">
@@ -113,68 +112,7 @@
                         <i class="fa fa-users"></i> <span>O'quvchilar</span>
                     </a>
                 </li>
-                {{--            <li class="treeview">--}}
-                {{--              <a href="/admin/teachers">--}}
-                {{--                <i class="fa fa-graduation-cap"></i> <span>O'qituvchilar</span>--}}
-                {{--              </a>--}}
-                {{--            </li>--}}
-                {{--            <li class="treeview">--}}
-                {{--              <a href="/admin/groups">--}}
-                {{--                <i class="fa fa-group"></i> <span>Guruhlar</span>--}}
-                {{--              </a>--}}
-                {{--            </li>--}}
 
-                {{--            <li class="treeview">--}}
-                {{--                <a href="#">--}}
-                {{--                    <i class="fa fa-user"></i> <span>O'quvchilar</span>--}}
-                {{--                    <i class="fa fa-angle-left pull-right"></i>--}}
-                {{--                </a>--}}
-
-                {{--                <ul class="treeview-menu" >--}}
-                {{--                    <li class="treeview">--}}
-                {{--                        <a href="/admin/students">--}}
-                {{--                            <i class="fa fa-user"></i> <span>Joriy o'quvchilar</span>--}}
-                {{--                        </a>--}}
-                {{--                    </li>--}}
-                {{--                    <li class="treeview">--}}
-                {{--                        <a href="/admin/waiting-students">--}}
-                {{--                            <i class="fa fa-user"></i> <span>Navbat kutayotganlar</span>--}}
-                {{--                        </a>--}}
-                {{--                    </li>--}}
-                {{--                    <li class="treeview">--}}
-                {{--                      <a href="{{ route('botStudents') }}">--}}
-                {{--                          <i class="fa fa-user"></i> <span>Ariza qoldirganlar</span>--}}
-                {{--                      </a>--}}
-                {{--                    </li>--}}
-                {{--                    <li class="treeview">--}}
-                {{--                      <a href="{{ route('studentQrcodes') }}">--}}
-                {{--                          <i class="fa fa-user"></i> <span>QR kodlar</span>--}}
-                {{--                      </a>--}}
-                {{--                    </li>--}}
-                {{--                    <li class="treeview">--}}
-                {{--                      <a href="{{ route('changeStudentGroup') }}">--}}
-                {{--                          <i class="fa fa-user"></i> <span>O'quvchilarni ko'chirish</span>--}}
-                {{--                      </a>--}}
-                {{--                    </li>--}}
-                {{--                </ul>--}}
-                {{--            </li>--}}
-
-                {{--            <li class="treeview">--}}
-                {{--              <a href="/admin/events">--}}
-                {{--                <i class="fa fa-clock-o"></i> <span>Monitoring</span>--}}
-                {{--              </a>--}}
-                {{--            </li>--}}
-                {{--            <li class="treeview">--}}
-                {{--              <a href="/admin/staffs">--}}
-                {{--                <i class="fa fa-group"></i> <span>Xodimlar</span>--}}
-                {{--              </a>--}}
-                {{--            </li>--}}
-
-                {{--            <li class="treeview">--}}
-                {{--              <a href="/reception">--}}
-                {{--                <i class="fa fa-check-circle"></i> <span>Reception</span>--}}
-                {{--              </a>--}}
-                {{--            </li>--}}
             </ul>
     </aside>
 

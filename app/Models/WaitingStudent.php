@@ -30,7 +30,7 @@ class WaitingStudent extends Model
      *
      * @var array
      */
-    protected $fillable = ['course_id', 'name', 'phone', 'year', 'address', 'passport', 'image', 'sex', 'type', 'phone2', 'course_time'];
+    protected $fillable = ['course_id', 'name', 'phone', 'year', 'address', 'passport', 'image', 'sex', 'type', 'phone2', 'course_time', 'call_result'];
 
     public function course()
     {

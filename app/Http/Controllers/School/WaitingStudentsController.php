@@ -18,10 +18,8 @@ class WaitingStudentsController extends Controller
      */
     public function index(Request $request)
     {
-
-        $waitingstudents = WaitingStudent::latest()->get();
         $courses=Course::school()->get();
-        return view('school.waiting-students.index', compact('waitingstudents', 'courses'));
+        return view('school.waiting-students.index', compact('courses'));
     }
 
     /**

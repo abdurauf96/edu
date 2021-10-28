@@ -45,7 +45,7 @@ class Group extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class)->latest();
+        return $this->hasMany(Student::class)->where('status', 1)->latest();
     }
 
     public static function boot() {
