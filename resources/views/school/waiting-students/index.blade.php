@@ -52,5 +52,4 @@
 
 @section('js')
     @livewireScripts
-
 @endsection

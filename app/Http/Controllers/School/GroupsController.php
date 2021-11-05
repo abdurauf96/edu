@@ -17,6 +17,8 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
+
     public function index(Request $request)
     {
 

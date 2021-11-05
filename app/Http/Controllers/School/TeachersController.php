@@ -104,15 +104,15 @@ class TeachersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'name' => 'required',
-			'course_id' => 'required',
-			'phone' => 'required'
-		]);
-        $requestData = $request->except(['course_id']);
+            'name' => 'required',
+            'course_id' => 'required',
+            'phone' => 'required',
+            'passport'=>'required',
+            'birthday'=>'required',
+        ]);
+        $this->teacherRepo->update($id, $request->all());
 
-        $teacher = Teacher::findOrFail($id);
-        $teacher->update($requestData);
-        $teacher->courses()->sync($request->course_id);
+
         return redirect('school/teachers')->with('flash_message', 'O`qituvchi yangilandi!');
     }
 

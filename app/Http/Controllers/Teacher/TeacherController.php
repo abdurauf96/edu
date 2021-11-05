@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Student;
-use App\Models\Course;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -21,8 +20,11 @@ class TeacherController extends Controller
 
     public function profil()
     {
-        $courses=Course::all();
-        $course_ids=auth()->guard('teacher')->user()->courses->pluck('id')->toArray();
-        return view('teacher.profil', compact('courses', 'course_ids'));
+        return view('teacher.profil');
+    }
+
+    public function groups()
+    {
+        return view('teacher.groups');
     }
 }

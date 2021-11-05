@@ -15,7 +15,7 @@
 </div>
 <div class="form-group{{ $errors->has('course_id') ? 'has-error' : ''}}">
     {!! Form::label('course_id', 'Mutahassisliklari', ['class' => 'control-label']) !!}
-   
+
    <select name="course_id[]" class="form-control select2" id="" multiple data-placeholder="Yo'nalishni tanlang" required>
        @foreach ($courses as $course)
            <option @isset($course_ids) {{ in_array($course->id, $course_ids) ? 'selected' : '' }} @endisset value="{{ $course->id }}">{{ $course->name }}</option>
@@ -31,6 +31,12 @@
     {!! Form::label('phone', 'Telefon raqami', ['class' => 'control-label']) !!}
     {!! Form::text('phone', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+</div>
+
+<div class="form-group{{ $errors->has('email') ? 'has-error' : ''}}">
+    {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
+    {!! Form::text('email', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 </div>
 
 

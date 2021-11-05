@@ -34,7 +34,7 @@ use App\Http\Controllers\Teacher\TeacherController;
 */
 
 Route::get('/', function () {
-    return redirect('/');
+    return redirect('/school/login');
 })->name('homepage');
 
 
@@ -67,6 +67,7 @@ Route::middleware('auth:user')->prefix('school')->group(function(){
     Route::resource('/teachers', TeachersController::class);
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
+
     Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
     // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
 
@@ -88,7 +89,6 @@ Route::middleware('auth:user')->prefix('school')->group(function(){
     Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
-
     //event routes
     Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
     Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
@@ -107,6 +107,7 @@ Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(fu
     Route::get('dashboard',  [TeacherController::class, 'dashboard'])->name('dashboard');
     Route::get('students',  [TeacherController::class, 'students'])->name('students');
     Route::get('profil',  [TeacherController::class, 'profil'])->name('profil');
+    Route::get('groups',  [TeacherController::class, 'groups'])->name('groups');
 });
 
 // Route::get('/fire', function () {

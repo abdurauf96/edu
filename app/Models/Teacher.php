@@ -31,8 +31,6 @@ class Teacher extends Authenticatable
      * @var array
      */
 
-    protected $attributes=['email'=>'teacher@teacher.com'];
-
     protected $fillable = ['school_id', 'name', 'birthday', 'address', 'passport', 'phone', 'email', 'password'];
 
     public function getSchool()

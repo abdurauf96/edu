@@ -23,6 +23,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('css')
+    @livewireStyles
 </head>
 <body class="skin-blue">
 <!-- Site wrapper -->
@@ -63,7 +64,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profil</a>
+                                    <a href="{{ route('teacher.profil') }}" class="btn btn-default btn-flat">Profil</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ route('teacherLogout') }}" class="btn btn-default btn-flat"   onclick="event.preventDefault();
@@ -110,6 +111,11 @@
                 <li class="treeview">
                     <a href="{{ route('teacher.students') }}">
                         <i class="fa fa-users"></i> <span>O'quvchilar</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="{{ route('teacher.groups') }}">
+                        <i class="fa fa-users"></i> <span>Guruhlar</span>
                     </a>
                 </li>
 
@@ -168,6 +174,8 @@
 <script src="https://use.fontawesome.com/3c5981d5cd.js"></script>
 
 @yield('js')
+
+@livewireScripts
 
 </body>
 </html>
