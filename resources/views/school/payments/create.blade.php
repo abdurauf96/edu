@@ -18,7 +18,7 @@
                     </ul>
                 @endif
 
-                {!! Form::open(['url' => '/admin/payments', 'class' => 'form-horizontal', 'files' => true]) !!}
+                {!! Form::open(['url' => '/school/payments', 'class' => 'form-horizontal', 'files' => true]) !!}
 
                 @include ('school.payments.form', ['formMode' => 'create'])
 

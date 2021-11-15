@@ -12,6 +12,7 @@ class WaitingStudents extends Component
     public $courses;
     public $course_id;
     public $results=[];
+    public $key;
 
 
 //    public function mount()
@@ -34,6 +35,9 @@ class WaitingStudents extends Component
 
         if($this->course_id){
             $waitingStudents->where('course_id', $this->course_id);
+        }
+        if($this->key){
+            $waitingStudents->where('name', 'like', '%'.$this->key.'%');
         }
 
         $waitingStudents=$waitingStudents->where('school_id', auth()->guard('user')->user()->school_id)->latest()->paginate(10);

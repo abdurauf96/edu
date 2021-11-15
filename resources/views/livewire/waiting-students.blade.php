@@ -3,7 +3,8 @@
         <div>
             Navbatda turgan o'quvchilar ro'yhati
         </div>
-            <select style="width: 200px" class="form-control "  id="" wire:model="course_id">
+        <input type="text" wire:model="key" placeholder="Qidiruv...">
+            <select style="width: 200px" class="form-control "  id="" wire:model="course_id" >
                 <option value="">Kurslar</option>
                 @foreach($courses as $course)
                     <option value="{{ $course->id }}">{{ $course->name }}</option>
