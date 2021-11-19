@@ -43,15 +43,20 @@ class Group extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function allStudents()
+    {
+        return $this->hasMany(Student::class)->latest();
+    }
+
     public function students()
     {
-        return $this->hasMany(Student::class)->where('status', 1)->latest();
+        return $this->allStudents()->where('status', 1);
     }
 
     public static function boot() {
         parent::boot();
         static::deleting(function($group) {
-             $group->students()->delete();
+             $group->allStudents()->delete();
         });
         static::creating(function ($model){
             $model->school_id=auth()->guard('user')->user()->school_id;

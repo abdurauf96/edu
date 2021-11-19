@@ -27,4 +27,9 @@ class TeacherController extends Controller
     {
         return view('teacher.groups');
     }
+
+    public function attendance()
+    {
+        return view('teacher.attendance');
+    }
 }

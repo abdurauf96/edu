@@ -108,6 +108,7 @@ Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(fu
     Route::get('students',  [TeacherController::class, 'students'])->name('students');
     Route::get('profil',  [TeacherController::class, 'profil'])->name('profil');
     Route::get('groups',  [TeacherController::class, 'groups'])->name('groups');
+    Route::get('attendance',  [TeacherController::class, 'attendance'])->name('attendance');
 });
 
 // Route::get('/fire', function () {

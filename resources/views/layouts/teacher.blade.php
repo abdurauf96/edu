@@ -30,7 +30,7 @@
 <div class="wrapper" >
 
     <header class="main-header">
-        <a href="/admin/dashboard" class="logo">
+        <a href="{{ route('teacher.dashboard') }}" class="logo">
             <img src="/admin/images/logo.png" style="width:33px;" alt="">
             <b>Dashboard</b></a>
         <!-- Header Navbar: style can be found in header.less -->
@@ -116,6 +116,12 @@
                 <li class="treeview">
                     <a href="{{ route('teacher.groups') }}">
                         <i class="fa fa-users"></i> <span>Guruhlar</span>
+                    </a>
+                </li>
+
+                <li class="treeview">
+                    <a href="{{ route('teacher.attendance') }}">
+                        <i class="fa fa-clock-o"></i> <span>Davomat</span>
                     </a>
                 </li>
 
