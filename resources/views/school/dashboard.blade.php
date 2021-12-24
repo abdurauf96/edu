@@ -147,7 +147,7 @@
             <tr>
               <td>3</td>
               <td>Bitirib ketgan </td>
-              <td><span class="badge bg-green">{{ $num_students - $active_students }} ta</span></td>
+              <td><span class="badge bg-green">{{ $graduated_students }} ta</span></td>
             </tr>
             <tr>
               <td>4</td>

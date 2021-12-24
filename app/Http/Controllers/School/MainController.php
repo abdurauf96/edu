@@ -25,20 +25,21 @@ class MainController extends Controller
 
     public function index()
     {
-
+       
         $num_students=Student::school()->get()->count();
         $num_groups=\App\Models\Group::school()->get()->count();
 
         $girls=Student::school()->whereSex('0')->count();
         $boys=Student::school()->whereSex(1)->count();
-        $grant_students=Student::school()->whereType(0)->count();
-        $active_students=Student::school()->whereStatus(1)->count();
-        $out_students=Student::school()->whereStatus(2)->count();
+        $grant_students=Student::school()->grant()->count();
+        $active_students=Student::active()->count();
+        $out_students=Student::school()->out()->count();
+        $graduated_students=Student::school()->graduated()->count();
 
         $teachers=\App\Models\Teacher::school()->with('students')->get();
         $courses=\App\Models\Course::school()->with('students')->get();
 
-        return view('school.dashboard', compact(  'num_students', 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students'));
+        return view('school.dashboard', compact(  'num_students', 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
     }
 
     public function paymentStatistics()

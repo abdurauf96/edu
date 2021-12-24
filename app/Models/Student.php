@@ -12,7 +12,9 @@ use App\Models\School as SchoolModel;
 class Student extends Authenticatable
 {
     use LogsActivity, HasApiTokens, School;
-
+    const ACTIVE=1; // xozirgi vaqtda o'qiyotgan o'quvchilar
+    const OUT=2; // chiqib ketgan o'quvchilar
+    const GRADUATED=0; // bitirib ketgan o'quvchilar
     /**
      * The database table used by the model.
      *
@@ -34,6 +36,26 @@ class Student extends Authenticatable
      */
     protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt', 'status', 'username', 'password'];
 
+    public function scopeActive()
+    {
+        return $this->whereStatus(self::ACTIVE);
+    }
+
+    public function scopeGraduated()
+    {
+        return $this->whereStatus(self::GRADUATED);
+    }
+
+    public function scopeOut()
+    {
+        return $this->whereStatus(self::OUT);
+    }
+
+    public function scopeGrant()
+    {
+        return $this->where('type', '!=', 1);
+    }
+
     public function events()
     {
         return $this->hasMany(Event::class, 'person_id')->where('type', 'student');
@@ -49,10 +71,9 @@ class Student extends Authenticatable
         return $this->hasMany(Payment::class)->orderBy('month_id');
     }
 
-
     public function is_debt()
     {
-        $res=count($this->payments->where('month_id', date("m", strtotime("first day of previous month"))));
+        $res=count($this->payments->where('month_id', date("m"))->where('amount', '>=', $this->group->course->price*$this->type));
 
         if($res>0){
             return false;
