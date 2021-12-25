@@ -21,7 +21,7 @@
 </div>
 <div class="form-group{{ $errors->has('roles') ? ' has-error' : ''}}">
     {!! Form::label('role', 'Role: ', ['class' => 'control-label']) !!}
-    {!! Form::select('roles[]', $roles, isset($user_roles) ? $user_roles : [], ['class' => 'form-control', 'multiple' => true]) !!}
+    {!! Form::select('roles[]', $roles, isset($user_roles) ? $user_roles : [], ['class' => 'form-control', 'multiple' => true, 'data-height'=>"100%"]) !!}
 </div>
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}

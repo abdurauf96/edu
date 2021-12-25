@@ -1,11 +1,13 @@
 @extends('layouts.school')
-
+@section('title')
+    {{ $course->name }}
+@endsection
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
+    <div class="col-12 col-md-6 col-lg-12">
+        <div class="card">
            
-            <div class="box-body">
+            <div class="card-body">
 
                 <a href="{{ url('/school/courses') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <a href="{{ url('/school/courses/' . $course->id . '/edit') }}" title="Edit Course"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tahrirlash</button></a>
@@ -25,7 +27,7 @@
                 <br/>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped">
                         <tbody>
                             <tr>
                                 <th>ID</th><td>{{ $course->id }}</td>
