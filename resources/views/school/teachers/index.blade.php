@@ -1,15 +1,19 @@
 @extends('layouts.school')
-
+@section('title', 'O`qituvchilar')
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">O'qituvchilar  <a href="{{ url('/school/teachers/create') }}" class="btn btn-success btn-sm" title="Add New Teacher">
-                <i class="fa fa-plus" aria-hidden="true"></i> Yagni qo'shish
-            </a></div>
-            <div class="box-body">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"> 
+                <h4>O'qituvchilar</h4>
+                <div class="card-header-form">
+                    <a href="{{ route('teachers.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
+                </div>
+               
+            </div>
+            <div class="card-body ">
 
-                <div class="table-responsive dataTables_wrapper form-inline" role="grid">
+                <div class="table-responsive  " role="grid">
                     <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
                     
                         <thead>
@@ -25,16 +29,16 @@
                                     {{ $course->name }}  @if(!$loop->last) , @endif
                                 @endforeach</td><td>{{ $item->phone }}</td>
                                 <td>
-                                    <a href="{{ url('/school/teachers/' . $item->id) }}" title="View Teacher"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                    <a href="{{ url('/school/teachers/' . $item->id . '/edit') }}" title="Edit Teacher"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <a href="{{ route('teachers.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('teachers.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'url' => ['/school/teachers', $item->id],
                                         'style' => 'display:inline'
                                     ]) !!}
-                                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                                        {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
                                                 'type' => 'submit',
-                                                'class' => 'btn btn-danger btn-sm',
+                                                'class' => 'btn btn-danger btn-icon',
                                                 'title' => 'Delete Teacher',
                                                 'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}

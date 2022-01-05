@@ -16,7 +16,7 @@
 <div class="form-group{{ $errors->has('course_id') ? 'has-error' : ''}}">
     {!! Form::label('course_id', 'Mutahassisliklari', ['class' => 'control-label']) !!}
 
-   <select name="course_id[]" class="form-control select2" id="" multiple data-placeholder="Yo'nalishni tanlang" required>
+   <select name="course_id[]" class="form-control select2" id="" multiple data-placeholder="Yo'nalishni tanlang" required data-height="100%">
        @foreach ($courses as $course)
            <option @isset($course_ids) {{ in_array($course->id, $course_ids) ? 'selected' : '' }} @endisset value="{{ $course->id }}">{{ $course->name }}</option>
        @endforeach

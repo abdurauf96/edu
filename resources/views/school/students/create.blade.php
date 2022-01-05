@@ -1,13 +1,15 @@
 @extends('layouts.school')
-
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
+@endsection
 @section('content')
 
 <div class="row">
 
     <div class="col-md-6">
-        <div class="box box-info">
-            <div class="box-header"><h3 class="box-title"> {{ $group->name }} ({{ $group->course->name }}) guruhiga yangi o'quvchi qo'shish </h3> </div>
-            <div class="box-body">
+        <div class="card card-primary">
+            <div class="card-header"><h3 class="card-title"> {{ $group->name }} ({{ $group->course->name }}) guruhiga yangi o'quvchi qo'shish </h3> </div>
+            <div class="card-body">
                 @if ($errors->any())
                     <ul class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -28,18 +30,18 @@
     </div>
 
     <div class="col-md-6">
-        <div class="box box-info">
-            <div class="box-header">
-            <h3 class="box-title">Navbatda turgan o'quvchini biriktirish</h3>
+        <div class="card card-primary">
+            <div class="card-header">
+            <h3 class="card-title">Navbatda turgan o'quvchini biriktirish</h3>
             </div>
-            <div class="box-body">
+            <div class="card-body">
 
                 <form action="/school/add-student-to-group" method="POST" class="exist_student_form" >
                     <!-- Dropdown -->
                     @csrf
                     <div class="form-group">
                         <input type="hidden" value="{{$group->id}}" name="group_id">
-                        <select class='select2' style='width: 200px;' class="form-control" name="waiting_student_id">
+                        <select class="form-control select2" name="waiting_student_id">
                             @foreach ($waitingStudents as $stu)
                                 <option value='{{ $stu->id }}'>{{ $stu->name }}</option>
                             @endforeach
@@ -61,14 +63,8 @@
 @endsection
 
 @section('js')
+<script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
 <script>
-    $(document).ready(function(){
-
-        $('.select2').select2({
-            placeholder: "Tanlang...",
-            allowClear: true,
-            required: true
-        });
-    });
+  
 </script>
 @endsection

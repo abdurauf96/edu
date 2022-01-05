@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">Yangi qo'shish </div>
-            <div class="box-body">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"> <h4>Yangi qo'shish</h4> </div>
+            <div class="card-body">
                 <a href="{{ url('/school/teachers') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <br />
                 <br />

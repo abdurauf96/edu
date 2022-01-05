@@ -1,11 +1,14 @@
 @extends('layouts.school')
-
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/datatables/datatables.min.css">
+<link rel="stylesheet" href="/admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+@endsection
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
+    <div class="col-12">
+        <div class="card">
            
-            <div class="box-body">
+            <div class="card-body">
 
                 <a href="{{ url('/school/teachers') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <a href="{{ url('/school/teachers/' . $teacher->id . '/edit') }}" title="Edit Teacher"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tahrirlash</button></a>
@@ -42,10 +45,10 @@
                 </div>
 
                 <hr>
-                <div class="box">
+                <div class="card">
                    
-                    <!-- /.box-header -->
-                    <div class="box-body no-padding">
+                    <!-- /.card-header -->
+                    <div class="card-body no-padding">
                       <table class="table table-striped">
                         <tbody><tr>
                           <th style="width: 10px">#</th>
@@ -79,48 +82,54 @@
                 </div>
 
                 <hr>
-                <div class="students-title">
-                    <p>{{ $teacher->name }} o'quvchilari</p>
+                <div class="card">
+                    <div class="card-header">
+                      <h4>{{ $teacher->name }} o'quvchilari</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive  ">
+                            <table class="table table-bordered table-striped " id="table-1">
+                            
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>F.I.O</th>
+                                        <th>Manzil</th>
+                                        <th>Tug'ilgan yili</th>
+                                        <th>Telefon</th> 
+                                        <th>Passport</th> 
+                                        <th>Xolati</th> 
+                                        <th>Rasm</th>
+                                        {{-- <th>Amallar</th> --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($teacher->students as $student)
+                                    <tr>
+                                        <td>{{ $loop->iteration  }}</td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ $student->address }}</td>
+                                        <td>{{ $student->year }}</td>
+                                        <td>{{ $student->phone }}</td>
+                                        <td>{{ $student->passport }}</td>
+                                        <td>@if($student->is_debt()) <span class="label label-danger">Qarzi bor </span> @else <span class="label label-success"> Qarzi yo'q</span>  @endif</td>
+                                        <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
+                                        {{-- <td>
+                                            
+                                            <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                            
+                                        </td>
+                                    </tr> --}}
+                                @endforeach
+                                </tbody>
+                            </table>
+                           
+                        </div>
+                    </div>
                 </div>
+               
                 
-                <div class="table-responsive dataTables_wrapper form-inline" role="grid">
-                    <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
-                    
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>F.I.O</th>
-                                <th>Manzil</th>
-                                <th>Tug'ilgan yili</th>
-                                <th>Telefon</th> 
-                                <th>Passport</th> 
-                                <th>Xolati</th> 
-                                <th>Rasm</th>
-                                {{-- <th>Amallar</th> --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($teacher->students as $student)
-                            <tr>
-                                <td>{{ $loop->iteration  }}</td>
-                                <td>{{ $student->name }}</td>
-                                <td>{{ $student->address }}</td>
-                                <td>{{ $student->year }}</td>
-                                <td>{{ $student->phone }}</td>
-                                <td>{{ $student->passport }}</td>
-                                <td>@if($student->is_debt()) <span class="label label-danger">Qarzi bor </span> @else <span class="label label-success"> Qarzi yo'q</span>  @endif</td>
-                                <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
-                                {{-- <td>
-                                    
-                                    <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    
-                                </td>
-                            </tr> --}}
-                        @endforeach
-                        </tbody>
-                    </table>
-                   
-                </div>
+                
             </div>
         </div>
     </div>
@@ -128,9 +137,9 @@
 @endsection
 
 @section('js')
-<script type="text/javascript">
-    $(function () {
-      $("#example1_wrapper").dataTable();
-    })
-</script>
+    <script src="/admin/assets/bundles/datatables/datatables.min.js"></script>
+    <script src="/admin/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/admin/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/admin/assets/js/page/datatables.js"></script>
+
 @endsection

@@ -1,4 +1,4 @@
-<div class="col-md-6">
+
 
     <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
         {!! Form::label('name', 'Guruh nomi', ['class' => 'control-label']) !!}
@@ -73,7 +73,7 @@
     <div class="form-group">
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
     </div>
-</div>
+
 
 
 @section('js')

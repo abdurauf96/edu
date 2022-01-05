@@ -1,11 +1,14 @@
 @extends('layouts.school')
-
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/datatables/datatables.min.css">
+<link rel="stylesheet" href="/admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+@endsection
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
+    <div class="col-12">
+        <div class="card">
 
-            <div class="box-body">
+            <div class="card-body">
 
                 <a href="{{ url('/school/groups') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <a href="{{ url('/school/groups/' . $group->id . '/edit') }}" title="Edit Group"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tahrirlash</button></a>
@@ -25,7 +28,7 @@
                 <br/>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" >
                         <tbody>
                             <tr>
                                 <th>ID</th><td>{{ $group->id }}</td>
@@ -39,14 +42,15 @@
                     </table>
                 </div>
                 <hr>
-                <div class="students-title">
-                    <p>Guruh o'quvchilari</p>
-
-                    <a class="btn btn-success" href="{{ url('/school/groups/' . $group->id . '/add-student') }}" title="Add Student"><i class="fa fa-user-plus" aria-hidden="true"></i> O'quvchi qo'shish</a>
+                <div class="students-title card-header">
+                    <h4>Guruh o'quvchilari</h4>
+                    <div class="card-header-form">
+                         <a class="btn btn-primary" href="{{ url('/school/groups/' . $group->id . '/add-student') }}" title="Add Student"><i class="fa fa-user       -plus" aria-hidden="true"></i> O'quvchi qo'shish</a>
+                    </div>
                 </div>
 
-                <div class="table-responsive dataTables_wrapper form-inline" role="grid">
-                    <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped " id="table-1">
 
                         <thead>
                             <tr>
@@ -58,7 +62,7 @@
                                 <th>Passport</th>
                                 <th>Code</th>
                                 <th>Rasm</th>
-                                {{-- <th>Amallar</th> --}}
+                                <th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,9 +96,11 @@
 @endsection
 
 @section('js')
-<script type="text/javascript">
-    $(function () {
-      $("#example1_wrapper").dataTable();
-    })
-</script>
+<!-- JS Libraies -->
+<script src="/admin/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="/admin/assets/bundles/datatables/datatables.min.js"></script>
+
+<!-- Page Specific JS File -->
+<script src="/admin/assets/js/page/datatables.js"></script>
 @endsection
+
