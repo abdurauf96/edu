@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
+    <div class="col-12">
+        <div class="card">
 
-            <div class="box-body">
+            <div class="card-body">
 
                 <a href="{{ url('/school/staffs') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <a href="{{ url('/school/staffs/' . $staff->id . '/edit') }}" title="Edit Staff"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tahrirlash</button></a>
@@ -25,7 +25,7 @@
                 <br/>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover table-striped">
                         <tbody>
                             <tr>
                                 <th>ID</th><td>{{ $staff->id }}</td>

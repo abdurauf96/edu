@@ -13,6 +13,7 @@ class WaitingStudents extends Component
     public $course_id;
     public $results=[];
     public $key;
+    protected $paginationTheme = 'bootstrap';
 
 
 //    public function mount()

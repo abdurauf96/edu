@@ -1,5 +1,5 @@
 @extends('layouts.school')
-
+@section('title', 'O`qituvchi qo`shish')
 @section('content')
 <div class="row">
     <div class="col-12">

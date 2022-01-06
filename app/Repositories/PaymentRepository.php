@@ -4,10 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Course;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
-use App\Repositories\BaseRepository;
 use App\Models\Payment;
 
-class PaymentRepository extends BaseRepository implements PaymentRepositoryInterface{
+class PaymentRepository implements PaymentRepositoryInterface{
     public function getAll()
     {
         return Payment::school()->latest()->get();

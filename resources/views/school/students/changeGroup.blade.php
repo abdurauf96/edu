@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
      
-        <div class="box">
-            <div class="box-header"> <h3> O'quvchi guruxini almashtirish</h3></div>
-            <div class="box-body" data-select2-id="15">
-                <div class="row">
-                  <div class="col-md-6" data-select2-id="14">
+        <div class="card">
+            <div class="card-header"> <h3> O'quvchi guruxini almashtirish</h3></div>
+            <div class="card-body" data-select2-id="15">
+               
+                 
                   <form action="{{ route('changeStudentGroup') }}" method="post">
                     @csrf
                     <div class="form-group" data-select2-id="13">
@@ -54,10 +54,7 @@
                     <!-- /.form-group -->
                     <input type="submit" class="btn btn-primary" value="Tasdiqlash">
                   </form>
-                  </div>
-                 
-                </div>
-                <!-- /.row -->
+                  
             </div>
         </div>
     </div>

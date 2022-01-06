@@ -1,60 +1,57 @@
 
 <div class="row">
-    <div class="container">
-        <h2>Monitoring oynasi</h2>
-    </div>
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Filter</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form">
-            <div class="box-body col-md-12">
-                <div class="form-group col-md-3">
-                    <label for="exampleInputEmail1">Turi</label>
-                    <select name="type" class="form-control select2" wire:model="type">
-                        <option value=""></option>
-                        <option value="staff">Xodimlar</option>
-                        <option value="student">O'quvchilar</option>
-                    </select>
-                </div>
-
-                <div class="form-group  col-md-3">
-                    <label>Oraliqni boshlanishi  </label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="date" class="form-control pull-right" value="" wire:model="start_date" name="start_date" >
-                    </div>
-                </div>
-                <div class="form-group  col-md-3">
-                    <label>Oraliqni tugashi  </label>
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="date" class="form-control pull-right" value="" wire:model="end_date" name="end_date" >
-                    </div>
-                </div>
-{{--                <div class="form-group">--}}
-{{--                    <label for="exampleInputFile"></label>--}}
-{{--                    <div class="">--}}
-{{--                        <input type="submit" class="btn btn-primary" value="Natijani ko'rish">--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Monitoring oynasi</h4>
             </div>
-        </form>
+            <div class="card-body">
+                <form class="form-inline" style="display: flex; justify-content:space-around">
+                    <div class="form-item">
+                        <label >Kirib chiquvchilar</label>
+                        <select name="type" class="form-control select2 mb-2 " wire:model="type">
+                            <option value=""></option>
+                            <option value="staff">Xodimlar</option>
+                            <option value="student">O'quvchilar</option>
+                        </select>
+                    </div>
+                    
+                       
+        
+                    <div class="form-item ">
+                        <label>Oraliqni boshlanishi  </label>
+                        <div class="input-group mb-2 ">
+                            <div class="input-group date">
+                               
+                                <input type="date" class="form-control pull-right" value="" wire:model="start_date" name="start_date" >
+                            </div>
+                        </div>
+                    </div>  
+                    
+                       
+                    <div class="form-item">
+                        <label>Oraliqni tugashi  </label>
+                        <div class="input-group date">
+                        
+                            <input type="date" class="form-control pull-right" value="" wire:model="end_date" name="end_date" >
+                        </div>
+                    </div>  
+                  
+                </form>
+               
+                
+            </div>
+        </div>
     </div>
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
+    
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
                 <h3> Natijalar</h3>
             </div>
-            <div class="box-body">
+            <div class="card-body">
                 <div class="table-responsive dataTables_wrapper form-inline" role="grid">
-                    <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
+                    <table class="table table-bordered table-striped ">
 
                         <thead>
                         <tr>
@@ -88,8 +85,9 @@
                     </table>
 
                 </div>
-                {{ $events->links() }}
+                {{ $events->links('vendor.livewire.bootstrap') }}
             </div>
         </div>
     </div>
 </div>
+

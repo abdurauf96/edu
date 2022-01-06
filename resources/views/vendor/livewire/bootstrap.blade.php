@@ -5,11 +5,11 @@
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
-                        <span class="page-link" aria-hidden="true">&lsaquo;</span>
+                        <span class="page-link" aria-hidden="true">Previous</span>
                     </li>
                 @else
                     <li class="page-item">
-                        <button type="button" dusk="previousPage" class="page-link" wire:click="previousPage" wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</button>
+                        <button type="button" dusk="previousPage" class="page-link" wire:click="previousPage" wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">Previous</button>
                     </li>
                 @endif
 
@@ -35,11 +35,11 @@
                 {{-- Next Page Link --}}
                 @if ($paginator->hasMorePages())
                     <li class="page-item">
-                        <button type="button" dusk="nextPage" class="page-link" wire:click="nextPage" wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</button>
+                        <button type="button" dusk="nextPage" class="page-link" wire:click="nextPage" wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')">Next</button>
                     </li>
                 @else
                     <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-                        <span class="page-link" aria-hidden="true">&rsaquo;</span>
+                        <span class="page-link" aria-hidden="true">Next</span>
                     </li>
                 @endif
             </ul>

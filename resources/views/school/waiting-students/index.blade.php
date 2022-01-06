@@ -4,22 +4,21 @@
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Kurs ochilishini kutib navbatda turgan o'quvchilar statistikasi</h3>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Kurs ochilishini kutib navbatda turgan o'quvchilar statistikasi</h4>
 
-                <div class="box-tools">
-                    <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-                        <a href="{{ url('/school/waiting-students/create') }}" class="btn btn-success btn-sm" title="Add New WaitingStudent">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Yangi qo'shish
-                        </a>
-                    </div>
+                
+                <div class="card-header-form">
+                    <a href="{{ route('waiting-students.create') }}" class="btn btn-icon icon-left btn-primary">
+                        <i class="fas fa-plus"></i>Yangi qo'shish </a>
                 </div>
+                
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
+            <div class="card-body table-responsive no-padding">
+                <table class="table table-hover table-striped">
                     <tbody>
                     <tr>
                         <th>T/R</th>
@@ -43,7 +42,7 @@
         </div>
         <!-- /.box -->
     </div>
-    <div class="col-xs-12">
+    <div class="col-12">
         @livewire('waiting-students', ['courses'=>$courses])
     </div>
 </div>

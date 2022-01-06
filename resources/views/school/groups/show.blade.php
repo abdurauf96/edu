@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/datatables.min.css">
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 @endsection
+@section('title', 'Ko`rish')
 @section('content')
 <div class="row">
     <div class="col-12">

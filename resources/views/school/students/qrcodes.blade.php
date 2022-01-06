@@ -2,15 +2,24 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header"> <h3> QR Kodlar</h3>
-
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"> <h4> QR Kodlar</h4>
+                <div class="card-header-form">
+                    <form>
+                      <div class="input-group">
+                        <input type="text" name="q" value="{{ request()->q ?? null }}" class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                          <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
             </div>
-            <div class="box-body">
+            <div class="card-body">
 
-                <div class="table-responsive dataTables_wrapper form-inline" role="grid">
-                    <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
+                <div class="table-responsive ">
+                    <table class="table table-bordered table-striped ">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -38,7 +47,7 @@
                     </table>
 
                 </div>
-
+                {{ $students->links() }}
             </div>
         </div>
     </div>
@@ -47,9 +56,10 @@
 @endsection
 
 @section('js')
+
 <script type="text/javascript">
     $(function () {
-      $("#example1_wrapper").dataTable();
+     
       $('body').delegate('.downloadQrcode', 'click', function(){
           var id=$(this).data('id');
           $('.qrcode_res'+id).html("<img src='/admin/images/check.png' width='40' >");

@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header"> <h3> Bot orqali ariza qoldirgan o'quvchilar</h3>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header"> <h4> Bot orqali ariza qoldirgan o'quvchilar</h4>
         
             </div>
-            <div class="box-body">
+            <div class="card-body">
 
                 <div class="table-responsive dataTables_wrapper form-inline" role="grid">
                     <table class="table table-bordered table-striped dataTable" id="example1_wrapper">
@@ -37,7 +37,7 @@
                                         'url' => ['/school/students', $item->id],
                                         'style' => 'display:inline'
                                     ]) !!}
-                                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                                        {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
                                                 'type' => 'submit',
                                                 'class' => 'btn btn-danger btn-sm',
                                                 'title' => 'Delete Student',

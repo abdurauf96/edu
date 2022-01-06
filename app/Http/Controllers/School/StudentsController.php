@@ -149,10 +149,14 @@ class StudentsController extends Controller
         return view('school.students.botStudents', compact('botStudents'));
     }
 
-    public function studentQrcodes()
+    public function studentQrcodes(Request $request)
     {
-
-        $students=Student::school()->latest()->select('id', 'school_id', 'name', 'code', 'image', 'qrcode_status')->get();
+        if(!empty($request->q)){
+            $students=Student::school()->where('name', 'LIKE', '%'.$request->q.'%')->select('id', 'school_id', 'name', 'code', 'image', 'qrcode_status')->paginate(10);
+        }else{
+            $students=Student::school()->latest()->select('id', 'school_id', 'name', 'code', 'image', 'qrcode_status')->paginate(10);
+        }
+        
 
         return view('school.students.qrcodes', compact('students'));
     }

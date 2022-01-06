@@ -8,8 +8,8 @@
       <div class="col-md-3">
 
         <!-- Profile Image -->
-        <div class="box box-primary">
-          <div class="box-body box-profile">
+        <div class="card card-primary">
+          <div class="card-body card-profile">
             <img style="width:300px !important" class="profile-user-img img-responsive img-circle"  src="/admin/images/students/{{ $student->image }}" alt="User profile picture">
 
             <h3 class="profile-username text-center">{{ $student->name }}</h3>

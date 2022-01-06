@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
+    <div class="col-12">
+        <div class="card">
            
-            <div class="box-body">
+            <div class="card-body">
 
                 <a href="{{ url('/school/payments') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <a href="{{ url('/school/payments/' . $payment->id . '/edit') }}" title="Edit Payment"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Tahrirlash</button></a>

@@ -30,7 +30,7 @@
                                 @endforeach</td><td>{{ $item->phone }}</td>
                                 <td>
                                     <a href="{{ route('teachers.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('teachers.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
+                                    <a href="{{ route('teachers.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'url' => ['/school/teachers', $item->id],

@@ -1,9 +1,9 @@
-<div class="box">
-    <div class="box-header" style="display: flex; justify-content: space-between">
-        <div>
-            Navbatda turgan o'quvchilar ro'yhati
-        </div>
-        <input type="text" wire:model="key" placeholder="Qidiruv...">
+<div class="card">
+    <div class="card-header" style="display: flex; justify-content: space-between">
+       
+            <h4>Navbatda turgan o'quvchilar ro'yhati</h4>
+        
+        <input type="text" wire:model="key" placeholder="Qidiruv..." class="form-control" style="width: 300px">
             <select style="width: 200px" class="form-control "  id="" wire:model="course_id" >
                 <option value="">Kurslar</option>
                 @foreach($courses as $course)
@@ -11,7 +11,7 @@
                 @endforeach
             </select>
         </div>
-    <div class="box-body">
+    <div class="card-body">
         <div class="table-responsive dataTables_wrapper form-inline" role="grid">
             <table class="table table-bordered table-striped " >
 
@@ -51,16 +51,16 @@
 
                         </td>
                         <td>
-                            <a href="{{ url('/school/waiting-students/' . $item->id) }}" title="View WaitingStudent"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                            <a href="{{ url('/school/waiting-students/' . $item->id . '/edit') }}" title="Edit WaitingStudent"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                            <a href="{{ route('waiting-students.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
+                            <a href="{{ route('waiting-students.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
                             {!! Form::open([
                                 'method' => 'DELETE',
                                 'url' => ['/school/waiting-students', $item->id],
                                 'style' => 'display:inline'
                             ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i>', array(
+                            {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
                                     'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-sm',
+                                    'class' => 'btn btn-danger btn-icon',
                                     'title' => 'Delete WaitingStudent',
                                     'onclick'=>'return confirm("Confirm delete?")'
                             )) !!}
@@ -72,7 +72,7 @@
             </table>
 
         </div>
-
+        {{ $waitingStudents->links() }}
     </div>
-    {{ $waitingStudents->links() }}
+    
 </div>
