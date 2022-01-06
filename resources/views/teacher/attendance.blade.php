@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">Davomat
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header"> <h4>Davomat</h4>
 
                 </div>
                 @livewire('attendance')

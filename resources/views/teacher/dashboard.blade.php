@@ -1,62 +1,52 @@
 @extends('layouts.teacher')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-user" aria-hidden="true"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">O'quvchilar</span>
-                    <span class="info-box-number">{{ count(auth()->guard('teacher')->user()->students) }}<small>ta</small></span>
+<div class="row ">
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-statistic-4">
+          <div class="align-items-center justify-content-between">
+            <div class="row ">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                <div class="card-content">
+                  <h5 class="font-15">O'quvchilar</h5>
+                  <h2 class="mb-3 font-18">{{ count(auth()->guard('teacher')->user()->students) }}</h2>
+                  <p class="mb-0"><span class="col-green">10%</span> Increase</p>
                 </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Guruhlar</span>
-                    <span class="info-box-number">{{ count(auth()->guard('teacher')->user()->groups) }}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                <div class="banner-img">
+                  <img src="/admin/assets/img/banner/1.png" alt="">
                 </div>
-                <!-- /.info-box-content -->
+              </div>
             </div>
-            <!-- /.info-box -->
+          </div>
         </div>
-        <!-- /.col -->
-
-        <!-- fix for small devices only -->
-        <div class="clearfix visible-sm-block"></div>
-
-{{--        <div class="col-md-3 col-sm-6 col-xs-12">--}}
-{{--            <div class="info-box">--}}
-{{--                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>--}}
-
-{{--                <div class="info-box-content">--}}
-{{--                    <span class="info-box-text">Sales</span>--}}
-{{--                    <span class="info-box-number">760</span>--}}
-{{--                </div>--}}
-{{--                <!-- /.info-box-content -->--}}
-{{--            </div>--}}
-{{--            <!-- /.info-box -->--}}
-{{--        </div>--}}
-{{--        <!-- /.col -->--}}
-{{--        <div class="col-md-3 col-sm-6 col-xs-12">--}}
-{{--            <div class="info-box">--}}
-{{--                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>--}}
-
-{{--                <div class="info-box-content">--}}
-{{--                    <span class="info-box-text">New Members</span>--}}
-{{--                    <span class="info-box-number">2,000</span>--}}
-{{--                </div>--}}
-{{--                <!-- /.info-box-content -->--}}
-{{--            </div>--}}
-{{--            <!-- /.info-box -->--}}
-{{--        </div>--}}
-        <!-- /.col -->
+      </div>
     </div>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-statistic-4">
+          <div class="align-items-center justify-content-between">
+            <div class="row ">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                <div class="card-content">
+                  <h5 class="font-15"> Guruhlar</h5>
+                  <h2 class="mb-3 font-18">{{ count(auth()->guard('teacher')->user()->groups) }}</h2>
+                  <p class="mb-0"><span class="col-orange">09%</span> Decrease</p>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                <div class="banner-img">
+                  <img src="/admin/assets/img/banner/2.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
 @endsection

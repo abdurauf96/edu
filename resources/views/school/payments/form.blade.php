@@ -1,3 +1,6 @@
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
+@endsection
 <div class="col-md-6">
     <div class="form-group{{ $errors->has('student_id') ? 'has-error' : ''}}">
         {!! Form::label('student_id', 'O`quvchilar', ['class' => 'control-label']) !!}
@@ -13,7 +16,7 @@
     
     <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
         {!! Form::label('month', 'Qaysi oy uchun', ['class' => 'control-label']) !!}
-        <select name="month_id" class="form-control select2" required >
+        <select name="month_id" class="form-control " required >
             <option></option>
             
             @foreach ($months as $month)
@@ -59,10 +62,5 @@
     </div>
 </div>
 @section('js')
-    <script>
-         $('.select2').select2({
-            placeholder: "Tanlang...",
-            allowClear: true
-         });
-    </script>
+<script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
 @endsection

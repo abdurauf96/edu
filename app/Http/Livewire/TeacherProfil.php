@@ -13,9 +13,6 @@ class TeacherProfil extends Component
     public $course_id=[];
 
     protected $rules = [
-        'name' => 'required',
-        'birthday' => 'required',
-        'passport' => 'required',
         'password' => 'required|min:6',
         'email' => 'required|email',
     ];
@@ -35,14 +32,11 @@ class TeacherProfil extends Component
 
     }
 
-    public function setTab($key){
-        $this->key=$key;
-        $this->dispatchBrowserEvent('setKey');
-    }
-    public function updatePassword($id)
+    
+    public function updatePassword()
     {
         $this->validate();
-        $teacher=Teacher::find($id);
+        
         $data['email']=$this->email;
         if(isset($this->password)){
             $data['password']=Hash::make($this->password);
@@ -53,9 +47,9 @@ class TeacherProfil extends Component
 
     }
 
-    public function updateInfo($id)
+    public function updateInfo()
     {
-
+       
         $this->teacher->name=$this->name;
         $this->teacher->birthday=$this->birthday;
         $this->teacher->passport=$this->passport;
@@ -63,6 +57,7 @@ class TeacherProfil extends Component
         $this->teacher->phone=$this->phone;
         $this->teacher->courses()->sync($this->course_id);
         $this->teacher->save();
+       
         $this->dispatchBrowserEvent('updated');
     }
 
