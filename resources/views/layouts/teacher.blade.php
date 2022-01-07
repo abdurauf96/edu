@@ -18,11 +18,12 @@
   @yield('css')
   <meta name="csrf-token" content="{{ csrf_token() }}">
    @livewireStyles
+
 </head>
 
 <body>
   <div class="loader"></div>
-  <div id="app">
+  <div id="teacherApp">
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar sticky">
@@ -206,6 +207,7 @@
     </div>
   </div>
   <!-- General JS Scripts -->
+  <script src="/js/app.js"></script>
   <script src="/admin/assets/js/app.min.js"></script>
   
   <!-- Page Specific JS File -->
@@ -214,6 +216,7 @@
   <script src="/admin/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="/admin/assets/js/custom.js"></script>
+  
   @yield('js')
   @livewireScripts
 </body>

@@ -39,7 +39,7 @@
                                     ]) !!}
                                         {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
                                                 'type' => 'submit',
-                                                'class' => 'btn btn-danger btn-sm',
+                                                'class' => 'btn btn-danger ',
                                                 'title' => 'Delete Student',
                                                 'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}

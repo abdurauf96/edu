@@ -2,12 +2,13 @@
 
 @section('css')
     <link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="/admin/assets/css/components.css">
+    {{-- <link rel="stylesheet" href="/admin/assets/css/components.css"> --}}
 @endsection
 
 @section('content')
     <div class="section-body">
-        @livewire('teacher-profil')
+        {{-- @livewire('teacher-profil') --}}
+        <teacher-profile></teacher-profile>
     </div>
 @endsection
 @section('js')
