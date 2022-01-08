@@ -1,228 +1,196 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Edu APP</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- Bootstrap 3.3.2 -->
-    <link href="/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/admin/fontawesome/css/all.css" rel="stylesheet" type="text/css" />
-    <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>@yield('title', 'Admin Dashboard') - EDUAPP</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="/admin/assets/css/app.min.css">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/admin/assets/css/style.css">
+  <link rel="stylesheet" href="/admin/assets/css/components.css">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="/admin/assets/css/custom.css">
+  <link rel='shortcut icon' type='image/x-icon' href='/admin/assets/img/favicon.ico' />
+  @yield('css')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
 
+<body>
+  <div class="loader"></div>
+  <div id="adminApp">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <div class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <i data-feather="maximize"></i>
+              </a></li>
 
-    <link href="/admin/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-    <link href="/admin/css/my.css" rel="stylesheet" type="text/css" />
+          </ul>
+        </div>
+        <ul class="navbar-nav navbar-right">
 
-     <!-- Select2 -->
-    <link rel="stylesheet" href="/admin/css/select2/select2.min.css">
-     <!-- Theme style -->
-     <link href="/admin/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    {{-- datatables --}}
-    <link href="/admin/css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="/admin/assets/img/user.png"
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right pullDown">
+              <div class="dropdown-title">{{ auth()->user()->name }}</div>
+              <a href="#" class="dropdown-item has-icon"> <i class="far
+										fa-user"></i> Profile
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();" class="dropdown-item has-icon text-danger">
+               <i class="fas fa-sign-out-alt"></i>
+                Chiqish
+              </a>
+               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+               </form>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+        <aside id="sidebar-wrapper">
+            <div class="sidebar-brand">
+              <a href="{{ route('school.dashboard') }}"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
+                  class="logo-name">{{ auth()->user()->name}}</span>
+              </a>
+            </div>
+            <ul class="sidebar-menu">
 
-    @yield('css')
-  </head>
-  <body class="skin-blue">
-    <!-- Site wrapper -->
-    <div class="wrapper" >
-
-      <header class="main-header">
-        <a href="/admin/dashboard" class="logo">
-            <img src="/admin/images/logo.png" style="width:33px;" alt="">
-            <b>Admin Panel</b></a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <!-- User Account: style can be found in dropdown.less -->
-              <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="/admin/images/logo.png" class="user-image" alt="User Image"/>
-                  <span class="hidden-xs">Raqamli shahar</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    <img src="/admin/images/logo.png" class="img-circle" alt="User Image" />
-                    <p>
-                      Raqamli shahar
-                      <small>2021</small>
-                    </p>
-                  </li>
-                  <!-- Menu Body -->
-
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profil</a>
-                    </div>
-                    <div class="pull-right">
-                      <a href="{{ route('logout') }}" class="btn btn-default btn-flat"   onclick="event.preventDefault();
-                      document.getElementById('logout-form').submit();">Chiqish</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                  </li>
-                </ul>
+              <li class="dropdown active">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link"><i data-feather="home"></i><span>Dashboard</span></a>
+              </li>
+              <li class="dropdown">
+                <a href="{{ route('admin.schools') }}" class="nav-link"><i class="material-icons">location_city</i><span>Mijozlar</span></a>
               </li>
             </ul>
-          </div>
-        </nav>
-      </header>
-
-      <!-- =============================================== -->
-
-      <!-- Left side column. contains the sidebar -->
-      <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-          <!-- Sidebar user panel -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img src="/admin/images/admin.png" class="img-circle" alt="User Image" />
-            </div>
-            <div class="pull-left info">
-              <p>{{ Auth()->user()->name }}</p>
-
-              <a href="#"><i class="fa fa-circle text-success"></i> Online </a>
-            </div>
-          </div>
-
-          <!-- sidebar menu: : style can be found in sidebar.less -->
-
-          <ul class="sidebar-menu ">
-
-            <li class="treeview">
-              <a href="{{ route('admin.schools') }}">
-                <i class="fa fa-desktop"></i> <span>O'quv markazlar</span>
-              </a>
-            </li>
-{{--            <li class="treeview">--}}
-{{--              <a href="/admin/teachers">--}}
-{{--                <i class="fa fa-graduation-cap"></i> <span>O'qituvchilar</span>--}}
-{{--              </a>--}}
-{{--            </li>--}}
-{{--            <li class="treeview">--}}
-{{--              <a href="/admin/groups">--}}
-{{--                <i class="fa fa-group"></i> <span>Guruhlar</span>--}}
-{{--              </a>--}}
-{{--            </li>--}}
-
-{{--            <li class="treeview">--}}
-{{--                <a href="#">--}}
-{{--                    <i class="fa fa-user"></i> <span>O'quvchilar</span>--}}
-{{--                    <i class="fa fa-angle-left pull-right"></i>--}}
-{{--                </a>--}}
-
-{{--                <ul class="treeview-menu" >--}}
-{{--                    <li class="treeview">--}}
-{{--                        <a href="/admin/students">--}}
-{{--                            <i class="fa fa-user"></i> <span>Joriy o'quvchilar</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="treeview">--}}
-{{--                        <a href="/admin/waiting-students">--}}
-{{--                            <i class="fa fa-user"></i> <span>Navbat kutayotganlar</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="treeview">--}}
-{{--                      <a href="{{ route('botStudents') }}">--}}
-{{--                          <i class="fa fa-user"></i> <span>Ariza qoldirganlar</span>--}}
-{{--                      </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="treeview">--}}
-{{--                      <a href="{{ route('studentQrcodes') }}">--}}
-{{--                          <i class="fa fa-user"></i> <span>QR kodlar</span>--}}
-{{--                      </a>--}}
-{{--                    </li>--}}
-{{--                    <li class="treeview">--}}
-{{--                      <a href="{{ route('changeStudentGroup') }}">--}}
-{{--                          <i class="fa fa-user"></i> <span>O'quvchilarni ko'chirish</span>--}}
-{{--                      </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
-
-{{--            <li class="treeview">--}}
-{{--              <a href="/admin/events">--}}
-{{--                <i class="fa fa-clock-o"></i> <span>Monitoring</span>--}}
-{{--              </a>--}}
-{{--            </li>--}}
-{{--            <li class="treeview">--}}
-{{--              <a href="/admin/staffs">--}}
-{{--                <i class="fa fa-group"></i> <span>Xodimlar</span>--}}
-{{--              </a>--}}
-{{--            </li>--}}
-
-{{--            <li class="treeview">--}}
-{{--              <a href="/reception">--}}
-{{--                <i class="fa fa-check-circle"></i> <span>Reception</span>--}}
-{{--              </a>--}}
-{{--            </li>--}}
-          </ul>
-      </aside>
-
-      <!-- =============================================== -->
-
-      <!-- Right side column. Contains the navbar and content of the page -->
-      <div class="content-wrapper">
-        <main class="py-4">
-          @if (Session::has('flash_message'))
-              <div class="container">
-                  <div class=" col-lg-4 alert alert-success">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      {{ Session::get('flash_message') }}
-                  </div>
+          </aside>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+            @yield('content')
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+          <div class="settingSidebar-body ps-container ps-theme-default">
+            <div class=" fade show active">
+              <div class="setting-panel-header">Setting Panel
               </div>
-          @endif
-        </main>
-        <!-- Main content -->
-        <section class="content">
-             @yield('content')
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Select Layout</h6>
+                <div class="selectgroup layout-color w-50">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                    <span class="selectgroup-button">Light</span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                    <span class="selectgroup-button">Dark</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                <div class="selectgroup selectgroup-pills sidebar-color">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Color Theme</h6>
+                <div class="theme-setting-options">
+                  <ul class="choose-theme list-unstyled mb-0">
+                    <li title="white" class="active">
+                      <div class="white"></div>
+                    </li>
+                    <li title="cyan">
+                      <div class="cyan"></div>
+                    </li>
+                    <li title="black">
+                      <div class="black"></div>
+                    </li>
+                    <li title="purple">
+                      <div class="purple"></div>
+                    </li>
+                    <li title="orange">
+                      <div class="orange"></div>
+                    </li>
+                    <li title="green">
+                      <div class="green"></div>
+                    </li>
+                    <li title="red">
+                      <div class="red"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="mini_sidebar_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Mini Sidebar</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="sticky_header_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Sticky Header</span>
+                  </label>
+                </div>
+              </div>
+              <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                  <i class="fas fa-undo"></i> Restore Default
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <footer class="main-footer">
-
+        <div class="footer-left">
+          <a href="#">Digital City</a></a>
+        </div>
+        <div class="footer-right">
+        </div>
       </footer>
-    </div><!-- ./wrapper -->
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  {{-- <script src="/js/app.js"></script> --}}
+  <script src="/admin/assets/js/app.min.js"></script>
 
-    <!-- jQuery 2.1.3 -->
-    <script src="/admin/js/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="/admin/js/bootstrap.min.js" type="text/javascript"></script>
+  <!-- Page Specific JS File -->
+  {{-- <script src="/admin/assets/js/page/index.js"></script> --}}
+  <!-- Template JS File -->
+  <script src="/admin/assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/admin/assets/js/custom.js"></script>
 
-    <!-- AdminLTE App -->
-    <script src="/admin/js/app.min.js" type="text/javascript"></script>
-
-    <script src="/admin/js/datatable/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="/admin/js/datatable/dataTables.bootstrap.min.js" type="text/javascript"></script>
-
-    <!-- Select2 -->
-    <script src="/admin/js/select2/select2.full.min.js"></script>
-    <script type="text/javascript">
-      $(function () {
-          // Navigation active
-          var url=window.location.pathname;
-
-         $("a[href='"+ url +"']").parent().addClass('active');
-         $("a[href='"+ url +"']").parent().parent().addClass('active');
-         $("a[href='"+ url +"']").parent().parent().parent().addClass('active');
-
-      });
-  </script>
-    @yield('js')
-
-  </body>
+  @yield('js')
+  @livewireScripts
+</body>
 </html>

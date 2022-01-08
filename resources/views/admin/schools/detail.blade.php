@@ -2,18 +2,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">{{ $school->company_name }}</h3>
-
-                    <div class="box-tools">
-                        <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-                            <a class="btn btn-info" href="{{url()->previous()}}">Ortga </a>
-
-
-                        </div>
-                    </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">{{ $school->company_name }}</h4>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
