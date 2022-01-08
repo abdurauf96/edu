@@ -1,7 +1,7 @@
 <div>
 
-    <div class="box-body">
-        <div class="col-lg-12">
+    <div class="card-body">
+        <div class="col-12" style="display: flex">
             <div class="col-lg-3">
                 <label for="">Guruhlar</label>
                 <select style="width: 200px" class="form-control  "  id="" wire:model="group_id" >
@@ -17,7 +17,7 @@
                 <input type="date" class="form-control" wire:model="date"  >
             </div>
         </div>
-
+        <hr>
         <div class="col-lg-12">
             <div class="table-responsive dataTables_wrapper form-inline" role="grid">
                 <table class="table table-bordered table-striped " >

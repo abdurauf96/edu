@@ -44,7 +44,6 @@ Route::get('/cache', function () {
 });
 
 
-
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']], function () {
     Route::resource('roles', RolesController::class);
@@ -114,10 +113,6 @@ Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(fu
     Route::post('info', [TeacherController::class, 'updateInfo']); //update teacher information
     Route::post('update-login', [TeacherController::class, 'updateLogin']); //update teacher login credintials
 });
-
-// Route::get('/fire', function () {
-//     event(new \App\Events\StudentStaffEvent('test'));
-// });
 
 //Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
 //Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);

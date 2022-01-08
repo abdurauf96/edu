@@ -43,12 +43,12 @@ import Echo from 'laravel-echo';
 //     disableStats: true,
 // });
 
-window.io = require('socket.io-client')
+// window.io = require('socket.io-client')
 
-window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: window.location.hostname + ':6001',
-    transports: ['websocket', 'polling', 'flashsocket']
-});
+// window.Echo = new Echo({
+//     broadcaster: 'socket.io',
+//     host: window.location.hostname + ':6001',
+//     transports: ['websocket', 'polling', 'flashsocket']
+// });
 
 

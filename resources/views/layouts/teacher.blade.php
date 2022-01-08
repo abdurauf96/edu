@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>@yield('title', 'Admin Panel') - EDUAPP</title>
+  <title>@yield('title', 'Teacher Dashboard') - EDUAPP</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="/admin/assets/css/app.min.css">
   <!-- Template CSS -->
@@ -34,11 +34,11 @@
             <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
                 <i data-feather="maximize"></i>
               </a></li>
-            
+
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-          
+
           <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="/admin/assets/img/user.png"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
@@ -46,7 +46,7 @@
               <div class="dropdown-title">{{ auth()->user()->name }}</div>
               <a href="{{ route('teacher.profil') }}" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> Profile
-              </a> 
+              </a>
               <div class="dropdown-divider"></div>
               <a href="#" onclick="event.preventDefault();
               document.getElementById('logout-form').submit();" class="dropdown-item has-icon text-danger">
@@ -68,38 +68,28 @@
               </a>
             </div>
             <ul class="sidebar-menu">
-             
+
               <li class="dropdown active">
-                <a href="{{ route('teacher.dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+                <a href="{{ route('teacher.dashboard') }}" class="nav-link"><i data-feather="home"></i><span>Dashboard</span></a>
               </li>
-        
-             
+
+
               <li class="dropdown">
-                <a href="{{ route('teacher.profil') }}" class="nav-link"><i data-feather="monitor"></i><span>Profil</span></a>
-              </li>
-              <li class="dropdown">
-                <a href="{{ route('teacher.students') }}" class="nav-link"><i data-feather="monitor"></i><span>O'quvchilar</span></a>
+                <a href="{{ route('teacher.profil') }}" class="nav-link"><i data-feather="clipboard"></i><span>Profil</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ route('teacher.attendance') }}" class="nav-link"><i data-feather="monitor"></i><span>Davomat</span></a>
+                <a href="{{ route('teacher.students') }}" class="nav-link"><i data-feather="user"></i><span>O'quvchilar</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ route('teacher.groups') }}" class="nav-link"><i data-feather="monitor"></i><span>Guruhlar</span></a>
+                <a href="{{ route('teacher.attendance') }}" class="nav-link"><i data-feather="clock"></i><span>Davomat</span></a>
+              </li>
+              <li class="dropdown">
+                <a href="{{ route('teacher.groups') }}" class="nav-link"><i data-feather="users"></i><span>Guruhlar</span></a>
               </li>
 
             </ul>
           </aside>
       </div>
-      @if (Session::has('flash_message'))
-        <div class="col-lg-4 col-md-6 col-12 alert alert-success alert-dismissible show fade">
-            <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                <span>×</span>
-                </button>
-                {{ session('flash_message') }}
-            </div>
-        </div>
-        @endif
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
@@ -209,14 +199,14 @@
   <!-- General JS Scripts -->
   <script src="/js/app.js"></script>
   <script src="/admin/assets/js/app.min.js"></script>
-  
+
   <!-- Page Specific JS File -->
   {{-- <script src="/admin/assets/js/page/index.js"></script> --}}
   <!-- Template JS File -->
   <script src="/admin/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="/admin/assets/js/custom.js"></script>
-  
+
   @yield('js')
   @livewireScripts
 </body>

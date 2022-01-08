@@ -5,7 +5,7 @@
       <paths name="eduapp">
         <serverdata>
           <mappings>
-            <mapping deploy="/eduapp" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
             <mapping local="" />
           </mappings>
         </serverdata>

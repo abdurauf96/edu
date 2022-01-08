@@ -4,7 +4,7 @@
             <div class="card author-box">
                 <div class="card-body">
                     <div class="author-box-center">
-                        <img alt="image" src="/admin/assets/img/users/user-1.png" class="rounded-circle author-box-picture">
+                        <img alt="image" src="/admin/images/teacher.png" class="rounded-circle author-box-picture">
                         <div class="clearfix"></div>
                         <div class="author-box-name">
                         <a href="#">{{ teacher.name }}</a>
