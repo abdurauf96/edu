@@ -32,8 +32,7 @@ class StudentsController extends Controller
     }
     public function index(Request $request)
     {
-
-        $students = $this->studentRepo->getAll();
+        $students = $this->studentRepo->getActives();
         return view('school.students.index', compact('students'));
     }
 
@@ -152,12 +151,11 @@ class StudentsController extends Controller
     public function studentQrcodes(Request $request)
     {
         if(!empty($request->q)){
-            $students=Student::school()->where('name', 'LIKE', '%'.$request->q.'%')->select('id', 'school_id', 'name', 'code', 'image', 'qrcode_status')->paginate(10);
+            $students=Student::school()->where('name', 'LIKE', '%'.$request->q.'%')->with('group')->paginate(10);
         }else{
-            $students=Student::school()->latest()->select('id', 'school_id', 'name', 'code', 'image', 'qrcode_status')->paginate(10);
+            $students=Student::school()->latest()->with('group')->paginate(10);
         }
         
-
         return view('school.students.qrcodes', compact('students'));
     }
 
@@ -186,12 +184,18 @@ TEXT;
             $student->save();
             return back()->with('flash_message', 'O`quvchi '.$new_group->name. '  ga ko`chirildi');
         }else{
-            $students = $this->studentRepo->getAll();
+            $students = $this->studentRepo->getActives();
             $groups=Group::school()->get();
             $courses=Course::school()->get();
             return view('school.students.changeGroup', compact('students', 'groups', 'courses'));
         }
 
+    }
+
+    public function allStudents()
+    {
+        $students=$this->studentRepo->getAll();
+        return view('school.students.all', compact('students'));
     }
 
 

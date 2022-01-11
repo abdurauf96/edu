@@ -24,6 +24,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>F.I.O</th>
+                                <th>Guruh</th>
+                                <th>Kurs</th>
+                                <th>O'qituvchi</th>
+                                <th>Dars vaqti</th>
+                               
                                 <th>Rasm</th>
                                 <th>QR Code</th>
                                 <th>Status</th>
@@ -34,6 +39,10 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->name }}</td>
+                                <td>{{ $item->group->name ?? '' }}</td>
+                                <td>{{ $item->group->course->name ?? '' }}</td>
+                                <td>{{ $item->group->teacher->name ?? '' }}</td>
+                                <td> @isset($item->group) {{ $item->group->course_days == 1 ? 'Dush/Chor/Jum' : 'Sesh/Pay/Shan' }} @endif</td>
                                 <td> <a href="{{ route('downloadImage', $item->image) }}"><img src="/admin/images/students/{{ $item->image }}" alt="" width="100"> </a> </td>
                                 <td> <a class="downloadQrcode" data-id="{{ $item->id }}" href="{{ route('downloadQrcode', $item->id) }}">Yuklab olish</a> </td>
                                 <td class="qrcode_res{{ $item->id }}">@if($item->qrcode_status==1)

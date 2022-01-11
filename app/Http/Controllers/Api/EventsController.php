@@ -23,6 +23,8 @@ class EventsController extends BaseController
             $resource=new StaffResource($staff);
         }else{
             $student=Student::findOrFail($id);
+            $student->study_year=2022;
+            $student->save();
             $name=$student->name;
             $school_id=$student->school_id;
             $resource=new StudentResource($student);

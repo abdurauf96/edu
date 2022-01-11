@@ -1,3 +1,8 @@
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
+<link rel="stylesheet" href="/admin/assets/bundles/datepicker/css/yearpicker.css" />
+@endsection
+
 <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
     {!! Form::label('name', 'F.I.O', ['class' => 'control-label']) !!}
     {!! Form::text('name', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -70,6 +75,14 @@
     {!! Form::file('image', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
+
+<div class="form-group{{ $errors->has('study_year1|}=[-p0 ,
+]') ? 'has-error' : ''}}">
+    {!! Form::label('study_year', "O'quv yili", ['class' => 'control-label']) !!}
+    {!! Form::text('study_year', null, ('required' == 'required') ? ['class' => 'form-control yearpicker', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
+</div>
+
 @isset($group)
 <input type="hidden" value="{{ $group->id }}" name="group_id">
 @endisset
@@ -94,3 +107,17 @@
 </div>
 
 
+@section('js')
+<script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> --}}
+<!-- Moment Js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+ <!-- Year Picker Js -->
+<script src="/admin/assets/bundles/datepicker/js/yearpicker.js"></script>
+<script>
+  $(".yearpicker").yearpicker({
+      startYear: 2019,
+      endYear: 2050,
+   });
+</script>
+@endsection

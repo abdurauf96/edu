@@ -26,12 +26,14 @@ class MainController extends Controller
     public function index()
     {
        
-        $num_students=Student::school()->get()->count();
+        $num_students=Student::school()->currentYear()->count();
         $num_groups=\App\Models\Group::school()->get()->count();
 
-        $girls=Student::school()->whereSex('0')->count();
-        $boys=Student::school()->whereSex(1)->count();
+        $girls=Student::school()->currentYear()->whereSex('0')->count();
+        $boys=Student::school()->currentYear()->whereSex(1)->count();
         $grant_students=Student::school()->grant()->count();
+
+      
         $active_students=Student::active()->count();
         $out_students=Student::school()->out()->count();
         $graduated_students=Student::school()->graduated()->count();

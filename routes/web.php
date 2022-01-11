@@ -74,6 +74,8 @@ Route::middleware('auth:user')->prefix('school')->group(function(){
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     Route::resource('/students', StudentsController::class)->except('create');
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
+    //Route::get('/graduated-students', [StudentsController::class, 'graduatedStudents'])->name('graduatedStudents');
+    Route::get('/all-students', [StudentsController::class, 'allStudents'])->name('allStudents');
     Route::get('/student-qrcodes', [StudentsController::class, 'studentQrcodes'])->name('studentQrcodes');
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
 

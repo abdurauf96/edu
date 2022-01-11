@@ -49,7 +49,7 @@ class Teacher extends Authenticatable
 
     public function students()
     {
-        return $this->hasManyThrough(Student::class, Group::class)->where('students.status', 1);
+        return $this->hasManyThrough(Student::class, Group::class)->where(['students.status'=>1, 'students.study_year'=>2022]);
     }
 
     public function is_debt_students()

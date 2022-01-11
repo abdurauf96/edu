@@ -55582,13 +55582,12 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 
 
 
- // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].component('teacher-profile', __webpack_require__(/*! ./components/Teacher/Profile.vue */ "./resources/js/components/Teacher/Profile.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(vue_axios__WEBPACK_IMPORTED_MODULE_0__["default"], (axios__WEBPACK_IMPORTED_MODULE_1___default()));
 window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_2___default());
 var app = new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
-  el: '#teacherApp'
+  el: '#app'
 });
 })();
 

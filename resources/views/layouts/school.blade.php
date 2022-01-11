@@ -17,7 +17,15 @@
   <link rel='shortcut icon' type='image/x-icon' href='/admin/assets/img/favicon.ico' />
   @yield('css')
   <meta name="csrf-token" content="{{ csrf_token() }}">
-   
+   <style>
+     .flash_message{
+       position: absolute;
+       right: 50px;
+       top: 71px;
+       z-index: 99999999; 
+       width: 350px;
+     }
+   </style>
 </head>
 
 <body>
@@ -66,16 +74,17 @@
       <div class="main-sidebar sidebar-style-2">
         @include('school.sidebar')
       </div>
+      
       @if (Session::has('flash_message'))
-        <div class="col-lg-4 col-md-6 col-12 alert alert-success alert-dismissible show fade">
-            <div class="alert-body">
-                <button class="close" data-dismiss="alert">
-                <span>×</span>
-                </button>
-                {{ session('flash_message') }}
-            </div>
+        <div class="alert flash_message alert-success alert-dismissible show fade">
+          <div class="alert-body">
+            <button class="close" data-dismiss="alert">
+              <span>&times;</span>
+            </button>
+            {{ session('flash_message') }}
+          </div>
         </div>
-        @endif
+      @endif
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
@@ -183,6 +192,7 @@
     </div>
   </div>
   <!-- General JS Scripts -->
+  <script src="{{ asset('js/app.js') }}"></script>
   <script src="/admin/assets/js/app.min.js"></script>
   
   <!-- Page Specific JS File -->
@@ -192,6 +202,12 @@
   <!-- Custom JS File -->
   <script src="/admin/assets/js/custom.js"></script>
   @yield('js')
+  <script>
+    var url=window.location.href;
+    a=document.querySelectorAll("[href='"+url+"']")[0];
+    a.parentElement.classList.add('active');
+    a.parentElement.parentElement.style.display="block";
+  </script>
 </body>
 
 

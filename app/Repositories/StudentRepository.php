@@ -7,8 +7,16 @@ use App\Repositories\Interfaces\StudentRepositoryInterface;
 use App\Repositories\BaseRepository;
 
 class StudentRepository extends BaseRepository implements StudentRepositoryInterface{
+    public function getActives(){
+        return Student::school()->active()->latest()->get();
+    }
+
     public function getAll(){
-        return Student::school()->latest()->get();
+        return Student::school()->latest()->with('group.course')->get();
+    }
+
+    public function graduated(){
+        return Student::school()->graduated()->latest()->get();
     }
 
     public function create($request){

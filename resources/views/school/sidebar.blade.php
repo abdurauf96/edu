@@ -11,37 +11,30 @@
       </li>
 
       @if(Auth::check() && Auth::user()->hasRole('admin'))
-      @foreach($laravelAdminMenus->menus as $section)
       <li class="dropdown">
-        <a href="#" class="menu-toggle nav-link has-dropdown"><i
-            data-feather="briefcase"></i><span>{{ $section->section }}</span></a>
-        @if($section->items)
+        <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Adminstratsiya</span></a>
         <ul class="dropdown-menu">
-          @foreach($section->items as $menu)
-          <li><a class="nav-link" href="{{ url($menu->url) }}">{{ $menu->title }}</a></li>
-          @endforeach
-        @endif
+          <li><a class="nav-link" href="{{ route('users.index') }}">Foydalanuvchilar</a></li>
+          <li><a class="nav-link" href="{{ route('roles.index') }}">Ro'llar</a></li>
         </ul>
       </li>
-      @endforeach
       @endif
       <li class="dropdown">
         <a href="{{ route('courses.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Kurslar</span></a>
       </li>
 
       <li class="dropdown">
-        <a href="{{ route('teachers.index') }}" class="nav-link"><i data-feather="monitor"></i>
+        <a href="{{ route('teachers.index') }}" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>
          <span>O'qituvchilar</span>
         </a>
       </li>
       <li class="dropdown">
-        <a href="{{ route('groups.index') }}" class="nav-link"><i data-feather="monitor"></i> <span>Guruhlar</span>
+        <a href="{{ route('groups.index') }}" class="nav-link"><i class="fas fa-user-friends"></i> <span>Guruhlar</span>
         </a>
       </li>
 
       <li class="dropdown">
-        <a href="#" class="menu-toggle nav-link has-dropdown"><i
-          data-feather="briefcase"></i><span>O'quvchilar</span></a>
+        <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users"></i><span>O'quvchilar</span></a>
 
           <ul class="dropdown-menu" >
               <li>
@@ -69,6 +62,11 @@
                     O'quvchilarni ko'chirish
                 </a>
               </li>
+              <li>
+                <a class="nav-link" href="{{ route('allStudents') }}">
+                    Barcha o'quvchilar
+                </a>
+              </li>
           </ul>
       </li>
 
@@ -79,13 +77,12 @@
       </li>
       <li class="dropdown">
         <a href="{{ route('staffs.index') }}" class="nav-link">
-          <i data-feather="monitor"></i><span>Xodimlar</span>
+          <i class="fas fa-user-friends"></i><span>Xodimlar</span>
         </a>
       </li>
      @if(Auth::check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cashier')) )
       <li class="dropdown">
-        <a href="#" class="menu-toggle nav-link has-dropdown"><i
-          data-feather="briefcase"></i><span>Buxgalteriya</span></a>
+        <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Buxgalteriya</span></a>
 
         <ul class="dropdown-menu" >
 

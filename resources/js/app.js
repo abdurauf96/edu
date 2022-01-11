@@ -12,15 +12,13 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 
-
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('teacher-profile', require('./components/Teacher/Profile.vue').default)
+
 
 Vue.use(VueAxios, axios);
 window.Swal = Swal;
 
 const app = new Vue({
-    el: '#teacherApp',
-    
+    el: '#app',
 });
+

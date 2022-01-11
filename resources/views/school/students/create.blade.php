@@ -1,7 +1,5 @@
 @extends('layouts.school')
-@section('css')
-<link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
-@endsection
+
 @section('content')
 
 <div class="row">
@@ -62,9 +60,3 @@
 </div>
 @endsection
 
-@section('js')
-<script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
-<script>
-  
-</script>
-@endsection

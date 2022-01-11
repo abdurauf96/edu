@@ -34,26 +34,32 @@ class Student extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt', 'status', 'username', 'password'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt', 'status', 'username', 'password', 'study_year'];
+
+    public function scopeCurrentYear()
+    {
+        return $this->where('study_year', date('Y'));
+    }
+
 
     public function scopeActive()
     {
-        return $this->whereStatus(self::ACTIVE);
+        return $this->currentYear()->whereStatus(self::ACTIVE);
     }
 
     public function scopeGraduated()
     {
-        return $this->whereStatus(self::GRADUATED);
+        return $this->currentYear()->whereStatus(self::GRADUATED);
     }
 
     public function scopeOut()
     {
-        return $this->whereStatus(self::OUT);
+        return $this->currentYear()->whereStatus(self::OUT);
     }
 
     public function scopeGrant()
     {
-        return $this->where('type', '!=', 1);
+        return $this->currentYear()->where(['type'=>0]);
     }
 
     public function events()
