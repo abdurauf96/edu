@@ -7,12 +7,15 @@ use App\Repositories\Interfaces\StudentRepositoryInterface;
 use App\Repositories\BaseRepository;
 
 class StudentRepository extends BaseRepository implements StudentRepositoryInterface{
-    public function getActives(){
-        return Student::school()->active()->latest()->get();
-    }
 
-    public function getAll(){
-        return Student::school()->latest()->with('group.course')->get();
+    public function getAll($year=null){
+        return Student::school()
+            ->latest()
+            ->with('group.course')
+            ->when($year, function($query) use ($year){
+                $query->where('study_year', $year);
+            })
+            ->get();
     }
 
     public function graduated(){

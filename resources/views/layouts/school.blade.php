@@ -192,7 +192,7 @@
     </div>
   </div>
   <!-- General JS Scripts -->
-  <script src="{{ asset('js/app.js') }}"></script>
+  {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
   <script src="/admin/assets/js/app.min.js"></script>
   
   <!-- Page Specific JS File -->

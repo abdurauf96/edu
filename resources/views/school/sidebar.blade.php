@@ -38,8 +38,8 @@
 
           <ul class="dropdown-menu" >
               <li>
-                  <a class="nav-link" href="{{ route('students.index') }}">
-                       Joriy o'quvchilar
+                  <a class="nav-link" href="{{ route('students.index', ['year'=>date('Y')]) }}">
+                       O'quvchilar
                   </a>
               </li>
               <li>
@@ -60,11 +60,6 @@
               <li>
                 <a class="nav-link" href="{{ route('changeStudentGroup') }}">
                     O'quvchilarni ko'chirish
-                </a>
-              </li>
-              <li>
-                <a class="nav-link" href="{{ route('allStudents') }}">
-                    Barcha o'quvchilar
                 </a>
               </li>
           </ul>

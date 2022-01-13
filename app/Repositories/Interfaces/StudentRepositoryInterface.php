@@ -2,8 +2,7 @@
 namespace App\Repositories\Interfaces;
 
 interface StudentRepositoryInterface{
-    public function getAll();
-    public function getActives();
+    public function getAll($year);
     public function create($data);
     public function findOne($id);
     public function update($data,$id);

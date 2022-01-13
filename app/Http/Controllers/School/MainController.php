@@ -39,7 +39,7 @@ class MainController extends Controller
         $graduated_students=Student::school()->graduated()->count();
 
         $teachers=\App\Models\Teacher::school()->with('students')->get();
-        $courses=\App\Models\Course::school()->with('students')->get();
+        $courses=\App\Models\Course::school()->with('activeStudents')->get();
 
         return view('school.dashboard', compact(  'num_students', 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
     }

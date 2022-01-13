@@ -10,9 +10,20 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header"> <h4> O'quvchilar</h4>
-{{--                <a href="{{ url('/school/students/create') }}" class="btn btn-success btn-sm" title="Add New Student">--}}
-{{--                        <i class="fa fa-plus" aria-hidden="true"></i> Yangi qo'shish--}}
-{{--                </a>--}}
+                <div class="card-header-form">
+                    <div class="dropdown d-inline mr-2">
+                        <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            O'quv yili {{  request()->get('year') ?? ""  }}
+                        </button>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item" href="{{ route('students.index', ['year'=>2021]) }}">2021</a>
+                          <a class="dropdown-item" href="{{ route('students.index', ['year'=>2022]) }}">2022</a>
+                          <a class="dropdown-item" href="{{ route('students.index', ['year'=>2023]) }}">2023</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{{ route('students.index') }}">Barchasi</a>
+                        </div>
+                    </div>
+                </div>        
             </div>
             <div class="card-body">
 

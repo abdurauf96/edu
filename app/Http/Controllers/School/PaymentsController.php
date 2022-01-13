@@ -41,7 +41,7 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        $students=$this->studentRepo->getActives();
+        $students=$this->studentRepo->getAll();
         $courses=\App\Models\Course::all();
         $groups=\App\Models\Group::all();
         $months=\App\Models\Month::all();
@@ -87,7 +87,7 @@ class PaymentsController extends Controller
     public function edit($id)
     {
         $payment = $this->paymentRepo->findOne($id);
-        $students=$this->studentRepo->getActives();
+        $students=$this->studentRepo->getAll();
         $courses=\App\Models\Course::all();
         $groups=\App\Models\Group::all();
         $months=\App\Models\Month::all();

@@ -32,7 +32,7 @@ class StudentsController extends Controller
     }
     public function index(Request $request)
     {
-        $students = $this->studentRepo->getActives();
+        $students = $this->studentRepo->getAll($request->year);
         return view('school.students.index', compact('students'));
     }
 
@@ -123,7 +123,7 @@ class StudentsController extends Controller
 
         $student->destroy($id);
 
-        return redirect('school/students')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
+        return redirect('school/students?year='.date('Y'))->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
      public function addStudentToGroup(Request $request)
@@ -184,19 +184,12 @@ TEXT;
             $student->save();
             return back()->with('flash_message', 'O`quvchi '.$new_group->name. '  ga ko`chirildi');
         }else{
-            $students = $this->studentRepo->getActives();
+            $students = $this->studentRepo->getAll();
             $groups=Group::school()->get();
             $courses=Course::school()->get();
             return view('school.students.changeGroup', compact('students', 'groups', 'courses'));
         }
 
     }
-
-    public function allStudents()
-    {
-        $students=$this->studentRepo->getAll();
-        return view('school.students.all', compact('students'));
-    }
-
 
 }
