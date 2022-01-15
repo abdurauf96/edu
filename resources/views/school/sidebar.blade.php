@@ -62,6 +62,11 @@
                     O'quvchilarni ko'chirish
                 </a>
               </li>
+              <li>
+                <a class="nav-link" href="{{ route('appeals.index') }}">
+                    Ariza qoldirganlar
+                </a>
+              </li>
           </ul>
       </li>
 

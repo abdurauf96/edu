@@ -1,7 +1,6 @@
 @extends('layouts.school')
 @section('css')
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/datatables.min.css">
-<link rel="stylesheet" href="/admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 @endsection
 @section('title', 'O`quvchilar')
     
@@ -88,7 +87,6 @@
 
 @section('js')
 <!-- JS Libraies -->
-<script src="/admin/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
 <script src="/admin/assets/bundles/datatables/datatables.min.js"></script>
 
 <!-- Page Specific JS File -->
