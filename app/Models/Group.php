@@ -9,7 +9,7 @@ use \App\Traits\School;
 
 class Group extends Model
 {
-    use LogsActivity, SoftDeletes, School;
+    use LogsActivity, School;
 
 
     /**
@@ -20,10 +20,10 @@ class Group extends Model
     protected $table = 'groups';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -50,18 +50,18 @@ class Group extends Model
 
     public function students()
     {
-        return $this->allStudents()->where(['status'=>1, 'study_year'=>2022]);
+        return $this->allStudents()->where(['status' => 1, 'study_year' => 2022]);
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
-        static::deleting(function($group) {
-             $group->allStudents()->delete();
+        static::deleting(function ($group) {
+            $group->allStudents()->delete();
         });
-        static::creating(function ($model){
-            $model->school_id=auth()->guard('user')->user()->school_id;
+        static::creating(function ($model) {
+            $model->school_id = auth()->guard('user')->user()->school_id;
         });
-
     }
 
     /**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "011b8c83ea66b4e02adeb520d229f842",
+    "content-hash": "b10393d1e4df755af108d84f07a4334d",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -1150,16 +1150,16 @@
         },
         {
             "name": "goodoneuz/pay-uz",
-            "version": "2.1.1",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shaxzodbek-uzb/pay-uz.git",
-                "reference": "04831bfa75aa55769eef07304f16f51c792a5145"
+                "reference": "d2554dc84b2d09b081069ec39c062613a5a7950c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shaxzodbek-uzb/pay-uz/zipball/04831bfa75aa55769eef07304f16f51c792a5145",
-                "reference": "04831bfa75aa55769eef07304f16f51c792a5145",
+                "url": "https://api.github.com/repos/shaxzodbek-uzb/pay-uz/zipball/d2554dc84b2d09b081069ec39c062613a5a7950c",
+                "reference": "d2554dc84b2d09b081069ec39c062613a5a7950c",
                 "shasum": ""
             },
             "require": {
@@ -1206,9 +1206,9 @@
             ],
             "support": {
                 "issues": "https://github.com/shaxzodbek-uzb/pay-uz/issues",
-                "source": "https://github.com/shaxzodbek-uzb/pay-uz/tree/2.1.1"
+                "source": "https://github.com/shaxzodbek-uzb/pay-uz/tree/2.2.1"
             },
-            "time": "2022-01-26T06:44:40+00:00"
+            "time": "2022-01-26T12:27:26+00:00"
         },
         {
             "name": "graham-campbell/result-type",

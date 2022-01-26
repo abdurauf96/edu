@@ -18,10 +18,10 @@ class Payment extends Model
     protected $table = 'payments';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -55,11 +55,13 @@ class Payment extends Model
     {
         return $this->hasMany(Payment::class);
     }
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::creating(function ($model){
-            $model->school_id=auth()->guard('user')->user()->school_id;
+        static::creating(function ($model) {
+            if (auth()->guard('user')->user())
+                $model->school_id = auth()->guard('user')->user()->school_id;
         });
     }
 

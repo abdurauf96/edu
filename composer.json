@@ -13,7 +13,7 @@
         "beyondcode/laravel-websockets": "^1.12",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "goodoneuz/pay-uz": "^2.1",
+        "goodoneuz/pay-uz": "^2.2",
         "guzzlehttp/guzzle": "^7.3",
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.1",

@@ -62,7 +62,7 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,ca
 
 
 //routes for all school users
-Route::middleware('auth:user')->prefix('school')->group(function(){
+Route::middleware('auth:user')->prefix('school')->group(function () {
 
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);
@@ -97,7 +97,7 @@ Route::middleware('auth:user')->prefix('school')->group(function(){
 });
 
 //admin routes
-Route::middleware('auth')->prefix('admin')->group(function(){
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/schools', [SchoolController::class, 'index'])->name('admin.schools');
     Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('admin.schoolDetail');
@@ -105,7 +105,7 @@ Route::middleware('auth')->prefix('admin')->group(function(){
 });
 
 //teacher routes
-Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(function(){
+Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('dashboard',  [TeacherController::class, 'dashboard'])->name('dashboard');
     Route::get('students',  [TeacherController::class, 'students'])->name('students');
     Route::get('profil',  [TeacherController::class, 'profil'])->name('profil');
@@ -119,7 +119,19 @@ Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(fu
 //Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
 //Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
+//handle requests from payment system
+Route::any('/handle/{paysys}', function ($paysys) {
+    info(file_get_contents('php://input'));
+    (new Goodoneuz\PayUz\PayUz)->driver($paysys)->handle();
+});
 
-require __DIR__.'/auth.php';
-
-
+//redirect to payment system or payment form
+Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
+    $model = Goodoneuz\PayUz\Services\PaymentService::convertKeyToModel($key);
+    $url = request('redirect_url', '/'); // redirect url after payment completed
+    $pay_uz = new Goodoneuz\PayUz\PayUz;
+    $pay_uz
+        ->driver($paysys)
+        ->redirect($model, $amount, 860, $url);
+});
+require __DIR__ . '/auth.php';
