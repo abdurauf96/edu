@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f34c0288fa4463e1d212ee301a4df6b",
+    "content-hash": "b10393d1e4df755af108d84f07a4334d",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -1150,11 +1150,17 @@
         },
         {
             "name": "goodoneuz/pay-uz",
-            "version": "dev-main",
+            "version": "2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shaxzodbek-uzb/pay-uz.git",
+                "reference": "0b708d78115d64959834994c5cd0aeaed0ac58e9"
+            },
             "dist": {
-                "type": "path",
-                "url": "../pay-uz",
-                "reference": "22b94f7d255362acf07b8d605d91979573fe3324"
+                "type": "zip",
+                "url": "https://api.github.com/repos/shaxzodbek-uzb/pay-uz/zipball/0b708d78115d64959834994c5cd0aeaed0ac58e9",
+                "reference": "0b708d78115d64959834994c5cd0aeaed0ac58e9",
+                "shasum": ""
             },
             "require": {
                 "illuminate/support": "5.7.*|5.8.*|6.*|7.*|^8.0",
@@ -1181,19 +1187,7 @@
                     "Goodoneuz\\PayUz\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Goodoneuz\\PayUz\\Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit"
-                ],
-                "test-coverage": [
-                    "vendor/bin/phpunit --coverage-html coverage"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1210,9 +1204,11 @@
                 "goodoneuz",
                 "pay-uz"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/shaxzodbek-uzb/pay-uz/issues",
+                "source": "https://github.com/shaxzodbek-uzb/pay-uz/tree/2.2.2"
+            },
+            "time": "2022-01-27T08:12:23+00:00"
         },
         {
             "name": "graham-campbell/result-type",
