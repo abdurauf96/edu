@@ -1,26 +1,27 @@
 <?php
-$params = json_decode($transaction->detail, true)['params'];
+$service_id = $transaction->detail['serviceId'] ?? 100;
+$params = $transaction->detail['params'];
 $description = '';
 $purpose = 1;
+// 100 - course - 1
+// 101 - cybersport - 3
+// 102 - coworking - 2
+// 103 - conference room - 4
+switch ($service_id) {
+    case 101:
+        $purpose = 3;
+        break;
+    case 102:
+        $purpose = 2;
+        break;
+    case 103:
+        $purpose = 4;
+        break;
+}
 if (!isset($params['paramKey'])) {
     info($params);
     $keys = $params;
     foreach ($keys as $k) {
-        if ($k['paramKey'] == 'type') {
-            if ($k['paramValue'] != 'course') {
-                switch ($k['paramValue']) {
-                    case 'coworking':
-                        $purpose = 2;
-                        break;
-                    case 'cybersport':
-                        $purpose = 3;
-                        break;
-                    default:
-                        $purpose = 4;
-                        break;
-                }
-            }
-        }
         if ($k['paramKey'] == 'description') {
             $description = $k['paramValue'];
         }
