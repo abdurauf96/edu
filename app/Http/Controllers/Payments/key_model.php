@@ -1,2 +1,2 @@
 <?php
-    return \App\Models\Student::findOrFail($key);
+return \App\Models\Student::where('username', $key)->first();

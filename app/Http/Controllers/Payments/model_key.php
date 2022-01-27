@@ -1,3 +1,2 @@
 <?php
-    return $model->id;
-    
+return $model->username;
