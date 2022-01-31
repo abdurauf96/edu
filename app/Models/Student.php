@@ -12,9 +12,9 @@ use App\Models\School as SchoolModel;
 class Student extends Authenticatable
 {
     use LogsActivity, HasApiTokens, School;
-    const ACTIVE=1; // xozirgi vaqtda o'qiyotgan o'quvchilar
-    const OUT=2; // chiqib ketgan o'quvchilar
-    const GRADUATED=0; // bitirib ketgan o'quvchilar
+    const ACTIVE = 1; // xozirgi vaqtda o'qiyotgan o'quvchilar
+    const OUT = 2; // chiqib ketgan o'quvchilar
+    const GRADUATED = 0; // bitirib ketgan o'quvchilar
     /**
      * The database table used by the model.
      *
@@ -23,10 +23,10 @@ class Student extends Authenticatable
     protected $table = 'students';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -59,7 +59,7 @@ class Student extends Authenticatable
 
     public function scopeGrant()
     {
-        return $this->currentYear()->where(['type'=>0]);
+        return $this->currentYear()->where(['type' => 0]);
     }
 
     public function events()
@@ -79,26 +79,28 @@ class Student extends Authenticatable
 
     public function is_debt()
     {
-        $res=count($this->payments->where('month_id', date("m"))->where('amount', '>=', $this->group->course->price*$this->type));
+        $res = count($this->payments->where('month_id', date("m"))->where('amount', '>=', $this->group->course->price * $this->type));
 
-        if($res>0){
+        if ($res > 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
-    public function getSchool(){
+    public function getSchool()
+    {
         return $this->belongsTo(SchoolModel::class, 'school_id');
     }
 
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
-        static::deleting(function($student) {
-             $student->payments()->delete();
+        static::deleting(function ($student) {
+            $student->payments()->delete();
         });
-        static::creating(function ($model){
-            $model->school_id=auth()->guard('user')->user()->school_id;
+        static::creating(function ($model) {
+            $model->school_id = auth()->guard('user')->user()->school_id;
         });
     }
 
