@@ -8,24 +8,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header"> <h4>To'lovlar </h4>
-                <div class="card-header-form">
+                {{-- <div class="card-header-form">
                     <a href="{{ route('payments.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
-                </div>
+                </div> --}}
             </div>
             <div class="card-body">
-                
+
                 <div class="table-responsive dataTables_wrapper " >
                     <table class="table table-bordered table-striped table-hover " id="table-1">
-                    
+
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>O'quvchi</th>
-                                <th>Guruh</th>
-                                <th>O'qituvchi</th>
-                                <th>To'lov miqdori</th>
-                                <th>To'lov turi</th>
-                                <th>To'lov oyi</th>
+                                <th>To'lovchi</th>
+                                <th>Miqdor</th>
+                                <th>Turi</th>
+                                <th>Maqsadi</th>
+                                <th>Ma'lumot</th>
                                 <th>Sana</th>
                                 <th>Amallar</th>
                             </tr>
@@ -35,11 +34,28 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->student->name }}</td>
-                                <td>{{ $item->student->group->name }}</td>
-                                <td>{{ $item->student->group->teacher->name }}</td>
                                 <td>{{ $item->amount }}</td>
                                 <td>{{ $item->type }}</td>
-                                <td>{{ $item->month->name}} uchun</td>
+                                <td>
+                                    @switch($item->purpose)
+                                        @case(1)
+                                            O'quv kursi
+                                            @break
+                                        @case(2)
+                                            Kibersport
+                                            @break
+                                        @case(3)
+                                            Coworking
+                                            @break
+                                        @case(4)
+                                            Konferens zal
+                                            @break
+                                        @default
+                                            Boshqa
+                                    @endswitch
+                                </td>
+
+                                <td>{{ $item->description }}</td>
                                 <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                 <td>
                                     <a href="{{ route('payments.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
@@ -61,7 +77,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                   
+
                 </div>
 
             </div>
