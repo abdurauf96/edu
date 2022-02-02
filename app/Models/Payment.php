@@ -24,6 +24,8 @@ class Payment extends Model
      */
     protected $primaryKey = 'id';
 
+
+
     /**
      * Attributes that should be mass-assignable.
      *
