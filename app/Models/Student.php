@@ -11,6 +11,7 @@ use App\Models\School as SchoolModel;
 
 class Student extends Authenticatable
 {
+
     use LogsActivity, HasApiTokens, School;
     const ACTIVE = 1; // xozirgi vaqtda o'qiyotgan o'quvchilar
     const OUT = 2; // chiqib ketgan o'quvchilar

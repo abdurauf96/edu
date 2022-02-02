@@ -7,17 +7,31 @@ $purpose = 1;
 // 101 - cybersport - 3
 // 102 - coworking - 2
 // 103 - conference room - 4
+
+//create loop for service id    
 switch ($service_id) {
+    case 100:
+        $description = 'Оплата курса';
+        $purpose = 1;
+        break;
     case 101:
+        $description = 'Оплата спортивного клуба';
         $purpose = 3;
         break;
     case 102:
+        $description = 'Оплата коворкинга';
         $purpose = 2;
         break;
     case 103:
+        $description = 'Оплата конференц-зала';
         $purpose = 4;
         break;
+    default:
+        $description = 'Оплата курса';
+        $purpose = 1;
+        break;
 }
+
 if (!isset($params['paramKey'])) {
     info($params);
     $keys = $params;
