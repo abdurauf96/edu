@@ -132,6 +132,7 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
     $pay_uz = new Goodoneuz\PayUz\PayUz;
     $pay_uz
         ->driver($paysys)
+        ->setDescription(true)
         ->redirect($model, $amount, 860, $url);
 });
 require __DIR__ . '/auth.php';
