@@ -1150,6 +1150,7 @@
         },
         {
             "name": "goodoneuz/pay-uz",
+
             "version": "2.2.8",
             "source": {
                 "type": "git",
@@ -1204,7 +1205,13 @@
                 "goodoneuz",
                 "pay-uz"
             ],
+
+            "support": {
+                "issues": "https://github.com/shaxzodbek-uzb/pay-uz/issues",
+                "source": "https://github.com/shaxzodbek-uzb/pay-uz/tree/2.2.7"
+            },
             "time": "2022-02-04T13:06:32+00:00"
+
         },
         {
             "name": "graham-campbell/result-type",
