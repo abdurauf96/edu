@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SchoolController;
 
 use App\Http\Controllers\Teacher\TeacherController;
+use App\Http\Controllers\Student\StudentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,6 +117,12 @@ Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(fu
     Route::post('update-login', [TeacherController::class, 'updateLogin']); //update teacher login credintials
 });
 
+//student routes
+Route::middleware('auth:student')->prefix('student')->name('student.')->group(function(){
+    Route::get('dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
+    Route::post('payment', [StudentController::class, 'redirectToPaymentSystem'])->name('redirectToPaymentSystem');
+});
+
 //Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
 //Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
@@ -125,6 +132,7 @@ Route::any('/handle/{paysys}', function ($paysys) {
     (new Goodoneuz\PayUz\PayUz)->driver($paysys)->handle();
 });
 
+
 //redirect to payment system or payment form
 Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
     $model = Goodoneuz\PayUz\Services\PaymentService::convertKeyToModel($key);
@@ -132,6 +140,7 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
     $pay_uz = new Goodoneuz\PayUz\PayUz;
     $pay_uz
         ->driver($paysys)
+        ->setDescription(true)
         ->redirect($model, $amount, 860, $url);
-});
+})->name('paymentSystem');
 require __DIR__ . '/auth.php';

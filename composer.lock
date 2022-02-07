@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b10393d1e4df755af108d84f07a4334d",
+    "content-hash": "295e18dad7f5718582da1fe69d92454b",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -1150,16 +1150,16 @@
         },
         {
             "name": "goodoneuz/pay-uz",
-            "version": "2.2.2",
+            "version": "2.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shaxzodbek-uzb/pay-uz.git",
-                "reference": "0b708d78115d64959834994c5cd0aeaed0ac58e9"
+                "reference": "264d7eef8828b75dfa8d570602e28cc05fbffc29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shaxzodbek-uzb/pay-uz/zipball/0b708d78115d64959834994c5cd0aeaed0ac58e9",
-                "reference": "0b708d78115d64959834994c5cd0aeaed0ac58e9",
+                "url": "https://api.github.com/repos/shaxzodbek-uzb/pay-uz/zipball/264d7eef8828b75dfa8d570602e28cc05fbffc29",
+                "reference": "264d7eef8828b75dfa8d570602e28cc05fbffc29",
                 "shasum": ""
             },
             "require": {
@@ -1204,11 +1204,7 @@
                 "goodoneuz",
                 "pay-uz"
             ],
-            "support": {
-                "issues": "https://github.com/shaxzodbek-uzb/pay-uz/issues",
-                "source": "https://github.com/shaxzodbek-uzb/pay-uz/tree/2.2.2"
-            },
-            "time": "2022-01-27T08:12:23+00:00"
+            "time": "2022-02-04T13:06:32+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -5510,6 +5506,7 @@
                     "type": "tidelift"
                 }
             ],
+            "abandoned": "symfony/mailer",
             "time": "2021-10-18T15:26:12+00:00"
         },
         {
@@ -10369,5 +10366,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "1.1.0"
 }
