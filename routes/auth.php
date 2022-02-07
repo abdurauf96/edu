@@ -81,3 +81,8 @@ Route::post('/school/logout', [SchoolController::class, 'destroy'])
 Route::get('/teacher/login', [\App\Http\Controllers\Auth\TeacherController::class, 'showLoginForm'])->middleware('guest:teacher');
 Route::post('/teacher/login', [\App\Http\Controllers\Auth\TeacherController::class, 'login'])->name('teacherLogin');
 Route::post('/teacher/logout', [\App\Http\Controllers\Auth\TeacherController::class, 'destroy'])->name('teacherLogout');
+
+
+Route::get('/student/login', [\App\Http\Controllers\Auth\StudentController::class, 'showLoginForm'])->middleware('guest:student');
+Route::post('/student/login', [\App\Http\Controllers\Auth\StudentController::class, 'login'])->name('studentLogin');
+Route::post('/student/logout', [\App\Http\Controllers\Auth\StudentController::class, 'destroy'])->name('studentLogout');

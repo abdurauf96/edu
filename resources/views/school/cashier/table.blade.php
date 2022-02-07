@@ -35,11 +35,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>O'quvchi</th>
-                                <th>Guruh</th>
-                                <th>O'qituvchi</th>
+                                {{-- <th>Guruh</th> --}}
+                                {{-- <th>O'qituvchi</th> --}}
                                 <th>To'lov miqdori</th>
                                 <th>To'lov turi</th>
-                                <th>To'lov oyi</th>
+                            
                                 <th>Sana</th>
                                 <th>Amallar</th>
                             </tr>
@@ -49,11 +49,11 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->student->name }}</td>
-                                <td>{{ $item->student->group->name }}</td>
-                                <td>{{ $item->student->group->teacher->name }}</td>
+                                {{-- <td>{{ $item->student->group->name }}</td> --}}
+                                {{-- <td>{{ $item->student->group->teacher->name }}</td> --}}
                                 <td>{{ $item->amount }}</td>
                                 <td>{{ $item->type }}</td>
-                                <td>{{ $item->month->name}} uchun</td>
+                             
                                 <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                 <td>
                                     <a href="{{ route('payments.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
