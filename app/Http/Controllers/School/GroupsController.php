@@ -21,7 +21,6 @@ class GroupsController extends Controller
 
     public function index(Request $request)
     {
-
         $groups = Group::school()->orderBy('status')->latest()->get();
         return view('school.groups.index', compact('groups'));
     }
@@ -109,6 +108,10 @@ class GroupsController extends Controller
 
         $group = Group::findOrFail($id);
         $group->update($requestData);
+        
+        if($request->status==2){  
+            $group->students()->update(['finished_date'=>$request->end_date, 'status'=>0]); //if group finished course update status students to 'graduated'
+        }
 
         return redirect('school/groups')->with('flash_message', 'Guruh yangilandi!');
     }

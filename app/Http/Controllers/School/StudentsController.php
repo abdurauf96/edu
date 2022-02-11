@@ -5,8 +5,8 @@ namespace App\Http\Controllers\School;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\Course;
 use App\Models\Group;
+use App\Models\Course;
 use App\Models\Student;
 use App\Models\BotStudent;
 use App\Models\WaitingStudent;

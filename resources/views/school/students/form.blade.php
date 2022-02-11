@@ -88,7 +88,7 @@
 @endisset
 <div class="form-group">
     <label for="">Status</label>
-    <select  name="status" class="form-control select2" id="" required>
+    <select  name="status" class="form-control select2" id="status" required>
         <option @isset ($student)
             {{ $student->status==1 ? 'selected': '' }}
         @endisset  value="1">O'qimoqda</option>
@@ -101,6 +101,16 @@
 
     </select>
 </div>
+
+<div class="form-group" style="width:300px; display: none" id="outed_date">
+    {!! Form::label('outed_date', 'Chiqib ketgan sanasi', ['class' => 'control-label']) !!}
+    {!! Form::date('outed_date', null, ['class' => 'form-control']) !!}
+</div>
+<div class="form-group" style="width:300px; display: none" id="finished_date">
+    {!! Form::label('finished_date', 'Bitirib ketgan sanasi', ['class' => 'control-label']) !!}
+    {!! Form::date('finished_date', null, ['class' => 'form-control']) !!}
+</div>
+
 <input type="hidden" value="{{ url()->previous() }}" name="last_route">
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
@@ -119,5 +129,18 @@
       startYear: 2019,
       endYear: 2050,
    });
+
+   $('#status').change(function(){
+       if($(this).val()==2){
+            $('#outed_date').css('display', 'block');
+            $('#finished_date').css('display', 'none');
+       } else if($(this).val()==0){
+            $('#finished_date').css('display', 'block');
+            $('#outed_date').css('display', 'none');
+       }else{
+            $('#outed_date').css('display', 'none');
+            $('#finished_date').css('display', 'none');
+       }
+   })
 </script>
 @endsection

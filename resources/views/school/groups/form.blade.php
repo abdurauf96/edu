@@ -26,11 +26,7 @@
         {!! Form::date('start_date', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
         {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
     </div>
-    <div class="form-group{{ $errors->has('end_date') ? 'has-error' : ''}} " style="width:300px">
-        {!! Form::label('end_date', 'Kurs yakunlanish sanasi', ['class' => 'control-label']) !!}
-        {!! Form::date('end_date', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
-        {!! $errors->first('end_date', '<p class="help-block">:message</p>') !!}
-    </div>
+    
 </div>
 <div class="col-md-6">
     <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
@@ -60,16 +56,28 @@
     
     <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">
         {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
-       <select name="status" id="" class="form-control select2" required>
-           <option ></option>
+       <select name="status" id="status" class="form-control select2" required>
+           
+           
            <option @isset($group)
                {{ $group->status==1 ? 'selected' : ''}}
            @endisset value="1">Guruh to'lgan</option>
+
            <option  @isset($group)
            {{ $group->status==0 ? 'selected' : '' }}
-       @endisset value="0">Guruh ochilmoqda</option>
+           @endisset value="0">Guruh ochilmoqda</option>
+
+            <option @isset($group)
+            {{ $group->status==2 ? 'selected' : '' }}
+           @endisset value="2"> Guruh bitirgan</option>
        </select>
     </div>
+
+    <div class="form-group" style="width:300px; display: none" id="finish_date">
+        {!! Form::label('finish_date', 'Yakunlangan sana', ['class' => 'control-label']) !!}
+        {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
+    </div>
+
     <div class="form-group">
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
     </div>
@@ -78,10 +86,15 @@
 
 @section('js')
     <script>
-         $('.select2').select2({
-            placeholder: "Tanlang...",
-            allowClear: true
-         });
+    
+        $('#status').change(function(){
+           
+            if($(this).val()==2){
+                $('#finish_date').css('display', 'block');
+            } else{
+                $('#finish_date').css('display', 'none');
+            }
+        })
 
     </script>
 @endsection

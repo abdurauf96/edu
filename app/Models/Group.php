@@ -50,7 +50,7 @@ class Group extends Model
 
     public function students()
     {
-        return $this->allStudents()->where(['status' => 1, 'study_year' => 2022]);
+        return $this->allStudents()->where(['status' => 1]);
     }
 
     public static function boot()

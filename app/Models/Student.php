@@ -7,6 +7,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use App\Traits\School;
+use Carbon\Carbon;
 use App\Models\School as SchoolModel;
 
 class Student extends Authenticatable
@@ -35,7 +36,7 @@ class Student extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt', 'status', 'username', 'password', 'study_year'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date'];
 
     public function scopeCurrentYear()
     {
@@ -80,13 +81,34 @@ class Student extends Authenticatable
 
     public function is_debt()
     {
-        $res = count($this->payments->where('month_id', date("m"))->where('amount', '>=', $this->group->course->price * $this->type));
+        $currentDate=Carbon::parse(date('Y-m-d'));
+        $courseStartedDate=Carbon::parse($this->group->start_date);
+        
+        $payedSum=$this->payments()->sum('amount');
+          
+        switch ($this->status) {
+            case 1:
+                $diffMonth=date_diff($currentDate, $courseStartedDate)->m;
+                break;
+            case 2:
+                $outedDate=Carbon::parse($this->outed_date);
+                $diffMonth=date_diff($outedDate, $courseStartedDate)->m;
+                break;
+            case 0:
+                $finishedDate=Carbon::parse($this->finished_date);
+                $diffMonth=date_diff($finishedDate, $courseStartedDate)->m;
+                break;
+            default:
+                $diffMonth=1;
+                break;
+        }
 
-        if ($res > 0) {
-            return false;
-        } else {
+        $mustPaySum=$this->group->course->price*$diffMonth;
+
+        if($payedSum<$mustPaySum){
             return true;
         }
+        return false;
     }
     public function getSchool()
     {
