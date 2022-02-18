@@ -84,6 +84,8 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/download-image/{image?}', [StudentsController::class, 'downloadImage'])->name('downloadImage');
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');
+    Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
+    
     Route::get('/filter', [EventsController::class, 'filter'])->name('filterEvents');
 
     Route::resource('/months', MonthsController::class);

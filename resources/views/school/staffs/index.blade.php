@@ -40,6 +40,8 @@
                                                 'onclick'=>'return confirm("Confirm dele    te?")'
                                         )) !!}
                                     {!! Form::close() !!}
+
+                                    <a href="{{ route('userEvents', ['type'=>'staff', 'id'=>$item->id]) }}" class="badge badge-pill badge-success mb-1 float-right">Davomat</a>
                                 </td>
                             </tr>
                         @endforeach

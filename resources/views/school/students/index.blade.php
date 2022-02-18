@@ -70,6 +70,8 @@
                                         )) !!}
                                         @endif
                                     {!! Form::close() !!}
+
+                                    <a class="badge badge-pill badge-success mb-1 float-right" href="{{ route('userEvents', ['type'=>'student', 'id'=>$item->id]) }}">Davomat</a>
                                 </td>
                             </tr>
                         @endforeach
