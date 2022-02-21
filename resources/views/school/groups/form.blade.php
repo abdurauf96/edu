@@ -1,4 +1,7 @@
 
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/datepicker/css/yearpicker.css" />
+@endsection
 
     <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
         {!! Form::label('name', 'Guruh nomi', ['class' => 'control-label']) !!}
@@ -79,13 +82,26 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('study_year', "O'quv yili", ['class' => 'control-label']) !!}
+       <input type="text" class="form-control yearpicker" required name="year" value="{{ $formMode === 'edit' ? $group->year : '' }}">
+    </div>
+
+    <div class="form-group">
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
     </div>
 
 
 
 @section('js')
+<!-- Moment Js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+ <!-- Year Picker Js -->
+<script src="/admin/assets/bundles/datepicker/js/yearpicker.js"></script>
     <script>
+        $(".yearpicker").yearpicker({
+            startYear: 2019,
+            endYear: 2050,
+        });
     
         $('#status').change(function(){
            
@@ -95,6 +111,7 @@
                 $('#finish_date').css('display', 'none');
             }
         })
+
 
     </script>
 @endsection

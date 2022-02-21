@@ -21,7 +21,14 @@ class GroupsController extends Controller
 
     public function index(Request $request)
     {
-        $groups = Group::school()->orderBy('status')->latest()->get();
+        $year=$request->year;
+        $groups = Group::school()
+        ->orderBy('status')
+        ->latest()
+        ->when($year, function($query) use ($year){
+            $query->where('year', $year);
+        })
+        ->get();
         return view('school.groups.index', compact('groups'));
     }
 
@@ -56,7 +63,7 @@ class GroupsController extends Controller
 
         Group::create($requestData);
 
-        return redirect('school/groups')->with('flash_message', 'Guruh qo`shildi!');
+        return redirect('school/groups?year='.date('Y'))->with('flash_message', 'Guruh qo`shildi!');
     }
 
     /**
@@ -113,7 +120,7 @@ class GroupsController extends Controller
             $group->students()->update(['finished_date'=>$request->end_date, 'status'=>0]); //if group finished course update status students to 'graduated'
         }
 
-        return redirect('school/groups')->with('flash_message', 'Guruh yangilandi!');
+        return redirect('school/groups?year='.date('Y'))->with('flash_message', 'Guruh yangilandi!');
     }
 
     /**
@@ -127,6 +134,6 @@ class GroupsController extends Controller
     {
         Group::destroy($id);
 
-        return redirect('school/groups')->with('flash_message', 'Guruh o`chirib yuborildi!');
+        return redirect('school/groups?year='.date('Y'))->with('flash_message', 'Guruh o`chirib yuborildi!');
     }
 }
