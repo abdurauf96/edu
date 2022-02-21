@@ -21,7 +21,7 @@
 </div>
 <div class="form-group{{ $errors->has('address') ? 'has-error' : ''}}">
     {!! Form::label('address', 'Manzili', ['class' => 'control-label']) !!}
-    {!! Form::text('address', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::text('address', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">

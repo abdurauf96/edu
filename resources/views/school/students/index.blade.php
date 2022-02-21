@@ -31,12 +31,13 @@
 
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>F.I.O</th>
                                 <th>Guruh</th>
                                 <th>Kurs</th>
                                 <th>Telefon</th>
                                 <th>Manzil</th>
+
 
                                 {{-- <th>Rasm</th> --}} 
                                 <th>Amallar</th>
@@ -45,7 +46,7 @@
                         <tbody>
                         @foreach($students as $item)
                             <tr>
-                                <td>{{ $loop->iteration  }}</td>
+                                <td>{{ $item->id  }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td> {{ $item->group->name }} </td>
                                 <td> {{ $item->group->course->name }} </td>

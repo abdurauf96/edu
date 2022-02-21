@@ -79,7 +79,7 @@
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
                                 <td>
 
-                                    <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-icon btn-info"><i class="far fa-edit"></i></button></a>
 
                                 </td>
                             </tr>
