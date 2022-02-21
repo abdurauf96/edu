@@ -192,4 +192,24 @@ TEXT;
 
     }
 
+    public function generateCard($id)
+    {
+        $student = $this->studentRepo->findOne($id);
+        $img = \Image::make(public_path('admin/images/idcard.jpg'));
+        $img->text(strtoupper($student->name), 370, 700, function($font) {  
+            $font->file(public_path('admin/assets/fonts/nunito-v9-latin-800.ttf'));  
+            $font->size(34);  
+            $font->color('#000f48');  
+            $font->align('center');   
+        });
+        $img->text($student->username, 410, 740, function($font) {  
+            $font->file(public_path('admin/assets/fonts/nunito-v9-latin-600.ttf'));  
+            $font->size(32);  
+            $font->color('#041f94');  
+            $font->align('center');     
+        });  
+         $img->save(public_path('admin/images/idcards/'.$student->name.'.jpg'));
+
+    }
+
 }

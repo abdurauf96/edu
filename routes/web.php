@@ -73,6 +73,7 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
     // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
 
+    Route::get('/student/{id}/card-generate', [StudentsController::class, 'generateCard']);
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     Route::resource('/students', StudentsController::class)->except('create');
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
