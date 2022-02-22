@@ -9,6 +9,7 @@ use App\Models\Teacher;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\TeacherRepositoryInterface;
+use App\Repositories\Interfaces\StaffRepositoryInterface;
 
 class TeachersController extends Controller
 {
@@ -18,15 +19,17 @@ class TeachersController extends Controller
      * @return \Illuminate\View\View
      */
     public $teacherRepo;
+    public $staffRepo;
 
-    public function __construct(TeacherRepositoryInterface $teacherRepo)
+    public function __construct(TeacherRepositoryInterface $teacherRepo, StaffRepositoryInterface $staffRepo)
     {
         $this->teacherRepo=$teacherRepo;
+        $this->staffRepo=$staffRepo;
     }
 
     public function index(Request $request)
     {
-        $teachers=Teacher::school()->get();
+        $teachers=$this->teacherRepo->getAll();
 
         return view('school.teachers.index', compact('teachers'));
     }
@@ -39,7 +42,8 @@ class TeachersController extends Controller
     public function create()
     {
         $courses = Course::school()->latest()->get();
-        return view('school.teachers.create', compact('courses'));
+        $staffs=$this->staffRepo->getAll();
+        return view('school.teachers.create', compact('courses', 'staffs'));
     }
 
     /**
@@ -52,11 +56,8 @@ class TeachersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'name' => 'required',
 			'course_id' => 'required',
-			'phone' => 'required',
-            'passport'=>'required',
-            'birthday'=>'required',
+			'email' => 'required',
 		]);
 
         $this->teacherRepo->store($request->all());
@@ -73,7 +74,7 @@ class TeachersController extends Controller
      */
     public function show($id)
     {
-        $teacher = Teacher::findOrFail($id);
+        $teacher = $this->teacherRepo->findOne($id);
 
         return view('school.teachers.show', compact('teacher'));
     }
@@ -87,10 +88,11 @@ class TeachersController extends Controller
      */
     public function edit($id)
     {
-        $teacher = Teacher::findOrFail($id);
+        $teacher = $this->teacherRepo->findOne($id);
         $course_ids=$teacher->courses->pluck('id')->toArray();
         $courses = Course::school()->latest()->get();
-        return view('school.teachers.edit', compact('teacher', 'courses', 'course_ids'));
+        $staffs=$this->staffRepo->getAll();
+        return view('school.teachers.edit', compact('teacher', 'courses', 'course_ids', 'staffs'));
     }
 
     /**
@@ -104,11 +106,10 @@ class TeachersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+           
             'course_id' => 'required',
-            'phone' => 'required',
-            'passport'=>'required',
-            'birthday'=>'required',
+            'email' => 'required',
+           
         ]);
         $this->teacherRepo->update($id, $request->all());
 

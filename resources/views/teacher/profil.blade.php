@@ -5,3 +5,6 @@
         <teacher-profile></teacher-profile>
     </div>
 @endsection
+@section('js')
+<script src="/js/app.js"></script>
+@endsection

@@ -6,32 +6,53 @@ namespace App\Repositories;
 
 use App\Models\Teacher;
 use App\Repositories\Interfaces\TeacherRepositoryInterface;
+use App\Repositories\StaffRepository;
 use Hash;
 class TeacherRepository implements TeacherRepositoryInterface
 {
-    public function store($data){
-        //$requestData = $request->except(['course_id']);
 
-        $yearToArray=explode('-', $data['birthday']);
+    protected $staffObj;
+    public function __construct()
+    {
+        $staffObj=new StaffRepository;
+    }
+
+    public function getAll()
+    {
+        return Teacher::school()->latest()->get();
+    }
+
+    public function findOne($id)
+    {
+        return Teacher::findOrFail($id);
+    }
+
+    public function store($data){
+        
+        $staff=$this->staffObj->findOne($data['staff_id']);
+        $yearToArray=explode('-', $staff['year']);
         $reversed=array_reverse($yearToArray);
         $yearToString=implode('', $reversed);
 
-        $data['password']=Hash::make($yearToString);
+        $teacher=new Teacher;
+        $teacher->password=Hash::make($yearToString);
 
-        $teacher=Teacher::create($data);
+        $teacher->name=$staff->name;
+        $teacher->birthday=$staff->year;
+        $teacher->address=$staff->addres;
+        $teacher->passport=$staff->passport;
+        $teacher->phone=$staff->phone;
+        $teacher->email=$data['email'];
+        $teacher->save();
         $teacher->courses()->attach($data['course_id']);
     }
 
     public function update($id, $data){
-        //$requestData = $request->except(['course_id']);
-        $teacher = Teacher::findOrFail($id);
 
-        $yearToArray=explode('-', $data['birthday']);
-        $reversed=array_reverse($yearToArray);
-        $yearToString=implode('', $reversed);
-        $data['password']=Hash::make($yearToString);
+        $teacher = $this->findOne($id);
+        $teacher->email=$data['email']; 
 
-        $teacher->update($data);
+        $teacher->save();
         $teacher->courses()->sync($data['course_id']);
 
     }

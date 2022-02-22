@@ -25,7 +25,7 @@ class StaffsController extends Controller
     public function index(Request $request)
     {
 
-        $staffs = Staff::school()->latest()->get();
+        $staffs = $this->staffRepo->getAll();
 
         return view('school.staffs.index', compact('staffs'));
     }
@@ -50,7 +50,8 @@ class StaffsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'name' => 'required'
+			'name' => 'required',
+			'year' => 'required',
 		]);
         $this->staffRepo->store($request);
 
@@ -66,7 +67,7 @@ class StaffsController extends Controller
      */
     public function show($id)
     {
-        $staff = Staff::findOrFail($id);
+        $staff = $this->staffRepo->findOne($id);
 
         return view('school.staffs.show', compact('staff'));
     }
@@ -80,7 +81,7 @@ class StaffsController extends Controller
      */
     public function edit($id)
     {
-        $staff = Staff::findOrFail($id);
+        $staff = $this->staffRepo->findOne($id);
 
         return view('school.staffs.edit', compact('staff'));
     }
@@ -119,7 +120,7 @@ class StaffsController extends Controller
 
     public function staffEvent($id)
     {
-        $staff = Staff::findOrFail($id);
+        $staff = $this->staffRepo->findOne($id);
 
         return view('school.staffs.event', compact('staff'));
     }

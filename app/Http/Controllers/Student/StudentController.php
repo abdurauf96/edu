@@ -16,7 +16,7 @@ class StudentController extends Controller
     {
         $paysys=$request->paysys;
         $amount=$request->amount;
-        $key=auth()->user()->username;
+        $key=auth()->user()->id;
        
         return redirect('/pay/'.$paysys.'/'.$key.'/'.$amount);
     }

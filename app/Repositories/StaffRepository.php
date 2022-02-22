@@ -8,6 +8,16 @@ use App\Repositories\StaffRepository;
 
 class StaffRepository extends BaseRepository implements StaffRepositoryInterface{
 
+    public function getAll()
+    {
+        return Staff::school()->latest()->get();
+    }
+
+    public function findOne($id)
+    {
+        return Staff::findOrFail($id);
+    }
+
     public function store($request)
     {
         $requestData=$request->all();

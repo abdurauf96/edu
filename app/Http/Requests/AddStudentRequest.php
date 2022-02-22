@@ -27,7 +27,6 @@ class AddStudentRequest extends FormRequest
             'name' => 'required|unique:students,name',
 			'phone' => 'required',
 			'year' => 'required',
-			'address' => 'required'
         ];
     }
 

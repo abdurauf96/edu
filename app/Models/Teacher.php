@@ -64,12 +64,17 @@ class Teacher extends Authenticatable
                 return $student->is_debt();
             });
         }
-        return $res;
+        return $res ?? [];
     }
 
     public function get_percent_debt_students()
     {
-        return (count($this->is_debt_students())*100)/count($this->students);
+        if(count($this->students)>0){
+            return (count($this->is_debt_students())*100)/count($this->students);
+        }else{
+            return false;
+        }
+        
     }
 
     public static function boot() {

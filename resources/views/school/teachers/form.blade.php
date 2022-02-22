@@ -1,18 +1,17 @@
-<div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
-    {!! Form::label('name', 'F.I.O', ['class' => 'control-label']) !!}
-    {!! Form::text('name', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
+@endsection
+
+<div class="form-group">
+    <label for="" class="control-label">Xodim</label>
+    <select class="form-control select2" name="staff_id" data-height="100%" required data-placeholder="Yo'nalishni tanlang">
+        @foreach ($staffs as $staff)
+            <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+        @endforeach
+    </select>
 </div>
-<div class="form-group{{ $errors->has('birthday') ? 'has-error' : ''}}">
-    {!! Form::label('birthday', 'Tug`ilgan kuni', ['class' => 'control-label']) !!}
-    {!! Form::date('birthday', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('birthday', '<p class="help-block">:message</p>') !!}
-</div>
-<div class="form-group{{ $errors->has('address') ? 'has-error' : ''}}">
-    {!! Form::label('address', 'Yashash manzili', ['class' => 'control-label']) !!}
-    {!! Form::text('address', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
-</div>
+
+
 <div class="form-group{{ $errors->has('course_id') ? 'has-error' : ''}}">
     {!! Form::label('course_id', 'Mutahassisliklari', ['class' => 'control-label']) !!}
 
@@ -22,22 +21,12 @@
        @endforeach
    </select>
 </div>
-<div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
-    {!! Form::label('passport', 'Passport ma`lumotlari', ['class' => 'control-label']) !!}
-    {!! Form::text('passport', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
-</div>
-<div class="form-group{{ $errors->has('phone') ? 'has-error' : ''}}">
-    {!! Form::label('phone', 'Telefon raqami', ['class' => 'control-label']) !!}
-    {!! Form::text('phone', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
-</div>
 
 <div class="form-group{{ $errors->has('email') ? 'has-error' : ''}}">
     {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
     {!! Form::text('email', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-</div>
+</div> 
 
 
 <div class="form-group">
@@ -45,6 +34,7 @@
 </div>
 
 @section('js')
+    <script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
     <script>
          $('.select2').select2();
     </script>
