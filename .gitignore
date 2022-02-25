@@ -3,6 +3,10 @@
 /public/storage
 /public/admin/images/qrcodes
 /public/admin/images/students
+/public/admin/images/circled-images
+/public/admin/images/idcards
+/public/admin/images/staffs
+/public/admin/images/waitingstudents
 /storage/*.key
 /vendor
 .env

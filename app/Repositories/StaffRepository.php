@@ -6,7 +6,7 @@ use App\Models\Staff;
 use App\Repositories\Interfaces\StaffRepositoryInterface;
 use App\Repositories\StaffRepository;
 
-class StaffRepository extends BaseRepository implements StaffRepositoryInterface{
+class StaffRepository implements StaffRepositoryInterface{
 
     public function getAll()
     {
@@ -33,7 +33,9 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
         $filename=str_replace(' ', '-', $request->name).'-'.time().'.png';
         $requestData['qrcode']=$filename;
         $staff=Staff::create($requestData);
-        $this->createQRCode($staff->id, $filename, 'staff');
+
+        $this->generateIdCard($staff);
+       
 
     }
 
@@ -49,6 +51,21 @@ class StaffRepository extends BaseRepository implements StaffRepositoryInterface
         }
         $staff = Staff::findOrFail($id);
         $staff->update($requestData);
+    }
+
+    public function generateIdCard($staff)
+    {
+        $circled_image=circleImage($staff->image, 'staffs');
+       
+        if(!file_exists(public_path().'/admin/images/qrcodes/'.$staff->qrcode)){
+            generateQrcode($staff->id, $staff->qrcode, 'staff');
+        }
+
+        if(makeCard($staff, $circled_image, 'staff')){
+            $staff->idcard=$staff->name.'.jpg';
+            $staff->save();
+        }
+        return true;  
     }
 
 }

@@ -35,10 +35,9 @@
                                 <th>F.I.O</th>
                                 <th>Guruh</th>
                                 <th>Kurs</th>
-                                <th>Telefon</th>
-                                <th>Manzil</th>
-
-
+                                <th>QR Code</th>
+                                <th>ID Card</th>
+                                
                                 {{-- <th>Rasm</th> --}} 
                                 <th>Amallar</th>
                             </tr>
@@ -50,9 +49,14 @@
                                 <td>{{ $item->name }}</td>
                                 <td> {{ $item->group->name }} </td>
                                 <td> {{ $item->group->course->name }} </td>
-                                <td>{{ $item->phone }}</td>
-                                <td>{{ $item->address }}</td>
-
+                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
+                                <td>
+                                    @php if(isset($item->idcard) and  file_exists(public_path().'/admin/images/idcards/'.$item->idcard)) : @endphp
+                                        <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}">Download </a>
+                                    @else
+                                        <a class="btn btn-icon btn-info " href="{{ route('generateStudentCard', $item->id) }}">Generate </a>
+                                    @endif
+                                </td>
                                 {{-- <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td> --}}
                                 <td>
                                     <a href="{{ route('students.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
@@ -72,7 +76,9 @@
                                         @endif
                                     {!! Form::close() !!}
 
-                                    <a class="badge badge-pill badge-success mb-1 float-right" href="{{ route('userEvents', ['type'=>'student', 'id'=>$item->id]) }}">Davomat</a>
+                                    <a class="btn btn-icon btn-success" href="{{ route('userEvents', ['type'=>'student', 'id'=>$item->id]) }}">Davomat</a>
+                                    
+                                    
                                 </td>
                             </tr>
                         @endforeach

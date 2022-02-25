@@ -16,7 +16,7 @@
 </div>
 <div class="form-group{{ $errors->has('year') ? 'has-error' : ''}}" style="width:300px">
     {!! Form::label('year', 'Tug\'ilgan yili', ['class' => 'control-label']) !!}
-    {!! Form::date('year', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::date('year', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
     {!! $errors->first('year', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('address') ? 'has-error' : ''}}">

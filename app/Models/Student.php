@@ -36,7 +36,7 @@ class Student extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'code', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard'];
 
     public function scopeCurrentYear()
     {

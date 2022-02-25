@@ -85,6 +85,17 @@
           </div>
         </div>
       @endif
+
+      @if (Session::has('error'))
+        <div class="alert flash_message alert-danger alert-dismissible show fade">
+          <div class="alert-body">
+            <button class="close" data-dismiss="alert">
+              <span>&times;</span>
+            </button>
+            {{ session('error') }}
+          </div>
+        </div>
+      @endif
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">

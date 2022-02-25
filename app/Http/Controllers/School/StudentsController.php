@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Repositories\Interfaces\StudentRepositoryInterface;
+use App\Services\StudentService;
 
 class StudentsController extends Controller
 {
@@ -25,14 +25,15 @@ class StudentsController extends Controller
      * @return \Illuminate\View\View
      */
     public $studentRepo;
+    public $studentService;
 
-    public function __construct(StudentRepositoryInterface $studentRepo)
+    public function __construct(StudentService $studentService)
     {
-        $this->studentRepo=$studentRepo;
+        $this->studentService=$studentService;
     }
     public function index(Request $request)
     {
-        $students = $this->studentRepo->getAll($request->year);
+        $students = $this->studentService->getAll($request->year);
         return view('school.students.index', compact('students'));
     }
 
@@ -59,7 +60,7 @@ class StudentsController extends Controller
      */
     public function store(AddStudentRequest $request)
     {
-        $this->studentRepo->create($request);
+        $this->studentService->create($request);
         return redirect('school/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
     }
 
@@ -72,7 +73,7 @@ class StudentsController extends Controller
      */
     public function show($id)
     {
-        $student = $this->studentRepo->findOne($id);
+        $student = $this->studentService->findOne($id);
 
         return view('school.students.show', compact('student'));
     }
@@ -87,7 +88,7 @@ class StudentsController extends Controller
     public function edit($id)
     {
 
-        $student = $this->studentRepo->findOne($id);
+        $student = $this->studentService->findOne($id);
         $groups=Group::school()->get();
         return view('school.students.edit', compact('student', 'groups'));
     }
@@ -102,7 +103,7 @@ class StudentsController extends Controller
      */
     public function update(UpdateStudentRequest $request, $id)
     {
-        $this->studentRepo->update($request, $id);
+        $this->studentService->update($request, $id);
         $last_route=$request->last_route;
         return redirect($last_route)->with('flash_message', 'O`quvchi yangilandi!');
 
@@ -117,12 +118,7 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        $student = $this->studentRepo->findOne($id);
-        File::delete(public_path()."/admin/images/students/".$student->image);
-        File::delete(public_path()."/admin/images/qrcodes/".$student->code);
-
-        $student->destroy($id);
-
+        $student = $this->studentService->delete($id);
         return redirect('school/students?year='.date('Y'))->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
@@ -131,16 +127,17 @@ class StudentsController extends Controller
 
          $waitingStudent=WaitingStudent::findOrFail($request->waiting_student_id);
 
-         $this->studentRepo->addWaitingStudentToGroup($waitingStudent, $request->group_id);
+         $this->studentService->addWaitingStudentToGroup($waitingStudent, $request->group_id);
          $waitingStudent->delete();
          return redirect('school/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
      }
 
+     /* attendance routes for websocket, now not using 
     public function studentEvent($id)
     {
         $student=Student::findOrFail($id);
         return view('school.students.event', compact('student'));
-    }
+    } */
 
     public function botStudents()
     {
@@ -148,43 +145,26 @@ class StudentsController extends Controller
         return view('school.students.botStudents', compact('botStudents'));
     }
 
-    public function studentQrcodes(Request $request)
-    {
-        if(!empty($request->q)){
-            $students=Student::school()->where('name', 'LIKE', '%'.$request->q.'%')->with('group')->paginate(10);
-        }else{
-            $students=Student::school()->latest()->with('group')->paginate(10);
+
+    public function downloadQrcode($code){
+        if(!file_exists('admin/images/qrcodes/'.$code)){
+            return back()->with('error', 'QRCode topilmadi !');
         }
-        
-        return view('school.students.qrcodes', compact('students'));
+        return response()->download('admin/images/qrcodes/'.$code);
     }
 
-    public function downloadQrcode($id){
-        $headers = array('Content-Type: application/jpg',);
-        $student = $this->studentRepo->findOne($id);
-        $student->qrcode_status=1;
-        $student->save();
-        return response()->download('admin/images/qrcodes/'.$student->code, $student->code, $headers);
-    }
-
-    public function downloadImage($image){
-        return response()->download(public_path('admin/images/students/'.$image));
+    public function downloadCard($idcard){
+        if(file_exists('admin/images/idcards/'.$idcard)){
+            return response()->download(public_path('admin/images/idcards/'.$idcard));
+        }
     }
 
     public function changeGroup(Request $request){
         if($request->isMethod('post')){
-            $student=$this->studentRepo->findOne($request->student_id);
-            $new_group=Group::find($request->new_group_id);
-            $description=<<<TEXT
-{$student->name}  {$student->group->course->name} kursi {$student->group->name} guruhidan {$new_group->course->name} kursi {$new_group->name} guruhiga o'tdi
-TEXT;
-
-            StudentActivity::create(['student_id'=>$request->student_id, 'description'=>$description ]);
-            $student->group_id=$request->new_group_id;
-            $student->save();
-            return back()->with('flash_message', 'O`quvchi '.$new_group->name. '  ga ko`chirildi');
+            $this->studentService->changeGroup($request);
+            return back()->with('flash_message', 'O`quvchi yangi guruhga ko`chirildi');
         }else{
-            $students = $this->studentRepo->getAll();
+            $students = $this->studentService->getAll();
             $groups=Group::school()->get();
             $courses=Course::school()->get();
             return view('school.students.changeGroup', compact('students', 'groups', 'courses'));
@@ -194,22 +174,12 @@ TEXT;
 
     public function generateCard($id)
     {
-        $student = $this->studentRepo->findOne($id);
-        $img = \Image::make(public_path('admin/images/idcard.jpg'));
-        $img->text(strtoupper($student->name), 370, 700, function($font) {  
-            $font->file(public_path('admin/assets/fonts/nunito-v9-latin-800.ttf'));  
-            $font->size(34);  
-            $font->color('#000f48');  
-            $font->align('center');   
-        });
-        $img->text($student->username, 410, 740, function($font) {  
-            $font->file(public_path('admin/assets/fonts/nunito-v9-latin-600.ttf'));  
-            $font->size(32);  
-            $font->color('#041f94');  
-            $font->align('center');     
-        });  
-         $img->save(public_path('admin/images/idcards/'.$student->name.'.jpg'));
-
+        $student=$this->studentService->findOne($id);
+        $this->studentService->generateIdCard($student);
+           
+        return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
     }
+
+    
 
 }

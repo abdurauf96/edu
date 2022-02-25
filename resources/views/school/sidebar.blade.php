@@ -52,11 +52,7 @@
                     Ariza qoldirganlar
                 </a>
               </li>
-              <li>
-                <a class="nav-link" href="{{ route('studentQrcodes') }}">
-                    QR kodlar
-                </a>
-              </li>
+              
               <li>
                 <a class="nav-link" href="{{ route('changeStudentGroup') }}">
                     O'quvchilarni ko'chirish

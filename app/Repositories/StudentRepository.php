@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Repositories;
+
 use App\Models\Student;
 use App\Models\Group;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
-use App\Repositories\BaseRepository;
 
-class StudentRepository extends BaseRepository implements StudentRepositoryInterface{
+class StudentRepository implements StudentRepositoryInterface{
 
     public function getAll($year=null){
         return Student::school()
@@ -33,16 +32,18 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
             $requestData['image']=$image;
         }
         $filename=str_replace(' ', '-', $request->name).'-'.time().'.png';
-        $requestData['code']=$filename;
+        $filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
+        $requestData['qrcode']=$filename;
+        $requestData['idcard']=$filename_idcard;
 
-        $lastStudent=$this->getLastStudent();
+        $lastStudentNumber=$this->getLastStudentNumber();
 
-        $requestData['username']=$this->generateIdNumber($lastStudent, $request->group_id);
-        $requestData['password']=$this->generatePassword($requestData['year']);
+        $course_code=Group::findOrFail($request->group_id)->course->code;
+        $requestData['username']=generateIdNumber($lastStudentNumber, $course_code);
+        $requestData['password']=generatePassword($requestData['year'] ?? 12345678);
 
         $student=Student::create($requestData);
-
-        $this->createQRCode($student->id, $filename, 'student');
+        return $student; 
 
     }
 
@@ -67,37 +68,9 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         $student->update($requestData);
     }
 
-    public function getLastStudent()
+    public function getLastStudentNumber()
     {
-        return Student::school()->latest()->first();
-    }
-
-    public function generateIdNumber($student, $group_id)
-    {
-
-        $group=Group::findOrFail($group_id);
-
-        //21MDC001 ~ year - course_code - student_number
-        if(empty($student)){
-            $last_number=0000;
-        }else{
-            $last_number=intval(substr($student->username, -4));
-        }
-
-        $number = str_pad($last_number+1, 4, 0, STR_PAD_LEFT);
-        $course_code=$group->course->code;
-        $current_year=date('y');
-        $idNumber=$current_year.$course_code.$number;
-        return $idNumber;
-    }
-
-    public function generatePassword($year)
-    {
-        $yearToArray=explode('-', $year);
-        $reversed=array_reverse($yearToArray);
-        $yearToString=implode('', $reversed);
-
-        return bcrypt($yearToString);
+        return Student::school()->latest()->first()->username ?? null;
     }
 
     public function addWaitingStudentToGroup($waitingStudent, $group_id)
@@ -116,15 +89,14 @@ class StudentRepository extends BaseRepository implements StudentRepositoryInter
         ];
 
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
-        $data['code']=$filename;
-
-        $lastStudent=$this->getLastStudent();
-        $data['username']=$this->generateIdNumber($lastStudent, $group_id);
+        $data['qrcode']=$filename;
+        $course_code=Group::findOrFail($request->group_id)->course->code;
+        $lastStudent=$this->getLastStudentNumber();
+        $data['username']=generateIdNumber($lastStudent, $course_code);
         $data['password']=$this->generatePassword($data['year']);
 
         $student=Student::create($data);
-        $this->createQRCode($student->id, $filename, 'student');
-
+        return $student;
     }
 
 }

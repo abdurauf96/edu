@@ -124,4 +124,12 @@ class StaffsController extends Controller
 
         return view('school.staffs.event', compact('staff'));
     }
+
+    public function generateCard($id)
+    {
+        $staff=$this->staffRepo->findOne($id);
+        $this->staffRepo->generateIdCard($staff);
+           
+        return back()->with('flash_message', 'Ushbu xodim uchun ID card yaratildi!  ');
+    }
 }

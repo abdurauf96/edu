@@ -6,9 +6,7 @@ interface StudentRepositoryInterface{
     public function create($data);
     public function findOne($id);
     public function update($data,$id);
-    public function generateIdNumber($student, $group_id);
-    public function generatePassword($student);
-    public function getLastStudent();
+    public function getLastStudentNumber();
     public function addWaitingStudentToGroup($waitingStudent, $group_id);
     public function graduated();
 }

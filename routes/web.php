@@ -73,16 +73,19 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
     // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
 
-    Route::get('/student/{id}/card-generate', [StudentsController::class, 'generateCard']);
+    Route::get('/student/card-generate/{id}', [StudentsController::class, 'generateCard'])->name('generateStudentCard');
+    Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
+    //downloads 
+    Route::get('/student/qrcode-download/{code}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
+    Route::get('/student/card-download/{idcard}', [StudentsController::class, 'downloadCard'])->name('downloadCard');
+
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     Route::resource('/students', StudentsController::class)->except('create');
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);
-    Route::get('/student-qrcodes', [StudentsController::class, 'studentQrcodes'])->name('studentQrcodes');
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
 
-    Route::get('/download-qrcode/{id}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
-    Route::get('/download-image/{image?}', [StudentsController::class, 'downloadImage'])->name('downloadImage');
+  
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
@@ -95,9 +98,9 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
-    //event routes
-    Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
-    Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
+    //attendance routes for websocket, now not using 
+    //Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
+    //Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
 });
 
 //admin routes

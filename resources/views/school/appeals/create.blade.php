@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label class="section-title">3. Manzil</label>
-                        <input type="text" class="form-control" name="address" required>
+                        <input type="text" class="form-control" name="address">
                     </div>
                 </div>
                 
@@ -44,21 +44,21 @@
                         <input type="radio" name="lesson_time" value="1" required>
                         <div class="state p-primary-o">
                           <i class="icon material-icons">done</i>
-                          <label>Ertalab 08:00 - 13:00 </label>
+                          <label>Ertalabki  </label>
                         </div>
                     </div>
                     <div class="pretty p-icon p-curve p-tada">
                         <input type="radio" name="lesson_time" value="2" required>
                         <div class="state p-primary-o">
                           <i class="icon material-icons">done</i>
-                          <label>Abetdan keyin 13:00 - 17:00 </label>
+                          <label>Tushlikdan so'ng </label>
                         </div>
                     </div>
                     <div class="pretty p-icon p-curve p-tada">
                         <input type="radio" name="lesson_time" value="3" required>
                         <div class="state p-primary-o">
                           <i class="icon material-icons">done</i>
-                          <label>Kunning kechgi qismida 17:00 - 20:00 </label>
+                          <label>Kechki</label>
                         </div>
                     </div>
                 </div>

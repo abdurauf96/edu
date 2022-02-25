@@ -26,7 +26,7 @@ class AddStudentRequest extends FormRequest
         return [
             'name' => 'required|unique:students,name',
 			'phone' => 'required',
-			'year' => 'required',
+			//'year' => 'required',
         ];
     }
 

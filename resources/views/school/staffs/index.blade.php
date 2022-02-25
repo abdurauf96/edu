@@ -17,14 +17,31 @@
                     
                         <thead>
                             <tr>
-                                <th>#</th><th>F.I.O</th><th>Lavozimi</th><th>Telefon</th><th>Amallar</th>
+                                <th>#</th>
+                                <th>F.I.O</th>
+                                <th>Lavozimi</th>
+                                <th>Telefon</th>
+                                <th>QR Code</th>
+                                <th>ID Card</th>
+                                <th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($staffs as $item)
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
-                                <td>{{ $item->name }}</td><td>{{ $item->position }}</td><td>{{ $item->phone }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->position }}</td>
+                                <td>{{ $item->phone }}</td>
+                               
+                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
+                                <td>
+                                    @php if(isset($item->idcard) and  file_exists(public_path().'/admin/images/idcards/'.$item->idcard)) : @endphp
+                                        <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}">Download </a>
+                                    @else
+                                        <a class="btn btn-icon btn-info " href="{{ route('generateStaffCard', $item->id) }}">Generate </a>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('staffs.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('staffs.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
@@ -37,11 +54,11 @@
                                                 'type' => 'submit',
                                                 'class' => 'btn btn-danger btn-icon',
                                                 'title' => 'Delete Staff',
-                                                'onclick'=>'return confirm("Confirm dele    te?")'
+                                                'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}
                                     {!! Form::close() !!}
 
-                                    <a href="{{ route('userEvents', ['type'=>'staff', 'id'=>$item->id]) }}" class="badge badge-pill badge-success mb-1 float-right">Davomat</a>
+                                    <a href="{{ route('userEvents', ['type'=>'staff', 'id'=>$item->id]) }}" class="btn btn-icon btn-primary">Davomat</a>
                                 </td>
                             </tr>
                         @endforeach

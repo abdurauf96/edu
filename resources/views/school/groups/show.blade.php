@@ -61,7 +61,7 @@
                                 <th>Tug'ilgan yili</th>
                                 <th>Telefon</th>
                                 <th>Passport</th>
-                                <th>Code</th>
+                                <th>ID</th>
                                 <th>Rasm</th>
                                 <th>Amallar</th>
                             </tr>
@@ -75,7 +75,7 @@
                                 <td>{{ $student->year }}</td>
                                 <td>{{ $student->phone }}</td>
                                 <td>{{ $student->passport }}</td>
-                                <td>{{ $student->code }}</td>
+                                <td>{{ $student->id }}</td>
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
                                 <td>
 
