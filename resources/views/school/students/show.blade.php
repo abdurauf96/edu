@@ -39,7 +39,7 @@
                             <tr><th> Tug'ilgan yili </th><td> {{ $student->year }} </td></tr>
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
                             <tr><th> Jinsi </th><td> {{ $student->sex==1 ? 'O\'g\'il' : 'Qiz'  }} </td></tr>
-                            <tr><th> O'qish turi </th><td> {{ $student->type==1 ? 'Grant' : 'Oddiy'  }} </td></tr>
+                            <tr><th> O'qish turi </th><td> {{ $student->type!=1 ? 'Grant {{ $student->type }}' : 'Oddiy'  }} </td></tr>
                             <tr><th>Xolati </th> <td>  @if($student->is_debt()) <span class='label label-danger'> qarzi bor</span> @else <span class='label label-success'> qarzi yo'q</span>  @endif  </td> </tr>
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>Status</th>  <td>{{ $student->status==1? 'O`qimoqda' : 'Bitirib ketgan'}}</td> </tr>
@@ -65,7 +65,7 @@
                   <th>Kurs</th>
                   <th>Guruh</th>
                   <th>O'qituvchi</th>
-                  <th>To'lov qilingan oylar</th>
+{{--                  <th>To'lov qilingan oylar</th>--}}
                   <th>To'lov summasi</th>
                   <th>To'lov usuli</th>
                   <th>To'lov sanasi</th>
@@ -73,10 +73,10 @@
                 @foreach ($student->payments as $payment)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $payment->course->name }}</td>
+                    <td>{{ $payment->course->name ?? null }}</td>
                     <td>{{ $payment->student->group->name }}</td>
                     <td>{{ $payment->student->group->teacher->name }}</td>
-                    <td> {{ $payment->month->name }}</td>
+{{--                    <td> {{ $payment->month->name }}</td>--}}
                     <td> {{ $payment->amount }}</td>
                     <td> {{ $payment->type }}</td>
                     <td> {{ $payment->created_at->format('d.m.Y') }}</td>

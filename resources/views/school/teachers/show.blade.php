@@ -38,6 +38,7 @@
                             <tr><th> Tug'ilgan yili </th><td> {{ $teacher->birthday }} </td></tr>
                             <tr><th> Manzili </th><td> {{ $teacher->address }} </td></tr>
                             <tr><th> Telefon raqami </th><td> {{ $teacher->phone }} </td></tr>
+                            <tr><th> Status </th><td> {{ $teacher->status == 1 ? 'Faol' : 'Faol emas' }} </td></tr>
                             <tr><th> Mutahasisligi </th><td> @foreach ($teacher->courses as $course)
                                 {{ $course->name }}  @if(!$loop->last) , @endif
                             @endforeach</td></tr>

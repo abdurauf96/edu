@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-           
+
             <div class="card-body">
 
                 <a href="{{ url('/school/payments') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
@@ -34,9 +34,9 @@
                             <tr><th> Kurs</th><td> {{ $payment->student->group->course->name }} </td></tr>
                             <tr><th> Guruh </th><td> {{ $payment->student->group->name }} </td></tr>
                             <tr><th> O'qituvchi </th><td> {{ $payment->student->group->teacher->name }} </td></tr>
-                            <tr><th> To'lov miqdori </th><td> {{ $payment->amount }} </td></tr>
+                             <tr><th> To'lov miqdori </th><td> {{ $payment->amount }} </td></tr>
                             <tr><th> To'lov turi </th><td> {{ $payment->type }} </td></tr>
-                            <tr><th> To'lov oyi </th><td> {{ $payment->month->name }} </td></tr>
+{{--                            <tr><th> To'lov oyi </th><td> {{ $payment->month->name }} </td></tr>--}}
                             <tr><th> To'lov haqida </th><td> {{ $payment->description }} </td></tr>
                             <tr><th> To'lov qilingan vaqt </th><td> {{ $payment->created_at }} </td></tr>
                         </tbody>

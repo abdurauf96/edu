@@ -4,11 +4,17 @@
 
 <div class="form-group">
     <label for="" class="control-label">Xodim</label>
-    <select class="form-control select2" name="staff_id" data-height="100%" required data-placeholder="Yo'nalishni tanlang">
-        @foreach ($staffs as $staff)
-            <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+    @if(isset($teacher))
+        <h4>{{ $teacher->name }}</h4>
+    @else
+    <select class="form-control select2"  name="staff_id" data-height="100%" required data-placeholder="Xodimlardan tanlang...">
+        <option value=""></option>
+        @foreach ($staffs as $s)
+            <option  value="{{ $s->id }}">{{ $s->name }}</option>
         @endforeach
     </select>
+    @endif
+    
 </div>
 
 
@@ -28,6 +34,14 @@
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
 </div> 
 
+<div class="form-group" >
+    <label for="" class="control-label">Status</label>
+
+    <select name="status" id="" class="select2 form-control">
+        <option @isset($teacher) {{ $teacher->status ==1 ? 'selected' : '' }} @endisset value="1">Faol</option>
+        <option @isset($teacher) {{ $teacher->status ==0 ? 'selected' : '' }} @endisset value="0">Faol emas</option>
+    </select>
+</div>
 
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}

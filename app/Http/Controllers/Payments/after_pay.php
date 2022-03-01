@@ -44,10 +44,10 @@ if (!isset($params['paramKey'])) {
 $student = \App\Models\Student::findOrFail($transaction->transactionable_id);
 $data = [];
 $data['student_id'] = $student->id;
-$data['amount'] = $transaction->amount;
+$data['amount'] =  $transaction->payment_system =='paynet' ? $transaction->amount/100 : $transaction->amount;
 $data['course_id'] = ($purpose == 1) ? $student->group->course_id : null;
 $data['school_id'] = $student->school_id;
 $data['purpose'] = $purpose;
 $data['description'] = $description;
-$data['type'] = 'paynet';
+$data['type'] = $transaction->payment_system;
 \App\Models\Payment::create($data);

@@ -19,7 +19,7 @@ class TeacherRepository implements TeacherRepositoryInterface
 
     public function getAll()
     {
-        return Teacher::school()->latest()->get();
+        return Teacher::school()->latest()->whereStatus(1)->get();
     }
 
     public function findOne($id)
@@ -28,7 +28,7 @@ class TeacherRepository implements TeacherRepositoryInterface
     }
 
     public function store($data){
-        
+
         $staff=$this->staffObj->findOne($data['staff_id']);
         $yearToArray=explode('-', $staff['year']);
         $reversed=array_reverse($yearToArray);
@@ -43,6 +43,7 @@ class TeacherRepository implements TeacherRepositoryInterface
         $teacher->passport=$staff->passport;
         $teacher->phone=$staff->phone;
         $teacher->email=$data['email'];
+        $teacher->status=$data['status'];
         $teacher->save();
         $teacher->courses()->attach($data['course_id']);
     }
@@ -50,8 +51,8 @@ class TeacherRepository implements TeacherRepositoryInterface
     public function update($id, $data){
 
         $teacher = $this->findOne($id);
-        $teacher->email=$data['email']; 
-
+        $teacher->email=$data['email'];
+        $teacher->status=$data['status'];
         $teacher->save();
         $teacher->courses()->sync($data['course_id']);
 
