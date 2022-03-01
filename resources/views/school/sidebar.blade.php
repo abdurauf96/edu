@@ -88,11 +88,11 @@
             </a>
           </li>
 
-           <li>
+           {{-- <li>
              <a href="{{ route('cashierTable') }}">
                Ko'rish
              </a>
-           </li>
+           </li> --}}
             @if(Auth::user()->hasRole('admin'))
             <li>
                 <a href="{{ route('paymentStatistics') }}">

@@ -8,9 +8,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header"> <h4>To'lovlar </h4>
-                {{-- <div class="card-header-form">
+                <div class="card-header-form">
                     <a href="{{ route('payments.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
-                </div> --}}
+                </div>
             </div>
             <div class="card-body">
 
@@ -25,14 +25,14 @@
                                 <th>Turi</th>
                                 <th>Maqsadi</th>
                                 <th>Ma'lumot</th>
-                                <th>Sana</th>
+                                <th>To'lov sanasi</th>
                                 <th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($payments as $item)
                             <tr>
-                                <td>{{ $loop->iteration  }}</td>
+                                <td>{{ $item->id  }}</td>
                                 <td>{{ $item->student->name }}</td>
                                 <td>{{ $item->amount }}</td>
                                 <td>{{ $item->type }}</td>

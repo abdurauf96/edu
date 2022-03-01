@@ -9,7 +9,7 @@ use App\Models\Payment;
 class PaymentRepository implements PaymentRepositoryInterface{
     public function getAll()
     {
-        return Payment::school()->latest()->get();
+        return Payment::school()->orderBy('id', 'DESC')->get();
     }
 
     public function create($request)
@@ -46,11 +46,11 @@ class PaymentRepository implements PaymentRepositoryInterface{
                 'course_name'=>$course->name,
                 'number_students'=>count($course->activeStudents),
                 'fact_sum'=>$fact_sum,
-                'real_sum'=>collect($course->getPaymentsByMonth($month, $year))->sum('amount')
+                'real_sum'=>collect($course->payments)->sum('amount')
             ]);
 
             $statistika['all']['fact_sum']+=$course->price*count($course->activeStudents);
-            $statistika['all']['real_sum']+=collect($course->getPaymentsByMonth($month, $year))->sum('amount');
+            $statistika['all']['real_sum']+=collect($course->payments)->sum('amount');
         };
 
         return $statistika;

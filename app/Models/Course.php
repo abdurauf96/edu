@@ -61,10 +61,10 @@ class Course extends Model
         return $this->hasMany(WaitingStudent::class);
     }
 
-    public function getPaymentsByMonth($month_id, $year)
-    {
-        return $this->payments->where('month_id', $month_id)->where('year', $year);
-    }
+    // public function getPaymentsByMonth()
+    // {
+    //     return $this->payments;
+    // }
 
     public static function boot() {
         parent::boot();

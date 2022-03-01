@@ -3,7 +3,7 @@
 @endsection
 <div class="col-md-6">
     <div class="form-group{{ $errors->has('student_id') ? 'has-error' : ''}}">
-        {!! Form::label('student_id', 'O`quvchilar', ['class' => 'control-label']) !!}
+        {!! Form::label('student_id', 'To\'lovchi', ['class' => 'control-label']) !!}
         <select class="form-control select2" name="student_id" placeholder="oquvchi" required>
            <option></option>
             @foreach ($students as $student)
@@ -14,7 +14,7 @@
         </select>
     </div>
     
-    <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
+    {{-- <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
         {!! Form::label('month', 'Qaysi oy uchun', ['class' => 'control-label']) !!}
         <select name="month_id" class="form-control " required >
             <option></option>
@@ -23,7 +23,7 @@
             <option @if(isset($payment))  {{ $payment->month_id==$month->number? 'selected' : '' }} @endif value="{{ $month->number }}">{{ $month->name }}</option>
             @endforeach
         </select>
-    </div>
+    </div> --}}
     <div class="form-group{{ $errors->has('amount') ? 'has-error' : ''}}">
         {!! Form::label('amount', 'To`lov miqdori', ['class' => 'control-label']) !!}
         {!! Form::number('amount', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -41,14 +41,23 @@
                 {{ $payment->type=='Naqd'? 'selected' : '' }}
             @endisset value="Naqd">Naqd</option>
             <option @isset($payment)
-            {{ $payment->type=='Karta'? 'selected' : '' }}
-        @endisset value="Karta">Karta orqali</option>
+            {{ $payment->type=='paynet'? 'selected' : '' }}
+        @endisset value="paynet">Paynet</option>
             <option @isset($payment)
-            {{ $payment->type=='Bank'? 'selected' : '' }}
-        @endisset value="Bank">Bank orqali</option>
+            {{ $payment->type=='payme'? 'selected' : '' }}
+        @endisset value="payme">Payme</option>
+        <option @isset($payment)
+            {{ $payment->type=='click'? 'selected' : '' }}
+        @endisset value="click">Click</option>
         </select>
     
     </div>
+
+    <div class="form-group">
+        <label for="" class="control-label">To'lov sanasi</label>
+        <input type="date" name="created_at" class="form-control">
+    </div>
+
     <div class="form-group{{ $errors->has('description') ? 'has-error' : ''}}">
         {!! Form::label('description', 'To`lov haqida qisqacha', ['class' => 'control-label']) !!}
        <textarea name="description" class="form-control" id="" cols="30" rows="2">@isset($payment)

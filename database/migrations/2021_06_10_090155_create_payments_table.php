@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->integer('student_id')->nullable();
             $table->integer('course_id')->nullable();
             $table->integer('group_id')->nullable();
-            $table->string('month')->nullable();
+            $table->string('month_id')->nullable();
             $table->integer('amount')->nullable();
             $table->string('type')->nullable();
             $table->string('description')->nullable();

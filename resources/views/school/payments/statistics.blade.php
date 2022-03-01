@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Joriy oy bo'yicha to'lovlar xolati</h3>
+              <h3 class="box-title">To'lovlar statistikasi</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">

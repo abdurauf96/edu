@@ -25,7 +25,6 @@ class PaymentRequest extends FormRequest
     {
         return [
             'student_id' => 'required',
-			'month_id' => 'required',
 			'amount' => 'required',
 			'type' => 'required',
 			'description' => 'required'
