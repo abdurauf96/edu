@@ -45,6 +45,10 @@ Route::get('/cache', function () {
     return back();
 });
 
+Route::get('/download', function () {
+    return response()->download('eduapp.apk');
+});
+
 
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']], function () {
@@ -85,7 +89,7 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::resource('appeals', AppealsController::class);
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
 
-  
+    
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');

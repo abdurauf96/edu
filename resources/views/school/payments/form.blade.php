@@ -9,16 +9,16 @@
             @foreach ($students as $student)
             <option @isset($payment)
                 {{ $payment->student_id==$student->id ? 'selected' : '' }}
-            @endisset value='{{ $student->id }}'>{{ $student->name }}</option> 
+            @endisset value='{{ $student->id }}'>{{ $student->name }}</option>
             @endforeach
         </select>
     </div>
-    
+
     {{-- <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
         {!! Form::label('month', 'Qaysi oy uchun', ['class' => 'control-label']) !!}
         <select name="month_id" class="form-control " required >
             <option></option>
-            
+
             @foreach ($months as $month)
             <option @if(isset($payment))  {{ $payment->month_id==$month->number? 'selected' : '' }} @endif value="{{ $month->number }}">{{ $month->name }}</option>
             @endforeach
@@ -32,7 +32,7 @@
 </div>
 
 <div class="col-md-6">
-    
+
     <div class="form-group{{ $errors->has('type') ? 'has-error' : ''}}">
         {!! Form::label('type', 'To`lov turi', ['class' => 'control-label']) !!}
         <select name="type"  class="form-control select2" required >
@@ -50,12 +50,12 @@
             {{ $payment->type=='click'? 'selected' : '' }}
         @endisset value="click">Click</option>
         </select>
-    
+
     </div>
 
     <div class="form-group">
         <label for="" class="control-label">To'lov sanasi</label>
-        <input type="date" name="created_at" class="form-control">
+        <input type="date" name="created_at" class="form-control" required>
     </div>
 
     <div class="form-group{{ $errors->has('description') ? 'has-error' : ''}}">
@@ -64,7 +64,7 @@
         {{ $payment->description }}
             @endisset
         </textarea>
-        
+
     </div>
     <div class="form-group">
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'To`lovni amalga oshirish', ['class' => 'btn btn-success']) !!}
