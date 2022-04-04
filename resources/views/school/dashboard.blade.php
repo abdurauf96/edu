@@ -168,40 +168,41 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Jami o'quvchilar</td>
+                            <td> <a href="{{ route('school.students.index', date('Y'))  }}"> Jami o'quvchilar </a></td>
                             <td><span class="badge badge-light">{{ $num_students }} ta</span></td>
                         </tr>
                         <tr>
                           <td>2</td>
-                          <td>Ayni vaqt o'qimoqda</td>
+                          <td> <a href="{{ route('school.students.index', date('Y'))  }}?type=active"> Ayni vaqt o'qimoqda </a></td>
                           <td><span class="badge badge-light">{{ $active_students }} ta</span></td>
                         </tr>
                         <tr>
                           <td>3</td>
-                          <td>Bitirib ketgan </td>
+                          <td><a href="{{ route('school.students.index', date('Y'))  }}?type=graduated">Bitirib ketgan </a> </td>
                           <td><span class="badge badge-light">{{ $graduated_students }} ta</span></td>
                         </tr>
                         <tr>
                           <td>4</td>
-                          <td>Chiqib ketgan </td>
+                          <td><a href="{{ route('school.students.index', date('Y'))  }}?type=out"> Chiqib ketgan </a> </td>
                           <td><span class="badge badge-light">{{ $out_students }} ta</span></td>
                         </tr>
                         <tr>
                           <td>5</td>
-                          <td>Grant o'qimoqda</td>
+                          <td><a href="{{ route('school.students.index', date('Y'))  }}?type=grant">Grant o'qimoqda </a> </td>
                           <td><span class="badge badge-light">{{ $grant_students }} ta</span></td>
                         </tr>
                         <tr>
                           <td>6</td>
-                          <td>Bolalar soni</td>
+                          <td><a href="{{ route('school.students.index', date('Y'))  }}?type=boys">Bolalar soni </a> </td>
                           <td><span class="badge badge-light">{{ $boys }} ta</span></td>
                         </tr>
                         <tr>
                           <td>7</td>
-                          <td>Qizlar soni</td>
+                          <td><a href="{{ route('school.students.index', date('Y'))  }}?type=girls">Qizlar soni </a></td>
                           <td><span class="badge badge-light">{{ $girls }} ta</span></td>
                         </tr>
-                  </tbody></table>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

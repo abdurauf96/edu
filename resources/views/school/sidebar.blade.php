@@ -38,7 +38,7 @@
 
           <ul class="dropdown-menu" >
               <li>
-                  <a class="nav-link" href="{{ route('students.index', ['year'=>date('Y')]) }}">
+                  <a class="nav-link" href="{{ route('school.students.index', date('Y'))  }}">
                        O'quvchilar
                   </a>
               </li>

@@ -46,7 +46,10 @@ Route::get('/cache', function () {
 });
 
 Route::get('/download', function () {
-    return response()->download('eduapp.apk');
+    return response()->file('eduapp.apk', [
+        'Content-Type'=>'application/vnd.android.package-archive',
+        'Content-Disposition'=> 'attachment; filename="android.apk"',
+    ]);
 });
 
 
@@ -79,21 +82,22 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
 
     Route::get('/student/card-generate/{id}', [StudentsController::class, 'generateCard'])->name('generateStudentCard');
     Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
-    //downloads 
+    //downloads
     Route::get('/student/qrcode-download/{code}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
     Route::get('/student/card-download/{idcard}', [StudentsController::class, 'downloadCard'])->name('downloadCard');
 
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
-    Route::resource('/students', StudentsController::class)->except('create');
+    Route::get('/students/{year?}', [StudentsController::class, 'index'])->name('school.students.index');
+    Route::resource('/students', StudentsController::class)->except(['create']);
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
 
-    
+
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
-    
+
     Route::get('/filter', [EventsController::class, 'filter'])->name('filterEvents');
 
     Route::resource('/months', MonthsController::class);
@@ -102,7 +106,7 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
-    //attendance routes for websocket, now not using 
+    //attendance routes for websocket, now not using
     //Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
     //Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
 });

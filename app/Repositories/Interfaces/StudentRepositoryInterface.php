@@ -2,7 +2,7 @@
 namespace App\Repositories\Interfaces;
 
 interface StudentRepositoryInterface{
-    public function getAll($year);
+    public function getAll($request);
     public function create($data);
     public function findOne($id);
     public function update($data,$id);

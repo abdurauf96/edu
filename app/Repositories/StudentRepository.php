@@ -7,14 +7,42 @@ use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentRepository implements StudentRepositoryInterface{
 
-    public function getAll($year=null){
-        return Student::school()
-            ->latest()
-            ->with('group.course')
-            ->when($year, function($query) use ($year){
-                $query->where('study_year', $year);
-            })
-            ->get();
+    public function getAll($request){
+        
+        $year=$request->year ?? null;
+        $type=$request->type ?? null;
+       
+        $students=Student::query();
+
+        switch ($type) {
+            case 'graduated':
+                $students->whereStatus(0);
+                break;
+            case 'out':
+                $students->whereStatus(2);
+                break;
+            case 'active':
+                $students->whereStatus(1);
+                break;
+            case 'grant':
+                $students->where('type', '!=', 1);
+                break;
+            case 'girls':
+                $students->whereSex(0);
+                break;
+            case 'boys':
+                $students->whereSex(1);
+                break;
+        }
+        
+        $students=$students->when($year, function($query) use ($year){
+            $query->where('study_year', $year);
+        })
+        ->latest()
+        ->with('group.course')
+        ->get();
+
+        return $students;
     }
 
     public function graduated(){

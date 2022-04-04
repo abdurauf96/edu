@@ -61,7 +61,7 @@ class Student extends Authenticatable
 
     public function scopeGrant()
     {
-        return $this->currentYear()->where(['type' => 0]);
+        return $this->currentYear()->where('type', '!=', 1);
     }
 
     public function events()

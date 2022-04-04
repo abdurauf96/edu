@@ -12,14 +12,29 @@
                 <div class="card-header-form">
                     <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            O'quv yili {{  request()->get('year') ?? ""  }}
+                            Filter
                         </button>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                          <a class="dropdown-item" href="{{ route('students.index', ['year'=>2021]) }}">2021</a>
-                          <a class="dropdown-item" href="{{ route('students.index', ['year'=>2022]) }}">2022</a>
-                          <a class="dropdown-item" href="{{ route('students.index', ['year'=>2023]) }}">2023</a>
+                          <a class="dropdown-item" href="{{ url()->current() }}?type=graduated">Bitirib ketgan</a>
+                          <a class="dropdown-item" href="{{ url()->current()}}?type=active">O'qiyotgan</a>
+                          <a class="dropdown-item" href="{{ url()->current()}}?type=out">Chiqib ketgan</a>
+                          <a class="dropdown-item" href="{{ url()->current() }}?type=grant">Grant</a>
+                          <a class="dropdown-item" href="{{ url()->current()}}?type=boys">Bollar</a>
+                          <a class="dropdown-item" href="{{ url()->current() }}?type=girls">Qizlar</a>
                           <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="{{ route('students.index') }}">Barchasi</a>
+                          <a class="dropdown-item" href="{{ url()->current() }}">Barchasi</a>
+                        </div>
+                    </div>
+                    <div class="dropdown d-inline mr-2">
+                        <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            O'quv yili {{ \Request::segment(3)  ?? ""  }}
+                        </button>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item" href="{{ route('school.students.index', 2021) }}">2021</a>
+                          <a class="dropdown-item" href="{{ route('school.students.index', 2022) }}">2022</a>
+                          <a class="dropdown-item" href="{{ route('school.students.index', 2023) }}">2023</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{{ route('school.students.index') }}">Barchasi</a>
                         </div>
                     </div>
                 </div>        

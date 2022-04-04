@@ -33,7 +33,8 @@ class StudentsController extends Controller
     }
     public function index(Request $request)
     {
-        $students = $this->studentService->getAll($request->year);
+      
+        $students = $this->studentService->getAll($request);
         return view('school.students.index', compact('students'));
     }
 
