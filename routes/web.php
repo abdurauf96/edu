@@ -87,7 +87,7 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/student/card-download/{idcard}', [StudentsController::class, 'downloadCard'])->name('downloadCard');
 
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
-    Route::get('/students/{year?}', [StudentsController::class, 'index'])->name('school.students.index');
+    Route::get('/students/year/{year?}', [StudentsController::class, 'index'])->name('school.students.index');
     Route::resource('/students', StudentsController::class)->except(['create']);
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);

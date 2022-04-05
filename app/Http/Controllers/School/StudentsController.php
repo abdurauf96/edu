@@ -120,7 +120,7 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         $student = $this->studentService->delete($id);
-        return redirect('school/students?year='.date('Y'))->with('flash_message', 'O`quvchi o`chirib yuborildi!');
+        return redirect()->route('school.students.index', date('Y'))->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
      public function addStudentToGroup(Request $request)

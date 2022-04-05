@@ -27,7 +27,7 @@
                     </div>
                     <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            O'quv yili {{ \Request::segment(3)  ?? ""  }}
+                            O'quv yili {{ \Request::segment(4)  ?? ""  }}
                         </button>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                           <a class="dropdown-item" href="{{ route('school.students.index', 2021) }}">2021</a>

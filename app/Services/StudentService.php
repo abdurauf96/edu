@@ -75,7 +75,7 @@ TEXT;
     public function addWaitingStudentToGroup($waitingStudent, $group_id)
     {
         $student=$this->studentRepo->addWaitingStudentToGroup($waitingStudent, $group_id);
-        generateQrcode($student->id, $student->code, 'student');
+        generateQrcode($student->id, $student->qrcode, 'student');
         $this->generateIdCard($student);
     }
 

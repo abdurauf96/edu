@@ -114,14 +114,15 @@ class StudentRepository implements StudentRepositoryInterface{
             'sex'=>$waitingStudent->sex,
             'type'=>$waitingStudent->type,
             'status'=>1,
+            'study_year'=>date('Y')
         ];
 
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
         $data['qrcode']=$filename;
-        $course_code=Group::findOrFail($request->group_id)->course->code;
+        $course_code=Group::findOrFail($group_id)->course->code;
         $lastStudent=$this->getLastStudentNumber();
         $data['username']=generateIdNumber($lastStudent, $course_code);
-        $data['password']=$this->generatePassword($data['year']);
+        $data['password']=generatePassword($data['year']);
 
         $student=Student::create($data);
         return $student;
