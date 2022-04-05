@@ -17,9 +17,17 @@ class TeacherRepository implements TeacherRepositoryInterface
         $staffObj=new StaffRepository;
     }
 
-    public function getAll()
+    public function getAll($key=null)
     {
-        return Teacher::school()->latest()->whereStatus(1)->get();
+        if($key=='not-actives'){
+            $teachers=Teacher::school()->latest()->whereStatus(0)->get();
+        }elseif($key=='all'){
+            $teachers=Teacher::school()->latest()->get();
+        }else{
+            $teachers=Teacher::school()->latest()->whereStatus(1)->get();
+        }
+        
+        return $teachers;
     }
 
     public function findOne($id)

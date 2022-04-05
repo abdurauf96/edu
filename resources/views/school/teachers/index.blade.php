@@ -8,6 +8,18 @@
                 <h4>O'qituvchilar</h4>
                 <div class="card-header-form">
                     <a href="{{ route('teachers.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
+                    <div class="dropdown d-inline mr-2">
+                        <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Filter
+                        </button>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item" href="{{ route('teachers.index') }}">Joriy</a>
+                          <a class="dropdown-item" href="{{ route('teachers.index', ['status'=>'not-actives']) }}">Avvalgi</a>
+                         
+                          <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('teachers.index', ['status'=>'all']) }}">Barchasi</a>
+                        </div>
+                    </div>
                 </div>
                
             </div>

@@ -29,7 +29,7 @@ class TeachersController extends Controller
 
     public function index(Request $request)
     {
-        $teachers=$this->teacherRepo->getAll();
+        $teachers=$this->teacherRepo->getAll($request->status);
 
         return view('school.teachers.index', compact('teachers'));
     }
