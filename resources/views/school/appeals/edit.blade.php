@@ -24,23 +24,27 @@
                 @method('PATCH')
                 @csrf
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label class="section-title">1. F.I.O</label>
                         <input type="text" class="form-control" name="name" required value="{{ $appeal->name }}">
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label class="section-title">2. Telefon</label>
                         <input type="text" class="form-control" name="phone" required value="{{ $appeal->phone }}">
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label class="section-title">3. Manzil</label>
                         <input type="text" class="form-control" name="address" required value="{{ $appeal->address }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="section-title">4. O'qish/Ish joyi</label>
+                        <input type="text" class="form-control" name="work_place" value="{{ $appeal->work_place }}">
                     </div>
                 </div>
                 
 
                 <div class="form-item ">
-                    <div class="section-title mt-0">4. Dars qaysi vaqtda bo'lishini xoxlaysiz?</div>
+                    <div class="section-title mt-0">5. Dars qaysi vaqtda bo'lishini xoxlaysiz?</div>
                     <div class="pretty p-icon p-curve p-tada">
                         <input type="radio" name="lesson_time" value="1" required {{ $appeal->lesson_time==1 ? 'checked': '' }}>
                         <div class="state p-primary-o">
@@ -65,7 +69,7 @@
                 </div>
 
                 <div class="form-item">
-                    <div class="section-title mt-0">5. Kompyuter bilan ishlash darajangiz?</div>
+                    <div class="section-title mt-0">6. Kompyuter bilan ishlash darajangiz?</div>
                     <div class="pretty p-icon p-curve p-tada">
                         <input type="radio" name="comp_level" value="1" required {{ $appeal->comp_level==1 ? 'checked': '' }}>
                         <div class="state p-primary-o">
@@ -90,7 +94,7 @@
                 </div>
 
                 <div class="form-item">
-                    <div class="section-title mt-0">6. Dasturlash tushunchasi?</div>
+                    <div class="section-title mt-0">7. Dasturlash tushunchasi?</div>
                     <div class="pretty p-icon p-curve p-tada">
                         <input type="radio" name="prog_level" value="1" required {{ $appeal->prog_level==1 ? 'checked': '' }}>
                         <div class="state p-primary-o">
@@ -115,7 +119,7 @@
                 </div>
 
                 <div class="form-item">
-                    <div class="section-title mt-0">7. Shaxsiy kompyuteringiz bormi?</div>
+                    <div class="section-title mt-0">8. Shaxsiy kompyuteringiz bormi?</div>
                     <div class="pretty p-icon p-curve p-tada">
                         <input type="radio" name="has_comp" value="0" required {{ $appeal->has_comp==0 ? 'checked': '' }}>
                         <div class="state p-primary-o">
@@ -132,7 +136,7 @@
                     </div>
                 </div>
                 <div class="form-item">
-                    <div class="section-title mt-0">8. Qaysi yo'nalishga yozilmoqchisiz?</div>
+                    <div class="section-title mt-0">9. Qaysi yo'nalishga yozilmoqchisiz?</div>
                     <div class="pretty p-icon p-curve p-tada">
                         <input type="radio" name="direction" value="1" required {{ $appeal->direction==1 ? 'checked': '' }}>
                         <div class="state p-primary-o">

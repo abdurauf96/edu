@@ -27,6 +27,7 @@
                                 <th>Manzil</th>
                                 <th>Yo'nalish</th>
                                 <th>Ariza turi</th>
+                                <td>Sana</td>
                                 <th>Amallar</th>
                             </tr>
                         </thead>
@@ -39,7 +40,7 @@
                                 <td> {{ $item->address }} </td>
                                 <td>{{ $item->direction==1 ? 'Dasturlash' : 'Dizayn' }}</td>
                                 <td>{{ $item->type }} orqali</td>
-                             
+                                <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                 <td>
                                     <a href="{{ route('appeals.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('appeals.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
@@ -58,6 +59,7 @@
                                         @endif
                                     {!! Form::close() !!}
                                 </td>
+                                
                             </tr>
                         @endforeach
                         </tbody>
