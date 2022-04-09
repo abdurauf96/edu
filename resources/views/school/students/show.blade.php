@@ -35,7 +35,7 @@
                                 {{ $student->group->name }}
                             </td></tr>
                             <tr><th> Telefon </th><td> {{ $student->phone }} </td></tr>
-                            <tr><th> Manzili </th><td> {{ $student->address }} </td></tr>
+                            <tr><th> Manzili </th><td> {{ $student->district->name ?? '' }} | {{ $student->address }} </td></tr>
                             <tr><th> Tug'ilgan yili </th><td> {{ $student->year }} </td></tr>
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
                             <tr><th> Jinsi </th><td> {{ $student->sex==1 ? 'O\'g\'il' : 'Qiz'  }} </td></tr>
@@ -45,6 +45,7 @@
                             <tr><th>Status</th>  <td>{{ $student->status==1? 'O`qimoqda' : 'Bitirib ketgan'}}</td> </tr>
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->qrcode }}" width="300" alt=""></td></tr>
                             <tr><th>Username</th> <td>{{ $student->username }}</td> </tr>
+                            <tr><th>Kursni tamomlab ishga kirgan joyi</th> <td>{{ $student->future_work }}</td> </tr>
                         </tbody>
                     </table>
                 </div>

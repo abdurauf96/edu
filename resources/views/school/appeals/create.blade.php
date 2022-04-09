@@ -37,7 +37,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label class="section-title">4. O'qish/Ish joyi</label>
-                        <input type="text" class="form-control" name="work_place">
+                        <input type="text" class="form-control" name="study_type">
                     </div>
                 </div>
                 

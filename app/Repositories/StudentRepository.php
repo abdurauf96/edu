@@ -114,7 +114,9 @@ class StudentRepository implements StudentRepositoryInterface{
             'sex'=>$waitingStudent->sex,
             'type'=>$waitingStudent->type,
             'status'=>1,
-            'study_year'=>date('Y')
+            'study_year'=>date('Y'),
+            'district_id'=>$waitingStudent->district_id,
+            'study_type'=>$waitingStudent->study_type,
         ];
 
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';

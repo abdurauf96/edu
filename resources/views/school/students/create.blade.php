@@ -15,7 +15,7 @@
                         @endforeach
                     </ul>
                 @endif
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     {!! Form::open(['url' => '/school/students', 'files'=>true, 'class' => 'form-horizontal add_student_form', 'files' => true]) !!}
 
                     @include ('school.students.form', ['formMode' => 'create'])

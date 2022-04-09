@@ -26,6 +26,16 @@
     {!! Form::date('year', null, ['class' => 'form-control', 'required' => 'required'] ) !!}
     {!! $errors->first('year', '<p class="help-block">:message</p>') !!}
 </div>
+
+<div class="form-group">
+    <label for="">Tuman, SHahar</label>
+    <select name="district_id" class="form-control select2" required>
+        @foreach ($districts as $district)
+            <option @isset($student) {{ $student->district_id==$district->id ? 'selected' : '' }} @endisset value="{{ $district->id }}">{{ $district->name }} </option>
+        @endforeach
+    </select>
+</div>
+
 <div class="form-group{{ $errors->has('address') ? 'has-error' : ''}}">
     {!! Form::label('address', 'Manzil', ['class' => 'control-label']) !!}
     {!! Form::text('address', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -67,6 +77,23 @@
     {{ $waitingstudent->course_time==2 ? 'checked' : '' }}
     @endisset value="2" name="course_time"> Abetdan keyin
 </div>
+
+<div class="form-group">
+    <label for="">O'qish joyi</label> &nbsp; &nbsp;
+    <input type="radio" value="1"  @if(isset($waitingstudent))
+    {{ $waitingstudent->study_type==1 ? 'checked' : '' }} @else checked
+           @endif name="study_type"  > Maktab &nbsp;&nbsp;
+    <input type="radio" @isset($waitingstudent)
+    {{ $waitingstudent->study_type==2 ? 'checked' : '' }}
+    @endisset value="2" name="study_type"> Kolej &nbsp;&nbsp;
+    <input type="radio" @isset($waitingstudent)
+    {{ $waitingstudent->study_type==3 ? 'checked' : '' }}
+    @endisset value="3" name="study_type"> Universitet &nbsp;&nbsp;
+    <input type="radio" @isset($waitingstudent)
+    {{ $waitingstudent->study_type==4 ? 'checked' : '' }}
+    @endisset value="4" name="study_type"> Ishchi
+</div>
+
 
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}

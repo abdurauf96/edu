@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Group;
+use App\Models\District;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\BotStudent;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\File;
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Services\StudentService;
-
+use DB;
 class StudentsController extends Controller
 {
     /**
@@ -48,8 +49,9 @@ class StudentsController extends Controller
     {
         $group=Group::school()->with('course')->findOrFail($id);
         $waitingStudents=WaitingStudent::all();
+        $districts=District::all();
         $groups=Group::school()->get();
-        return view('school.students.create', compact('group', 'waitingStudents', 'groups'));
+        return view('school.students.create', compact('group', 'waitingStudents', 'groups', 'districts'));
     }
 
     /**
@@ -91,7 +93,8 @@ class StudentsController extends Controller
 
         $student = $this->studentService->findOne($id);
         $groups=Group::school()->get();
-        return view('school.students.edit', compact('student', 'groups'));
+        $districts=District::all();
+        return view('school.students.edit', compact('student', 'groups', 'districts'));
     }
 
     /**
@@ -181,6 +184,37 @@ class StudentsController extends Controller
         return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
     }
 
-    
+    public function statistics()
+    {
+        $districts=District::all();
+        
+        //dd(Student::orderBy('year')->active()->get());
+        $studentsByAges = Student::active()->get()->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item->year)->format('Y');
+        });
+
+        $studentsBySex = Student::active()->select('sex', DB::raw('count(*) as total'))
+        ->groupBy('sex')
+        ->get();
+
+        $studentsBySchool = Student::active()->select('study_type', DB::raw('count(*) as total'))
+        ->groupBy('study_type')
+        ->orderBy('study_type')
+        ->get();
+        
+        $school=Student::active()->where('study_type', 1)->get()->count();
+        $collegue=Student::active()->where('study_type', 2)->get()->count();
+        $university=Student::active()->where('study_type', 3)->get()->count();
+        $worker=Student::active()->where('study_type', 4)->get()->count();
+        $types['school']=$school;
+        $types['collegue']=$collegue;
+        $types['university']=$university;
+        $types['worker']=$worker;
+        
+
+        $grant_students=Student::school()->grant()->count();
+        $active_students=Student::active()->count();
+        return view('school.students.statistics',compact('districts', 'studentsBySex', 'studentsByAges','grant_students', 'active_students','types'));
+    }
 
 }

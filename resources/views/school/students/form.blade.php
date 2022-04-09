@@ -19,6 +19,16 @@
     {!! Form::date('year', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
     {!! $errors->first('year', '<p class="help-block">:message</p>') !!}
 </div>
+
+<div class="form-group">
+    <label for="">Tuman, SHahar</label>
+    <select name="district_id" class="form-control select2" required>
+        @foreach ($districts as $district)
+            <option @isset($student) {{ $student->district_id==$district->id ? 'selected' : '' }} @endisset value="{{ $district->id }}">{{ $district->name }} </option>
+        @endforeach
+    </select>
+</div>
+
 <div class="form-group{{ $errors->has('address') ? 'has-error' : ''}}">
     {!! Form::label('address', 'Manzili', ['class' => 'control-label']) !!}
     {!! Form::text('address', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
@@ -29,6 +39,23 @@
     {!! Form::text('passport', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
+
+<div class="form-group">
+    <label for="">O'qish joyi</label> &nbsp; &nbsp;
+    <input type="radio" value="1"  @if(isset($student))
+    {{ $student->study_type==1 ? 'checked' : '' }} @else checked
+           @endif name="study_type"  > Maktab &nbsp;&nbsp;
+    <input type="radio" @isset($student)
+    {{ $student->study_type==2 ? 'checked' : '' }}
+    @endisset value="2" name="study_type"> Kolej &nbsp;&nbsp;
+    <input type="radio" @isset($student)
+    {{ $student->study_type==3 ? 'checked' : '' }}
+    @endisset value="3" name="study_type"> Universitet &nbsp;&nbsp;
+    <input type="radio" @isset($student)
+    {{ $student->study_type==4 ? 'checked' : '' }}
+    @endisset value="4" name="study_type"> Ishchi
+</div>
+
 <div class="form-group">
     <label for="">Jinsi</label> &nbsp; &nbsp;
     <input type="radio" value="1"  @if(isset($student))
@@ -109,6 +136,12 @@
 <div class="form-group" style="width:300px; display: none" id="finished_date">
     {!! Form::label('finished_date', 'Bitirib ketgan sanasi', ['class' => 'control-label']) !!}
     {!! Form::date('finished_date', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+        {!! Form::label('future_work', "Kursni tamomlab ishga kirgan joyi", ['class' => 'control-label']) !!}
+        {!! Form::text('future_work', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+        {!! $errors->first('future_work', '<p class="help-block">:message</p>') !!}
 </div>
 
 <input type="hidden" value="{{ url()->previous() }}" name="last_route">

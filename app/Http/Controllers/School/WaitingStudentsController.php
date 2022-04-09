@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Course;
 use App\Models\WaitingStudent;
+use App\Models\District;
 use Illuminate\Http\Request;
 
 class WaitingStudentsController extends Controller
@@ -30,7 +31,8 @@ class WaitingStudentsController extends Controller
     public function create()
     {
         $courses=Course::school()->get();
-        return view('school.waiting-students.create', compact('courses'));
+        $districts=District::all();
+        return view('school.waiting-students.create', compact('courses', 'districts'));
     }
 
     /**

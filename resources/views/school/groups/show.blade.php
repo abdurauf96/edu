@@ -71,7 +71,7 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $student->name }}</td>
-                                <td>{{ $student->address }}</td>
+                                <td>{{ $student->address }}  </td>
                                 <td>{{ $student->year }}</td>
                                 <td>{{ $student->phone }}</td>
                                 <td>{{ $student->passport }}</td>

@@ -21,11 +21,8 @@ class MainController extends Controller
         $this->paymentRepo=$paymentRepository;
     }
 
-
-
     public function index()
     {
-       
         $num_students=Student::school()->currentYear()->count();
         $num_groups=\App\Models\Group::school()->get()->count();
 
@@ -33,7 +30,7 @@ class MainController extends Controller
         $boys=Student::school()->currentYear()->whereSex(1)->count();
         $grant_students=Student::school()->grant()->count();
 
-      
+
         $active_students=Student::active()->count();
         $out_students=Student::school()->out()->count();
         $graduated_students=Student::school()->graduated()->count();

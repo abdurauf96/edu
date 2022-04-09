@@ -36,7 +36,7 @@
                             </td></tr>
                             <tr><th> Telefon </th><td> {{ $appeal->phone }} </td></tr>
                             <tr><th> Manzili </th><td> {{ $appeal->address }} </td></tr>
-                            <tr><th> O'qish/Ish joyi </th><td> {{ $appeal->work_place }} </td></tr>
+                            <tr><th> O'qish/Ish joyi </th><td> {{ $appeal->study_type }} </td></tr>
                             <tr><th> Tanlagan dars vaqti </th><td> 
                                 @switch($appeal->lesson_time)
                                     @case(1)

@@ -30,11 +30,16 @@ class WaitingStudent extends Model
      *
      * @var array
      */
-    protected $fillable = ['course_id', 'name', 'phone', 'year', 'address', 'passport', 'image', 'sex', 'type', 'phone2', 'course_time', 'call_result'];
+    protected $fillable = ['course_id', 'name', 'phone', 'year', 'address', 'passport', 'image', 'sex', 'type', 'phone2', 'course_time', 'call_result', 'district_id', 'study_type'];
 
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 
     /**

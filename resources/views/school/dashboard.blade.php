@@ -14,7 +14,7 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                 <div class="card-content">
                   <h5 class="font-15">Jami o'quvchilar</h5>
-                  <h2 class="mb-3 font-18">{{ $num_students }}</h2>
+                  <h2 class="mb-3 font-18">{{ $active_students }}</h2>
                   <p class="mb-0"><span class="col-green">10%</span> Increase</p>
                 </div>
               </div>
@@ -154,7 +154,7 @@
                 </tbody></table>
               </div>
             </div>
-            
+
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-3">
@@ -169,7 +169,7 @@
                         <tr>
                             <td>1</td>
                             <td> <a href="{{ route('school.students.index', date('Y'))  }}"> Jami o'quvchilar </a></td>
-                            <td><span class="badge badge-light">{{ $num_students }} ta</span></td>
+                            <td><span class="badge badge-light">{{ $active_students }} ta</span></td>
                         </tr>
                         <tr>
                           <td>2</td>
