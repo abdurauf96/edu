@@ -96,7 +96,7 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
-
+    Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
 
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');

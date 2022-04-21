@@ -14,7 +14,7 @@ class TeacherRepository implements TeacherRepositoryInterface
     protected $staffObj;
     public function __construct()
     {
-        $staffObj=new StaffRepository;
+        $this->staffObj=new StaffRepository;
     }
 
     public function getAll($key=null)
@@ -26,7 +26,7 @@ class TeacherRepository implements TeacherRepositoryInterface
         }else{
             $teachers=Teacher::school()->latest()->whereStatus(1)->get();
         }
-        
+
         return $teachers;
     }
 

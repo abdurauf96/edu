@@ -83,6 +83,12 @@ class Student extends Authenticatable
         return $this->hasMany(Payment::class)->orderBy('month_id');
     }
 
+    public function getLastEventStatus($id)
+    {
+        $event=Event::where(['type'=>'student', 'person_id'=>$id])->latest()->first();
+        return $event->status ?? null;
+    }
+
     public function is_debt()
     {
         $currentDate=Carbon::parse(date('Y-m-d'));

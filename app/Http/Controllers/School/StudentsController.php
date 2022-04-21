@@ -184,6 +184,21 @@ class StudentsController extends Controller
         return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
     }
 
+    public function event($id)
+    {
+        $student=$this->studentService->findOne($id);
+        $lastEventStatus = $student->getLastEventStatus($id);
+        \App\Models\Event::create([
+            'person_id'=>$id,
+            'type'=>'student',
+            'name'=>$student->name,
+            'status'=>!$lastEventStatus,
+            'time'=>date('H:i'),
+            'school_id'=>$student->school_id,
+        ]);
+        return back()->with('flash_message', 'Natija kiritildi !');
+    }
+
     public function statistics()
     {
         $districts=District::all();

@@ -55,10 +55,12 @@
                                 
                                 {{-- <th>Rasm</th> --}} 
                                 <th>Amallar</th>
+                                <th>Davomat</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($students as $item)
+                        
                             <tr>
                                 <td>{{ $item->id  }}</td>
                                 <td>{{ $item->name }}</td>
@@ -90,10 +92,14 @@
                                         )) !!}
                                         @endif
                                     {!! Form::close() !!}
-
-                                    <a class="btn btn-icon btn-success" href="{{ route('userEvents', ['type'=>'student', 'id'=>$item->id]) }}">Davomat</a>
-                                    
-                                    
+                                </td>
+                                <td>
+                                    <a class="btn btn-icon btn-success" href="{{ route('userEvents', ['type'=>'student', 'id'=>$item->id]) }}">Ko'rish</a>
+                                    @if($item->getLastEventStatus($item->id))
+                                    <a class="btn btn-icon btn-danger" href="{{ route('studentEvent', $item->id) }}"> OUT</a>
+                                    @else
+                                    <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $item->id) }}"> IN</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
