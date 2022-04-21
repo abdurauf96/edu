@@ -11,7 +11,7 @@ class StudentService{
         $this->studentRepo=$studentRepo;
     }
 
-    public function getAll($request){
+    public function getAll($request=null){
         return $this->studentRepo->getAll($request);
     }
 

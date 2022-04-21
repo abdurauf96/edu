@@ -160,17 +160,17 @@
         <div class="col-12 col-md-6 col-lg-3">
             <div class="card">
               <div class="card-header">
-                <h4>Jami o'quvchilar haqida ma'lumot</h4>
+                <h4>O'quvchilar haqida ma'lumot</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-bordered table-md">
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td> <a href="{{ route('school.students.index', date('Y'))  }}"> Jami o'quvchilar </a></td>
-                            <td><span class="badge badge-light">{{ $active_students }} ta</span></td>
-                        </tr>
+{{--                        <tr>--}}
+{{--                            <td>1</td>--}}
+{{--                            <td> <a href="{{ route('school.students.index', date('Y'))  }}"> Jami o'quvchilar </a></td>--}}
+{{--                            <td><span class="badge badge-light">{{ $num_students }} ta</span></td>--}}
+{{--                        </tr>--}}
                         <tr>
                           <td>2</td>
                           <td> <a href="{{ route('school.students.index', date('Y'))  }}?type=active"> Ayni vaqt o'qimoqda </a></td>

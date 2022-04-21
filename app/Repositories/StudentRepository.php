@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentRepository implements StudentRepositoryInterface{
 
-    public function getAll($request){
+    public function getAll($request=null){
         
         $year=$request->year ?? null;
         $type=$request->type ?? null;

@@ -33,7 +33,7 @@
                         @foreach($payments as $item)
                             <tr>
                                 <td>{{ $item->id  }}</td>
-                                <td>{{ $item->student->name }}</td>
+                                <td>{{ $item->student->name ?? 'null' }}</td>
                                 <td>{{ $item->amount }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>
