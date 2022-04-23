@@ -131,8 +131,10 @@ Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(fu
     Route::get('groups',  [TeacherController::class, 'groups'])->name('groups');
     Route::get('attendance',  [TeacherController::class, 'attendance'])->name('attendance');
     Route::get('info', [TeacherController::class, 'getInfo']);
+    Route::post('students/attandance', [TeacherController::class, 'studentsAttandance'])->name('studentsAttandance');
     Route::post('info', [TeacherController::class, 'updateInfo']); //update teacher information
     Route::post('update-login', [TeacherController::class, 'updateLogin']); //update teacher login credintials
+
 });
 
 //student routes

@@ -83,9 +83,15 @@ class Student extends Authenticatable
         return $this->hasMany(Payment::class)->orderBy('month_id');
     }
 
-    public function getLastEventStatus($id)
+    public function getLastEventStatus()
     {
-        $event=Event::where(['type'=>'student', 'person_id'=>$id])->latest()->first();
+        $event=Event::where(['type'=>'student', 'person_id'=>$this->id])->latest()->first();
+        return $event->status ?? null;
+    }
+
+    public function getTodayEventStatus()
+    {
+        $event=Event::where(['type'=>'student', 'person_id'=>$this->id])->whereDate('created_at', date('Y-m-d'))->latest()->first();
         return $event->status ?? null;
     }
 

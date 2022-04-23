@@ -13,9 +13,15 @@ class TeacherController extends Controller
         return view('teacher.dashboard');
     }
 
-    public function students()
+    public function students(Request $request)
     {
-        return view('teacher.students');
+        
+        $students=auth()->guard('teacher')->user()->students;
+        if(!empty($request->group_id)){
+
+            $students=auth()->guard('teacher')->user()->students()->where('group_id', $request->group_id)->get();
+        }
+        return view('teacher.students', compact('students'));
     }
 
     public function profil()
@@ -59,6 +65,23 @@ class TeacherController extends Controller
 
         $teacher->update($data);
         
+    }
+
+    public function studentsAttandance(Request $request)
+    {
+        
+        $student=\App\Models\Student::findOrFail($request->student_id);
+
+        $lastEventStatus = $student->getLastEventStatus($request->student_id);
+        \App\Models\Event::create([
+            'person_id'=>$request->student_id,
+            'type'=>'student',
+            'name'=>$student->name,
+            'status'=>$request->status,
+            'time'=>date('H:i'),
+            'school_id'=>$student->school_id,
+        ]);
+        //return back()->with('flash_message', 'Natija kiritildi !');
     }
 
     public function groups()

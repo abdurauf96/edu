@@ -30,7 +30,7 @@
                     
                         <thead>
                             <tr>
-                                <th>#</th><th>F.I.O</th><th>Mutahasisligi</th><th>Telefon raqami</th><th>Amallar</th>
+                                <th>#</th><th>F.I.O</th><th>Mutahasisligi</th><th>Telefon raqami</th><th>Email</th><th>Tug'ilgan yili</th><th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +40,8 @@
                                 <td>{{ $item->name }}</td><td>@foreach ($item->courses as $course)
                                     {{ $course->name }}  @if(!$loop->last) , @endif
                                 @endforeach</td><td>{{ $item->phone }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->birthday }}</td>
                                 <td>
                                     <a href="{{ route('teachers.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('teachers.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>

@@ -57,7 +57,7 @@ class TeachersController extends Controller
     {
         $this->validate($request, [
 			'course_id' => 'required',
-			'email' => 'required',
+			'email' => 'required|unique:teachers',
 		]);
 
         $this->teacherRepo->store($request->all());
@@ -108,7 +108,8 @@ class TeachersController extends Controller
         $this->validate($request, [
            
             'course_id' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:teachers,email,'.$id.',id',
+            'birthday' => 'required',
            
         ]);
         $this->teacherRepo->update($id, $request->all());

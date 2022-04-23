@@ -28,6 +28,12 @@
    </select>
 </div>
 
+<div class="form-group{{ $errors->has('birthday') ? 'has-error' : ''}}">
+    {!! Form::label('birthday', 'Tug`ilgan yili', ['class' => 'control-label']) !!}
+    {!! Form::date('birthday', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('birthday', '<p class="help-block">:message</p>') !!}
+</div>
+
 <div class="form-group{{ $errors->has('email') ? 'has-error' : ''}}">
     {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
     {!! Form::text('email', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}

@@ -38,12 +38,9 @@ class TeacherRepository implements TeacherRepositoryInterface
     public function store($data){
 
         $staff=$this->staffObj->findOne($data['staff_id']);
-        $yearToArray=explode('-', $staff['year']);
-        $reversed=array_reverse($yearToArray);
-        $yearToString=implode('', $reversed);
-
+        
         $teacher=new Teacher;
-        $teacher->password=Hash::make($yearToString);
+        $teacher->password=generatePassword($data['birthday']);
 
         $teacher->name=$staff->name;
         $teacher->birthday=$staff->year;
@@ -61,6 +58,8 @@ class TeacherRepository implements TeacherRepositoryInterface
         $teacher = $this->findOne($id);
         $teacher->email=$data['email'];
         $teacher->status=$data['status'];
+        $teacher->birthday=$data['birthday'];
+        $teacher->password=generatePassword($data['birthday']);
         $teacher->save();
         $teacher->courses()->sync($data['course_id']);
 
