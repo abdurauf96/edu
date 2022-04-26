@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
-use App\Models\Student;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use App\Models\Student;
+use App\Models\Group;
 class MainController extends Controller
 {
     /**
@@ -30,7 +31,6 @@ class MainController extends Controller
         $boys=Student::school()->active()->whereSex(1)->count();
         $grant_students=Student::school()->grant()->count();
 
-
         $active_students=Student::active()->count();
         $out_students=Student::school()->out()->count();
         $graduated_students=Student::school()->graduated()->count();
@@ -39,6 +39,15 @@ class MainController extends Controller
         $courses=\App\Models\Course::school()->with('activeStudents')->get();
 
         return view('school.dashboard', compact( 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
+    }
+
+    public function todayGroups()
+    {
+        $numberDay = date('N', strtotime(date("l")));
+        $courseDays= $numberDay%2==0 ? 2 : 1;
+        $groups=Group::where('course_days', $courseDays)->where('status', '!=', 2)->get();
+       
+        return view('school.groups.todayGroups', compact('groups'));
     }
 
     public function paymentStatistics()

@@ -2,6 +2,7 @@
 @section('css')
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/datatables.min.css">
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/admin/assets/bundles/izitoast/css/iziToast.min.css">
 @endsection
 @section('title', 'Ko`rish')
 @section('content')
@@ -39,6 +40,7 @@
                             <tr><th> Darslar yakunlanish sanasi </th><td> {{ $group->end_date }} </td></tr>
                             <tr><th> Darslar davomiyligi </th><td> {{ $group->duration }} </td></tr>
                             <tr><th> Dars vaqti </th><td> {{ $group->time }} </td></tr>
+                            <tr><th> Xona </th><td> {{ $group->room_number }} </td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -55,32 +57,40 @@
 
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th>F.I.O</th>
                                 <th>Manzil</th>
                                 <th>Tug'ilgan yili</th>
                                 <th>Telefon</th>
-                                <th>Passport</th>
-                                <th>ID</th>
                                 <th>Rasm</th>
+                                <th>Qarzdorligi</th>
                                 <th>Amallar</th>
+                                <th>Davomat</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($group->students as $student)
                             <tr>
-                                <td>{{ $loop->iteration  }}</td>
+                                <td>{{ $student->id  }}</td>
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->address }}  </td>
                                 <td>{{ $student->year }}</td>
                                 <td>{{ $student->phone }}</td>
-                                <td>{{ $student->passport }}</td>
-                                <td>{{ $student->id }}</td>
+                                
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
+                                <td>@if($student->is_debt()) <span class='badge badge-danger'> qarzi bor</span> @else <span class='badge badge-success'> qarzi yo'q</span> @endif</td>
                                 <td>
 
                                     <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-icon btn-info"><i class="far fa-edit"></i></button></a>
 
+                                </td>
+                                <td>
+                                    <label class="custom-switch mt-2">
+                                        <input type="checkbox"  class="custom-switch-input" value="{{ $student->id }}" name="student_id" {{ $student->getTodayEventStatus()  == 1  ? 'checked' : '' }}> 
+                                        
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="custom-switch-description">{{ $student->getTodayEventStatus()  == 1  ? 'here' : 'absent' }}</span>
+                                    </label>
                                 </td>
                             </tr>
                         @endforeach
@@ -103,5 +113,40 @@
 
 <!-- Page Specific JS File -->
 <script src="/admin/assets/js/page/datatables.js"></script>
+<!-- JS Libraies -->
+<script src="/admin/assets/bundles/izitoast/js/iziToast.min.js"></script>
+
+<script>
+    $('.custom-switch-input').click(function(){
+        if ($(this).is(':checked')) {
+            $(this).siblings('.custom-switch-description').html('here')
+            var status=1;
+        }else{
+            $(this).siblings('.custom-switch-description').html('absent')
+            var status=0;
+        }
+        var student_id=$(this).val();
+        console.log(status);
+        $.ajax({
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "student_id": student_id,
+                "status":status
+            },
+            url: "{{ route('studentsAttandance') }}",
+            type: 'POST',
+            success:function(res){
+                iziToast.success({
+                    title: 'Belgilandi! ',
+                    // message: 'This awesome plugin is made iziToast toastr',
+                    position: 'topRight'
+                });
+            },
+            error:function(){
+                console.log('error');
+            }
+        })
+    })
+</script>
 @endsection
 

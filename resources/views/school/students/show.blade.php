@@ -40,7 +40,7 @@
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
                             <tr><th> Jinsi </th><td> {{ $student->sex==1 ? 'O\'g\'il' : 'Qiz'  }} </td></tr>
                             <tr><th> O'qish turi </th><td> {{ $student->type!=1 ? 'Grant '.$student->type : 'Oddiy'  }} </td></tr>
-                            <tr><th>Xolati </th> <td>  @if($student->is_debt()) <span class='label label-danger'> qarzi bor</span> @else <span class='label label-success'> qarzi yo'q</span>  @endif  </td> </tr>
+                            <tr><th>Xolati </th> <td>  @if($student->is_debt()) <span class='badge badge-success'> qarzi bor</span> @else <span class='badge badge-danger'> qarzi yo'q</span>  @endif  </td> </tr>
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>Status</th>  <td>{{ $student->status==1? 'O`qimoqda' : 'Bitirib ketgan'}}</td> </tr>
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->qrcode }}" width="300" alt=""></td></tr>

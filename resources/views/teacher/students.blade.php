@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('teacher.studentsAttandance') }}" method="POST">
+                    <form action="{{ route('studentsAttandance') }}" method="POST">
                         @csrf
                     <div class="table-responsive dataTables_wrapper " >
                         <table class="table table-bordered table-striped dataTable" id="table-1">
@@ -105,7 +105,7 @@
                 "student_id": student_id,
                 "status":status
             },
-            url: "{{ route('teacher.studentsAttandance') }}",
+            url: "{{ route('studentsAttandance') }}",
             type: 'POST',
             success:function(res){
                 iziToast.success({

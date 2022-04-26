@@ -73,6 +73,7 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,ca
 //routes for all school users
 Route::middleware('auth:user')->prefix('school')->group(function () {
 
+    
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);
     Route::resource('/courses', CoursesController::class);
@@ -80,9 +81,12 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::resource('/districts', DistrictsController::class);
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
 
+    //groups
+    Route::get('/today/groups', [MainController::class, 'todayGroups'])->name('todayGroups');
     Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
     // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
 
+    //card generate 
     Route::get('/student/card-generate/{id}', [StudentsController::class, 'generateCard'])->name('generateStudentCard');
     Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
 
@@ -90,6 +94,7 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/student/qrcode-download/{code}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
     Route::get('/student/card-download/{idcard}', [StudentsController::class, 'downloadCard'])->name('downloadCard');
 
+    //students
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     Route::get('/students/year/{year?}', [StudentsController::class, 'index'])->name('school.students.index');
     Route::resource('/students', StudentsController::class)->except(['create']);
@@ -97,8 +102,8 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::resource('appeals', AppealsController::class);
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
     Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
-
-
+    
+    //events
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
 
@@ -123,6 +128,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
 });
 
+//student attandance manual
+Route::middleware('auth:teacher,user')->group(function () {
+    Route::post('teacher/students/attandance', [TeacherController::class, 'studentsAttandance'])->name('studentsAttandance');
+});
+
 //teacher routes
 Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('dashboard',  [TeacherController::class, 'dashboard'])->name('dashboard');
@@ -131,7 +141,6 @@ Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(fu
     Route::get('groups',  [TeacherController::class, 'groups'])->name('groups');
     Route::get('attendance',  [TeacherController::class, 'attendance'])->name('attendance');
     Route::get('info', [TeacherController::class, 'getInfo']);
-    Route::post('students/attandance', [TeacherController::class, 'studentsAttandance'])->name('studentsAttandance');
     Route::post('info', [TeacherController::class, 'updateInfo']); //update teacher information
     Route::post('update-login', [TeacherController::class, 'updateLogin']); //update teacher login credintials
 

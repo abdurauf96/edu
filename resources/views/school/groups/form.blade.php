@@ -56,7 +56,13 @@
         {!! Form::input('time', 'time', null, ('' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
         {!! $errors->first('time', '<p class="help-block">:message</p>') !!}
     </div>
-    
+
+    <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
+        {!! Form::label('room_number', 'Xona raqami', ['class' => 'control-label']) !!}
+        {!! Form::number('room_number', null,  ['class' => 'form-control']) !!}
+        {!! $errors->first('room_number', '<p class="help-block">:message</p>') !!}
+    </div>
+
     <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">
         {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
        <select name="status" id="status" class="form-control select2" required>

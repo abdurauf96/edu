@@ -113,5 +113,10 @@
           <i data-feather="monitor"></i> <span>Tumanlar</span>
         </a>
       </li>
+      <li class="dropdown">
+        <a href="{{ route('todayGroups') }}" class="nav-link">
+          <i data-feather="monitor"></i> <span>Bugungi darslar</span>
+        </a>
+      </li>
     </ul>
   </aside>
