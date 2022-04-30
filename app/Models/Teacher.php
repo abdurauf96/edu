@@ -61,7 +61,7 @@ class Teacher extends Authenticatable
 
         foreach($students as $student){
             $res=array_filter($students, function($student){
-                return $student->is_debt();
+                return $student->debt>0;
             });
         }
         return $res ?? [];

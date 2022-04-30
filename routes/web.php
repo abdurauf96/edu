@@ -173,3 +173,10 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
         ->redirect($model, $amount, 860, $url);
 })->name('paymentSystem');
 require __DIR__ . '/auth.php';
+
+
+Route::post('/student/pay', function (\Illuminate\Http\Request $request) {
+    //dd($request->all());
+    \App\Models\Student::findOrFail($request->student_id)->update(['debt'=>$request->debt]);
+    return back();
+});

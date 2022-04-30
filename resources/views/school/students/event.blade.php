@@ -27,7 +27,7 @@
                 <b>Telefon</b> <a class="pull-right">{{ $student->phone }}</a>
               </li>
             </ul>
-            @if($student->is_debt()) <a href="#" class="btn btn-danger btn-block"><b>Qarzi bor</b></a> @else <a href="#" class="btn btn-success btn-block"><b>Qarzi yo'q</b></a>  @endif
+            @if($student->debt>0) <a href="#" class="btn btn-danger btn-block"><b>Qarzi bor</b></a> @else <a href="#" class="btn btn-success btn-block"><b>Qarzi yo'q</b></a>  @endif
 
           </div>
           <!-- /.box-body -->

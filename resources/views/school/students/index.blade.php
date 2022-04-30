@@ -50,12 +50,12 @@
                                 <th>F.I.O</th>
                                 <th>Guruh</th>
                                 <th>Kurs</th>
-                                <th>QR Code</th>
-                                <th>ID Card</th>
-                                
-                                {{-- <th>Rasm</th> --}} 
+                                {{-- <th>QR Code</th>
+                                <th>ID Card</th> --}}
+                                <th>To'lov xolati</th> 
                                 <th>Amallar</th>
                                 <th>Davomat</th>
+                                <th>Qarz</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,14 +66,15 @@
                                 <td>{{ $item->name }}</td>
                                 <td> {{ $item->group->name }} </td>
                                 <td> {{ $item->group->course->name }} </td>
-                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
+                                {{-- <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
                                 <td>
                                     @php if(isset($item->idcard) and  file_exists(public_path().'/admin/images/idcards/'.$item->idcard)) : @endphp
-                                        <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}">Download </a>
+                                        <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}"><i class="fas fa-download"></i> </a>
                                     @else
                                         <a class="btn btn-icon btn-info " href="{{ route('generateStudentCard', $item->id) }}">Generate </a>
                                     @endif
-                                </td>
+                                </td> --}}
+                                <td>@if($item->debt>0)  <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> qarzi yo'q </div>  @endif </td>
                                 {{-- <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td> --}}
                                 <td>
                                     <a href="{{ route('students.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
@@ -100,6 +101,18 @@
                                     @else
                                     <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $item->id) }}"> IN</a>
                                     @endif
+                                </td>
+                                <td>
+                                    <form action="/student/pay" method="POST" >
+                                        @csrf
+                                        <div class="input-group input-group-sm">
+                                            <input type="number" class="form-control" name="debt" required>
+                                            <input type="hidden" class="form-control" name="student_id" value="{{ $item->id }}" >
+                                            <span class="input-group-btn">
+                                              <button type="submit" class="btn btn-info btn-flat">OK</button>
+                                            </span>
+                                        </div>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -110,6 +110,13 @@
     {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
 </div>
 
+<div class="form-group"> 
+    {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!} 
+    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required', 'disabled'=>'disabled' ] 
+    : ['class' => 'form-control', 'required' => 'required']   ) !!}
+    {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
+</div>
+
 @isset($group)
 <input type="hidden" value="{{ $group->id }}" name="group_id">
 @endisset
@@ -124,8 +131,7 @@
     @endisset value="0">Bitirib ketgan</option>
     <option @isset ($student)
     {{ $student->status==2 ? 'selected': '' }}
-@endisset value="2">Chiqib ketgan</option>
-
+    @endisset value="2">Chiqib ketgan</option>
     </select>
 </div>
 
@@ -140,7 +146,7 @@
 
 <div class="form-group">
         {!! Form::label('future_work', "Kursni tamomlab ishga kirgan joyi", ['class' => 'control-label']) !!}
-        {!! Form::text('future_work', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+        {!! Form::text('future_work', null,  ['class' => 'form-control']) !!}
         {!! $errors->first('future_work', '<p class="help-block">:message</p>') !!}
 </div>
 

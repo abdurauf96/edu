@@ -60,10 +60,10 @@
                                 <th>ID</th>
                                 <th>F.I.O</th>
                                 <th>Manzil</th>
-                                <th>Tug'ilgan yili</th>
+                                <th>Dars boshlagan sanasi</th>
                                 <th>Telefon</th>
                                 <th>Rasm</th>
-                                <th>Qarzdorligi</th>
+                                <th>To'lov holati</th>
                                 <th>Amallar</th>
                                 <th>Davomat</th>
                             </tr>
@@ -74,11 +74,11 @@
                                 <td>{{ $student->id  }}</td>
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->address }}  </td>
-                                <td>{{ $student->year }}</td>
+                                <td>{{ $student->start_date }}</td>
                                 <td>{{ $student->phone }}</td>
                                 
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
-                                <td>@if($student->is_debt()) <span class='badge badge-danger'> qarzi bor</span> @else <span class='badge badge-success'> qarzi yo'q</span> @endif</td>
+                                <td>@if($student->debt>0)  <div class="badge badge-danger">{{ number_format($student->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> qarzi yo'q </div>  @endif</td>
                                 <td>
 
                                     <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-icon btn-info"><i class="far fa-edit"></i></button></a>
@@ -99,8 +99,6 @@
 
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -126,7 +124,6 @@
             var status=0;
         }
         var student_id=$(this).val();
-        console.log(status);
         $.ajax({
             data: {
                 "_token": "{{ csrf_token() }}",

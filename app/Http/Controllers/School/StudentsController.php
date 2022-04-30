@@ -25,7 +25,6 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public $studentRepo;
     public $studentService;
 
     public function __construct(StudentService $studentService)
@@ -77,7 +76,6 @@ class StudentsController extends Controller
     public function show($id)
     {
         $student = $this->studentService->findOne($id);
-
         return view('school.students.show', compact('student'));
     }
 
@@ -90,7 +88,6 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-
         $student = $this->studentService->findOne($id);
         $groups=Group::school()->get();
         $districts=District::all();
@@ -110,7 +107,6 @@ class StudentsController extends Controller
         $this->studentService->update($request, $id);
         $last_route=$request->last_route;
         return redirect($last_route)->with('flash_message', 'O`quvchi yangilandi!');
-
     }
 
     /**
@@ -128,12 +124,10 @@ class StudentsController extends Controller
 
      public function addStudentToGroup(Request $request)
      {
-
-         $waitingStudent=WaitingStudent::findOrFail($request->waiting_student_id);
-
-         $this->studentService->addWaitingStudentToGroup($waitingStudent, $request->group_id);
-         $waitingStudent->delete();
-         return redirect('school/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
+        $waitingStudent=WaitingStudent::findOrFail($request->waiting_student_id);
+        $this->studentService->addWaitingStudentToGroup($waitingStudent, $request);
+        $waitingStudent->delete();
+        return redirect('school/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
      }
 
      /* attendance routes for websocket, now not using 

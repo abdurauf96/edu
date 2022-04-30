@@ -94,6 +94,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
         $student = $this->findOne($id);
         $student->update($requestData);
+        return $student;
     }
 
     public function getLastStudentNumber()
@@ -101,10 +102,10 @@ class StudentRepository implements StudentRepositoryInterface{
         return Student::school()->latest()->first()->username ?? null;
     }
 
-    public function addWaitingStudentToGroup($waitingStudent, $group_id)
+    public function addWaitingStudentToGroup($waitingStudent, $request)
     {
         $data=[
-            'group_id'=>$group_id,
+            'group_id'=>$request->group_id,
             'name'=>$waitingStudent->name,
             'phone'=>$waitingStudent->phone,
             'year'=>$waitingStudent->year,
@@ -117,11 +118,12 @@ class StudentRepository implements StudentRepositoryInterface{
             'study_year'=>date('Y'),
             'district_id'=>$waitingStudent->district_id,
             'study_type'=>$waitingStudent->study_type,
+            'start_date'=>$request->start_date,
         ];
 
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
         $data['qrcode']=$filename;
-        $course_code=Group::findOrFail($group_id)->course->code;
+        $course_code=Group::findOrFail($request->group_id)->course->code;
         $lastStudent=$this->getLastStudentNumber();
         $data['username']=generateIdNumber($lastStudent, $course_code);
         $data['password']=generatePassword($data['year']);

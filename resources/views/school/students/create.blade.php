@@ -45,7 +45,12 @@
                             @endforeach
                         </select>
                     </div>
-
+                    <div class="form-group">
+                        {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!}
+                        {!! Form::date('start_date', null, ['class' => 'form-control', 'required' => 'required'] ) !!}
+                        {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
+                    </div>
+                
                     <div class="form-group">
                         <input type='submit' class="btn btn-primary" value='Guruhga qo`shish' >
                     </div>

@@ -28,7 +28,7 @@ class StudentFullInfo extends JsonResource
             'group'=>$this->group->name,
             'image'=>'/admin/images/students/'.$this->image,
             'course-time'=> $this->group->course_days==1 ? 'Dush-Chor-Jum '.$this->group->time : 'Sesh-Pay-Shan'.' '.$this->group->time,
-            'payment'=>$this->is_debt() ? true : false,
+            'payment'=>$this->debt<=0 ? false : true,
             'qrcode_image'=>'/admin/images/qrcodes/'.$this->qrcode
         ];
     }

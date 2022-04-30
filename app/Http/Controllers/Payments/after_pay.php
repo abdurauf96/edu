@@ -41,10 +41,13 @@ if (!isset($params['paramKey'])) {
         }
     }
 }
+$amount=$transaction->payment_system =='paynet' ? $transaction->amount/100 : $transaction->amount;
 $student = \App\Models\Student::findOrFail($transaction->transactionable_id);
+$student->debt-=$amount;
+$student->save();
 $data = [];
 $data['student_id'] = $student->id;
-$data['amount'] =  $transaction->payment_system =='paynet' ? $transaction->amount/100 : $transaction->amount;
+$data['amount'] =  $amount;
 $data['course_id'] = ($purpose == 1) ? $student->group->course_id : null;
 $data['school_id'] = $student->school_id;
 $data['purpose'] = $purpose;

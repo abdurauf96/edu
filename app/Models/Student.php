@@ -35,7 +35,7 @@ class Student extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt'];
 
     public function scopeCurrentYear()
     {
@@ -95,37 +95,34 @@ class Student extends Authenticatable
         return $event->status ?? null;
     }
 
-    public function is_debt()
-    {
-        $currentDate=Carbon::parse(date('Y-m-d'));
-        $courseStartedDate=Carbon::parse($this->group->start_date);
-        
-        $payedSum=$this->payments()->sum('amount');
-          
-        switch ($this->status) {
-            case 1:
-                $diffMonth=date_diff($currentDate, $courseStartedDate)->m;
-                break;
-            case 2:
-                $outedDate=Carbon::parse($this->outed_date);
-                $diffMonth=date_diff($outedDate, $courseStartedDate)->m;
-                break;
-            case 0:
-                $finishedDate=Carbon::parse($this->finished_date);
-                $diffMonth=date_diff($finishedDate, $courseStartedDate)->m;
-                break;
-            default:
-                $diffMonth=1;
-                break;
-        }
+    // public function is_debt()
+    // {
+    //     $currentDate=Carbon::parse(date('Y-m-d'));
+    //     $courseStartedDate=Carbon::parse($this->group->start_date);
+    //     $payedSum=$this->payments()->sum('amount');
+    //     switch ($this->status) {
+    //         case 1:
+    //             $diffMonth=date_diff($currentDate, $courseStartedDate)->m;
+    //             break;
+    //         case 2:
+    //             $outedDate=Carbon::parse($this->outed_date);
+    //             $diffMonth=date_diff($outedDate, $courseStartedDate)->m;
+    //             break;
+    //         case 0:
+    //             $finishedDate=Carbon::parse($this->finished_date);
+    //             $diffMonth=date_diff($finishedDate, $courseStartedDate)->m;
+    //             break;
+    //         default:
+    //             $diffMonth=1;
+    //             break;
+    //     }
+    //     $mustPaySum=$this->group->course->price*$diffMonth;
 
-        $mustPaySum=$this->group->course->price*$diffMonth;
-
-        if($payedSum<$mustPaySum){
-            return true;
-        }
-        return false;
-    }
+    //     if($payedSum<$mustPaySum){
+    //         return true;
+    //     }
+    //     return false;
+    // }
     public function getSchool()
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');

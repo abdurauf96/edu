@@ -94,7 +94,7 @@
                             <span class="float-left">
                                 Qarzdorlik xolati
                             </span>
-                            @if(auth()->user()->is_debt())
+                            @if(auth()->user()->debt>0)
                             <span class="float-right badge badge-pill badge-danger">
                                 Qarzdor
                             </span>

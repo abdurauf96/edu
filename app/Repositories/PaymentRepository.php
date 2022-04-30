@@ -17,6 +17,8 @@ class PaymentRepository implements PaymentRepositoryInterface{
 
         $requestData=$request->all();
         $student=\App\Models\Student::findOrFail($request->student_id);
+        $student->debt-=$request->amount;
+        $student->save();
         $requestData['course_id']=$student->group->course_id;
         Payment::create($requestData);
     }

@@ -2,6 +2,10 @@
 
 namespace App\Services;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
+use App\Jobs\StudentOutedCourseJob;
+use App\Jobs\StudentStartedCourseJob;
+use App\Jobs\StudentFinishedCourseJob;
+use App\Jobs\StudentChangeCourseJob;
 
 class StudentService{
 
@@ -21,16 +25,20 @@ class StudentService{
     }
 
     public function create($request){
+        
         $student=$this->studentRepo->create($request);
+        dispatch(new StudentStartedCourseJob($student));
         generateQrcode($student->id, $student->qrcode, 'student');
         $this->generateIdCard($student);
     }
 
     public function update($request, $id)
     {
-        $this->studentRepo->update($request, $id);
+        $student=$this->studentRepo->update($request, $id);
+        if($request->status==2){ //if student outed course
+            dispatch(new StudentOutedCourseJob($student));
+        }
     }
-    
     
     public function generateIdCard($student)
     {
@@ -39,7 +47,6 @@ class StudentService{
         if(!file_exists(public_path().'/admin/images/qrcodes/'.$student->qrcode)){
             generateQrcode($student->id, $student->qrcode, 'student');
         }
-
         if(makeCard($student, $circled_image, 'student')){
             $student->idcard=$student->name.'.jpg';
             $student->save();
@@ -52,9 +59,7 @@ class StudentService{
         $student = $this->studentRepo->findOne($id);
         \File::delete(public_path()."/admin/images/students/".$student->image);
         \File::delete(public_path()."/admin/images/qrcodes/".$student->qrcode);
-
         $student->destroy($id);
-
         return redirect('school/students?year='.date('Y'))->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
@@ -62,19 +67,21 @@ class StudentService{
     {
         $student=$this->studentRepo->findOne($request->student_id);
         $new_group=\App\Models\Group::find($request->new_group_id);
-        $description=<<<TEXT
-        {$student->name}  {$student->group->course->name} kursi {$student->group->name} guruhidan {$new_group->course->name} kursi {$new_group->name} guruhiga o'tdi
-TEXT;
-
-        \App\Models\StudentActivity::create(['student_id'=>$request->student_id, 'description'=>$description ]);
+        dispatch(new StudentChangeCourseJob($student,$request->start_date, $new_group->course->price));
         $student->group_id=$request->new_group_id;
         $student->save();
         
+        $description=<<<TEXT
+        {$student->name}  {$student->group->course->name} kursi {$student->group->name} guruhidan {$new_group->course->name} kursi {$new_group->name} guruhiga o'tdi
+TEXT;
+        \App\Models\StudentActivity::create(['student_id'=>$request->student_id, 'description'=>$description ]);
+        
     }
 
-    public function addWaitingStudentToGroup($waitingStudent, $group_id)
+    public function addWaitingStudentToGroup($waitingStudent, $request)
     {
-        $student=$this->studentRepo->addWaitingStudentToGroup($waitingStudent, $group_id);
+        $student=$this->studentRepo->addWaitingStudentToGroup($waitingStudent, $request);
+        dispatch(new StudentStartedCourseJob($student));
         generateQrcode($student->id, $student->qrcode, 'student');
         $this->generateIdCard($student);
     }

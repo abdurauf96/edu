@@ -9,6 +9,7 @@ use App\Models\Group;
 use App\Models\Course;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Jobs\StudentFinishedCourseJob;
 
 class GroupsController extends Controller
 {
@@ -24,6 +25,7 @@ class GroupsController extends Controller
         $year=$request->year;
         $groups = Group::school()
         ->orderBy('status')
+        ->where('status', '!=', 2)
         ->latest()
         ->when($year, function($query) use ($year){
             $query->where('year', $year);
@@ -111,15 +113,12 @@ class GroupsController extends Controller
 			'course_id' => 'required',
 			'duration' => 'required'
 		]);
-        $requestData = $request->all();
-
         $group = Group::findOrFail($id);
-        $group->update($requestData);
-        
-        if($request->status==2){  
-            $group->students()->update(['finished_date'=>$request->end_date, 'status'=>0]); //if group finished course update status students to 'graduated'
+        if($request->status==2 && $group->status!=$request->status){  
+            dispatch(new StudentFinishedCourseJob($group,$request->end_date)); //if group finished course calculate debt students
         }
-
+        $requestData = $request->all();
+        $group->update($requestData);
         return redirect('school/groups?year='.date('Y'))->with('flash_message', 'Guruh yangilandi!');
     }
 

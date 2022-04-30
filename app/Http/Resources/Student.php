@@ -21,7 +21,7 @@ class Student extends JsonResource
             'group'=>$this->group->name,
             'image'=>'/admin/images/students/'.$this->image,
             'course-time'=> $this->group->course_days==1 ? 'Dush-Chor-Jum '.$this->group->time : 'Sesh-Pay-Shan'.' '.$this->group->time,
-            'payment'=>$this->is_debt() ? false : true,
+            'payment'=>$this->debt<=0 ? false : true,
             'status'=>$this->status,
         ];
     }
