@@ -36,12 +36,12 @@ class StudentStartedCourseJob implements ShouldQueue
         //$timestamp = strtotime('2014-10-03');
         $numberAllDays=(int)date('t', strtotime($this->student->start_date));
         $numberStartDay=(int)date('j', strtotime($this->student->start_date));
-        $remainDays = $numberAllDays - $numberStartDay;
+        $remainDays = $numberAllDays - $numberStartDay+1;
         $priceCourse=(int)$this->student->group->course->price;
         $debt=round($priceCourse/$numberAllDays*$remainDays);
         $this->student->update(['debt'=>$debt]);
 
-        //\Log::info("qarz-  {$debt} ; qolgan kuni - {$remainDays} ; kurs narxi - {$priceCourse}");
+        \Log::info("qarz-  {$debt} ; qolgan kuni - {$remainDays} ; kurs narxi - {$priceCourse}");
 
     }
 }

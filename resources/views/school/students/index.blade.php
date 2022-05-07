@@ -74,7 +74,7 @@
                                         <a class="btn btn-icon btn-info " href="{{ route('generateStudentCard', $item->id) }}">Generate </a>
                                     @endif
                                 </td> --}}
-                                <td>@if($item->debt>0)  <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> qarzi yo'q </div>  @endif </td>
+                                <td>@if($item->debt>0)  <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} xaqdor </div>  @endif </td>
                                 {{-- <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td> --}}
                                 <td>
                                     <a href="{{ route('students.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>

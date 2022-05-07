@@ -34,8 +34,9 @@ class StudentService{
 
     public function update($request, $id)
     {
+        $s=$this->studentRepo->findOne($id);
         $student=$this->studentRepo->update($request, $id);
-        if($request->status==2){ //if student outed course
+        if($request->status==2 && $s->status!=$request->status){ //if student outed course
             dispatch(new StudentOutedCourseJob($student));
         }
     }

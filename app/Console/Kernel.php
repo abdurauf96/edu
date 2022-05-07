@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //Commands\StudentDebt::class,
+        Commands\StudentsMonthlyPaymentCommand::class,
     ];
 
     /**
@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new \App\Jobs\StudentsMonthlyPaymentJob)->monthly();
+        $schedule->command('students:payment')->monthly();
     }
 
     /**

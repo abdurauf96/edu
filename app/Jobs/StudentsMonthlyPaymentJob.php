@@ -30,13 +30,13 @@ class StudentsMonthlyPaymentJob implements ShouldQueue
      */
     public function handle()
     {
-        $groups=\App\Models\Group::whereDate('end_date', '>', date('Y-m-d'))->get();
-        foreach ($groups as $group) {
-            foreach ($group->students as $student) {
-                $student->debt+=$group->course->price;
-                $student->save();
-            }
-        }
-        \Log::info("Cron is working.");
+        // $groups=\App\Models\Group::whereDate('end_date', '>', date('Y-m-d'))->get();
+        // foreach ($groups as $group) {
+        //     foreach ($group->students as $student) {
+        //         $student->debt+=$group->course->price;
+        //         $student->save();
+        //     }
+        // }
+         //\Log::info("Cron is working. job");
     }
 }
