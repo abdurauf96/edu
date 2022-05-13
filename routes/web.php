@@ -177,6 +177,8 @@ require __DIR__ . '/auth.php';
 
 Route::post('/student/pay', function (\Illuminate\Http\Request $request) {
     //dd($request->all());
-    \App\Models\Student::findOrFail($request->student_id)->update(['debt'=>$request->debt]);
+    $student=\App\Models\Student::findOrFail($request->student_id);
+    $student->debt+=$request->debt;
+    $student->save();
     return back();
 });

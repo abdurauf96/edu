@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/datatables.min.css">
 @endsection
 @section('title', 'O`quvchilar')
-    
+
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -37,7 +37,7 @@
                           <a class="dropdown-item" href="{{ route('school.students.index') }}">Barchasi</a>
                         </div>
                     </div>
-                </div>        
+                </div>
             </div>
             <div class="card-body">
 
@@ -52,7 +52,7 @@
                                 <th>Kurs</th>
                                 {{-- <th>QR Code</th>
                                 <th>ID Card</th> --}}
-                                <th>To'lov xolati</th> 
+                                <th>To'lov xolati</th>
                                 <th>Amallar</th>
                                 <th>Davomat</th>
                                 <th>Qarz</th>
@@ -60,7 +60,7 @@
                         </thead>
                         <tbody>
                         @foreach($students as $item)
-                        
+
                             <tr>
                                 <td>{{ $item->id  }}</td>
                                 <td>{{ $item->name }}</td>

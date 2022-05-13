@@ -38,7 +38,7 @@ class StudentChangeCourseJob implements ShouldQueue
         $remainDays = $numberAllDays - $numberStudyDay;
         $priceOldCourse=(int)$this->student->group->course->price;
         $priceNewCourse=$this->priceNewCourse;
-        $this->student->debt=$this->student->debt + $priceNewCourse/$numberAllDays*$remainDays - $priceOldCourse/$numberAllDays*$remainDays;
+        $this->student->debt=round($this->student->debt + $priceNewCourse/$numberAllDays*$remainDays - $priceOldCourse/$numberAllDays*$remainDays);
         $this->student->save();
         //\Log::info(['yangi kurs narxi - '.$priceNewCourse." ; eski kurs narxi - {$priceOldCourse}  ; qolgan kun - {$remainDays} ; qarz - {$this->student->debt}"]);
     }
