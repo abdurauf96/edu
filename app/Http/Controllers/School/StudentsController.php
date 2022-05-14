@@ -193,6 +193,20 @@ class StudentsController extends Controller
         return back()->with('flash_message', 'Natija kiritildi !');
     }
 
+    public function debtStudents()
+    {
+        $students=$this->studentService->getAll()->where('debt', '>', 0);
+        $groups=Group::all();
+        $courses=Course::all();
+        return view('school.students.debtStudents', compact('students', 'groups', 'courses'));
+    }
+
+    public function getStudentsByGroup(Request $request)
+    {
+        $students=$this->studentService->getAll()->where('debt', '>', 0)->where('group_id', $request->group_id);
+        return view('school.ajax.getStudentsByGroup', compact('students'));
+    }
+
     public function statistics()
     {
         $districts=District::all();

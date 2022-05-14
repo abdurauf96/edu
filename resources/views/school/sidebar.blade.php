@@ -68,6 +68,11 @@
                     Statistika
                 </a>
               </li>
+              <li>
+                <a class="nav-link" href="{{ route('debtStudents') }}">
+                    Qarzdorlar
+                </a>
+              </li>
           </ul>
       </li>
 
@@ -81,7 +86,7 @@
           <i class="fas fa-user-friends"></i><span>Xodimlar</span>
         </a>
       </li>
-     @if(Auth::check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cashier')) )
+      @if(Auth::check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cashier')) )
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Buxgalteriya</span></a>
 

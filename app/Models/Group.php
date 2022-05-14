@@ -10,7 +10,9 @@ use \App\Traits\School;
 class Group extends Model
 {
     use LogsActivity, School;
-
+    //status=1 guruh to'lgan
+    //status=0 ochilmoqda
+    //status=2 bitirgan
 
     /**
      * The database table used by the model.

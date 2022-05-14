@@ -98,10 +98,13 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     Route::get('/students/year/{year?}', [StudentsController::class, 'index'])->name('school.students.index');
     Route::resource('/students', StudentsController::class)->except(['create']);
+    Route::get('/debt-students', [StudentsController::class, 'debtStudents'])->name('debtStudents');
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
     Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
+    Route::post('getStudentsByGroup', [StudentsController::class, 'getStudentsByGroup'])->name('getStudentsByGroup');
+
     
     //events
     Route::get('/events', [EventsController::class, 'events'])->name('events');
