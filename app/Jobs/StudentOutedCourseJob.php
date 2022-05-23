@@ -34,7 +34,7 @@ class StudentOutedCourseJob implements ShouldQueue
         $numberAllDays=(int)date('t', strtotime($this->student->outed_date)); //number all days for that month
         $numberStudyDay=(int)date('d', strtotime($this->student->outed_date)); //number study days for that month
         $remainDays = $numberAllDays - $numberStudyDay;
-        $priceCourse=(int)$this->student->group->course->price;
+        $priceCourse=(int)$this->student->getPriceMonth();
         $summa=round($priceCourse/$numberAllDays*$remainDays);
         $this->student->debt-=$summa;
         $this->student->save();

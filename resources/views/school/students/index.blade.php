@@ -50,8 +50,8 @@
                                 <th>F.I.O</th>
                                 <th>Guruh</th>
                                 <th>Kurs</th>
-                                {{-- <th>QR Code</th>
-                                <th>ID Card</th> --}}
+                                <th>QR Code</th>
+                                {{-- <th>ID Card</th> --}}
                                 <th>To'lov xolati</th>
                                 <th>Amallar</th>
                                 <th>Davomat</th>
@@ -65,16 +65,23 @@
                                 <td>{{ $item->id  }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td> {{ $item->group->name }} </td>
-                                <td> {{ $item->group->course->name }} </td>
-                                {{-- <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
-                                <td>
+                                <td> {{ $item->group->course->name }}</td>
+                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
+                                {{-- <td>
                                     @php if(isset($item->idcard) and  file_exists(public_path().'/admin/images/idcards/'.$item->idcard)) : @endphp
                                         <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}"><i class="fas fa-download"></i> </a>
                                     @else
                                         <a class="btn btn-icon btn-info " href="{{ route('generateStudentCard', $item->id) }}">Generate </a>
                                     @endif
                                 </td> --}}
-                                <td>@if($item->debt>0)  <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} xaqdor </div>  @endif </td>
+                                <td>@if($item->debt>0) 
+                                    <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div> 
+                                    @elseif($item->debt==0)
+                                    <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} Qarzi yo'q </div>
+                                    @else
+                                    <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} xaqdor </div> 
+                                    @endif
+                                </td>
                                 {{-- <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td> --}}
                                 <td>
                                     <a href="{{ route('students.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>

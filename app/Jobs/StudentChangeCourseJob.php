@@ -23,7 +23,7 @@ class StudentChangeCourseJob implements ShouldQueue
     {
         $this->start_date=$start_date;
         $this->student=$student;
-        $this->priceNewCourse=$priceNewCourse;
+        $this->priceNewCourse=$this->student->type*$priceNewCourse; //check for grant
     }
 
     /**
@@ -36,9 +36,9 @@ class StudentChangeCourseJob implements ShouldQueue
         $numberAllDays=(int)date('t', strtotime($this->start_date)); //number all days for that month
         $numberStudyDay=(int)date('d', strtotime($this->start_date)); //number study days for that month
         $remainDays = $numberAllDays - $numberStudyDay;
-        $priceOldCourse=(int)$this->student->group->course->price;
+        $priceOldCourse=(int)$this->student->getPriceMonth();
         $priceNewCourse=$this->priceNewCourse;
-        $this->student->debt=round($this->student->debt + $priceNewCourse/$numberAllDays*$remainDays - $priceOldCourse/$numberAllDays*$remainDays);
+        $this->student->debt=round($this->student->debt +$priceNewCourse/$numberAllDays*$remainDays - $priceOldCourse/$numberAllDays*$remainDays);
         $this->student->save();
         //\Log::info(['yangi kurs narxi - '.$priceNewCourse." ; eski kurs narxi - {$priceOldCourse}  ; qolgan kun - {$remainDays} ; qarz - {$this->student->debt}"]);
     }

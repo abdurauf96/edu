@@ -37,7 +37,7 @@ class StudentStartedCourseJob implements ShouldQueue
         $numberAllDays=(int)date('t', strtotime($this->student->start_date));
         $numberStartDay=(int)date('j', strtotime($this->student->start_date));
         $remainDays = $numberAllDays - $numberStartDay+1;
-        $priceCourse=(int)$this->student->group->course->price;
+        $priceCourse=(int)$this->student->getPriceMonth();
         $debt=round($priceCourse/$numberAllDays*$remainDays);
         $this->student->update(['debt'=>$debt]);
 

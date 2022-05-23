@@ -60,7 +60,7 @@ class Student extends Authenticatable
 
     public function scopeGrant()
     {
-        return $this->currentYear()->where('type', '!=', 1);
+        return $this->active()->where('type', '!=', 1);
     }
 
     public function events()
@@ -94,38 +94,14 @@ class Student extends Authenticatable
         $event=Event::where(['type'=>'student', 'person_id'=>$this->id])->whereDate('created_at', date('Y-m-d'))->latest()->first();
         return $event->status ?? null;
     }
-
-    // public function is_debt()
-    // {
-    //     $currentDate=Carbon::parse(date('Y-m-d'));
-    //     $courseStartedDate=Carbon::parse($this->group->start_date);
-    //     $payedSum=$this->payments()->sum('amount');
-    //     switch ($this->status) {
-    //         case 1:
-    //             $diffMonth=date_diff($currentDate, $courseStartedDate)->m;
-    //             break;
-    //         case 2:
-    //             $outedDate=Carbon::parse($this->outed_date);
-    //             $diffMonth=date_diff($outedDate, $courseStartedDate)->m;
-    //             break;
-    //         case 0:
-    //             $finishedDate=Carbon::parse($this->finished_date);
-    //             $diffMonth=date_diff($finishedDate, $courseStartedDate)->m;
-    //             break;
-    //         default:
-    //             $diffMonth=1;
-    //             break;
-    //     }
-    //     $mustPaySum=$this->group->course->price*$diffMonth;
-
-    //     if($payedSum<$mustPaySum){
-    //         return true;
-    //     }
-    //     return false;
-    // }
     public function getSchool()
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');
+    }
+
+    public function getPriceMonth()
+    {
+        return round($this->type*$this->group->course->price);
     }
 
 

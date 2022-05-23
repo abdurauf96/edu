@@ -40,7 +40,10 @@ class StudentsMonthlyPaymentCommand extends Command
         $groups=\App\Models\Group::whereDate('end_date', '>', date('Y-m-d'))->get();
         foreach ($groups as $group) {
             foreach ($group->students as $student) {
-                $student->debt+=$group->course->price;
+                if($student->group->course_id==16){ // 16 - comp savodxonligi
+                    continue;
+                }
+                $student->debt+= $student->getPriceMonth();
                 $student->save();
             }
         }

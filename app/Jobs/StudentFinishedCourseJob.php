@@ -36,10 +36,11 @@ class StudentFinishedCourseJob implements ShouldQueue
         $numberAllDays=(int)date('t'); //number all days for that month
         $numberStudyDay=(int)date('d', strtotime($this->end_date)); //number study days for that month
         $remainDays = $numberAllDays - $numberStudyDay;
-        $priceCourse=(int)$this->group->course->price;
-        $summa=round($priceCourse/$numberAllDays*$remainDays);
+       
        
         foreach($this->group->students as $student){
+            $priceCourse=$student->getPriceMonth();
+            $summa=round($priceCourse/$numberAllDays*$remainDays);
             $student->debt-=$summa;
             $student->finished_date=$this->end_date;
             $student->status=0;
