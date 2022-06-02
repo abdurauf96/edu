@@ -1,6 +1,6 @@
 @extends('layouts.school')
 @section('title')
-    Kurslar
+    Kurs rejalari
 @endsection
 @section('content')
 <div class="section-body">
@@ -9,9 +9,9 @@
             <div class="card">
             
                 <div class="card-header">
-                    <h4>Kurslar</h4>
+                    <h4> {{ $course->name }} kurs rejalari </h4>
                     <div class="card-header-form">
-                        <a href="{{ route('courses.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
+                        <a href="{{ route('addCoursePlan', $course->id)  }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -19,23 +19,28 @@
                         <table class="table table-bordered table-striped " id="example1_wrapper">
                             <thead>
                                 <tr>
-                                    <th>#</th><th>Nomi</th><th>Davomiyligi</th><th>Narxi</th><th>Ta`rifi</th><th>Amallar</th>
+                                    <th>#</th>
+                                    <th>Reja sarlavhasi</th>
+                                    <th>Reja davomiyligi</th>
+                                    <th>Reja mavzulari</th>
+                                    <th>Reja tartib raqami</th>
+                                    <th>Amallar</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($courses as $item)
+                            @foreach($course->plans as $plan)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->duration }}</td>
-                                    <td>{{ $item->price }}</td>
-                                    <td>{{ $item->description }}</td>
+                                    <td>{{ $plan->title }}</td>
+                                    <td>{{ $plan->duration }} oy </td>
+                                    <td>{!! $plan->description !!}</td>
+                                    <td>{{ $plan->order }}</td>
                                     <td>
-                                        <a href="{{ route('courses.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
-                                        <a href="{{ route('courses.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
+                                        
+                                        <a href="{{ route('editCoursePlan', $plan->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
                                         {!! Form::open([
                                             'method' => 'DELETE',
-                                            'url' => ['/school/courses', $item->id],
+                                            'url' => [route('deleteCoursePlan', $plan->id)],
                                             'style' => 'display:inline'
                                         ]) !!}
                                             {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
@@ -44,9 +49,7 @@
                                                     'title' => 'Delete Course',
                                                     'onclick'=>'return confirm("Confirm delete?")'
                                             )) !!}
-                                        {!! Form::close() !!}
-                                        
-                                        <a href="{{ route('coursePlans', $item->id) }}" class="btn btn-icon btn-warning"><i class="fas fa-notes-medical"></i> Kurs rejalari </a>
+                                        {!! Form::close() !!}  
                                     </td>
                                 </tr>
                             @endforeach

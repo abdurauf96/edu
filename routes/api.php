@@ -23,10 +23,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/payment-statistics/{year}/{month}', '\App\Http\Controllers\Api\PaymentController@paymentStatistics')->name('user');
 });
 
-Route::middleware(['auth:student-api'])->group(function () {
-    Route::get('/student/fullinfo', ['App\Http\Controllers\Api\StudentController', 'studentFullInfo']);
-    Route::get('/student/payments', ['App\Http\Controllers\Api\StudentController', 'getStudentPayments']);
-    Route::get('/student/events', ['App\Http\Controllers\Api\StudentController', 'getStudentEvents']);
+Route::middleware(['auth:student-api'])->prefix('student')->group(function () {
+    Route::get('fullinfo', ['App\Http\Controllers\Api\StudentController', 'studentFullInfo']);
+    Route::get('payments', ['App\Http\Controllers\Api\StudentController', 'getStudentPayments']);
+    Route::get('events', ['App\Http\Controllers\Api\StudentController', 'getStudentEvents']);
+    Route::post('update-info', ['App\Http\Controllers\Api\StudentController', 'updateInfo']);
+    Route::post('update-password', ['App\Http\Controllers\Api\StudentController', 'updatePassword']);
 });
 
 

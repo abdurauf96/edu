@@ -20,6 +20,7 @@ use App\Http\Controllers\School\StaffsController;
 use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\School\AppealsController;
 use App\Http\Controllers\School\DistrictsController;
+use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SchoolController;
 
@@ -127,6 +128,13 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
     Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
+
+    Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
+    Route::get('/course/{id}/plans/create', [PlansController::class, 'create'])->name('addCoursePlan');
+    Route::post('/course/plan', [PlansController::class, 'store'])->name('saveCoursePlan');
+    Route::delete('/course/plan/{plan}', [PlansController::class, 'destroy'])->name('deleteCoursePlan');
+    Route::get('/course/plan/{plan}/edit', [PlansController::class, 'edit'])->name('editCoursePlan');
+    Route::put('/course/plan/{plan}/update', [PlansController::class, 'update'])->name('updateCoursePlan');
 
     //attendance routes for websocket, now not using
     //Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');

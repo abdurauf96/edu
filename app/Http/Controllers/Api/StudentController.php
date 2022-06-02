@@ -8,7 +8,8 @@ use App\Models\Student;
 use App\Http\Resources\Student as StudentResource;
 use App\Http\Resources\StudentFullInfo;
 use App\Http\Resources\StudentPaymentHistory;
-
+use App\Http\Requests\UpdateStudentRequest;
+use Hash;
 class StudentController extends BaseController
 {
    
@@ -52,6 +53,36 @@ class StudentController extends BaseController
             array_push($events, $data);
         }
         return $this->sendResponse($events);
+    }
+
+    public function updateInfo(UpdateStudentRequest $request)
+    {
+        $student=request()->user();
+        $requestData=$request->all();
+        if($request->hasFile('image')){
+            $file=$request->file('image');
+            $image=time().$file->getClientOriginalName();
+            $path='admin/images/students';
+            $file->move($path, $image);
+            $requestData['image']=$image;
+        }
+        $student->update($requestData);
+        return $this->sendResponse();   
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $student=request()->user();
+        $request->validate([
+            'old_password'=>'required',
+            'password' => 'required|string|confirmed|min:6',
+        ]);
+        if(!Hash::check($request->old_password, $student->password)){
+            return $this->sendError('current password is wrong'); 
+        }
+        
+        $student->update(['password'=>Hash::make($request->password)]);
+        return $this->sendResponse();   
     }
   
 }

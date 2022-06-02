@@ -25,6 +25,7 @@ class StudentFullInfo extends JsonResource
             'sex'=>$this->sex,
             'study_type'=>$this->type,
             'course'=>$this->group->course->name,
+            'course_plans'=>$this->group->course->plans,
             'group'=>$this->group->name,
             'image'=>url('').'/admin/images/students/'.$this->image,
             'course-time'=> $this->group->course_days==1 ? 'Dush-Chor-Jum '.$this->group->time : 'Sesh-Pay-Shan'.' '.$this->group->time,

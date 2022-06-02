@@ -61,10 +61,10 @@ class Course extends Model
         return $this->hasMany(WaitingStudent::class);
     }
 
-    // public function getPaymentsByMonth()
-    // {
-    //     return $this->payments;
-    // }
+    public function plans()
+    {
+        return $this->hasMany(CoursePlan::class)->orderBy('order');
+    }
 
     public static function boot() {
         parent::boot();

@@ -9,32 +9,31 @@
             <div class="card-header">
                 <h4 class="card-title">Kurs ochilishini kutib navbatda turgan o'quvchilar statistikasi</h4>
 
-                
+
                 <div class="card-header-form">
                     <a href="{{ route('waiting-students.create') }}" class="btn btn-icon icon-left btn-primary">
                         <i class="fas fa-plus"></i>Yangi qo'shish </a>
                 </div>
-                
+
             </div>
             <!-- /.box-header -->
             <div class="card-body table-responsive no-padding">
                 <table class="table table-hover table-striped">
                     <tbody>
                     <tr>
-                        <th>T/R</th>
                         <th>Kurs nomi</th>
                         <th>O'quvchilar soni</th>
-
                     </tr>
                     @foreach($courses as $course)
                     <tr>
-                        <td>183</td>
                         <td>{{ $course->name }}</td>
                         <td>{{ count($course->waitingStudents) }}</td>
-
                     </tr>
                     @endforeach
-
+                    <tr>
+                        <th>Jami</th>
+                        <th>{{ $all }}</th>
+                    </tr>
                     </tbody>
                 </table>
             </div>
