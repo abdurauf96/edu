@@ -23,9 +23,11 @@ class GroupsController extends Controller
     public function index(Request $request)
     {
         $year=$request->year;
+        $type=$request->type;
+        
         $groups = Group::school()
+        ->type($request->type)
         ->orderBy('status')
-        ->where('status', '!=', 2)
         ->latest()
         ->when($year, function($query) use ($year){
             $query->where('year', $year);

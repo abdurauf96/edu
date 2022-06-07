@@ -7,12 +7,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \App\Traits\School;
 
+
 class Group extends Model
 {
     use LogsActivity, School;
     //status=1 guruh to'lgan
     //status=0 ochilmoqda
-    //status=2 bitirgan
+    const GRADUATED=2 ; //bitirgan
 
     /**
      * The database table used by the model.
@@ -38,6 +39,19 @@ class Group extends Model
     public function teacher()
     {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function scopeType($query, $type)
+    {
+        if(!empty($type)){
+            return $query->when($type, function($query) use ($type){
+                $query->where('status', self::GRADUATED);
+            });
+        }else{
+            return $query->when($type, function($query) use ($type){
+                $query->where('status', '!=', self::GRADUATED);
+            });
+        }
     }
 
     public function course()

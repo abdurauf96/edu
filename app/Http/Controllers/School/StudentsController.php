@@ -210,8 +210,8 @@ class StudentsController extends Controller
     public function statistics()
     {
         $districts=District::all();
-        
-        //dd(Student::orderBy('year')->active()->get());
+        $courses=Course::all();
+
         $studentsByAges = Student::active()->get()->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->year)->format('Y');
         });
@@ -233,11 +233,10 @@ class StudentsController extends Controller
         $types['collegue']=$collegue;
         $types['university']=$university;
         $types['worker']=$worker;
-        
 
         $grant_students=Student::school()->grant()->count();
         $active_students=Student::active()->count();
-        return view('school.students.statistics',compact('districts', 'studentsBySex', 'studentsByAges','grant_students', 'active_students','types'));
+        return view('school.students.statistics',compact('districts', 'studentsBySex', 'studentsByAges','grant_students', 'active_students','types', 'courses'));
     }
 
 }

@@ -92,7 +92,7 @@
             <input type="radio" value="0"  @if(isset($student))
                 {{ $student->type==0 ? 'checked' : '' }}
             @endif name="type"  >
-            <span for="">Grant (100%)</span>
+            <span for="">Grant (100%)  </span>
         </div>
     </div>
 </div>
@@ -112,7 +112,7 @@
 
 <div class="form-group"> 
     {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!} 
-    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required', 'disabled'=>'disabled' ] 
+    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required' ] 
     : ['class' => 'form-control', 'required' => 'required']   ) !!}
     {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
 </div>

@@ -47,7 +47,7 @@ class StudentsMonthlyPaymentCommand extends Command
                 $student->save();
             }
         }
-        \Log::info("Cron is working.");
+        \Log::info("oquvchilarga oylik tolov yozildi");
         return Command::SUCCESS;
     }
 }

@@ -23,6 +23,7 @@
                     <th>Telefon 1 </th>
                     <th>Telefon 2 </th>
                     <th>O'qish vaqti </th>
+                    <th>Yozilgan vaqti </th>
                     <th>Qo'ng'iroq natijasi</th>
                     <th>Amallar</th>
                 </tr>
@@ -35,6 +36,7 @@
                         <td>{{ $item->phone }}</td>
                         <td>{{ $item->phone2 }}</td>
                         <td>{{ $item->course_time==1 ? 'Abetgacha': 'Abetdan keyin' }}</td>
+                        <td>{{ $item->created_at->format('d.m.Y H:i') }}</td>
                         <td>
                             <form wire:submit.prevent="saveStatus" >
                                 @if($item->call_result!='')

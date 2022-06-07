@@ -36,7 +36,7 @@
                             <tr><th> Tug'ilgan yili </th><td> {{ $waitingstudent->year }} </td></tr>
                             <tr><th> Manzil </th><td> {{ $waitingstudent->address }} </td></tr>
                             <tr><th> Passport </th><td> {{ $waitingstudent->passport }} </td></tr>
-                            <tr><th> O'qish turi </th><td> {{ $waitingstudent->type==1 ? 'Grant': 'Oddiy' }} </td></tr>
+                            <tr><th> O'qish turi </th><td> {{ $waitingstudent->type==1 ? 'Oddiy': 'Grant' }} </td></tr>
                             <tr><th> Jinsi </th><td> {{ $waitingstudent->sex==1? 'Erkak' : 'Ayol' }} </td></tr>
                             <tr><th> Rasm </th><td><img src="/admin/images/waitingstudents/{{ $waitingstudent->image }}" width="200" >  </td></tr>
                         </tbody>

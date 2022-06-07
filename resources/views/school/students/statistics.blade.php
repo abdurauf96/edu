@@ -40,6 +40,39 @@
             </div>
           </div>
     </div>
+
+    <div class="col-6">
+      <div class="card">
+          <div class="card-header">
+            <h4>Kurslar bo'yicha statistika</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-md">
+                <thead>
+                  <th>T/R</th>
+                  <th>Bitirib ketganlar</th>
+                  <th>O'qiyotganlar</th>
+                  <th>Chiqib ketganlar</th>
+                  <th>Jami</th>
+                </thead>
+                <tbody>
+                  @foreach ($courses as $course)
+                  <tr>
+                    <td>{{ $course->name }}</td>
+                    <td>{{ $course->graduatedStudents()->count() }} </td>
+                    <td>{{ $course->activeStudents()->count() }}</td>
+                    <td>{{ $course->outStudents()->count() }}</td>
+                    <td><b>{{ $course->students->count() }}</b></td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+
     <div class="col-6">
         <div class="card">
             <div class="card-header">

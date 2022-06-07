@@ -62,9 +62,10 @@
 </div>
 
 <div class="form-group">
-    <label for="">Grant</label> &nbsp; &nbsp;
-    <input type="checkbox" value="1"  @if(isset($waitingstudent))
-    {{ $waitingstudent->type==1 ? 'checked' : '' }}
+    <label for="">O'qish turi</label> <br>
+    <span>Grant &nbsp; &nbsp; </span>
+    <input type="checkbox" value="0"  @if(isset($waitingstudent))
+    {{ $waitingstudent->type!=1 ? 'checked' : '' }}
     @endif name="type"  >
 </div>
 

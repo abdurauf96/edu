@@ -148,7 +148,7 @@
                   <tr>
                       <td>{{ $loop->iteration }}</td>
                       <td>{{ $course->name }}</td>
-                      <td><span class="badge badge-success">{{ count($course->activeStudents) }}</span></td>
+                      <td><span class="badge badge-success">{{ count($course->activeStudents()) }}</span></td>
                   </tr>
                   @endforeach
                 </tbody></table>

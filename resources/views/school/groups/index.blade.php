@@ -17,13 +17,13 @@
                     <a href="{{ route('groups.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
                     <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            O'quv yili {{  request()->get('year') ?? ""  }}
+                            Filter {{  request()->get('year') ?? ""  }}
                         </button>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                           <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2021]) }}">2021</a>
                           <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2022]) }}">2022</a>
                           <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2023]) }}">2023</a>
-                          <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2024]) }}">2024</a>
+                          <a class="dropdown-item" href="{{ route('groups.index', ['type'=>'graduated']) }}">Bitirgan</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{{ route('groups.index') }}">Barchasi</a>
                         </div>
@@ -45,10 +45,10 @@
                         @foreach($groups as $item)
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
-                                <td>{{ $item->name }}</td><td>{{ $item->teacher->name }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->teacher->name }}</td>
                                 <td>{{ $item->course->name }}</td>
-                                
-                                <td>{{ $item->status==1 ? 'Guruh to`lgan' : 'Guruh to\'lmoqda' }}</td>
+                                <td> @if($item->status==1) Guruh to`lgan @elseif($item->status==0) Guruh to\'lmoqda' @else Guruh bitirgan @endif</td>
                                 <td>{{ count($item->students) }} ta</td>
                                 <td>
                                     <a href="{{ route('groups.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>

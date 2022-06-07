@@ -36,8 +36,8 @@ class MainController extends Controller
         $graduated_students=Student::school()->graduated()->count();
 
         $teachers=\App\Models\Teacher::school()->whereStatus(1)->with('students')->get();
-        $courses=\App\Models\Course::school()->with('activeStudents')->get();
-
+        $courses=\App\Models\Course::school()->get();
+       
         return view('school.dashboard', compact( 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
     }
 
@@ -46,7 +46,7 @@ class MainController extends Controller
         $numberDay = date('N', strtotime(date("l")));
         $courseDays= $numberDay%2==0 ? 2 : 1;
         $groups=Group::where('course_days', $courseDays)->where('status', '!=', 2)->get();
-       
+
         return view('school.groups.todayGroups', compact('groups'));
     }
 

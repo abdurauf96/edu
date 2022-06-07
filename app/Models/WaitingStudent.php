@@ -30,6 +30,9 @@ class WaitingStudent extends Model
      *
      * @var array
      */
+    protected $attributes = [
+        'type' => 1, //study type oddiy
+    ];
     protected $fillable = ['course_id', 'name', 'phone', 'year', 'address', 'passport', 'image', 'sex', 'type', 'phone2', 'course_time', 'call_result', 'district_id', 'study_type'];
 
     public function course()

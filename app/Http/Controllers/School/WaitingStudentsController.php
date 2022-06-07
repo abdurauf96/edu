@@ -46,11 +46,11 @@ class WaitingStudentsController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        if($request->hasFile('image')){
-            $file=$request->file('image');
-            $image=time().$file->getClientOriginalName();
+        if($request->hasFile('image')) {
+            $file = $request->file('image');
+            $image = time() . $file->getClientOriginalName();
             $file->move('admin/images/students', $image);
-            $requestData['image']=$image;
+            $requestData['image'] = $image;
         }
         WaitingStudent::create($requestData);
 
@@ -82,7 +82,8 @@ class WaitingStudentsController extends Controller
     {
         $waitingstudent = WaitingStudent::findOrFail($id);
         $courses=Course::school()->get();
-        return view('school.waiting-students.edit', compact('waitingstudent', 'courses'));
+        $districts=District::all();
+        return view('school.waiting-students.edit', compact('waitingstudent', 'courses', 'districts'));
     }
 
     /**

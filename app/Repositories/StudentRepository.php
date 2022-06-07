@@ -104,6 +104,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function addWaitingStudentToGroup($waitingStudent, $request)
     {
+        
         $data=[
             'group_id'=>$request->group_id,
             'name'=>$waitingStudent->name,

@@ -10,6 +10,10 @@ class Course extends Model
 {
     use LogsActivity, School;
 
+    const ACTIVE = 1; // xozirgi vaqtda o'qiyotgan o'quvchilar
+    const OUT = 2; // chiqib ketgan o'quvchilar
+    const GRADUATED = 0; // bitirib ketgan o'quvchilar
+
     /**
      * The database table used by the model.
      *
@@ -48,7 +52,16 @@ class Course extends Model
 
     public function activeStudents()
     {
-        return $this->hasManyThrough(Student::class, Group::class)->where(['students.status'=>1,'students.study_year'=>2022]);
+        return $this->students->where('status', self::ACTIVE);
+    }
+
+    public function graduatedStudents()
+    {
+        return $this->students->where('status', self::GRADUATED);
+    }
+    public function outStudents()
+    {
+        return $this->students->where('status', self::OUT);
     }
 
     public function payments()
