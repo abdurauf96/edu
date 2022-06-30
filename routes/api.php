@@ -28,6 +28,7 @@ Route::middleware(['auth:student-api'])->prefix('student')->group(function () {
     Route::get('payments', ['App\Http\Controllers\Api\StudentController', 'getStudentPayments']);
     Route::get('events', ['App\Http\Controllers\Api\StudentController', 'getStudentEvents']);
     Route::post('update-info', ['App\Http\Controllers\Api\StudentController', 'updateInfo']);
+    Route::post('update-image', ['App\Http\Controllers\Api\StudentController', 'updateImage']);
     Route::post('update-password', ['App\Http\Controllers\Api\StudentController', 'updatePassword']);
 });
 

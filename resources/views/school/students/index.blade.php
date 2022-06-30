@@ -66,7 +66,7 @@
                                 <td>{{ $item->name }}</td>
                                 <td> {{ $item->group->name }} </td>
                                 <td> {{ $item->group->course->name }}</td>
-                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
+                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->id) }}"><i class="fas fa-download"></i> </a></td>
                                 {{-- <td>
                                     @php if(isset($item->idcard) and  file_exists(public_path().'/admin/images/idcards/'.$item->idcard)) : @endphp
                                         <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}"><i class="fas fa-download"></i> </a>

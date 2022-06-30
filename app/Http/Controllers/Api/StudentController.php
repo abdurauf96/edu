@@ -12,7 +12,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use Hash;
 class StudentController extends BaseController
 {
-   
+
     public function studentFullInfo(Request $request)
     {
         return $this->sendResponse(new StudentFullInfo($request->user()));
@@ -28,12 +28,12 @@ class StudentController extends BaseController
         }
 
         $data=[
-            'payment_history'=>$histories 
+            'payment_history'=>$histories
         ];
 
         return $this->sendResponse($data);
     }
-    
+
     public function getStudent($id)
     {
         $student=Student::with('group')->findOrFail($id);
@@ -59,15 +59,24 @@ class StudentController extends BaseController
     {
         $student=request()->user();
         $requestData=$request->all();
+        $student->update($requestData);
+        return $this->sendResponse();
+    }
+
+    public function updateImage(Request $request)
+    {
+        //return response()->json($request->all());
+        $student=request()->user();
+
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
             $path='admin/images/students';
             $file->move($path, $image);
-            $requestData['image']=$image;
+            $student->update(['image'=>$image]);
+            return $this->sendResponse();
         }
-        $student->update($requestData);
-        return $this->sendResponse();   
+
     }
 
     public function updatePassword(Request $request)
@@ -78,11 +87,11 @@ class StudentController extends BaseController
             'password' => 'required|string|confirmed|min:6',
         ]);
         if(!Hash::check($request->old_password, $student->password)){
-            return $this->sendError('current password is wrong'); 
+            return $this->sendError('current password is wrong');
         }
-        
+
         $student->update(['password'=>Hash::make($request->password)]);
-        return $this->sendResponse();   
+        return $this->sendResponse();
     }
-  
+
 }

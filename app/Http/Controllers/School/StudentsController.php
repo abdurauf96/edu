@@ -33,7 +33,7 @@ class StudentsController extends Controller
     }
     public function index(Request $request)
     {
-        
+
         $students = $this->studentService->getAll($request);
         return view('school.students.index', compact('students'));
     }
@@ -130,7 +130,7 @@ class StudentsController extends Controller
         return redirect('school/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
      }
 
-     /* attendance routes for websocket, now not using 
+     /* attendance routes for websocket, now not using
     public function studentEvent($id)
     {
         $student=Student::findOrFail($id);
@@ -144,11 +144,15 @@ class StudentsController extends Controller
     }
 
 
-    public function downloadQrcode($code){
-        if(!file_exists('admin/images/qrcodes/'.$code)){
-            return back()->with('error', 'QRCode topilmadi !');
+    public function downloadQrcode($id){
+        $student=$this->studentService->findOne($id);
+
+        if(!file_exists('admin/images/qrcodes/'.$student->qrcode)){
+            generateQrcode($student->id, $student->qrcode, 'student');
+            // return back()->with('error', 'QRCode topilmadi !');
+
         }
-        return response()->download('admin/images/qrcodes/'.$code);
+        return response()->download('admin/images/qrcodes/'.$student->qrcode);
     }
 
     public function downloadCard($idcard){
@@ -174,7 +178,7 @@ class StudentsController extends Controller
     {
         $student=$this->studentService->findOne($id);
         $this->studentService->generateIdCard($student);
-           
+
         return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
     }
 
@@ -224,7 +228,7 @@ class StudentsController extends Controller
         ->groupBy('study_type')
         ->orderBy('study_type')
         ->get();
-        
+
         $school=Student::active()->where('study_type', 1)->get()->count();
         $collegue=Student::active()->where('study_type', 2)->get()->count();
         $university=Student::active()->where('study_type', 3)->get()->count();
