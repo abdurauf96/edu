@@ -34,7 +34,11 @@ class StudentRepository implements StudentRepositoryInterface{
                 $students->whereSex(1);
                 break;
         }
-        
+
+        if($request->segment(3)=='creator'){
+            $students=$students->where('creator_id', $request->creator);
+        }
+
         $students=$students->when($year, function($query) use ($year){
             $query->where('study_year', $year);
         })
@@ -63,6 +67,7 @@ class StudentRepository implements StudentRepositoryInterface{
         $filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
         $requestData['qrcode']=$filename;
         $requestData['idcard']=$filename_idcard;
+        $requestData['creator_id']=auth()->guard('user')->id();
 
         $lastStudentNumber=$this->getLastStudentNumber();
 
@@ -120,6 +125,7 @@ class StudentRepository implements StudentRepositoryInterface{
             'district_id'=>$waitingStudent->district_id,
             'study_type'=>$waitingStudent->study_type,
             'start_date'=>$request->start_date,
+            'creator_id'=>$waitingStudent->creator_id,
         ];
 
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';

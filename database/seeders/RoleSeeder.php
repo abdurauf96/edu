@@ -29,6 +29,11 @@ class RoleSeeder extends Seeder
                 'name'=>'moder',
                 'label'=>'Moderator',
             ],
+            [
+                'id'=>4,
+                'name'=>'reception',
+                'label'=>'Reception',
+            ],
         ];
 
         foreach($roles as $role){

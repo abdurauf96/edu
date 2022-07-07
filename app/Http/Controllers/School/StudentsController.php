@@ -5,6 +5,7 @@ namespace App\Http\Controllers\School;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\User;
 use App\Models\Group;
 use App\Models\District;
 use App\Models\Course;
@@ -33,9 +34,30 @@ class StudentsController extends Controller
     }
     public function index(Request $request)
     {
-
         $students = $this->studentService->getAll($request);
-        return view('school.students.index', compact('students'));
+        $creators = User::creators()->get();
+        return view('school.students.index', compact('students','creators'));
+    }
+
+    public function creatorStatistics(Request $request)
+    {
+        $creators = User::creators()->get();
+        $students = Student::all();
+        return view('school.students.creator-statistics', compact('creators', 'students'));
+    }
+
+    public function addCreatorId(Request $request, $id=null)
+    {
+        if($request->isMethod('post')){
+            $students = $this->studentService->getAll($request)
+            ->whereIn('id',$request->student_ids)
+            ->toQuery()
+            ->update(['creator_id'=>auth()->guard('user')->id()]);
+            return redirect()->route('school.students.addCreatorId');
+        }else{
+            $students=Student::active()->whereNull('creator_id')->get();
+            return view('school.students.creator', compact('students'));
+        }
     }
 
     /**
@@ -146,11 +168,8 @@ class StudentsController extends Controller
 
     public function downloadQrcode($id){
         $student=$this->studentService->findOne($id);
-
         if(!file_exists('admin/images/qrcodes/'.$student->qrcode)){
             generateQrcode($student->id, $student->qrcode, 'student');
-            // return back()->with('error', 'QRCode topilmadi !');
-
         }
         return response()->download('admin/images/qrcodes/'.$student->qrcode);
     }

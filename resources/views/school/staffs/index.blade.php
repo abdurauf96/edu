@@ -4,17 +4,17 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header"> <h4>Xodimlar</h4> 
-               
+            <div class="card-header"> <h4>Xodimlar</h4>
+
                 <div class="card-header-form">
                     <a href="{{ route('staffs.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
                 </div>
             </div>
             <div class="card-body">
-                
+
                 <div class="table-responsive form-inline" >
                     <table class="table table-bordered table-hover table-striped" id="table-1">
-                    
+
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -33,8 +33,8 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->position }}</td>
                                 <td>{{ $item->phone }}</td>
-                               
-                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->qrcode) }}"><i class="fas fa-download"></i> </a></td>
+
+                                <td><a class="btn btn-icon btn-info " href="{{ route('downloadStaffQrcode', $item->id) }}"><i class="fas fa-download"></i> </a></td>
                                 <td>
                                     @php if(isset($item->idcard) and  file_exists(public_path().'/admin/images/idcards/'.$item->idcard)) : @endphp
                                         <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}">Download </a>
@@ -64,7 +64,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                   
+
                 </div>
 
             </div>

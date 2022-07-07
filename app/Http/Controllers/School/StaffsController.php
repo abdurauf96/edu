@@ -132,4 +132,12 @@ class StaffsController extends Controller
            
         return back()->with('flash_message', 'Ushbu xodim uchun ID card yaratildi!  ');
     }
+
+    public function downloadStaffQrcode($id){
+        $staff=$this->staffRepo->findOne($id);
+        if(!file_exists('admin/images/qrcodes/'.$staff->qrcode)){
+            generateQrcode($staff->id, $staff->qrcode, 'staff');
+        }
+        return response()->download('admin/images/qrcodes/'.$staff->qrcode);
+    }
 }

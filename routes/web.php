@@ -102,12 +102,19 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
 
     //downloads
+    Route::get('/staff/qrcode-download/{id}', [StaffsController::class, 'downloadStaffQrcode'])->name('downloadStaffQrcode');
     Route::get('/student/qrcode-download/{code}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
     Route::get('/student/card-download/{idcard}', [StudentsController::class, 'downloadCard'])->name('downloadCard');
 
     //students
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     Route::get('/students/year/{year?}', [StudentsController::class, 'index'])->name('school.students.index');
+    
+    //student creators
+    Route::get('/students/creator/{creator}', [StudentsController::class, 'index'])->name('school.students.byCreator');
+    Route::get('/student/creator/statistics', [StudentsController::class, 'creatorStatistics'])->name('student.creator.statistics');
+    Route::match(['get','post'], '/creator/student/{id?}', [StudentsController::class, 'addCreatorId'])->name('school.students.addCreatorId');
+
     Route::resource('/students', StudentsController::class)->except(['create']);
     Route::get('/debt-students', [StudentsController::class, 'debtStudents'])->name('debtStudents');
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');

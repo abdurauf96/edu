@@ -123,5 +123,16 @@
           <i data-feather="monitor"></i> <span>Bugungi darslar</span>
         </a>
       </li>
+      <li class="dropdown">
+        <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Reception</span></a>
+        <ul class="dropdown-menu">
+          @foreach ($creators as $creator)
+          <li><a class="nav-link" href="{{ route('school.students.byCreator', $creator->id) }}">{{ $creator->name }}</a></li>
+          @endforeach
+          <li><a class="nav-link" href="{{ route('school.students.addCreatorId', auth()->guard('user')->id()) }}">O'quvchilarni tanlash</a></li>
+          <li><a class="nav-link" href="{{ route('student.creator.statistics') }}">Statistika</a></li>
+        </ul>
+      </li>
+      
     </ul>
   </aside>

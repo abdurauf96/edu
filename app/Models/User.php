@@ -12,6 +12,8 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, HasApiTokens;
+    const RECEPTION_ROLE_ID = 4; // receptionist user role id equal to 4
+
     public function isAdmin(){
         if($this->hasRole('admin')){
             return true;
@@ -57,6 +59,17 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'creator_id');
+    }
+
+    public function scopeCreators()
+    {
+        return $this->whereHas('roles', function ($query) {
+            return $query->where('role_id', self::RECEPTION_ROLE_ID);
+        });
+    }
 //    public static function boot() {
 //        parent::boot();
 //

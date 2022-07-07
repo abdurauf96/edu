@@ -9,6 +9,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header"> <h4> O'quvchilar</h4>
+                <div class="dropdown d-inline mr-2">
+                    <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reception 
+                    </button>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        @foreach ($creators as $creator)
+                        <a class="dropdown-item" href="{{ route('school.students.byCreator', $creator->id) }}">{{ $creator->name }}</a>
+                        @endforeach
+                    </div>
+                </div>
                 <div class="card-header-form">
                     <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,7 +35,7 @@
                           <a class="dropdown-item" href="{{ url()->current() }}">Barchasi</a>
                         </div>
                     </div>
-                    <div class="dropdown d-inline mr-2">
+                    {{-- <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             O'quv yili {{ \Request::segment(4)  ?? ""  }}
                         </button>
@@ -36,7 +46,7 @@
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="{{ route('school.students.index') }}">Barchasi</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="card-body">

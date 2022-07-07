@@ -57,6 +57,7 @@ class WaitingStudent extends Model
         parent::boot();
         static::creating(function ($model){
             $model->school_id=auth()->guard('user')->user()->school_id;
+            $model->creator_id=auth()->guard('user')->id();
         });
     }
 
