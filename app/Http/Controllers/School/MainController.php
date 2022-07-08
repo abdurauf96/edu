@@ -31,7 +31,8 @@ class MainController extends Controller
         $boys=Student::school()->active()->whereSex(1)->count();
         $grant_students=Student::school()->grant()->count();
 
-        $active_students=Student::active()->count();
+        $active_students=Student::active()->school()->count();
+    
         $out_students=Student::school()->out()->count();
         $graduated_students=Student::school()->graduated()->count();
 
@@ -52,9 +53,11 @@ class MainController extends Controller
 
     public function paymentStatistics()
     {
-        $statistika=$this->paymentRepo->getPaymentResultsByMonth(2022, date('m'));
-
-        return view('school.payments.statistics', compact('statistika'));
+        $statistika=$this->paymentRepo->getPaymentResultsByMonth(date('m'), date('Y'));
+        $students=Student::active()->school()->get();
+        $payments=$this->paymentRepo->getPaymentsByMonth(date('m'), date('Y'));
+        
+        return view('school.payments.statistics', compact('statistika','students', 'payments'));
     }
 
     public function reception()

@@ -35,7 +35,8 @@ class StudentRepository implements StudentRepositoryInterface{
                 break;
         }
 
-        if($request->segment(3)=='creator'){
+       
+        if(request()->segment(3)=='creator'){
             $students=$students->where('creator_id', $request->creator);
         }
 
@@ -44,6 +45,7 @@ class StudentRepository implements StudentRepositoryInterface{
         })
         ->latest()
         ->with('group.course')
+        ->school()
         ->get();
 
         return $students;

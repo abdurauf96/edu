@@ -15,9 +15,21 @@
                             <option value="student">O'quvchilar</option>
                         </select>
                     </div>
-                    
-                       
-        
+                    <div class="form-item">
+                        <label >Xodisa turi</label>
+                        <div class="custom-switches-stacked mt-2">
+                            <label class="custom-switch">
+                            <input type="radio" name="option" wire:model="event" value="1" class="custom-switch-input" checked>
+                            <span class="custom-switch-indicator"></span>
+                            <span class="custom-switch-description">Kelish</span>
+                            </label>
+                            <label class="custom-switch">
+                            <input type="radio" name="option" value="0" wire:model="event" class="custom-switch-input">
+                            <span class="custom-switch-indicator"></span>
+                            <span class="custom-switch-description">Ketish</span>
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-item ">
                         <label>Oraliqni boshlanishi  </label>
                         <div class="input-group mb-2 ">
@@ -46,8 +58,10 @@
     
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header" style="display: flex; align-items:center; justify-content:space-around">
                 <h3> Natijalar</h3>
+                <h4>Bugun kelgan xodimlar soni : {{ $statistika['numberTodayStaffs'] }}</h4>
+                <h4>Bugun kelgan o'quvchilar soni : {{ $statistika['numberTodayStudents'] }}</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive dataTables_wrapper form-inline" role="grid">

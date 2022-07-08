@@ -13,7 +13,7 @@ use App\Models\School as SchoolModel;
 class Student extends Authenticatable
 {
 
-    use LogsActivity, HasApiTokens, School;
+    use LogsActivity, HasApiTokens;
     const ACTIVE = 1; // xozirgi vaqtda o'qiyotgan o'quvchilar
     const OUT = 2; // chiqib ketgan o'quvchilar
     const GRADUATED = 0; // bitirib ketgan o'quvchilar
@@ -37,29 +37,33 @@ class Student extends Authenticatable
      */
     protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt', 'creator_id'];
 
-    public function scopeCurrentYear()
+    public function scopeCurrentYear($query)
     {
-        return $this->where('study_year', date('Y'));
+        return $query->where('study_year', date('Y'));
     }
 
-    public function scopeActive()
+    public function scopeSchool($query)
     {
-        return $this->currentYear()->whereStatus(self::ACTIVE);
+        return $query->where('school_id', auth()->guard('user')->user()->school_id);
+    }
+    public function scopeActive($query)
+    {
+        return $query->currentYear()->whereStatus(self::ACTIVE);
     }
 
-    public function scopeGraduated()
+    public function scopeGraduated($query)
     {
-        return $this->currentYear()->whereStatus(self::GRADUATED);
+        return $query->currentYear()->whereStatus(self::GRADUATED);
     }
 
-    public function scopeOut()
+    public function scopeOut($query)
     {
-        return $this->currentYear()->whereStatus(self::OUT);
+        return $query->currentYear()->whereStatus(self::OUT);
     }
 
-    public function scopeGrant()
+    public function scopeGrant($query)
     {
-        return $this->active()->where('type', '!=', 1);
+        return $query->active()->where('type', '!=', 1);
     }
 
     public function events()

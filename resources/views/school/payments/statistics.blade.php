@@ -10,6 +10,40 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
                 <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th >O'quvchilar soni</th>
+                            <th>To'lov qilganlar</th>
+                            <th>Qarzdorlar</th>
+                            <th>Paynet orqali</th>
+                            <th>Payme orqali</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>{{ $students->count() }}</td>
+                            <td>{{ $students->count() - $students->toQuery()->where('debt', '>', 0)->count() }} </td>
+                            <td>{{ $students->toQuery()->where('debt', '>', 0)->count() }}</td>
+                            <td>
+                                {{ $payments->toQuery()->where('type', 'paynet')->count() }}
+                            </td>
+                            <td>
+                                {{ $payments->toQuery()->where('type', 'payme')->count() }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">To'lovlar statistikasi</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <table class="table table-striped">
                     <tbody><tr>
                     <th style="width: 10px">#</th>
                     <th>Kurs nomi</th>

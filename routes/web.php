@@ -47,15 +47,6 @@ Route::get('/cache', function () {
     return back();
 });
 
-Route::get('/test', function () {
-   $students=\App\Models\Student::where('type', 0.5)->get();
-  
-    foreach($students as $st){
-        $st->debt=$st->debt-300000;
-        $st->save();
-    }
-   
-});
 
 Route::get('/download', function () {
     return response()->file('eduapp.apk', [

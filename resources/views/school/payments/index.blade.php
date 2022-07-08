@@ -26,6 +26,7 @@
                                 <th>Maqsadi</th>
                                 <th>Ma'lumot</th>
                                 <th>To'lov sanasi</th>
+                                <th>CourseID</th>
                                 <th>Amallar</th>
                             </tr>
                         </thead>
@@ -57,6 +58,7 @@
 
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                                <td>{{ $item->course_id }}</td>
                                 <td>
                                     <a href="{{ route('payments.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
 {{--                                    <a href="{{ route('payments.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>--}}
