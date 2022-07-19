@@ -13,6 +13,8 @@ class AdminController extends Controller
     {
         $number_schools=School::all()->count();
         $number_students=Student::all()->count();
+        
         return view('admin.dashboard', compact('number_schools', 'number_students'));
+
     }
 }

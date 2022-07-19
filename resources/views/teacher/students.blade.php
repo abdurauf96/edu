@@ -8,16 +8,16 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header"> 
+                <div class="card-header">
                     <h4> O'quvchilar</h4>
                     <div class="card-header-form">
-                       
+
                         <div class="dropdown d-inline mr-2">
                             <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Guruhlar bo'yicha
                             </button>
                             <div class="dropdown-menu" >
-                                @foreach (auth()->guard('teacher')->user()->groups as $group)
+                                @foreach ($groups as $group)
                                 <a class="dropdown-item" href="?group_id={{ $group->id }}">{{ $group->name }}</a>
                                 @endforeach
                               <div class="dropdown-divider"></div>
@@ -44,7 +44,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            
+
                             @foreach($students as $item)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
@@ -53,25 +53,24 @@
 
                                     <td>{{ $item->phone }}</td>
                                     <td>{{ $item->address }}</td>
-                                    
+
                                     <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td>
 
                                     <td>
-                                        
+
                                         <label class="custom-switch mt-2">
-                                            <input type="checkbox"  class="custom-switch-input" value="{{ $item->id }}" name="student_id" {{ $item->getTodayEventStatus()  == 1  ? 'checked' : '' }}> 
-                                            
+                                            <input type="checkbox"  class="custom-switch-input" value="{{ $item->id }}" name="student_id" {{ $item->isTodayHere() ? 'checked' : '' }}>
                                             <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">{{ $item->getTodayEventStatus()  == 1  ? 'here' : 'absent' }}</span>
+                                            <span class="custom-switch-description">{{ $item->isTodayHere() ? 'here' : 'absent' }}</span>
                                         </label>
                                     </td>
 
                                 </tr>
                             @endforeach
-                               
+
                             </tbody>
                         </table>
-                        
+
                     </div>
                     </form>
                 </div>

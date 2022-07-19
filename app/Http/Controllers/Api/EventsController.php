@@ -20,13 +20,12 @@ class EventsController extends BaseController
             $staff=Staff::findOrFail($id);
             $name=$staff->name;
             $school_id=$staff->school_id;
+            $organization_id=$staff->organization_id;
             $resource=new StaffResource($staff);
         }else{
             $student=Student::findOrFail($id);
-            $student->study_year=2022;
-            $student->save();
-            $name=$student->name;
             $school_id=$student->school_id;
+            $name=$student->name;
             $resource=new StudentResource($student);
         }
 
@@ -38,6 +37,7 @@ class EventsController extends BaseController
             'status'=>$status,
             'time'=>$time,
             'school_id'=>$school_id,
+            'organization_id'=>$organization_id ?? null,
         ];
         $data=['type'=>$type, 'id'=>$id];
         $event=EventModel::where(['type'=>$type, 'person_id'=>$id])->latest()->first();

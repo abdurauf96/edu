@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\School;
-use App\Models\School as SchoolModel;
-class Staff extends Model
+class Organization extends Model
 {
-    use LogsActivity,School;
-
+    use LogsActivity, School;
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'staffs';
+    protected $table = 'organizations';
 
     /**
     * The database primary key value.
@@ -30,23 +28,23 @@ class Staff extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'position', 'phone', 'year', 'image', 'passport', 'addres', 'qrcode', 'organization_id'];
+    protected $fillable = ['school_id', 'name'];
 
-    public function getSchool(){
-        return $this->belongsTo(SchoolModel::class, 'school_id');
+    public function staffs()
+    {
+        return $this->hasMany('App\Models\Staff');
     }
-
-    public function organization(){
-        return $this->belongsTo(Organization::class);
-    }
-
+    
     public static function boot() {
         parent::boot();
-
+        static::deleting(function($model) {
+             $model->staffs()->delete();
+        });
         static::creating(function ($model){
             $model->school_id=auth()->guard('user')->user()->school_id;
         });
     }
+
     /**
      * Change activity log event description
      *

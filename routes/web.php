@@ -21,6 +21,7 @@ use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\School\AppealsController;
 use App\Http\Controllers\School\DistrictsController;
 use App\Http\Controllers\School\PlansController;
+use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SchoolController;
 
@@ -68,19 +69,20 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']]
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,cashier']], function () {
     Route::resource('payments', PaymentsController::class);
     Route::get('cashier/table', [CashierController::class, 'index'])
-        ->name('cashierTable');
+    ->name('cashierTable');
 });
 
 
 //routes for all school users
 Route::middleware('auth:user')->prefix('school')->group(function () {
-
+    
     
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
     Route::resource('/districts', DistrictsController::class);
+    Route::resource('/organizations', OrganizationsController::class);
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
 
     //groups
@@ -113,20 +115,20 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
     Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
     Route::post('getStudentsByGroup', [StudentsController::class, 'getStudentsByGroup'])->name('getStudentsByGroup');
-
+    
     
     //events
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
-
+    
     Route::get('/filter', [EventsController::class, 'filter'])->name('filterEvents');
-
+    
     Route::resource('/months', MonthsController::class);
     Route::resource('/staffs', StaffsController::class);
     Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
     Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
-
+    
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
     Route::get('/course/{id}/plans/create', [PlansController::class, 'create'])->name('addCoursePlan');
     Route::post('/course/plan', [PlansController::class, 'store'])->name('saveCoursePlan');
@@ -171,8 +173,8 @@ Route::middleware('auth:student')->prefix('student')->name('student.')->group(fu
     Route::post('payment', [StudentController::class, 'redirectToPaymentSystem'])->name('redirectToPaymentSystem');
 });
 
-//Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
-//Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
+Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
+Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
 //handle requests from payment system
 Route::any('/handle/{paysys}', function ($paysys) {

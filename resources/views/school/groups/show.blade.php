@@ -76,7 +76,7 @@
                                 <td>{{ $student->address }}  </td>
                                 <td>{{ $student->start_date }}</td>
                                 <td>{{ $student->phone }}</td>
-                                
+
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
                                 <td>@if($student->debt>0)  <div class="badge badge-danger">{{ number_format($student->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> qarzi yo'q </div>  @endif</td>
                                 <td>
@@ -86,10 +86,10 @@
                                 </td>
                                 <td>
                                     <label class="custom-switch mt-2">
-                                        <input type="checkbox"  class="custom-switch-input" value="{{ $student->id }}" name="student_id" {{ $student->getTodayEventStatus()  == 1  ? 'checked' : '' }}> 
-                                        
+                                        <input type="checkbox"  class="custom-switch-input" value="{{ $student->id }}" name="student_id" {{ $student->isTodayHere() ? 'checked' : '' }}>
+
                                         <span class="custom-switch-indicator"></span>
-                                        <span class="custom-switch-description">{{ $student->getTodayEventStatus()  == 1  ? 'here' : 'absent' }}</span>
+                                        <span class="custom-switch-description">{{ $student->isTodayHere() ? 'here' : 'absent' }}</span>
                                     </label>
                                 </td>
                             </tr>

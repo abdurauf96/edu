@@ -1,4 +1,12 @@
-
+@section('css')
+<link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
+@endsection
+    {!! Form::label('organization_id', 'Tashkilot', ['class' => 'control-label']) !!}
+    <select class="select2 form-control" name="organization_id" id="">
+        @foreach ($organizations as $organization )
+            <option  @isset($staff) {{ $staff->organization_id==$organization->id ? 'selected' : '' }} @endisset value="{{ $organization->id }}">{{ $organization->name }}</option>
+        @endforeach
+    </select>
     <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
         {!! Form::label('name', 'F.I.O', ['class' => 'control-label']) !!}
         {!! Form::text('name', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -40,3 +48,6 @@
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
     </div>
 
+    @section('js')
+    <script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
+    @endsection

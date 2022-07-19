@@ -78,10 +78,10 @@
                 <a href="{{ route('teacher.profil') }}" class="nav-link"><i data-feather="clipboard"></i><span>Profil</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ route('teacher.students') }}" class="nav-link"><i data-feather="user"></i><span>O'quvchilar</span></a>
+                <a href="{{ route('teacher.students') }}" class="nav-link"><i data-feather="user"></i><span>Davomat olish</span></a>
               </li>
               <li class="dropdown">
-                <a href="{{ route('teacher.attendance') }}" class="nav-link"><i data-feather="clock"></i><span>Davomat</span></a>
+                <a href="{{ route('teacher.attendance') }}" class="nav-link"><i data-feather="clock"></i><span>Davomat tarixi</span></a>
               </li>
               <li class="dropdown">
                 <a href="{{ route('teacher.groups') }}" class="nav-link"><i data-feather="users"></i><span>Guruhlar</span></a>

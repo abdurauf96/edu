@@ -1,7 +1,7 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
       <a href="{{ route('school.dashboard') }}"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
-          class="logo-name">{{auth()->user()->school->company_name}}</span>
+          class="logo-name">{{auth()->guard('user')->user()->school->company_name}}</span>
       </a>
     </div>
     <ul class="sidebar-menu">
@@ -133,6 +133,10 @@
           <li><a class="nav-link" href="{{ route('student.creator.statistics') }}">Statistika</a></li>
         </ul>
       </li>
-      
+      <li class="dropdown">
+        <a href="{{ route('organizations.index') }}" class="nav-link">
+          <i class="fas fa-school"></i> <span>Tashkilotlar</span>
+        </a>
+      </li>
     </ul>
   </aside>

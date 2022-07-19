@@ -15,13 +15,16 @@ class TeacherController extends Controller
 
     public function students(Request $request)
     {
-        
+
+        $groups = auth()->guard('teacher')->user()->groups()->type()->get();
+
         $students=auth()->guard('teacher')->user()->students;
+
         if(!empty($request->group_id)){
 
             $students=auth()->guard('teacher')->user()->students()->where('group_id', $request->group_id)->get();
         }
-        return view('teacher.students', compact('students'));
+        return view('teacher.students', compact('students', 'groups'));
     }
 
     public function profil()
@@ -45,16 +48,16 @@ class TeacherController extends Controller
 
     public function updateInfo(Request $request)
     {
-       
+
         $teacher=$request->user();
         $teacher->update($request->all());
         $teacher->courses()->sync($request->courses);
-        
+
     }
 
     public function updateLogin(Request $request)
     {
-       
+
         $teacher=$request->user();
         $data=$request->all();
         $request->validate([
@@ -64,12 +67,12 @@ class TeacherController extends Controller
         $data['password']=bcrypt($request->password);
 
         $teacher->update($data);
-        
+
     }
 
     public function studentsAttandance(Request $request)
     {
-        
+
         $student=\App\Models\Student::findOrFail($request->student_id);
 
         $lastEventStatus = $student->getLastEventStatus($request->student_id);
@@ -86,7 +89,9 @@ class TeacherController extends Controller
 
     public function groups()
     {
-        return view('teacher.groups');
+        $groups = auth()->guard('teacher')->user()->groups()->type()->get();
+
+        return view('teacher.groups', compact('groups'));
     }
 
     public function attendance()

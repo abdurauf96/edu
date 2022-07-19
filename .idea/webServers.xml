@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="b33b0db2-41db-4adc-a7e4-8c2156e40a12" name="LMS" url="http://159.223.130.43">
+        <fileTransfer rootFolder="/lms" accessType="SFTP" host="147.182.164.115" port="22" sshConfigId="39294270-3a5a-415f-9352-796b6219d104" sshConfig="root@147.182.164.115:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

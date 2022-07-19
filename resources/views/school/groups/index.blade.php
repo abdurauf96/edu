@@ -5,14 +5,14 @@
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 @endsection
 @section('title', 'Guruhlar')
-    
+
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header"> 
+            <div class="card-header">
                 <h4>Guruhlar</h4>
-              
+
                 <div class="card-header-form">
                     <a href="{{ route('groups.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
                     <div class="dropdown d-inline mr-2">
@@ -24,18 +24,16 @@
                           <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2022]) }}">2022</a>
                           <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2023]) }}">2023</a>
                           <a class="dropdown-item" href="{{ route('groups.index', ['type'=>'graduated']) }}">Bitirgan</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="{{ route('groups.index') }}">Barchasi</a>
                         </div>
                     </div>
-                </div>     
-               
+                </div>
+
             </div>
             <div class="card-body">
-                
+
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped " id="table-1">
-                    
+
                         <thead>
                             <tr>
                                 <th>#</th><th>Nomi</th><th>O'qituvchi</th><th>Kurs</th> <th>Status</th><th>O'quvchilar soni</th>  <th>Amallar</th>
@@ -53,8 +51,8 @@
                                 <td>
                                     <a href="{{ route('groups.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('groups.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
-                                    
-                                    
+
+
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'url' => ['/school/groups', $item->id],
@@ -73,7 +71,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                   
+
                 </div>
 
             </div>

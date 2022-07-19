@@ -92,11 +92,6 @@ class Student extends Authenticatable
         return $event->status ?? null;
     }
 
-    public function getTodayEventStatus()
-    {
-        $event=Event::where(['type'=>'student', 'person_id'=>$this->id])->whereDate('created_at', date('Y-m-d'))->latest()->first();
-        return $event->status ?? null;
-    }
     public function getSchool()
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');
@@ -105,6 +100,19 @@ class Student extends Authenticatable
     public function getPriceMonth()
     {
         return round($this->type*$this->group->course->price);
+    }
+
+    public function isTodayHere()
+    {
+        $event=Event::whereDate('created_at', Carbon::today())
+            ->where('type', 'student')
+            ->where('status', 1)
+            ->where('person_id', $this->id)
+            ->first();
+        if($event){
+            return true;
+        }
+        return false;
     }
 
 

@@ -19,7 +19,8 @@ class Staff extends JsonResource
             'name'=>$this->name,
             'position'=>$this->position,
             'phone'=>$this->phone,
-            'image'=>'/admin/images/staffs/'.$this->image
+            'image'=>'/admin/images/staffs/'.$this->image,
+            'organization'=>$this->organization->name ?? null
         ];
     }
 }

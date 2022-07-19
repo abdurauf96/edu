@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Staff;
+use App\Models\Organization;
 use App\Repositories\Interfaces\StaffRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,10 @@ class StaffsController extends Controller
     public function index(Request $request)
     {
 
-        $staffs = $this->staffRepo->getAll();
-
-        return view('school.staffs.index', compact('staffs'));
+        //$staffs = $this->staffRepo->getAll();
+        $organizations = Organization::school()->latest()->get();
+        
+        return view('school.staffs.index', compact('organizations'));
     }
 
     /**
@@ -37,7 +39,8 @@ class StaffsController extends Controller
      */
     public function create()
     {
-        return view('school.staffs.create');
+        $organizations = Organization::school()->latest()->get();
+        return view('school.staffs.create', compact('organizations'));
     }
 
     /**
@@ -82,8 +85,8 @@ class StaffsController extends Controller
     public function edit($id)
     {
         $staff = $this->staffRepo->findOne($id);
-
-        return view('school.staffs.edit', compact('staff'));
+        $organizations = Organization::school()->latest()->get();
+        return view('school.staffs.edit', compact('staff', 'organizations'));
     }
 
     /**

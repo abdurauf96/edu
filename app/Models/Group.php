@@ -41,16 +41,12 @@ class Group extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function scopeType($query, $type)
+    public function scopeType($query, $type=null)
     {
-        if(!empty($type)){
-            return $query->when($type, function($query) use ($type){
-                $query->where('status', self::GRADUATED);
-            });
+        if(isset($type)){
+            return $query->where('status', self::GRADUATED);
         }else{
-            return $query->when($type, function($query) use ($type){
-                $query->where('status', '!=', self::GRADUATED);
-            });
+            return $query->where('status', '!=', self::GRADUATED);
         }
     }
 

@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $loop->iteration  }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>@if(in_array($item->id, $this->eventIds))  <span class='label label-success'>Kelgan</span>  @else <span class="label label-danger">Kelmagan</span> @endif
+                            <td>@if($item->isTodayHere())  <span class='badge badge-primary'>Kelgan</span>  @else <span class="badge badge-danger">Kelmagan</span> @endif
                         </tr>
                     @endforeach
                     </tbody>

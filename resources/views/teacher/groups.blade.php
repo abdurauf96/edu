@@ -19,7 +19,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach(auth()->guard('teacher')->user()->groups as $item)
+                            @foreach($groups as $item)
                                 <tr>
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $item->name }}</td><td>{{ $item->teacher->name }}</td>
