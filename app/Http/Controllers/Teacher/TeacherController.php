@@ -74,8 +74,6 @@ class TeacherController extends Controller
     {
 
         $student=\App\Models\Student::findOrFail($request->student_id);
-
-        $lastEventStatus = $student->getLastEventStatus($request->student_id);
         \App\Models\Event::create([
             'person_id'=>$request->student_id,
             'type'=>'student',

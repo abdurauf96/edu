@@ -4,7 +4,7 @@
         <div class="col-12" style="display: flex">
             <div class="col-lg-3">
                 <label for="">Guruhlar</label>
-                <select style="width: 200px" class="form-control  "  id="" wire:model="group_id" >
+                <select style="width: 200px" class="form-control"   wire:model="group_id" >
                     <option >Guruhni tanlang</option>
                     @foreach(auth()->user()->groups as $group)
                         <option value="{{ $group->id }}">{{ $group->name }}</option>
@@ -14,7 +14,7 @@
 
             <div class="col-lg-3">
                 <label for="">Sana</label>
-                <input type="date" class="form-control" wire:model="date"  >
+                <input type="date" class="form-control" wire:model="date">
             </div>
         </div>
         <hr>
@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $loop->iteration  }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>@if($item->isTodayHere())  <span class='badge badge-primary'>Kelgan</span>  @else <span class="badge badge-danger">Kelmagan</span> @endif
+                            <td>@if($item->isByDateHere($date))  <span class='badge badge-primary'>Kelgan</span>  @else <span class="badge badge-danger">Kelmagan</span> @endif
                         </tr>
                     @endforeach
                     </tbody>

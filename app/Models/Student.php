@@ -101,9 +101,9 @@ class Student extends Authenticatable
         return round($this->type*$this->group->course->price);
     }
 
-    public function isTodayHere()
+    public function isByDateHere($date)
     {
-        $event=Event::whereDate('created_at', Carbon::today())
+        $event=Event::whereDate('created_at', $date)
             ->where('type', 'student')
             ->where('status', 1)
             ->where('person_id', $this->id)

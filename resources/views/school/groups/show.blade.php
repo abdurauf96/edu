@@ -86,10 +86,10 @@
                                 </td>
                                 <td>
                                     <label class="custom-switch mt-2">
-                                        <input type="checkbox"  class="custom-switch-input" value="{{ $student->id }}" name="student_id" {{ $student->isTodayHere() ? 'checked' : '' }}>
+                                        <input type="checkbox"  class="custom-switch-input" value="{{ $student->id }}" name="student_id" {{ $student->isByDateHere(date('Y-m-d')) ? 'checked' : '' }}>
 
                                         <span class="custom-switch-indicator"></span>
-                                        <span class="custom-switch-description">{{ $student->isTodayHere() ? 'here' : 'absent' }}</span>
+                                        <span class="custom-switch-description">{{ $student->isByDateHere(date('Y-m-d')) ? 'here' : 'absent' }}</span>
                                     </label>
                                 </td>
                             </tr>
