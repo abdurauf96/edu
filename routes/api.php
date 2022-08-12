@@ -33,7 +33,7 @@ Route::middleware(['auth:student-api'])->prefix('student')->group(function () {
 });
 
 
-Route::get('/event/{type}/{id}/{status}/{time}', ['App\Http\Controllers\Api\EventsController', 'event']);
+Route::get('/event/{type}/{id}/{time}', ['App\Http\Controllers\Api\EventsController', 'event']);
 
 Route::get('/courses', ['App\Http\Controllers\Api\BotController', 'getCourses']);
 Route::post('/saveBotStudent', ['App\Http\Controllers\Api\BotController', 'saveBotStudent']);

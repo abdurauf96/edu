@@ -34,12 +34,8 @@
     {!! Form::text('address', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
-    {!! Form::label('passport', 'Passport malumotlari', ['class' => 'control-label']) !!}
-    {!! Form::text('passport', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
-</div>
 
+@if(auth()->guard('user')->user()->school->isAcademy())
 <div class="form-group">
     <label for="">O'qish joyi</label> &nbsp; &nbsp;
     <input type="radio" value="1"  @if(isset($student))
@@ -54,16 +50,6 @@
     <input type="radio" @isset($student)
     {{ $student->study_type==4 ? 'checked' : '' }}
     @endisset value="4" name="study_type"> Ishchi
-</div>
-
-<div class="form-group">
-    <label for="">Jinsi</label> &nbsp; &nbsp;
-    <input type="radio" value="1"  @if(isset($student))
-        {{ $student->sex==1 ? 'checked' : '' }} @else checked
-    @endif name="sex"  > O'g'il &nbsp;&nbsp;
-    <input type="radio" @isset($student)
-    {{ $student->sex==0 ? 'checked' : '' }}
-@endisset value="0" name="sex"> Qiz
 </div>
 
 <div class="form-group">
@@ -96,6 +82,30 @@
         </div>
     </div>
 </div>
+<div class="form-group{{ $errors->has('study_year1|}=[-p0 ,
+    ]') ? 'has-error' : ''}}">
+        {!! Form::label('study_year', "O'quv yili", ['class' => 'control-label']) !!}
+        {!! Form::text('study_year', null, ('required' == 'required') ? ['class' => 'form-control yearpicker', 'required' => 'required'] : ['class' => 'form-control']) !!}
+        {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
+</div>
+<div class="form-group"> 
+    {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!} 
+    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required' ] 
+    : ['class' => 'form-control', 'required' => 'required']   ) !!}
+    {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
+</div>
+@endif
+
+<div class="form-group">
+    <label for="">Jinsi</label> &nbsp; &nbsp;
+    <input type="radio" value="1"  @if(isset($student))
+        {{ $student->sex==1 ? 'checked' : '' }} @else checked
+    @endif name="sex"  > O'g'il &nbsp;&nbsp;
+    <input type="radio" @isset($student)
+    {{ $student->sex==0 ? 'checked' : '' }}
+    @endisset value="0" name="sex"> Qiz
+</div>
+
 
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
     {!! Form::label('image', 'Rasm', ['class' => 'control-label']) !!}
@@ -103,19 +113,6 @@
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group{{ $errors->has('study_year1|}=[-p0 ,
-]') ? 'has-error' : ''}}">
-    {!! Form::label('study_year', "O'quv yili", ['class' => 'control-label']) !!}
-    {!! Form::text('study_year', null, ('required' == 'required') ? ['class' => 'form-control yearpicker', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
-</div>
-
-<div class="form-group"> 
-    {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!} 
-    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required' ] 
-    : ['class' => 'form-control', 'required' => 'required']   ) !!}
-    {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
-</div>
 
 @isset($group)
 <input type="hidden" value="{{ $group->id }}" name="group_id">
@@ -143,12 +140,37 @@
     {!! Form::label('finished_date', 'Bitirib ketgan sanasi', ['class' => 'control-label']) !!}
     {!! Form::date('finished_date', null, ['class' => 'form-control']) !!}
 </div>
-
+@if(auth()->guard('user')->user()->school->isAcademy())
 <div class="form-group">
         {!! Form::label('future_work', "Kursni tamomlab ishga kirgan joyi", ['class' => 'control-label']) !!}
         {!! Form::text('future_work', null,  ['class' => 'form-control']) !!}
         {!! $errors->first('future_work', '<p class="help-block">:message</p>') !!}
 </div>
+@else
+<div class="form-group">
+    <label for="">Maktab </label>
+    <select name="school_number" class="form-control selectSchool">
+        <option value="">Tanlang</option>
+        @for ($i = 1; $i <= 50 ; $i++)
+        <option @isset($student) {{ $student->school_number==$i ? 'selected' : ' ' }} @endisset  value="{{ $i }}"> {{ $i }}   </option>
+        @endfor
+    </select>
+    <br>
+    <label for="">Yoki bu yerga kiriting</label>
+    <input type="text" name="school_text" @if(isset($student)) value="{{ $student->school_number }}" 
+    @endisset class="form-control schoolField" placeholder="Maktabni kiriting...">
+</div>
+
+<div class="form-group">
+    <label for="">Sinfni tanlang</label>
+    <select name="class_id" class="form-control">
+        @foreach ($classes as $class)
+        <option @isset($student) {{ $student->class_id==$class->id ? 'selected' : '' }} @endisset value="{{ $class->id }}"> {{ $class->name }} </option>
+        @endforeach
+    </select>
+</div>
+
+@endif
 
 <input type="hidden" value="{{ url()->previous() }}" name="last_route">
 <div class="form-group">
@@ -164,6 +186,13 @@
  <!-- Year Picker Js -->
 <script src="/admin/assets/bundles/datepicker/js/yearpicker.js"></script>
 <script>
+    // $('.selectSchool').change(function(){
+    //     if($(this).val()==0){
+    //         $('.schoolField').css('display', 'block');
+    //     }else{
+    //         $('.schoolField').css('display', 'none');
+    //     }
+    // })
   $(".yearpicker").yearpicker({
       startYear: 2019,
       endYear: 2050,

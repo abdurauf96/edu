@@ -72,7 +72,11 @@
         </ul>
       </nav>
       <div class="main-sidebar sidebar-style-2">
-        @include('school.sidebar')
+        @if(auth()->guard('user')->user()->school->isAcademy())
+          @include('school.sidebar')
+          @else
+          @include('school.school-sidebar')
+        @endif
       </div>
       
       @if (Session::has('flash_message'))

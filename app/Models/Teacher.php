@@ -31,8 +31,12 @@ class Teacher extends Authenticatable
      * @var array
      */
 
-    protected $fillable = ['school_id', 'name', 'birthday', 'address', 'passport', 'phone', 'email', 'password', 'status'];
+    protected $fillable = ['school_id', 'name', 'birthday', 'address', 'passport', 'phone', 'email', 'password', 'status', 'profession'];
 
+    protected $attributes=[
+        'status'=>1
+    ];
+    
     public function getSchool()
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');

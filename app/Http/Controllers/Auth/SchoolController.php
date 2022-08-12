@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
-
+use App\Events\SchoolUserCreated;
 class SchoolController extends Controller
 {
     public function showRegisterForm()
@@ -26,9 +26,13 @@ class SchoolController extends Controller
 
     public function register(RegisterSchoolRequest $request)
     {
-        $data=$request->all();
-        $data['password']=\Hash::make($request->password);
-        $school=School::create($data);
+        $schoolData=$request->except('name', 'email', 'password');
+        $school=School::create($schoolData);
+        
+        $userData=$request->only('name', 'email', 'password');
+        $userData['school_id']=$school->id;
+
+        event(new SchoolUserCreated($userData));
         return redirect('/')->with('msg', 'Murojatingiz qoldirildi! Iltimos tasdiqlanishini kuting...');
         
     }

@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
+use App\Models\Clas;
 use App\Models\Group;
 use App\Models\District;
 use App\Models\Course;
@@ -36,7 +37,12 @@ class StudentsController extends Controller
     {
         $students = $this->studentService->getAll($request);
         $creators = User::creators()->get();
-        return view('school.students.index', compact('students','creators'));
+       
+        if(auth()->guard('user')->user()->school->isAcademy()){
+            return view('school.students.index', compact('students','creators'));
+        }else{
+            return view('school.students.school.index', compact('students'));
+        }
     }
 
     public function creatorStatistics(Request $request)
@@ -72,7 +78,8 @@ class StudentsController extends Controller
         $waitingStudents=WaitingStudent::all();
         $districts=District::all();
         $groups=Group::school()->get();
-        return view('school.students.create', compact('group', 'waitingStudents', 'groups', 'districts'));
+        $classes=Clas::all();
+        return view('school.students.create', compact('group', 'waitingStudents', 'groups', 'districts','classes'));
     }
 
     /**
@@ -113,7 +120,8 @@ class StudentsController extends Controller
         $student = $this->studentService->findOne($id);
         $groups=Group::school()->get();
         $districts=District::all();
-        return view('school.students.edit', compact('student', 'groups', 'districts'));
+        $classes=Clas::all();
+        return view('school.students.edit', compact('student', 'groups', 'districts','classes'));
     }
 
     /**
@@ -141,7 +149,7 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         $student = $this->studentService->delete($id);
-        return redirect()->route('school.students.index', date('Y'))->with('flash_message', 'O`quvchi o`chirib yuborildi!');
+        return redirect()->route('school.students.index')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
      public function addStudentToGroup(Request $request)

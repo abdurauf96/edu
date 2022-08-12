@@ -35,12 +35,12 @@ class Student extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt', 'creator_id'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt', 'creator_id', 'class_id', 'school_number'];
 
-    public function scopeCurrentYear($query)
-    {
-        return $query->where('study_year', date('Y'));
-    }
+    // public function scopeCurrentYear($query)
+    // {
+    //     return $query->where('study_year', date('Y'));
+    // }
 
     public function scopeSchool($query)
     {
@@ -48,17 +48,17 @@ class Student extends Authenticatable
     }
     public function scopeActive($query)
     {
-        return $query->currentYear()->whereStatus(self::ACTIVE);
+        return $query->whereStatus(self::ACTIVE);
     }
 
     public function scopeGraduated($query)
     {
-        return $query->currentYear()->whereStatus(self::GRADUATED);
+        return $query->whereStatus(self::GRADUATED);
     }
 
     public function scopeOut($query)
     {
-        return $query->currentYear()->whereStatus(self::OUT);
+        return $query->whereStatus(self::OUT);
     }
 
     public function scopeGrant($query)
@@ -69,6 +69,11 @@ class Student extends Authenticatable
     public function events()
     {
         return $this->hasMany(Event::class, 'person_id')->where('type', 'student');
+    }
+
+    public function getLastEventStatus()
+    {
+        return $this->events()->latest()->first()->status ?? null;
     }
 
     public function group()
@@ -84,12 +89,6 @@ class Student extends Authenticatable
     public function payments()
     {
         return $this->hasMany(Payment::class)->orderBy('month_id');
-    }
-
-    public function getLastEventStatus()
-    {
-        $event=Event::where(['type'=>'student', 'person_id'=>$this->id])->latest()->first();
-        return $event->status ?? null;
     }
 
     public function getSchool()

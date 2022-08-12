@@ -13,8 +13,8 @@
                             Filter
                         </button>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                          <a class="dropdown-item" href="{{ route('teachers.index') }}">Joriy</a>
-                          <a class="dropdown-item" href="{{ route('teachers.index', ['status'=>'not-actives']) }}">Avvalgi</a>
+                          <a class="dropdown-item" href="{{ route('teachers.index') }}">Faol</a>
+                          <a class="dropdown-item" href="{{ route('teachers.index', ['status'=>'not-actives']) }}">Faol emas</a>
                          
                           <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('teachers.index', ['status'=>'all']) }}">Barchasi</a>
@@ -37,13 +37,23 @@
                         @foreach($teachers as $item)
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
-                                <td>{{ $item->name }}</td><td>@foreach ($item->courses as $course)
-                                    {{ $course->name }}  @if(!$loop->last) , @endif
-                                @endforeach</td><td>{{ $item->phone }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>
+                                    @if(isset($item->profession))
+                                        {{ $item->profession }}
+                                    @else
+                                    @foreach ($item->courses as $course)
+                                        {{ $course->name }}  @if(!$loop->last) , @endif
+                                    @endforeach
+                                    @endif
+                                </td>
+                                <td>{{ $item->phone }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->birthday }}</td>
                                 <td>
+                                    @if(auth()->guard('user')->user()->school->isAcademy())
                                     <a href="{{ route('teachers.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
+                                    @endif
                                     <a href="{{ route('teachers.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
                                     {!! Form::open([
                                         'method' => 'DELETE',

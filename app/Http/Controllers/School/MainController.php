@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Group;
+use App\Models\School;
+use App\Models\Clas;
+
 class MainController extends Controller
 {
     /**
@@ -24,22 +27,30 @@ class MainController extends Controller
 
     public function index()
     {
-        //$num_students=Student::school()->count();
-        $num_groups=\App\Models\Group::school()->get()->count();
 
+        $num_groups=\App\Models\Group::school()->get()->count();
         $girls=Student::school()->active()->whereSex('0')->count();
         $boys=Student::school()->active()->whereSex(1)->count();
-        $grant_students=Student::school()->grant()->count();
-
         $active_students=Student::active()->school()->count();
-    
-        $out_students=Student::school()->out()->count();
         $graduated_students=Student::school()->graduated()->count();
-
-        $teachers=\App\Models\Teacher::school()->whereStatus(1)->with('students')->get();
         $courses=\App\Models\Course::school()->get();
-       
-        return view('school.dashboard', compact( 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
+
+        if(auth()->guard('user')->user()->school->isSchool()){
+            $all_students=Student::school()->count();
+            $classes=Clas::withCount('students')->get();
+
+            return view('school.school-dashboard', compact('num_groups', 'girls', 'boys', 'active_students', 'graduated_students', 'courses', 'all_students', 'classes'));
+
+        }else{
+
+            $grant_students=Student::school()->grant()->count();
+
+            $out_students=Student::school()->out()->count();
+
+            $teachers=\App\Models\Teacher::school()->whereStatus(1)->with('students')->get();
+
+            return view('school.academy-dashboard', compact( 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
+        }
     }
 
     public function todayGroups()
@@ -56,7 +67,7 @@ class MainController extends Controller
         $statistika=$this->paymentRepo->getPaymentResultsByMonth(date('m'), date('Y'));
         $students=Student::active()->school()->get();
         $payments=$this->paymentRepo->getPaymentsByMonth(date('m'), date('Y'));
-        
+
         return view('school.payments.statistics', compact('statistika','students', 'payments'));
     }
 

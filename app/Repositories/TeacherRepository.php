@@ -53,6 +53,15 @@ class TeacherRepository implements TeacherRepositoryInterface
         $teacher->courses()->attach($data['course_id']);
     }
 
+    public function storeSchoolTeacher($data){
+        Teacher::create($data);
+    }
+
+    public function updateSchoolTeacher($id, $data){
+        $teacher = $this->findOne($id);
+        $teacher->update($data);
+    }
+
     public function update($id, $data){
 
         $teacher = $this->findOne($id);

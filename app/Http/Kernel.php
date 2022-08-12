@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \App\Http\Middleware\CheckRole::class,
         'cors' => \App\Http\Middleware\Cors::class,
+        'schoolStatus' => \App\Http\Middleware\CheckSchoolStatus::class,
     ];
 }

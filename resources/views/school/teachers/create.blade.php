@@ -2,7 +2,7 @@
 @section('title', 'O`qituvchi qo`shish')
 @section('content')
 <div class="row">
-    <div class="col-12">
+    <div class="col-6">
         <div class="card">
             <div class="card-header"> <h4>Yangi qo'shish</h4> </div>
             <div class="card-body">
@@ -17,13 +17,17 @@
                         @endforeach
                     </ul>
                 @endif
-
+                   
+                @if(auth()->guard('user')->user()->school->isAcademy())
                 {!! Form::open(['url' => '/school/teachers', 'class' => 'form-horizontal', 'files' => true]) !!}
-
-                @include ('school.teachers.form', ['formMode' => 'create'])
-
+                    @include ('school.teachers.form', ['formMode' => 'create'])
                 {!! Form::close() !!}
-
+                @else
+                <form action="{{ route('storeSchoolTeacher') }}" method="POST">
+                    @csrf
+                    @include('school.teachers.school-form')
+                </form>
+                @endif
             </div>
         </div>
     </div>

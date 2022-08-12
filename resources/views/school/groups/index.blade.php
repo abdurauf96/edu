@@ -20,10 +20,9 @@
                             Filter {{  request()->get('year') ?? ""  }}
                         </button>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                          <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2021]) }}">2021</a>
-                          <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2022]) }}">2022</a>
-                          <a class="dropdown-item" href="{{ route('groups.index', ['year'=>2023]) }}">2023</a>
+                         
                           <a class="dropdown-item" href="{{ route('groups.index', ['type'=>'graduated']) }}">Bitirgan</a>
+                          <a class="dropdown-item" href="{{ route('groups.index') }}">Active</a>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\School;
-use App\Events\SchoolUserCreated;
+
 class SchoolController extends Controller
 {
     public function index()
@@ -15,7 +15,6 @@ class SchoolController extends Controller
     }
     public function detail(School $school)
     {
-
         return view('admin.schools.detail', compact('school'));
     }
 
@@ -23,9 +22,9 @@ class SchoolController extends Controller
     public function activate($id)
     {
         $school=School::find($id);
-        $school->status=1;
+        $school->status=$school->status==1 ? 0 : 1;
         $school->save();
-        event(new SchoolUserCreated($school));
-        return back();
+        
+        return back()->with('message', 'Status yangilandi!');
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Events\StudentEvent;
-use App\Models\StudentEvent as StudentEventModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\School\RolesController;
 use App\Http\Controllers\School\MainController;
@@ -22,8 +20,10 @@ use App\Http\Controllers\School\AppealsController;
 use App\Http\Controllers\School\DistrictsController;
 use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
+use App\Http\Controllers\School\ClassesController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SchoolController;
+use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Student\StudentController;
@@ -56,6 +56,16 @@ Route::get('/download', function () {
     ]);
 });
 
+//admin routes
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::resource('users', AdminUsersController::class);
+    Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
+    Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('schoolDetail');
+    Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
+});
+
+
 
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']], function () {
@@ -74,15 +84,18 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,ca
 
 
 //routes for all school users
-Route::middleware('auth:user')->prefix('school')->group(function () {
+Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(function () {
     
     
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);
+    Route::post('/teachers/store/school-teacher', [TeachersController::class, 'storeSchoolTeacher'])->name('storeSchoolTeacher');
+    Route::patch('/teachers/update/school-teacher/{id}', [TeachersController::class, 'updateSchoolTeacher'])->name('updateSchoolTeacher');
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
     Route::resource('/districts', DistrictsController::class);
     Route::resource('/organizations', OrganizationsController::class);
+    Route::resource('classes', ClassesController::class);
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
 
     //groups
@@ -101,7 +114,7 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
 
     //students
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
-    Route::get('/students/year/{year?}', [StudentsController::class, 'index'])->name('school.students.index');
+    //Route::get('/students', [StudentsController::class, 'index'])->name('school.students.index');
     
     //student creators
     Route::get('/students/creator/{creator}', [StudentsController::class, 'index'])->name('school.students.byCreator');
@@ -139,14 +152,6 @@ Route::middleware('auth:user')->prefix('school')->group(function () {
     //attendance routes for websocket, now not using
     //Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
     //Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
-});
-
-//admin routes
-Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/schools', [SchoolController::class, 'index'])->name('admin.schools');
-    Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('admin.schoolDetail');
-    Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
 });
 
 //student attandance manual

@@ -13,23 +13,32 @@ use App\Http\Resources\Staff as StaffResource;
 
 class EventsController extends BaseController
 {
-    public function event($type, $id, $status, $time)
+    public $model;
+    public function event($type, $id, $time)
     {
+        // if($type=='staff'){
+        //     $this->model=St
+        // }
+        $model=$type=='staff' ? Staff::class : Student::class;
 
-        if($type=='staff'){
-            $staff=Staff::findOrFail($id);
-            $name=$staff->name;
-            $school_id=$staff->school_id;
-            $organization_id=$staff->organization_id;
-            $resource=new StaffResource($staff);
-        }else{
-            $student=Student::findOrFail($id);
-            $school_id=$student->school_id;
-            $name=$student->name;
-            $resource=new StudentResource($student);
-        }
+       
+            $obj=$model::findOrFail($id);
+            
+            $name=$obj->name;
+            $school_id=$obj->school_id;
+            $organization_id=$obj->organization_id ?? null;
+            $lastEventStatus=$obj->getLastEventStatus();
+            //return $obj->getLastEventStatus();
+            $resource=$type=='staff' ? new StaffResource($obj) : new StudentResource($obj);
+       //}else{
+            //$student=Student::findOrFail($id);
+            //$school_id=$student->school_id;
+            //$name=$student->name;
+            //$lastEventStatus=$student->getLastEventStatus();
+            //$resource=new StudentResource($student);
+        //}
 
-        $status=$status=='in' ? 1 : 0;
+        $status=$lastEventStatus==1 ? 0 : 1;
         $newRecord=[
             'person_id'=>$id,
             'type'=>$type,
@@ -37,27 +46,26 @@ class EventsController extends BaseController
             'status'=>$status,
             'time'=>$time,
             'school_id'=>$school_id,
-            'organization_id'=>$organization_id ?? null,
+            'organization_id'=>$organization_id,
         ];
-        $data=['type'=>$type, 'id'=>$id];
-        $event=EventModel::where(['type'=>$type, 'person_id'=>$id])->latest()->first();
+        //$data=['type'=>$type, 'id'=>$id];
+        //$event=EventModel::where(['type'=>$type, 'person_id'=>$id])->latest()->first();
 
-        if($event){
-            if($event->status!=$status){
+        // if($event){
+        //     if($event->status!=$status){
 
-                EventModel::create($newRecord);
-                event(new StudentStaffEvent($data));
-                return $this->sendResponse($resource);
-            }else{
-                return response()->json(['success'=>false, 'data'=>$resource]);
-            }
-        }else {
+        //         EventModel::create($newRecord);
+        //         event(new StudentStaffEvent($data));
+        //         return $this->sendResponse($resource);
+        //     }else{
+        //         return response()->json(['success'=>false, 'data'=>$resource]);
+        //     }
+        // }else {
 
-            EventModel::create($newRecord);
-
-            event(new StudentStaffEvent($data));
-            return $this->sendResponse($resource);
-        }
+        EventModel::create($newRecord);
+           //event(new StudentStaffEvent($data));
+        return $this->sendResponse($resource,$status);
+        //}
 
     }
 }

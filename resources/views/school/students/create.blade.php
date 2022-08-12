@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-
+    @if(auth()->guard('user')->user()->school->isAcademy())
     <div class="col-md-6">
         <div class="card card-primary">
             <div class="card-header">
@@ -62,6 +62,7 @@
             <!-- /.box-body -->
         </div>
     </div>
+    @endif
 </div>
 @endsection
 

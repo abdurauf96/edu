@@ -6,31 +6,10 @@
             @csrf
             <div class="register-box">
 
-
             <!-- Name -->
                 <div>
                     <x-label for="name" :value="__('Company Name')" />
-
                     <x-input id="name" class="block mt-1 w-full" type="text" name="company_name" :value="old('company_name')" required autofocus />
-                </div>
-
-                <div>
-                    <x-label for="name" :value="__('Phone')" />
-
-                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus />
-                </div>
-
-
-
-                <div>
-                    <x-label for="name" :value="__('Addres')" />
-                    <x-input class="block mt-1 w-full" type="text" name="addres" value="{{ old('addres') }}"/>
-                </div>
-            </div>
-            <div class="register-box">
-                <div>
-                    <x-label for="name" :value="__('Domain')" />
-                    <x-input class="block mt-1 w-full" type="text" name="domain" value="{{ old('domain') }}"/>
                 </div>
 
                 <div>
@@ -39,28 +18,31 @@
                 </div>
 
                 <div>
-                    <x-label for="name" :value="__('Card Number')" />
-                    <x-input class="block mt-1 w-full" type="text" name="card_number" value="{{ old('card_number') }}"/>
+                    <x-label for="name" :value="__('Domain')" />
+                    <x-input class="block mt-1 w-full" type="text" name="domain" value="{{ old('domain') }}"/>
                 </div>
+
             </div>
             <div class="register-box">
+
                 <div>
-                    <x-label for="name" :value="__('Card date')" />
-                    <x-input  class="block mt-1 w-full" type="text"  name="card_date" value="{{ old('card_date') }}"/>
+                    <x-label for="name" :value="__('Addres')" />
+                    <x-input class="block mt-1 w-full" type="text" name="addres" value="{{ old('addres') }}"/>
                 </div>
 
                 <div>
-                    <x-label for="name" :value="__('Card Name')" />
-                    <x-input  class="block mt-1 w-full" type="text" name="card_name" value="{{ old('card_name') }}"/>
+                    <x-label for="name" :value="__('Phone')" />
+
+                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus />
                 </div>
 
-                <!-- User Name -->
                 <div >
                     <x-label for="email" :value="__('Username')" />
 
                     <x-input class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
                 </div>
             </div>
+           
             <div class="register-box">
             <!-- Email Address -->
                 <div class="mt-4">

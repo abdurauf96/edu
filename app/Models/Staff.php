@@ -32,6 +32,11 @@ class Staff extends Model
      */
     protected $fillable = ['name', 'position', 'phone', 'year', 'image', 'passport', 'addres', 'qrcode', 'organization_id'];
 
+    public function getLastEventStatus()
+    {
+        return Event::where(['type'=>'staff', 'person_id'=>$this->id])->latest()->first()->status;
+    }
+
     public function getSchool(){
         return $this->belongsTo(SchoolModel::class, 'school_id');
     }

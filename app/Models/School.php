@@ -10,8 +10,10 @@ use App\Models\HasRoles;
 class School extends Authenticatable
 {
     use HasFactory, HasRoles;
+    public const ACADEMY = 1;
+    public const SCHOOL = 2;
 
-    protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'card_number', 'card_date', 'card_name','status', 'name', 'email', 'password'];
+    protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'status'];
 
 
     /**
@@ -19,6 +21,16 @@ class School extends Authenticatable
         *
         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
         */
+    public function isAcademy()
+    {
+        return $this->type==self::ACADEMY ;
+    }
+    
+    public function isSchool()
+    {
+        return $this->type==self::SCHOOL ;
+    }
+
     public function students()
     {
         return $this->hasMany(Student::class);

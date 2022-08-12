@@ -20,11 +20,11 @@ class SchoolUserCreated
      *
      * @return void
      */
-    public $school;
+    public $user;
 
-    public function __construct($school)
+    public function __construct($user)
     {
-        $this->school=$school;
+        $this->user=$user;
     }
 
     /**

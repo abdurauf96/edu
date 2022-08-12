@@ -47,7 +47,7 @@ class Course extends Model
 
     public function students()
     {
-        return $this->hasManyThrough(Student::class, Group::class)->where('students.study_year',2022);
+        return $this->hasManyThrough(Student::class, Group::class);
     }
 
     public function activeStudents()

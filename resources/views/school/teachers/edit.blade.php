@@ -17,17 +17,21 @@
                         @endforeach
                     </ul>
                 @endif
-
+                @if(auth()->guard('user')->user()->school->isAcademy())
                 {!! Form::model($teacher, [
                     'method' => 'PATCH',
                     'url' => ['/school/teachers', $teacher->id],
                     'class' => 'form-horizontal',
                     'files' => true
                 ]) !!}
-
                 @include ('school.teachers.form', ['formMode' => 'edit'])
-
                 {!! Form::close() !!}
+                @else
+                <form action="{{ route('updateSchoolTeacher', $teacher->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    @include('school.teachers.school-form', ['formMode'=>'edit']);
+                @endif
 
             </div>
         </div>

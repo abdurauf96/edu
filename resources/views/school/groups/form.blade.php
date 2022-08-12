@@ -2,7 +2,7 @@
 @section('css')
 <link rel="stylesheet" href="/admin/assets/bundles/datepicker/css/yearpicker.css" />
 @endsection
-
+<div class="col-md-6">
     <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
         {!! Form::label('name', 'Guruh nomi', ['class' => 'control-label']) !!}
         {!! Form::text('name', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -95,8 +95,7 @@
     <div class="form-group">
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
     </div>
-
-
+</div>
 
 @section('js')
 <!-- Moment Js -->

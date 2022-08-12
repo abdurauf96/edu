@@ -10,7 +10,16 @@
                 </a> --}}
 
             </div>
-
+            @if(session('message'))
+            <div class="alert alert-success alert-dismissible">
+                <div class="alert-body">
+                  <button class="close" data-dismiss="alert">
+                    <span>×</span>
+                  </button>
+                  {{ session('message') }}
+                </div>
+            </div>
+            @endif
             <div class="card-body">
 
                 <div class="table-responsive" >
@@ -20,8 +29,10 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nomi</th>
+                                <th>O'quvchilar soni</th>
                                 <th>Status</th>
-                                <th>Amallar</th>
+                                <th>Statusni o'zgartirish</th>
+                                <th>Markaz haqida</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,24 +40,24 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->company_name }}</td>
-                                <td>@if($item->status==1) <span class='label label-success'>Faol </span> @else <span class="label label-danger">Faol emas </span> @endif</td>
+                                <td>{{ $item->students()->count() }}</td>
+                                <td>@if($item->status==1) <span class="badge badge-success">Faol </span> @else <span class="badge badge-danger">Faol emas </span> @endif</td>
 
                                 <td>
-
-
                                     {!! Form::open([
                                         'method' => 'POST',
-                                        'url' => route('activateSchool', $item->id),
+                                        'url' => route('admin.activateSchool', $item->id),
                                         'style' => 'display:inline'
                                     ]) !!}
-                                        {!! Form::button('Faollashtirish', array(
+                                        {!! Form::button($item->status==1 ? 'Toxtatish' : 'Faollashtirish', array(
                                                 'type' => 'submit',
-                                                'class' => 'btn btn-primary ',
+                                                'class' => $item->status==1 ? 'btn btn-danger' : 'btn btn-success',
                                                 'title' => 'Activate School',
-                                                'onclick'=>'return confirm("Faollashtirmoqchimisiz?")'
+                                                'onclick'=>'return confirm("Rostan o`zgartirmoqchimisiz?")'
                                         )) !!}
                                     {!! Form::close() !!}
-
+                                </td>
+                                <td>
                                     <a class="btn btn-info" href="{{ route('admin.schoolDetail', $item->id) }}">Batafsil</a>
                                 </td>
                             </tr>

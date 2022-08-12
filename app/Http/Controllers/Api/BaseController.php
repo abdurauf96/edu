@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    public function sendResponse($result=[])
+    public function sendResponse($result=[], $status)
     {
     	$response = [
             'success' => true,
+            'status' => $status,
             'data'    => $result,
         ];
         return response()->json($response, 200);

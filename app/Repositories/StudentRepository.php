@@ -11,7 +11,7 @@ class StudentRepository implements StudentRepositoryInterface{
         
         $year=$request->year ?? null;
         $type=$request->type ?? null;
-       
+      
         $students=Student::query();
 
         switch ($type) {
@@ -58,6 +58,9 @@ class StudentRepository implements StudentRepositoryInterface{
     public function create($request){
 
         $requestData = $request->all();
+        if(!empty($request->school_text)){
+            $requestData['school_number']=$request->school_text;
+        }
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
@@ -90,7 +93,9 @@ class StudentRepository implements StudentRepositoryInterface{
     public function update($request, $id)
     {
         $requestData = $request->all();
-
+        if(!empty($request->school_text)){
+            $requestData['school_number']=$request->school_text;
+        }
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();

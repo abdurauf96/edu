@@ -38,7 +38,7 @@
 
           <ul class="dropdown-menu" >
               <li>
-                  <a class="nav-link" href="{{ route('school.students.index', date('Y'))  }}">
+                  <a class="nav-link" href="{{ route('students.index')  }}">
                        O'quvchilar
                   </a>
               </li>
@@ -136,6 +136,11 @@
       <li class="dropdown">
         <a href="{{ route('organizations.index') }}" class="nav-link">
           <i class="fas fa-school"></i> <span>Tashkilotlar</span>
+        </a>
+      </li>
+      <li class="dropdown">
+        <a href="{{ route('classes.index') }}" class="nav-link">
+          <i class="fas fa-school"></i> <span>Sinflar</span>
         </a>
       </li>
     </ul>

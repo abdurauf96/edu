@@ -56,13 +56,29 @@ class TeachersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'course_id' => 'required',
 			'email' => 'required|unique:teachers',
 		]);
 
         $this->teacherRepo->store($request->all());
 
         return redirect('school/teachers')->with('flash_message', 'O`qituvchi qo`shildi!');
+    }
+
+    public function storeSchoolTeacher(Request $request)
+    {
+        $this->validate($request, [
+			'email' => 'required|unique:teachers',
+		]);
+
+        $this->teacherRepo->storeSchoolTeacher($request->all());
+
+        return redirect('school/teachers')->with('flash_message', 'O`qituvchi qo`shildi!');
+    }
+
+    public function updateSchoolTeacher(Request $request, $id)
+    { 
+        $this->teacherRepo->updateSchoolTeacher($id, $request->all());
+        return redirect('school/teachers')->with('flash_message', 'O`qituvchi yangilandi!');
     }
 
     /**
@@ -106,11 +122,9 @@ class TeachersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-           
             'course_id' => 'required',
             'email' => 'required|unique:teachers,email,'.$id.',id',
             'birthday' => 'required',
-           
         ]);
         $this->teacherRepo->update($id, $request->all());
 

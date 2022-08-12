@@ -28,10 +28,10 @@ class UserCreateListener
     public function handle(SchoolUserCreated $event)
     {
         $user=new User;
-        $user->name=$event->school->name;
-        $user->password=$event->school->password;
-        $user->email=$event->school->email;
-        $user->school_id=$event->school->id;
+        $user->name=$event->user['name'];
+        $user->password=bcrypt($event->user['password']);
+        $user->email=$event->user['email'];
+        $user->school_id=$event->user['school_id'];
         $user->save();
 
         RoleUser::create(['user_id'=>$user->id, 'role_id'=>1]);
