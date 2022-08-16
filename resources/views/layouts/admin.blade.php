@@ -77,6 +77,9 @@
               <li class="dropdown">
                 <a href="{{ route('admin.schools') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quv markazlar</span></a>
               </li>
+                <li class="dropdown">
+                    <a href="{{ route('admin.contacts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Kontaktlar</span></a>
+                </li>
             </ul>
           </aside>
       </div>

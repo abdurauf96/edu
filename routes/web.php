@@ -21,8 +21,10 @@ use App\Http\Controllers\School\DistrictsController;
 use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ClassesController;
+use App\Http\Controllers\School\DocumentsController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SchoolController;
+use App\Http\Controllers\Admin\ContactsController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 
 use App\Http\Controllers\Teacher\TeacherController;
@@ -63,6 +65,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
     Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('schoolDetail');
     Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
+    Route::resource('contacts', ContactsController::class);
 });
 
 
@@ -85,8 +88,8 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,ca
 
 //routes for all school users
 Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(function () {
-    
-    
+
+
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);
     Route::post('/teachers/store/school-teacher', [TeachersController::class, 'storeSchoolTeacher'])->name('storeSchoolTeacher');
@@ -96,6 +99,8 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/districts', DistrictsController::class);
     Route::resource('/organizations', OrganizationsController::class);
     Route::resource('classes', ClassesController::class);
+    Route::resource('documents', DocumentsController::class);
+    Route::get('contacts', [MainController::class, 'contacts'])->name('school.contacts.index');
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
 
     //groups
@@ -103,7 +108,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
     // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
 
-    //card generate 
+    //card generate
     Route::get('/student/card-generate/{id}', [StudentsController::class, 'generateCard'])->name('generateStudentCard');
     Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
 
@@ -115,7 +120,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     //students
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup']);
     //Route::get('/students', [StudentsController::class, 'index'])->name('school.students.index');
-    
+
     //student creators
     Route::get('/students/creator/{creator}', [StudentsController::class, 'index'])->name('school.students.byCreator');
     Route::get('/student/creator/statistics', [StudentsController::class, 'creatorStatistics'])->name('student.creator.statistics');
@@ -128,20 +133,20 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
     Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
     Route::post('getStudentsByGroup', [StudentsController::class, 'getStudentsByGroup'])->name('getStudentsByGroup');
-    
-    
+
+
     //events
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
-    
+
     Route::get('/filter', [EventsController::class, 'filter'])->name('filterEvents');
-    
+
     Route::resource('/months', MonthsController::class);
     Route::resource('/staffs', StaffsController::class);
     Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
     Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
-    
+
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
     Route::get('/course/{id}/plans/create', [PlansController::class, 'create'])->name('addCoursePlan');
     Route::post('/course/plan', [PlansController::class, 'store'])->name('saveCoursePlan');

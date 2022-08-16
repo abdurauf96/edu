@@ -22,8 +22,8 @@
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Profil</span></a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="{{ route('users.index') }}">Darsliklar</a></li>
-          <li><a class="nav-link" href="{{ route('users.index') }}">Adminga murojat</a></li>
+          <li><a class="nav-link" href="{{ route('documents.index') }}">Darsliklar</a></li>
+          <li><a class="nav-link" href="{{ route('school.contacts.index') }}">Adminga murojat</a></li>
         </ul>
       </li>
 
@@ -44,7 +44,7 @@
         <a href="{{ route('students.index') }}" class="nav-link"><i class="fas fa-users"></i> <span>O'quvchilar</span>
         </a>
       </li>
-      
+
       <li class="dropdown">
         <a href="{{ route('classes.index') }}" class="nav-link">
           <i class="fas fa-school"></i> <span>Sinflar</span>

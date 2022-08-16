@@ -71,9 +71,10 @@ class MainController extends Controller
         return view('school.payments.statistics', compact('statistika','students', 'payments'));
     }
 
-    public function reception()
+    public function contacts()
     {
-        return view('school.reception');
+        $contacts=\App\Models\Contact::all();
+        return view('school.contacts.index', compact('contacts'));
     }
 
     public function test()
