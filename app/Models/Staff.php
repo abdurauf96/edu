@@ -34,7 +34,7 @@ class Staff extends Model
 
     public function getLastEventStatus()
     {
-        return Event::where(['type'=>'staff', 'person_id'=>$this->id])->latest()->first()->status;
+        return Event::where(['type'=>'staff', 'person_id'=>$this->id])->latest()->first()->status ?? null;
     }
 
     public function getSchool(){

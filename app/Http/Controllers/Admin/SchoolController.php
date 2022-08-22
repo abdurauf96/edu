@@ -24,7 +24,7 @@ class SchoolController extends Controller
         $school=School::find($id);
         $school->status=$school->status==1 ? 0 : 1;
         $school->save();
-        
+
         return back()->with('message', 'Status yangilandi!');
     }
 }

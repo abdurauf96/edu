@@ -36,10 +36,10 @@ class StudentsController extends Controller
     public function index(Request $request)
     {
         $students = $this->studentService->getAll($request);
-        $creators = User::creators()->get();
-       
+
+
         if(auth()->guard('user')->user()->school->isAcademy()){
-            return view('school.students.index', compact('students','creators'));
+            return view('school.students.index');
         }else{
             return view('school.students.school.index', compact('students'));
         }

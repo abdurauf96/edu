@@ -25,6 +25,7 @@ use App\Http\Controllers\School\DocumentsController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SchoolController;
 use App\Http\Controllers\Admin\ContactsController;
+use App\Http\Controllers\Admin\StudentsController as AdminStudentsController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 
 use App\Http\Controllers\Teacher\TeacherController;
@@ -65,6 +66,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
     Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('schoolDetail');
     Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
+    Route::get('students', [AdminStudentsController::class, 'students'])->name('students');
     Route::resource('contacts', ContactsController::class);
 });
 

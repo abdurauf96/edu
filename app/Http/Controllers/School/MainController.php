@@ -33,7 +33,7 @@ class MainController extends Controller
         $boys=Student::school()->active()->whereSex(1)->count();
         $active_students=Student::active()->school()->count();
         $graduated_students=Student::school()->graduated()->count();
-        $courses=\App\Models\Course::school()->get();
+        $courses=\App\Models\Course::school()->with('students')->get();
 
         if(auth()->guard('user')->user()->school->isSchool()){
             $all_students=Student::school()->count();
@@ -47,7 +47,7 @@ class MainController extends Controller
 
             $out_students=Student::school()->out()->count();
 
-            $teachers=\App\Models\Teacher::school()->whereStatus(1)->with('students')->get();
+            $teachers=\App\Models\Teacher::school()->whereStatus(1)->with(['students','courses'])->get();
 
             return view('school.academy-dashboard', compact( 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
         }

@@ -41,7 +41,6 @@ class Student extends Authenticatable
     // {
     //     return $query->where('study_year', date('Y'));
     // }
-
     public function scopeSchool($query)
     {
         return $query->where('school_id', auth()->guard('user')->user()->school_id);

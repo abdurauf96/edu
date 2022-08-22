@@ -8,10 +8,10 @@ use App\Repositories\Interfaces\StudentRepositoryInterface;
 class StudentRepository implements StudentRepositoryInterface{
 
     public function getAll($request=null){
-        
+
         $year=$request->year ?? null;
         $type=$request->type ?? null;
-      
+
         $students=Student::query();
 
         switch ($type) {
@@ -35,7 +35,7 @@ class StudentRepository implements StudentRepositoryInterface{
                 break;
         }
 
-       
+
         if(request()->segment(3)=='creator'){
             $students=$students->where('creator_id', $request->creator);
         }
@@ -81,7 +81,7 @@ class StudentRepository implements StudentRepositoryInterface{
         $requestData['password']=generatePassword($requestData['year'] ?? 12345678);
 
         $student=Student::create($requestData);
-        return $student; 
+        return $student;
 
     }
 
@@ -116,7 +116,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function addWaitingStudentToGroup($waitingStudent, $request)
     {
-        
+
         $data=[
             'group_id'=>$request->group_id,
             'name'=>$waitingStudent->name,

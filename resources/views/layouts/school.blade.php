@@ -22,7 +22,7 @@
        position: absolute;
        right: 50px;
        top: 71px;
-       z-index: 99999999; 
+       z-index: 99999999;
        width: 350px;
      }
    </style>
@@ -41,11 +41,11 @@
             <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
                 <i data-feather="maximize"></i>
               </a></li>
-            
+
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-          
+
           <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="/admin/assets/img/user.png"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
@@ -78,7 +78,7 @@
           @include('school.school-sidebar')
         @endif
       </div>
-      
+
       @if (Session::has('flash_message'))
         <div class="alert flash_message alert-success alert-dismissible show fade">
           <div class="alert-body">
@@ -209,7 +209,7 @@
   <!-- General JS Scripts -->
   {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
   <script src="/admin/assets/js/app.min.js"></script>
-  
+
   <!-- Page Specific JS File -->
   {{-- <script src="/admin/assets/js/page/index.js"></script> --}}
   <!-- Template JS File -->
@@ -223,6 +223,7 @@
     a.parentElement.classList.add('active');
     a.parentElement.parentElement.style.display="block";
   </script>
+  @stack('js')
 </body>
 
 
