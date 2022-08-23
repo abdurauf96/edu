@@ -13,9 +13,28 @@ class Students extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $creator_id, $status, $query;
+    public $search='';
+    public $creator_id, $status, $test_status;
 
+    //protected $listeners = ['StatusChanged'];
 
+    public function doActive($id)
+    {
+        $student=Student::find($id);
+        $student->test_status==1 ? $student->test_status = null : $student->test_status=1;
+        $student->save();
+        $this->dispatchBrowserEvent('StatusChanged');
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
@@ -25,20 +44,14 @@ class Students extends Component
 
         if($this->creator_id){
             $students->where('creator_id', $this->creator_id);
-            $this->resetPage();
         }
 
         if(isset($this->status)){
             $students->where('status', $this->status);
-            $this->resetPage();
-        }
-
-        if(isset($this->query)){
-            $students->where('name', 'LIKE',  '%'.$this->query.'%');
-            $this->resetPage();
         }
 
         $students=$students->latest()
+            ->where('name', 'LIKE',  '%'.$this->search.'%')
             ->with('group.course')
             ->school()
             ->paginate(10);

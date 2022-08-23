@@ -38,7 +38,7 @@
             <div class="col-lg-2">
                 <div class="section-title">Qidiruv </div>
                 <div class="form-group">
-                    <input type="search" class="form-control" wire:model="query" placeholder="search...">
+                    <input type="search" class="form-control" wire:model="search" placeholder="search...">
                 </div>
             </div>
         </div>
@@ -58,6 +58,7 @@
                     <th>Amallar</th>
                     <th>Davomat</th>
                     <th>Qarz</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -66,13 +67,7 @@
                     <tr>
                         <td>{{ $item->id  }}</td>
                         <td>{{ $item->name }}</td>
-                        <td> @if($item->status==2)
-                                <div class="badge badge-danger">Chiqib ketgan</div>
-                            @elseif($item->status==1)
-                                <div class="badge badge-success"> O'qiyapti </div>
-                            @else
-                                <div class="badge badge-warning"> Bitirgan </div>
-                            @endif </td>
+                        <td> {{ $item->group->name }} </td>
                         <td> {{ $item->group->course->name }}</td>
                         <td><a class="btn btn-icon btn-info " href="{{ route('downloadQrcode', $item->id) }}"><i class="fas fa-download"></i> </a></td>
                         {{-- <td>
@@ -129,6 +124,13 @@
                                 </div>
                             </form>
                         </td>
+                        <td>
+                            @if(empty($item->test_status))
+                                <button wire:click="doActive({{ $item->id }})" class="btn btn-primary">Active qilish</button>
+                            @else
+                                <button wire:click="doActive({{ $item->id }})" class="btn btn-success">Aktiv xolatda</button>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -137,16 +139,21 @@
         </div>
 
 
-        {{ $students->links() }}
+        {{ $students->onEachSide(0)->links() }}
 
     </div>
 </div>
 @push('js')
     <script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
+    <script src="/admin/assets/bundles/sweetalert/sweetalert.min.js"></script>
     <script>
         $('#creator_id').change(function (e) {
             @this.set('creator_id', $(this).val() );
         });
+
+        window.addEventListener('StatusChanged', event => {
+            swal('Good Job', 'Status o`zgardi!', 'success');
+        })
 
     </script>
 @endpush

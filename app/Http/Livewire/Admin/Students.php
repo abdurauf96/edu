@@ -20,18 +20,26 @@ class Students extends Component
         $this->schools=School::all();
     }
 
+    public function updatingStatus()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSchoolId()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $students=Student::query();
 
         if($this->school_id){
             $students->where('school_id', $this->school_id);
-            $this->resetPage();
         }
 
         if(isset($this->status)){
             $students->where('status', $this->status);
-            $this->resetPage();
         }
 
         $students=$students->with('group.course', 'getSchool')->paginate(10);
