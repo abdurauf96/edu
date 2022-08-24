@@ -9,7 +9,7 @@ use App\Models\Payment;
 class PaymentRepository implements PaymentRepositoryInterface{
     public function getAll()
     {
-        return Payment::school()->orderBy('id', 'DESC')->get();
+        return Payment::school()->orderBy('id', 'DESC')->with('student')->get();
     }
 
     public function getPaymentsByMonth($month,$year)

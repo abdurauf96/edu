@@ -103,7 +103,7 @@
                     </table>
 
                 </div>
-                {{ $events->links('vendor.livewire.bootstrap') }}
+                {{ $events->onEachSide(0)->links('vendor.livewire.bootstrap') }}
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ class PaymentsController extends Controller
      */
     private $paymentRepo;
     private $studentRepo;
-    
+
     public function __construct(PaymentRepositoryInterface $paymentRepo, StudentRepositoryInterface $studentRepo)
     {
         $this->paymentRepo=$paymentRepo;
@@ -29,9 +29,7 @@ class PaymentsController extends Controller
 
     public function index(Request $request)
     {
-       
-        $payments = $this->paymentRepo->getAll();
-        return view('school.payments.index', compact('payments'));
+        return view('school.payments.index');
     }
 
     /**
@@ -57,9 +55,9 @@ class PaymentsController extends Controller
      */
     public function store(PaymentRequest $request)
     {
-        
+
         $this->paymentRepo->create($request);
-        
+
         return redirect('school/payments')->with('flash_message', 'To`lov qo`shildi!');
     }
 
