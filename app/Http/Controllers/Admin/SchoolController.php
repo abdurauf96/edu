@@ -10,11 +10,12 @@ class SchoolController extends Controller
 {
     public function index()
     {
-        $schools=School::all();
+        $schools=School::withCount('students')->get();
         return view('admin.schools.index', compact('schools'));
     }
     public function detail(School $school)
     {
+        $school->loadCount('students', 'teachers', 'courses');
         return view('admin.schools.detail', compact('school'));
     }
 

@@ -40,7 +40,7 @@
                             <tr>
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->company_name }}</td>
-                                <td>{{ $item->students()->count() }}</td>
+                                <td>{{ $item->students_count }}</td>
                                 <td>@if($item->status==1) <span class="badge badge-success">Faol </span> @else <span class="badge badge-danger">Faol emas </span> @endif</td>
 
                                 <td>

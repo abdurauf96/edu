@@ -27,9 +27,9 @@
                             <td>{{ $school->phone }}</td>
                             <td>{{ $school->addres }}</td>
                             <td>{{ $school->email }}</td>
-                            <td><span class="label label-primary">{{ $school->students()->count() }} ta </span></td>
-                            <td><span class="label label-primary">{{ $school->teachers()->count() }} ta</span></td>
-                            <td><span class="label label-primary">{{ $school->courses()->count() }} ta</span></td>
+                            <td><span class="label label-primary">{{ $school->students_count }} ta </span></td>
+                            <td><span class="label label-primary">{{ $school->teachers_count }} ta</span></td>
+                            <td><span class="label label-primary">{{ $school->courses_count }} ta</span></td>
                             <td>@if($school->status==1) <span class='label label-success'>Faol </span> @else <span class="label label-danger">Faol emas </span> @endif</td>
                         </tr>
 

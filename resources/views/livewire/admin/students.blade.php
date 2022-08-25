@@ -52,6 +52,7 @@
                     <th>O'qish xolati</th>
                     <th>Sertifikat xolati</th>
                     <th>Sertifikat</th>
+                    <th>Amal</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,14 +73,17 @@
                             @endif
                         </td>
                        <td>
-                           <div class="badge badge-success">Berilmagan </div>
+                           @if($item->sertificat_status)
+                                <div class="badge badge-success"> Berilgan </div>
+                           @else
+                               <div class="badge badge-info"> Berilmagan </div>
+                           @endif
                        </td>
                         <td>
-                            @if(true)
-                            <a class="btn btn-warning" href="">Yuklab olish</a>
-                            @else
-                                <a href="">Generate</a>
-                            @endif
+                            <a class="btn {{ !$item->sertificat_status ? 'disabled' : '' }} btn-warning" href="/admin/sertificats/{{ $item->sertificat_file }}">Yuklab olish</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="{{ route('admin.sertificatForm', $item->id) }}">Sertifikat berish</a>
                         </td>
                     </tr>
                 @endforeach

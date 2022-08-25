@@ -68,6 +68,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
     Route::get('students', [AdminStudentsController::class, 'students'])->name('students');
     Route::resource('contacts', ContactsController::class);
+    Route::match(['get', 'post'],'student/{id}/sertificat', [AdminController::class, 'sertificat'])->name('sertificatForm');
 });
 
 
