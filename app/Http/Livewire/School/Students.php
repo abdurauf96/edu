@@ -38,7 +38,7 @@ class Students extends Component
 
     public function render()
     {
-        $creators = User::creators()->get();
+        $creators = User::role('creator')->get();
 
         $students=Student::query();
 

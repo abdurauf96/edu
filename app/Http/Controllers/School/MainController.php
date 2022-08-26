@@ -27,7 +27,6 @@ class MainController extends Controller
 
     public function index()
     {
-
         $num_groups=\App\Models\Group::school()->get()->count();
         $girls=Student::school()->active()->whereSex('0')->count();
         $boys=Student::school()->active()->whereSex(1)->count();

@@ -28,20 +28,20 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate)
     {
-        parent::registerPolicies($gate);
-
-        try {
-            if (Schema::hasTable('permissions')) {
-                // Dynamically register permissions with Laravel's Gate.
-                foreach ($this->getPermissions() as $permission) {
-                    $gate->define($permission->name, function ($user) use ($permission) {
-                        return $user->hasPermission($permission);
-                    });
-                }
-            }
-        } catch (QueryException $ex) {
-            return;
-        }
+//        parent::registerPolicies($gate);
+//
+//        try {
+//            if (Schema::hasTable('permissions')) {
+//                // Dynamically register permissions with Laravel's Gate.
+//                foreach ($this->getPermissions() as $permission) {
+//                    $gate->define($permission->name, function ($user) use ($permission) {
+//                        return $user->hasPermission($permission);
+//                    });
+//                }
+//            }
+//        } catch (QueryException $ex) {
+//            return;
+//        }
     }
 
     /**
@@ -49,8 +49,8 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    protected function getPermissions()
-    {
-        return Permission::with('roles')->get();
-    }
+//    protected function getPermissions()
+//    {
+//        return Permission::with('roles')->get();
+//    }
 }

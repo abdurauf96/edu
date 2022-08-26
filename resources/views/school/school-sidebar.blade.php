@@ -10,14 +10,14 @@
         <a href="{{ route('school.dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
       </li>
 
-      @if(Auth::check() && Auth::user()->hasRole('admin'))
+    {{--      permission--}}
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Adminstratsiya</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="{{ route('users.index') }}">Foydalanuvchilar</a></li>
         </ul>
       </li>
-      @endif
+
 
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Profil</span></a>

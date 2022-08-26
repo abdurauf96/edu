@@ -59,8 +59,10 @@ Route::get('/download', function () {
     ]);
 });
 
-//admin routes
-Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+//Route::get('statistika', [AdminController::class, 'statistika'])->name('statistika');
+
+//super admin routes
+Route::name('admin.')->prefix('admin')->middleware(['auth','role:super-admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::resource('users', AdminUsersController::class);
     Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
@@ -74,16 +76,17 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
 
 //routes for only school admin
-Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']], function () {
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
-    Route::get('payment-statistics', [MainController::class, 'paymentStatistics'])->name('paymentStatistics');
+
 });
 
 //routes for school admin and cashier
-Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,cashier']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:cashier']], function () {
     Route::resource('payments', PaymentsController::class);
+    Route::get('payment-statistics', [MainController::class, 'paymentStatistics'])->name('paymentStatistics');
     Route::get('cashier/table', [CashierController::class, 'index'])
     ->name('cashierTable');
 });
@@ -91,7 +94,6 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin,ca
 
 //routes for all school users
 Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(function () {
-
 
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);

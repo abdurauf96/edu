@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
@@ -16,29 +18,41 @@ class RoleSeeder extends Seeder
         $roles=[
             [
                 'id'=>1,
-                'name'=>'admin',
-                'label'=>'Adminstrator',
+                'name'=>'super-admin',
+                'guard_name'=>'admin',
             ],
             [
                 'id'=>2,
-                'name'=>'cashier',
-                'label'=>'Cashier',
+                'name'=>'xtb',
+                'guard_name'=>'admin',
             ],
             [
                 'id'=>3,
-                'name'=>'moder',
-                'label'=>'Moderator',
+                'name'=>'admin',
+                'guard_name'=>'user',
             ],
             [
                 'id'=>4,
-                'name'=>'reception',
-                'label'=>'Reception',
+                'name'=>'cashier',
+                'guard_name'=>'user',
+            ],
+            [
+                'id'=>5,
+                'name'=>'manager',
+                'guard_name'=>'user',
+            ],
+            [
+                'id'=>6,
+                'name'=>'creator',
+                'guard_name'=>'user',
             ],
         ];
 
         foreach($roles as $role){
-            \App\Models\Role::create($role);
+            Role::create($role);
         }
-        
+        $admin=Admin::find(1);
+        $admin->assignRole('super-admin');
+
     }
 }

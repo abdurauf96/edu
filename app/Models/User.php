@@ -6,19 +6,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\HasRoles;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, HasApiTokens;
+    use HasFactory, HasRoles,Notifiable,HasApiTokens;
     const RECEPTION_ROLE_ID = 4; // receptionist user role id equal to 4
 
-    public function isAdmin(){
-        if($this->hasRole('admin')){
-            return true;
-        }
-    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +26,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    protected $guard_name = 'user';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -54,22 +52,17 @@ class User extends Authenticatable
         return $this->belongsTo(School::class);
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
     public function students()
     {
         return $this->hasMany(Student::class, 'creator_id');
     }
 
-    public function scopeCreators()
-    {
-        return $this->whereHas('roles', function ($query) {
-            return $query->where('role_id', self::RECEPTION_ROLE_ID);
-        });
-    }
+//    public function scopeCreators()
+//    {
+//        return $this->whereHas('roles', function ($query) {
+//            return $query->where('role_id', self::RECEPTION_ROLE_ID);
+//        });
+//    }
 //    public static function boot() {
 //        parent::boot();
 //

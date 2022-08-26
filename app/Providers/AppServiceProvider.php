@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('school.sidebar', function($view){
-            $creators = \App\Models\User::creators()->get();
+            $creators = \App\Models\User::role('creator')->get();
             $view->with(compact('creators'));
         });
         Paginator::useBootstrap();

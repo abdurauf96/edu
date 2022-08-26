@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\HasRoles;
+
 
 class School extends Authenticatable
 {
-    use HasFactory, HasRoles;
+    use HasFactory;
     public const ACADEMY = 1;
     public const SCHOOL = 2;
 
@@ -25,7 +25,7 @@ class School extends Authenticatable
     {
         return $this->type==self::ACADEMY ;
     }
-    
+
     public function isSchool()
     {
         return $this->type==self::SCHOOL ;
@@ -42,11 +42,6 @@ class School extends Authenticatable
     public function courses()
     {
         return $this->hasMany(Course::class);
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
     }
 
 }

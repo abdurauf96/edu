@@ -21,7 +21,11 @@
 </div>
 <div class="form-group{{ $errors->has('roles') ? ' has-error' : ''}}">
     {!! Form::label('role', 'Role: ', ['class' => 'control-label']) !!}
-    {!! Form::select('roles[]', $roles, isset($user_roles) ? $user_roles : [], ['class' => 'form-control', 'multiple' => true, 'data-height'=>"100%"]) !!}
+    <select name="roles[]" class="form-control" multiple data-height="100%" >
+        @foreach($roles as $role)
+            <option @isset($userRoles) {{ in_array($role->id, $userRoles) ? 'selected' : '' }} @endisset value="{{ $role->id }}">{{ $role->name }}</option>
+        @endforeach
+    </select>
 </div>
 <div class="form-group">
     <label class="control-label" for="">O'quv markaz  </label>

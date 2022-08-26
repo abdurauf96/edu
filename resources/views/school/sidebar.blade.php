@@ -10,15 +10,15 @@
         <a href="{{ route('school.dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
       </li>
 
-      @if(Auth::check() && Auth::user()->hasRole('admin'))
+        @role('admin')
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Adminstratsiya</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="{{ route('users.index') }}">Foydalanuvchilar</a></li>
-          <li><a class="nav-link" href="{{ route('roles.index') }}">Ro'llar</a></li>
+{{--          <li><a class="nav-link" href="{{ route('roles.index') }}">Ro'llar</a></li>--}}
         </ul>
       </li>
-      @endif
+        @endrole
       <li class="dropdown">
         <a href="{{ route('courses.index') }}" class="nav-link"><i data-feather="monitor"></i><span>Kurslar</span></a>
       </li>
@@ -49,10 +49,10 @@
               </li>
               <li>
                 <a class="nav-link" href="{{ route('botStudents') }}">
-                    Bot orqali ariza qoldirganlar 
+                    Bot orqali ariza qoldirganlar
                 </a>
               </li>
-              
+
               <li>
                 <a class="nav-link" href="{{ route('changeStudentGroup') }}">
                     O'quvchilarni ko'chirish
@@ -81,12 +81,14 @@
           <i data-feather="monitor"></i> <span>Monitoring</span>
         </a>
       </li>
+
       <li class="dropdown">
         <a href="{{ route('staffs.index') }}" class="nav-link">
           <i class="fas fa-user-friends"></i><span>Xodimlar</span>
         </a>
       </li>
-      @if(Auth::check() && (Auth::user()->hasRole('admin') || Auth::user()->hasRole('cashier')) )
+
+      @role('cashier')
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Buxgalteriya</span></a>
 
@@ -103,16 +105,16 @@
                Ko'rish
              </a>
            </li> --}}
-            @if(Auth::user()->hasRole('admin'))
+
             <li>
                 <a href="{{ route('paymentStatistics') }}">
                     Statistika
                 </a>
             </li>
-            @endif
+
         </ul>
       </li>
-      @endif
+      @endrole
       <li class="dropdown">
         <a href="{{ route('districts.index') }}" class="nav-link">
           <i data-feather="monitor"></i> <span>Tumanlar</span>

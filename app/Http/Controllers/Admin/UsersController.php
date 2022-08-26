@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Models\School;
 use Illuminate\Http\Request;
@@ -17,6 +17,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+
         $users = User::latest()->with(['school', 'roles'])->get();
         return view('admin.users.index', compact('users'));
     }
@@ -28,8 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = Role::select('id', 'name', 'label')->get();
-        $roles = $roles->pluck('label', 'name');
+        $roles = Role::where('guard_name', 'user')->get();
         $schools=School::latest()->get();
         return view('admin.users.create', compact('roles', 'schools'));
     }
@@ -57,9 +57,7 @@ class UsersController extends Controller
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
 
-        foreach ($request->roles as $role) {
-            $user->assignRole($role);
-        }
+        $user->assignRole($request->roles);
 
         return redirect('admin/users')->with('flash_message', 'Foydalanuvchi qo`shildi!');
     }
@@ -87,16 +85,13 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $roles = Role::select('id', 'name', 'label')->get();
-        $roles = $roles->pluck('label', 'name');
+        $roles = Role::where('guard_name', 'user')->get();
+
         $schools=School::latest()->get();
         $user = User::with('roles')->select('id', 'name', 'email', 'school_id')->findOrFail($id);
-        $user_roles = [];
-        foreach ($user->roles as $role) {
-            $user_roles[] = $role->name;
-        }
+        $userRoles = $user->roles->pluck('id')->toArray();
 
-        return view('admin.users.edit', compact('user', 'roles', 'user_roles', 'schools'));
+        return view('admin.users.edit', compact('user', 'roles', 'userRoles', 'schools'));
     }
 
     /**
@@ -126,10 +121,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->update($data);
 
-        $user->roles()->detach();
-        foreach ($request->roles as $role) {
-            $user->assignRole($role);
-        }
+        $user->syncRoles($request->roles);
 
         return redirect('admin/users')->with('flash_message', 'Foydalanuvchi yangilandi!');
     }

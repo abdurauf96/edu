@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -16,7 +16,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::where('school_id', auth()->guard('user')->user()->school_id)->latest()->get();
+        $users = User::with(['roles'])->where('school_id', auth()->guard('user')->user()->school_id)->latest()->get();
         return view('school.users.index', compact('users'));
     }
 
@@ -27,9 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = Role::select('id', 'name', 'label')->get();
-        $roles = $roles->pluck('label', 'name');
-
+        $roles = Role::where('guard_name', 'user')->get();
         return view('school.users.create', compact('roles'));
     }
 
@@ -57,9 +55,7 @@ class UsersController extends Controller
         $data['school_id'] = auth()->guard('user')->user()->school_id;
         $user = User::create($data);
 
-        foreach ($request->roles as $role) {
-            $user->assignRole($role);
-        }
+        $user->assignRole($request->roles);
 
         return redirect('school/users')->with('flash_message', 'Foydalanuvchi qo`shildi!');
     }
@@ -87,16 +83,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $roles = Role::select('id', 'name', 'label')->get();
-        $roles = $roles->pluck('label', 'name');
+        $roles = Role::where('guard_name', 'user')->get();
 
         $user = User::with('roles')->select('id', 'name', 'email')->findOrFail($id);
-        $user_roles = [];
-        foreach ($user->roles as $role) {
-            $user_roles[] = $role->name;
-        }
+        $userRoles = $user->roles->pluck('id')->toArray();
 
-        return view('school.users.edit', compact('user', 'roles', 'user_roles'));
+        return view('school.users.edit', compact('user', 'roles', 'userRoles'));
     }
 
     /**
@@ -126,10 +118,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->update($data);
 
-        $user->roles()->detach();
-        foreach ($request->roles as $role) {
-            $user->assignRole($role);
-        }
+        $user->syncRoles($request->roles);
 
         return redirect('school/users')->with('flash_message', 'Foydalanuvchi yangilandi!');
     }
