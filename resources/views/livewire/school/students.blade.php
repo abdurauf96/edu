@@ -94,14 +94,14 @@
                                 'url' => ['/school/students', $item->id],
                                 'style' => 'display:inline'
                             ]) !!}
-                            @if(Auth::user()->hasRole('admin'))
+                            @role('admin')
                                 {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
                                         'type' => 'submit',
                                         'class' => 'btn btn-danger btn-icon',
                                         'title' => 'Delete Student',
                                         'onclick'=>'return confirm("Confirm delete?")'
                                 )) !!}
-                            @endif
+                            @endrole
                             {!! Form::close() !!}
                         </td>
                         <td>

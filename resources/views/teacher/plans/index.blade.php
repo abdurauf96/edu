@@ -1,4 +1,4 @@
-@extends('layouts.school')
+@extends('layouts.teacher')
 @section('title')
     Kurs rejalari
 @endsection
@@ -10,6 +10,9 @@
 
                 <div class="card-header">
                     <h4> {{ $course->name }} kurs rejalari </h4>
+                    <div class="card-header-form">
+                        <a href="{{ route('teacher.plans.create',['course_id'=>$course->id])  }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
+                    </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -21,7 +24,7 @@
                                     <th>Reja davomiyligi</th>
                                     <th>Reja mavzulari</th>
                                     <th>Reja tartib raqami</th>
-
+                                    <th>Amallar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,7 +35,22 @@
                                     <td>{{ $plan->duration }} oy </td>
                                     <td>{!! $plan->description !!}</td>
                                     <td>{{ $plan->order }}</td>
+                                    <td>
 
+                                        <a href="{{ route('teacher.plans.edit', $plan->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
+                                        {!! Form::open([
+                                            'method' => 'DELETE',
+                                            'url' => [route('teacher.plans.destroy', $plan->id)],
+                                            'style' => 'display:inline'
+                                        ]) !!}
+                                            {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
+                                                    'type' => 'submit',
+                                                    'class' => 'btn btn-danger btn-icon',
+                                                    'title' => 'Delete Course',
+                                                    'onclick'=>'return confirm("Confirm delete?")'
+                                            )) !!}
+                                        {!! Form::close() !!}
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

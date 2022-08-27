@@ -22,13 +22,7 @@ use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ClassesController;
 use App\Http\Controllers\School\DocumentsController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\SchoolController;
-use App\Http\Controllers\Admin\ContactsController;
-use App\Http\Controllers\Admin\StudentsController as AdminStudentsController;
-use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 
-use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Student\StudentController;
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +45,6 @@ Route::get('/cache', function () {
     return back();
 });
 
-
 Route::get('/download', function () {
     return response()->file('eduapp.apk', [
         'Content-Type'=>'application/vnd.android.package-archive',
@@ -60,20 +53,6 @@ Route::get('/download', function () {
 });
 
 //Route::get('statistika', [AdminController::class, 'statistika'])->name('statistika');
-
-//super admin routes
-Route::name('admin.')->prefix('admin')->middleware(['auth','role:super-admin'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::resource('users', AdminUsersController::class);
-    Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
-    Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('schoolDetail');
-    Route::post('school/activate/{id}', [SchoolController::class, 'activate'])->name('activateSchool');
-    Route::get('students', [AdminStudentsController::class, 'students'])->name('students');
-    Route::resource('contacts', ContactsController::class);
-    Route::match(['get', 'post'],'student/{id}/sertificat', [AdminController::class, 'sertificat'])->name('sertificatForm');
-});
-
-
 
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']], function () {
@@ -139,7 +118,6 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
     Route::post('getStudentsByGroup', [StudentsController::class, 'getStudentsByGroup'])->name('getStudentsByGroup');
 
-
     //events
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
@@ -153,34 +131,13 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
-    Route::get('/course/{id}/plans/create', [PlansController::class, 'create'])->name('addCoursePlan');
-    Route::post('/course/plan', [PlansController::class, 'store'])->name('saveCoursePlan');
-    Route::delete('/course/plan/{plan}', [PlansController::class, 'destroy'])->name('deleteCoursePlan');
-    Route::get('/course/plan/{plan}/edit', [PlansController::class, 'edit'])->name('editCoursePlan');
-    Route::put('/course/plan/{plan}/update', [PlansController::class, 'update'])->name('updateCoursePlan');
-
-    //attendance routes for websocket, now not using
-    //Route::get('/student/{id}', [StudentsController::class, 'studentEvent'])->middleware('cors');
-    //Route::get('/staff/{id}', [StaffsController::class, 'staffEvent']);
 });
 
-//student attandance manual
-Route::middleware('auth:teacher,user')->group(function () {
-    Route::post('teacher/students/attandance', [TeacherController::class, 'studentsAttandance'])->name('studentsAttandance');
-});
 
-//teacher routes
-Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(function () {
-    Route::get('dashboard',  [TeacherController::class, 'dashboard'])->name('dashboard');
-    Route::get('students',  [TeacherController::class, 'students'])->name('students');
-    Route::get('profil',  [TeacherController::class, 'profil'])->name('profil');
-    Route::get('groups',  [TeacherController::class, 'groups'])->name('groups');
-    Route::get('attendance',  [TeacherController::class, 'attendance'])->name('attendance');
-    Route::get('info', [TeacherController::class, 'getInfo']);
-    Route::post('info', [TeacherController::class, 'updateInfo']); //update teacher information
-    Route::post('update-login', [TeacherController::class, 'updateLogin']); //update teacher login credintials
+require __DIR__.'/superadmin.php';
+require __DIR__.'/teacher.php';
+require __DIR__ . '/auth.php';
 
-});
 
 //student routes
 Route::middleware('auth:student')->prefix('student')->name('student.')->group(function(){
@@ -208,7 +165,7 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
         ->setDescription(true)
         ->redirect($model, $amount, 860, $url);
 })->name('paymentSystem');
-require __DIR__ . '/auth.php';
+
 
 
 Route::post('/student/pay', function (\Illuminate\Http\Request $request) {

@@ -1,4 +1,4 @@
-@extends('layouts.school')
+@extends('layouts.teacher')
 
 @section('css')
 <link rel="stylesheet" href="/admin/assets/bundles/summernote/summernote-bs4.css">
@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-header">{{ $course->name }} kursiga reja kiritish </div>
             <div class="card-body">
-                <a href="{{ route('courses.index') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
+                <a href="{{ route('teacher.plans.index', ['course_id'=>$course->id]) }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <br />
                 <br />
 
@@ -25,7 +25,7 @@
                         @endforeach
                     </ul>
                 @endif
-                <form action="{{ route('saveCoursePlan') }}" method="POST">
+                <form action="{{ route('teacher.plans.store') }}" method="POST">
                     @csrf
                     <div class="form-row">
                         <input type="hidden" value="{{ $course->id }}" name="course_id">
@@ -42,7 +42,7 @@
                             <input type="number" class="form-control" name="order">
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-12">
                         <label>Reja mavzulari haqida batafsil ma'lumot</label>
                         <textarea class="summernote" name="description"></textarea>

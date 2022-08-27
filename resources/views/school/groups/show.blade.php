@@ -65,7 +65,7 @@
                                 <th>Rasm</th>
                                 <th>To'lov holati</th>
                                 <th>Amallar</th>
-                                <th>Davomat</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -84,14 +84,7 @@
                                     <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-icon btn-info"><i class="far fa-edit"></i></button></a>
 
                                 </td>
-                                <td>
-                                    <label class="custom-switch mt-2">
-                                        <input type="checkbox"  class="custom-switch-input" value="{{ $student->id }}" name="student_id" {{ $student->isByDateHere(date('Y-m-d')) ? 'checked' : '' }}>
 
-                                        <span class="custom-switch-indicator"></span>
-                                        <span class="custom-switch-description">{{ $student->isByDateHere(date('Y-m-d')) ? 'here' : 'absent' }}</span>
-                                    </label>
-                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -111,39 +104,6 @@
 
 <!-- Page Specific JS File -->
 <script src="/admin/assets/js/page/datatables.js"></script>
-<!-- JS Libraies -->
-<script src="/admin/assets/bundles/izitoast/js/iziToast.min.js"></script>
 
-<script>
-    $('.custom-switch-input').click(function(){
-        if ($(this).is(':checked')) {
-            $(this).siblings('.custom-switch-description').html('here')
-            var status=1;
-        }else{
-            $(this).siblings('.custom-switch-description').html('absent')
-            var status=0;
-        }
-        var student_id=$(this).val();
-        $.ajax({
-            data: {
-                "_token": "{{ csrf_token() }}",
-                "student_id": student_id,
-                "status":status
-            },
-            url: "{{ route('studentsAttandance') }}",
-            type: 'POST',
-            success:function(res){
-                iziToast.success({
-                    title: 'Belgilandi! ',
-                    // message: 'This awesome plugin is made iziToast toastr',
-                    position: 'topRight'
-                });
-            },
-            error:function(){
-                console.log('error');
-            }
-        })
-    })
-</script>
 @endsection
 

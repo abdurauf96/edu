@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Student;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -95,5 +96,11 @@ class TeacherController extends Controller
     public function attendance()
     {
         return view('teacher.attendance');
+    }
+
+    public function coursePlans($id)
+    {
+        $course=Course::findOrFail($id);
+        return view('teacher.plans.index', compact('course'));
     }
 }

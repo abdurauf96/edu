@@ -1,4 +1,4 @@
-@extends('layouts.school')
+@extends('layouts.teacher')
 
 @section('css')
 <link rel="stylesheet" href="/admin/assets/bundles/summernote/summernote-bs4.css">
@@ -22,7 +22,7 @@
                         @endforeach
                     </ul>
                 @endif
-                <form action="{{ route('updateCoursePlan', $plan->id) }}" method="POST">
+                <form action="{{ route('teacher.plans.update', $plan->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <input type="hidden" value="{{ $plan->course->id }}" name="course_id">
@@ -40,7 +40,7 @@
                             <input type="number" class="form-control" name="order" value="{{ $plan->order }}">
                         </div>
                     </div>
-                    
+
                     <div class="form-group col-md-12">
                         <label>Reja mavzulari haqida batafsil ma'lumot</label>
                         <textarea class="summernote" name="description">{!! $plan->description !!}"</textarea>

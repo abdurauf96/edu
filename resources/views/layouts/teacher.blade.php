@@ -86,7 +86,11 @@
               <li class="dropdown">
                 <a href="{{ route('teacher.groups') }}" class="nav-link"><i data-feather="users"></i><span>Guruhlar</span></a>
               </li>
-
+                @foreach(auth()->guard('teacher')->user()->courses as $course)
+                <li class="dropdown">
+                    <a href="{{ route('teacher.plans.index', ['course_id'=>$course->id]) }}" class="nav-link"><i data-feather="book"></i><span> {{ $course->name }} rejasi</span></a>
+                </li>
+                @endforeach
             </ul>
           </aside>
       </div>
@@ -197,7 +201,7 @@
     </div>
   </div>
   <!-- General JS Scripts -->
-  
+
   <script src="/admin/assets/js/app.min.js"></script>
 
   <!-- Page Specific JS File -->
