@@ -80,6 +80,11 @@ class Student extends Authenticatable
         return $this->belongsTo(Group::class);
     }
 
+    public function course()
+    {
+        return $this->group->course;
+    }
+
     public function district()
     {
         return $this->belongsTo(District::class);

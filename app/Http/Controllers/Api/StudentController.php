@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Http\Resources\CoursePlans;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Http\Resources\Student as StudentResource;
@@ -92,6 +93,12 @@ class StudentController extends BaseController
 
         $student->update(['password'=>Hash::make($request->password)]);
         return $this->sendResponse();
+    }
+
+    public function coursePlans($id)
+    {
+        $student=Student::findOrFail($id);
+        return $this->sendResponse(CoursePlans::collection($student->course()->plans),200);
     }
 
 }

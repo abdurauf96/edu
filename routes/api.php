@@ -41,3 +41,5 @@ Route::get('/botStudent', ['App\Http\Controllers\Api\BotController', 'getOneStud
 
 
 Route::get('/student/{id}', ['App\Http\Controllers\Api\StudentController', 'getStudent']);
+//get info about student course
+Route::get('/student/{id}/plans', ['App\Http\Controllers\Api\StudentController', 'coursePlans']);
