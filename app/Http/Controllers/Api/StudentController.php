@@ -98,7 +98,7 @@ class StudentController extends BaseController
     public function coursePlans($id)
     {
         $student=Student::findOrFail($id);
-        return $this->sendResponse(CoursePlans::collection($student->course()->plans),200);
+        return $this->sendResponse(CoursePlans::collection($student->course()->plans));
     }
 
 }

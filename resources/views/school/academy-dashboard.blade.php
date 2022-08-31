@@ -15,7 +15,7 @@
                 <div class="card-content">
                   <h5 class="font-15">Jami o'quvchilar</h5>
                   <h2 class="mb-3 font-18">{{ $active_students }}</h2>
-                  <p class="mb-0"><span class="col-green">10%</span> Increase</p>
+{{--                  <p class="mb-0"><span class="col-green">10%</span> Increase</p>--}}
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -37,7 +37,7 @@
                 <div class="card-content">
                   <h5 class="font-15"> Kurslar</h5>
                   <h2 class="mb-3 font-18">{{ count($courses) }}</h2>
-                  <p class="mb-0"><span class="col-orange">09%</span> Decrease</p>
+{{--                  <p class="mb-0"><span class="col-orange">09%</span> Decrease</p>--}}
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -59,8 +59,7 @@
                 <div class="card-content">
                   <h5 class="font-15">Guruhlar</h5>
                   <h2 class="mb-3 font-18">{{ $num_groups }}</h2>
-                  <p class="mb-0"><span class="col-green">18%</span>
-                    Increase</p>
+{{--                  <p class="mb-0"><span class="col-green">18%</span>Increase</p>--}}
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -82,7 +81,7 @@
                 <div class="card-content">
                   <h5 class="font-15">O'qituvchilar</h5>
                   <h2 class="mb-3 font-18">{{ count($teachers) }}</h2>
-                  <p class="mb-0"><span class="col-green">42%</span> Increase</p>
+{{--                  <p class="mb-0"><span class="col-green">42%</span> Increase</p>--}}
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">

@@ -51,7 +51,7 @@
         </a>
       </li>
       <li class="dropdown">
-        <a href="{{ route('classes.index') }}" class="nav-link">
+        <a href="{{ route('sertificatedStudents') }}" class="nav-link">
           <i class="fas fa-school"></i> <span>Sertifikatlar</span>
         </a>
       </li>

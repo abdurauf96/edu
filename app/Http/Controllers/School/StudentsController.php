@@ -238,6 +238,11 @@ class StudentsController extends Controller
         return view('school.ajax.getStudentsByGroup', compact('students'));
     }
 
+    public function sertificatedStudents()
+    {
+        return view('school.students.sertificats');
+    }
+
     public function statistics()
     {
         $districts=District::all();
