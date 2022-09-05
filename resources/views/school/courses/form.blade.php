@@ -12,11 +12,12 @@
     {!! Form::text('duration', null, ['class' => 'form-control', 'required'=>'required'] ) !!}
     {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
 </div>
+@if(is_academy())
 <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
     {!! Form::label('duration', 'Kurs narxi', ['class' => 'control-label']) !!}
     {!! Form::number('price', null, ['class' => 'form-control']) !!}
 </div>
-
+@endif
 {{-- <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
     {!! Form::label('code', 'Kursning maxsus kodi', ['class' => 'control-label']) !!}
     {!! Form::text('code', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}

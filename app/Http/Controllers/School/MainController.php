@@ -33,13 +33,14 @@ class MainController extends Controller
         $boys=Student::school()->active()->whereSex(1)->count();
         $active_students=Student::active()->school()->count();
         $graduated_students=Student::school()->graduated()->count();
+        $outed_students=Student::school()->out()->count();
         $courses=\App\Models\Course::school()->with('students')->get();
 
-        if(auth()->guard('user')->user()->school->isSchool()){
+        if(is_school()){
             $all_students=Student::school()->count();
             $classes=Clas::withCount('students')->get();
 
-            return view('school.school-dashboard', compact('num_groups', 'girls', 'boys', 'active_students', 'graduated_students', 'courses', 'all_students', 'classes'));
+            return view('school.school-dashboard', compact('num_groups', 'girls', 'boys', 'active_students', 'graduated_students', 'courses', 'all_students', 'classes','outed_students'));
 
         }else{
 

@@ -72,9 +72,9 @@
         </ul>
       </nav>
       <div class="main-sidebar sidebar-style-2">
-        @if(auth()->guard('user')->user()->school->isAcademy())
+        @if(is_academy())
           @include('school.sidebar')
-          @else
+        @else
           @include('school.school-sidebar')
         @endif
       </div>

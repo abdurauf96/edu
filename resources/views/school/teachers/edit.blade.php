@@ -17,7 +17,7 @@
                         @endforeach
                     </ul>
                 @endif
-                @if(auth()->guard('user')->user()->school->isAcademy())
+                @if(is_academy())
                 {!! Form::model($teacher, [
                     'method' => 'PATCH',
                     'url' => ['/school/teachers', $teacher->id],

@@ -51,7 +51,7 @@
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->birthday }}</td>
                                 <td>
-                                    @if(auth()->guard('user')->user()->school->isAcademy())
+                                    @if(is_academy())
                                     <a href="{{ route('teachers.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                                     @endif
                                     <a href="{{ route('teachers.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>

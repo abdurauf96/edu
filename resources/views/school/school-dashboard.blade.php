@@ -109,6 +109,14 @@
                         <td><span class="badge badge-light">{{ $graduated_students }} ta</span></td>
                       </tr>
                       <tr>
+                        <td>3</td>
+                        <td><a href="{{ route('students.index')  }}?type=graduated">Chiqib ketgan </a> </td>
+                        <td><span class="badge badge-light">{{ $outed_students }} ta</span></td>
+                      </tr>
+                      <tr>
+                        <td colspan="3"><h6>Shundan</h6></td>
+                      </tr>
+                      <tr>
                         <td>4</td>
                         <td><a href="{{ route('students.index')  }}?type=boys">Bolalar soni </a> </td>
                         <td><span class="badge badge-light">{{ $boys }} ta</span></td>

@@ -9,7 +9,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header"> <h4> O'quvchilar</h4>
-               
+
                 <div class="card-header-form">
                     <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,7 +26,7 @@
                           <a class="dropdown-item" href="{{ url()->current() }}">Barchasi</a>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
             <div class="card-body">
@@ -43,6 +43,7 @@
                                 <th>Guruh</th>
                                 <th>Kurs</th>
                                 <th>Rasm</th>
+                                <th>Status</th>
                                 <th>Amallar</th>
                             </tr>
                         </thead>
@@ -56,8 +57,16 @@
                                 <td> {{ $item->class_id }} - sinf </td>
                                 <td> {{ $item->group->name }}</td>
                                 <td> {{ $item->group->course->name }}</td>
-                                
+
                                 <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td>
+                                <td> @if($item->status==1)
+                                        <div class="badge badge-success">O'qimoqda</div>
+                                    @elseif($item->status==2)
+                                        <div class="badge badge-danger">Chiqib ketgan</div>
+                                    @else
+                                        <div class="badge badge-primary">Bitirgan</div>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('students.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('students.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
@@ -76,7 +85,7 @@
                                         @endif
                                     {!! Form::close() !!}
                                 </td>
-                                
+
                             </tr>
                         @endforeach
                         </tbody>

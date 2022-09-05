@@ -19,7 +19,7 @@
                         <table class="table table-bordered table-striped " id="example1_wrapper">
                             <thead>
                                 <tr>
-                                    <th>#</th><th>Nomi</th><th>Davomiyligi</th><th>Narxi</th><th>Ta`rifi</th><th>Amallar</th>
+                                    <th>#</th><th>Nomi</th><th>Davomiyligi</th>@if(is_academy()) <th>Narxi</th> @endif<th>Ta`rifi</th><th>Amallar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,7 +28,7 @@
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->duration }}</td>
-                                    <td>{{ $item->price }}</td>
+                                    @if(is_academy())<td>{{ $item->price }}</td>@endif
                                     <td>{{ $item->description }}</td>
                                     <td>
                                         <a href="{{ route('courses.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>

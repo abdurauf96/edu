@@ -35,7 +35,7 @@
     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
 </div>
 
-@if(auth()->guard('user')->user()->school->isAcademy())
+@if(is_academy())
 <div class="form-group">
     <label for="">O'qish joyi</label> &nbsp; &nbsp;
     <input type="radio" value="1"  @if(isset($student))
@@ -140,7 +140,7 @@
     {!! Form::label('finished_date', 'Bitirib ketgan sanasi', ['class' => 'control-label']) !!}
     {!! Form::date('finished_date', null, ['class' => 'form-control']) !!}
 </div>
-@if(auth()->guard('user')->user()->school->isAcademy())
+@if(is_academy())
 <div class="form-group">
         {!! Form::label('future_work', "Kursni tamomlab ishga kirgan joyi", ['class' => 'control-label']) !!}
         {!! Form::text('future_work', null,  ['class' => 'form-control']) !!}

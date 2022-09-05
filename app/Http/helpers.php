@@ -1,5 +1,23 @@
 <?php
 
+if (! function_exists('is_school')) {
+
+    function is_school()
+    {
+        return auth()->guard('user')->user()->school->isSchool();
+    }
+
+}
+
+if (! function_exists('is_academy')) {
+
+    function is_academy()
+    {
+        return auth()->guard('user')->user()->school->isAcademy();
+    }
+    
+}
+
 if (! function_exists('generateQrcode')) {
 
     function generateQrcode($id, $filename, $type) {
@@ -16,7 +34,6 @@ TEXT;
         ->merge('/public/admin/images/DC.png')
         ->generate($qrcode_info, public_path('admin/images/qrcodes/'.$filename));
     }
-
 }
 
 if(!function_exists('generatePassword')){

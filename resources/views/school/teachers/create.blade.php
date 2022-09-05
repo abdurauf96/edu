@@ -18,7 +18,7 @@
                     </ul>
                 @endif
                    
-                @if(auth()->guard('user')->user()->school->isAcademy())
+                @if(is_academy())
                 {!! Form::open(['url' => '/school/teachers', 'class' => 'form-horizontal', 'files' => true]) !!}
                     @include ('school.teachers.form', ['formMode' => 'create'])
                 {!! Form::close() !!}

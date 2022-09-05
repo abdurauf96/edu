@@ -37,8 +37,7 @@ class StudentsController extends Controller
     {
         $students = $this->studentService->getAll($request);
 
-
-        if(auth()->guard('user')->user()->school->isAcademy()){
+        if(is_academy()){
             return view('school.students.index');
         }else{
             return view('school.students.school.index', compact('students'));

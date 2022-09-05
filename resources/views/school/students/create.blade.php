@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    @if(auth()->guard('user')->user()->school->isAcademy())
+    @if(is_academy())
     <div class="col-md-6">
         <div class="card card-primary">
             <div class="card-header">
