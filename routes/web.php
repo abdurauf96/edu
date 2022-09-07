@@ -22,6 +22,7 @@ use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ClassesController;
 use App\Http\Controllers\School\DocumentsController;
+use App\Http\Controllers\School\ProfileController;
 
 use App\Http\Controllers\Student\StudentController;
 /*
@@ -86,6 +87,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('documents', DocumentsController::class);
     Route::get('contacts', [MainController::class, 'contacts'])->name('school.contacts.index');
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
+    Route::resource('profile', ProfileController::class);
     Route::get('students/sertificats', [StudentsController::class, 'sertificatedStudents'])->name('sertificatedStudents');
 
     //groups

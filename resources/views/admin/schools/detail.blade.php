@@ -7,30 +7,40 @@
                 <div class="card-header">
                     <h4 class="card-title">{{ $school->company_name }}</h4>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
+                <div class="card-body table-responsive ">
                     <table class="table table-hover">
-                        <tbody><tr>
-                            <th>ID</th>
-                            <th>Markaz rahbari</th>
-                            <th>Telefon</th>
-                            <th>Manzili</th>
-                            <th>Email</th>
-                            <th>O'quvchilar soni</th>
-                            <th>O'qituvchilar soni</th>
-                            <th>Kurslar soni</th>
-                            <th>Status</th>
+                        <tbody>
+                        <tr>
+                            <th>Markaz nomi</th> <td>{{ $school->company_name }}</td>
                         </tr>
                         <tr>
-                            <td>{{ $school->id }}</td>
-                            <td>{{ $school->director }}</td>
-                            <td>{{ $school->phone }}</td>
-                            <td>{{ $school->addres }}</td>
-                            <td>{{ $school->email }}</td>
-                            <td><span class="label label-primary">{{ $school->students_count }} ta </span></td>
-                            <td><span class="label label-primary">{{ $school->teachers_count }} ta</span></td>
+                            <th>Markaz rahbari</th> <td>{{ $school->director }}</td>
+                        </tr>
+                        <tr>
+                            <th>Telefon</th> <td>{{ $school->phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tuman</th> <td>{{ $school->district->name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Manzil</th> <td>{{ $school->addres }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th> <td>{{ $school->email }}</td>
+                        </tr>
+                        <tr>
+                            <th>O'quvchilar soni</th> <td><span class="label label-primary">{{ $school->students_count }} ta </span></td>
+                        </tr>
+                        <tr>
+                            <th>O'qituvchilar soni <td><span class="label label-primary">{{ $school->teachers_count }} ta</span></td></th>
+                        </tr>
+                        <tr>
+                            <th>Kurslar soni</th>
                             <td><span class="label label-primary">{{ $school->courses_count }} ta</span></td>
-                            <td>@if($school->status==1) <span class='label label-success'>Faol </span> @else <span class="label label-danger">Faol emas </span> @endif</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>@if($school->status==1) <span class='badge badge-success'>Faol </span> @else <span class="label label-danger">Faol emas </span> @endif</td>
                         </tr>
 
                         </tbody></table>

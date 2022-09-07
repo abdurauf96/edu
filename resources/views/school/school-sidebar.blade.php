@@ -24,6 +24,7 @@
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="{{ route('documents.index') }}">Darsliklar</a></li>
           <li><a class="nav-link" href="{{ route('school.contacts.index') }}">Adminga murojat</a></li>
+          <li><a class="nav-link" href="{{ route('profile.index') }}">Markaz haqida</a></li>
         </ul>
       </li>
 

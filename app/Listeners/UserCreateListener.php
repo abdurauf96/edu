@@ -34,6 +34,6 @@ class UserCreateListener
         $user->school_id=$event->user['school_id'];
         $user->save();
 
-        RoleUser::create(['user_id'=>$user->id, 'role_id'=>1]);
+        $user->assignRole('admin');
     }
 }

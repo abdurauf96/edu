@@ -27,9 +27,9 @@ class RegisterSchoolRequest extends FormRequest
             'company_name' => 'required',
             'phone' => 'required',
             'addres' => 'required',
-            'domain' => 'required|unique:schools',
+            //'domain' => 'required|unique:schools',
             'director' => 'required',
-           
+
             'email' => 'required|string|email|max:255|unique:users',
             'name' => 'required|string|max:255',
             'password' => 'required|string|confirmed|min:8',

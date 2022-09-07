@@ -2,17 +2,16 @@
 @section('css')
 <link rel="stylesheet" href="/admin/assets/bundles/datatables/datatables.min.css">@endsection
 @section('title', 'Arizalar')
-    
+
 @section('content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header"> <h4> Ariza qoldirgan o'quvchilar</h4>
                 <div class="card-header-form">
-                    <a class="btn btn-icon icon-left btn-primary" href="{{ route('appeals.create') }}"> 
+                    <a class="btn btn-icon icon-left btn-primary" href="{{ route('appeals.create') }}">
                         <i class="fas fa-user-plus"></i> Yangi qo'shish</a>
-                    
-                </div>        
+                </div>
             </div>
             <div class="card-body">
 
@@ -61,7 +60,7 @@
                                         @endif
                                     {!! Form::close() !!}
                                 </td>
-                                
+
                             </tr>
                         @endforeach
                         </tbody>

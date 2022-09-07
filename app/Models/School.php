@@ -13,8 +13,7 @@ class School extends Authenticatable
     public const ACADEMY = 1;
     public const SCHOOL = 2;
 
-    protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'status'];
-
+    protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'status', 'computers_qty', 'district_id', 'email'];
 
     /**
         * The roles that belong to the School
@@ -43,6 +42,10 @@ class School extends Authenticatable
     public function courses()
     {
         return $this->hasMany(Course::class);
+    }
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 
 }

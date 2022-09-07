@@ -4,7 +4,7 @@
 <x-guest-layout>
 
     <x-auth-card>
-        <h1>School login</h1>
+        <h1>Login</h1>
         <x-slot name="logo">
             <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />

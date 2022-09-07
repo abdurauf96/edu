@@ -64,7 +64,7 @@
             </div>
             <ul class="sidebar-menu">
 
-              <li class="dropdown active">
+              <li class="dropdown">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i data-feather="home"></i><span>Dashboard</span></a>
               </li>
                 @role('super-admin')
@@ -205,7 +205,12 @@
   <script src="/admin/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="/admin/assets/js/custom.js"></script>
-
+  <script>
+      var url=window.location.href;
+      a=document.querySelectorAll("[href='"+url+"']")[0];
+      a.parentElement.classList.add('active');
+      a.parentElement.parentElement.style.display="block";
+  </script>
   @yield('js')
   @stack('js')
   @livewireScripts

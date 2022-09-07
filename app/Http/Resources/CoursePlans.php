@@ -16,7 +16,7 @@ class CoursePlans extends JsonResource
     {
         return [
             'title'=>$this->title,
-            'body'=>str_replace('&nbsp;', '', strip_tags($this->description)),
+            'body'=>$this->description,
             'duration'=>$this->duration,
             'order'=>$this->order,
         ];

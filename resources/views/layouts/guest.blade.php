@@ -17,7 +17,7 @@
         <style>
             .register-box{
                 display: flex;
-
+                margin-bottom: 20px;
             }
             .register-box div{
                 margin-right: 10px;

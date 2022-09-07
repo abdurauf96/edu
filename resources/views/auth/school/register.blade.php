@@ -6,33 +6,52 @@
             @csrf
             <div class="register-box">
 
-            <!-- Name -->
                 <div>
-                    <x-label for="name" :value="__('Company Name')" />
+                    <x-label for="name" :value="__('Markaz turi')" />
+                    <select class=" block mt-1 w-full" name="district_id" id="">
+                        <option value="1">EduAPP</option>
+                        <option value="2">Digital School</option>
+                    </select>
+                </div>
+                <div>
+                    <x-label for="name" :value="__('Tuman')" />
+                    <select class=" block mt-1 w-full" name="district_id" id="">
+                        @foreach($districts as $district)
+                            <option value="{{ $district->id }}">{{ $district->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <x-label for="name" :value="__('Markaz nomi')" />
                     <x-input id="name" class="block mt-1 w-full" type="text" name="company_name" :value="old('company_name')" required autofocus />
                 </div>
 
+            </div>
+            <div class="register-box">
                 <div>
-                    <x-label for="name" :value="__('Director')" />
-                    <x-input class="block mt-1 w-full" type="text" name="director" value="{{ old('director') }}"/>
+                    <x-label for="name" :value="__('Markaz direktori F.I.SH')" />
+                    <x-input required class="block mt-1 w-full" type="text" name="director" value="{{ old('director') }}"/>
                 </div>
 
                 <div>
                     <x-label for="name" :value="__('Domain')" />
                     <x-input class="block mt-1 w-full" type="text" name="domain" value="{{ old('domain') }}"/>
                 </div>
-
+                <div>
+                    <x-label for="name" :value="__('Markaz manzili')" />
+                    <x-input required class="block mt-1 w-full" type="text" name="addres" value="{{ old('addres') }}"/>
+                </div>
             </div>
+
             <div class="register-box">
 
                 <div>
-                    <x-label for="name" :value="__('Addres')" />
-                    <x-input class="block mt-1 w-full" type="text" name="addres" value="{{ old('addres') }}"/>
+                    <x-label for="name" :value="__('Informatika sinfi kompyuterlari soni')" />
+                    <x-input class="block mt-1 w-full" type="text" name="computers_qty" value="{{ old('computers_qty') }}"/>
                 </div>
 
                 <div>
-                    <x-label for="name" :value="__('Phone')" />
-
+                    <x-label for="name" :value="__('Telefon raqami')" />
                     <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus />
                 </div>
 
@@ -42,7 +61,7 @@
                     <x-input class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
                 </div>
             </div>
-           
+
             <div class="register-box">
             <!-- Email Address -->
                 <div class="mt-4">

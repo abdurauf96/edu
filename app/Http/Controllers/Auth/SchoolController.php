@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\District;
 use Illuminate\Http\Request;
 use App\Models\School;
 use App\Models\User;
@@ -16,7 +17,8 @@ class SchoolController extends Controller
 {
     public function showRegisterForm()
     {
-        return view('auth.school.register');
+        $districts=District::all();
+        return view('auth.school.register', compact('districts'));
     }
 
     public function showLoginForm()
@@ -26,15 +28,16 @@ class SchoolController extends Controller
 
     public function register(RegisterSchoolRequest $request)
     {
-        $schoolData=$request->except('name', 'email', 'password');
+        //dd($request->all());
+        $schoolData=$request->except('name', 'password');
         $school=School::create($schoolData);
-        
+
         $userData=$request->only('name', 'email', 'password');
         $userData['school_id']=$school->id;
 
         event(new SchoolUserCreated($userData));
         return redirect('/')->with('msg', 'Murojatingiz qoldirildi! Iltimos tasdiqlanishini kuting...');
-        
+
     }
 
     public function login(LoginRequest $request)
