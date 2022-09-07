@@ -47,9 +47,7 @@
                 <hr>
                 <div class="students-title card-header">
                     <h4>Guruh o'quvchilari</h4>
-                    <div class="card-header-form">
-                         <a class="btn btn-primary" href="{{ url('/school/groups/' . $group->id . '/add-student') }}" title="Add Student"><i class="fa fa-user       -plus" aria-hidden="true"></i> O'quvchi qo'shish</a>
-                    </div>
+
                 </div>
 
                 <div class="table-responsive">

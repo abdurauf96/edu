@@ -11,6 +11,7 @@
             <div class="card-header"> <h4> O'quvchilar</h4>
 
                 <div class="card-header-form">
+                    <a class="btn btn-primary" href="{{ route('school.addStudent') }}">Yangi qo'shish</a>
                     <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Filter
@@ -51,7 +52,7 @@
                         @foreach($students as $item)
 
                             <tr>
-                                <td>{{ $item->id  }}</td>
+                                <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->school_number }}</td>
                                 <td> {{ $item->class_id }} - sinf </td>

@@ -3,6 +3,18 @@
 <link rel="stylesheet" href="/admin/assets/bundles/datepicker/css/yearpicker.css" />
 @endsection
 
+
+<div class="form-group">
+    <label for="">Guruh</label>
+    <select name="group_id" id="" class="form-control">
+        @foreach($groups as $gr)
+            <option @isset($student) {{ $student->group_id==$gr->id ? 'selected' : '' }} @endisset value="{{ $gr->id }}">
+                {{ $gr->name }}</option>
+        @endforeach
+    </select>
+</div>
+
+
 <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
     {!! Form::label('name', 'F.I.O', ['class' => 'control-label']) !!}
     {!! Form::text('name', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -59,13 +71,13 @@
             <input type="radio" name="type" value="1" @if(isset($student))
             {{ $student->type==1 ? 'checked' : '' }} @else checked
             @endif >
-            <span for="">Oddiy</span> 
+            <span for="">Oddiy</span>
         </div>
-        
+
         <div class="">
                 <input type="radio" value="0.7"  @if(isset($student))
                     {{ $student->type==0.7 ? 'checked' : '' }}
-                @endif name="type"  > 
+                @endif name="type"  >
                 <span for="">Grant (30%)</span>
         </div>
         <div>
@@ -88,9 +100,9 @@
         {!! Form::text('study_year', null, ('required' == 'required') ? ['class' => 'form-control yearpicker', 'required' => 'required'] : ['class' => 'form-control']) !!}
         {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group"> 
-    {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!} 
-    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required' ] 
+<div class="form-group">
+    {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!}
+    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required' ]
     : ['class' => 'form-control', 'required' => 'required']   ) !!}
     {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
 </div>
@@ -113,10 +125,6 @@
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
 
-
-@isset($group)
-<input type="hidden" value="{{ $group->id }}" name="group_id">
-@endisset
 <div class="form-group">
     <label for="">Status</label>
     <select  name="status" class="form-control select2" id="status" required>
@@ -157,7 +165,7 @@
     </select>
     <br>
     <label for="">Yoki bu yerga kiriting</label>
-    <input type="text" name="school_text" @if(isset($student)) value="{{ $student->school_number }}" 
+    <input type="text" name="school_text" @if(isset($student)) value="{{ $student->school_number }}"
     @endisset class="form-control schoolField" placeholder="Maktabni kiriting...">
 </div>
 
@@ -172,7 +180,6 @@
 
 @endif
 
-<input type="hidden" value="{{ url()->previous() }}" name="last_route">
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
 </div>

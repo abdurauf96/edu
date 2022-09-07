@@ -71,14 +71,13 @@ class StudentsController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function createStudentToGroup($id)
+    public function create()
     {
-        $group=Group::school()->with('course')->findOrFail($id);
-        $waitingStudents=WaitingStudent::all();
+        $groups=Group::school()->where('status', '!=', Group::GRADUATED)->get();
         $districts=District::all();
-        $groups=Group::school()->get();
         $classes=Clas::all();
-        return view('school.students.create', compact('group', 'waitingStudents', 'groups', 'districts','classes'));
+        $waitingStudents=WaitingStudent::all();
+        return view('school.students.create', compact('groups','districts','classes', 'waitingStudents'));
     }
 
     /**
@@ -91,7 +90,7 @@ class StudentsController extends Controller
     public function store(AddStudentRequest $request)
     {
         $this->studentService->create($request);
-        return redirect('school/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
+        return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
     }
 
     /**
@@ -156,15 +155,8 @@ class StudentsController extends Controller
         $waitingStudent=WaitingStudent::findOrFail($request->waiting_student_id);
         $this->studentService->addWaitingStudentToGroup($waitingStudent, $request);
         $waitingStudent->delete();
-        return redirect('school/groups/'.$request->group_id)->with('flash_message', 'O`quvchi qo`shildi!');
+        return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
      }
-
-     /* attendance routes for websocket, now not using
-    public function studentEvent($id)
-    {
-        $student=Student::findOrFail($id);
-        return view('school.students.event', compact('student'));
-    } */
 
     public function botStudents()
     {

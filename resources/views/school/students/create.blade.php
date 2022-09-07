@@ -6,7 +6,9 @@
 
     <div class="col-md-6">
         <div class="card card-primary">
-            <div class="card-header"><h3 class="card-title"> {{ $group->name }} ({{ $group->course->name }}) guruhiga yangi o'quvchi qo'shish </h3> </div>
+            <div class="card-header">
+                <h4 class="card-title">Yangi o'quvchi qo'shish </h4>
+            </div>
             <div class="card-body">
                 @if ($errors->any())
                     <ul class="alert alert-danger">
@@ -16,7 +18,7 @@
                     </ul>
                 @endif
                 <div class="col-lg-12">
-                    {!! Form::open(['url' => '/school/students', 'files'=>true, 'class' => 'form-horizontal add_student_form', 'files' => true]) !!}
+                    {!! Form::open(['url' => route('students.store'), 'files'=>true, 'class' => 'form-horizontal add_student_form', 'files' => true]) !!}
 
                     @include ('school.students.form', ['formMode' => 'create'])
 
@@ -34,14 +36,25 @@
             </div>
             <div class="card-body">
 
-                <form action="/school/add-student-to-group" method="POST" class="exist_student_form" >
+                <form action="{{ route('students.addToGroup') }}" method="POST" class="exist_student_form" >
                     <!-- Dropdown -->
                     @csrf
+
                     <div class="form-group">
-                        <input type="hidden" value="{{$group->id}}" name="group_id">
+
+                        <label for="">O'quvchi</label>
                         <select class="form-control select2" name="waiting_student_id">
                             @foreach ($waitingStudents as $stu)
                                 <option value='{{ $stu->id }}'>{{ $stu->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Guruh</label>
+                        <select name="group_id" id="" class="form-control">
+                            @foreach($groups as $gr)
+                                <option @isset($student) {{ $student->group_id==$gr->id ? 'selected' : '' }} @endisset value="{{ $gr->id }}">
+                                    {{ $gr->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -50,7 +63,7 @@
                         {!! Form::date('start_date', null, ['class' => 'form-control', 'required' => 'required'] ) !!}
                         {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
                     </div>
-                
+
                     <div class="form-group">
                         <input type='submit' class="btn btn-primary" value='Guruhga qo`shish' >
                     </div>

@@ -20,7 +20,7 @@
                             Filter {{  request()->get('year') ?? ""  }}
                         </button>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                         
+
                           <a class="dropdown-item" href="{{ route('groups.index', ['type'=>'graduated']) }}">Bitirgan</a>
                           <a class="dropdown-item" href="{{ route('groups.index') }}">Active</a>
                         </div>
@@ -64,7 +64,7 @@
                                                 'onclick'=>'return confirm("Confirm delete?")'
                                         )) !!}
                                     {!! Form::close() !!}
-                                    <a href="{{ url('/school/groups/' . $item->id . '/add-student') }}" title="Add Student"><button class="btn btn-primary btn-md"><i class="fa fa-user-plus" aria-hidden="true"></i></button></a>
+
                                 </td>
                             </tr>
                         @endforeach

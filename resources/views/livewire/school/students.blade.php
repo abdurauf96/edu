@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card-header"> <h4> O'quvchilar</h4>
+        <a class="btn btn-primary" href="{{ route('students.create') }}">Yangi qo'shish</a>
     </div>
     <div class="card-body">
         <div class="row">

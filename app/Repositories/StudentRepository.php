@@ -72,12 +72,12 @@ class StudentRepository implements StudentRepositoryInterface{
         $filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
         $requestData['qrcode']=$filename;
         $requestData['idcard']=$filename_idcard;
-        $requestData['creator_id']=auth()->guard('user')->id();
+        //$requestData['creator_id']=auth()->guard('user')->id();
 
         $lastStudentNumber=$this->getLastStudentNumber();
 
         $course_code=Group::findOrFail($request->group_id)->course->code;
-        $requestData['username']=generateIdNumber($lastStudentNumber, $course_code);
+        //$requestData['username']=generateIdNumber($lastStudentNumber, $course_code);
         $requestData['password']=generatePassword($requestData['year'] ?? 12345678);
 
         $student=Student::create($requestData);
