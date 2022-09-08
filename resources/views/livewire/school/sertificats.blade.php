@@ -20,6 +20,7 @@
                     <th>F.I.O</th>
                     <th>O'quv markaz</th>
                     <th>Yo'nalish</th>
+                    <th>Sertifikat ID</th>
                     <th>Sertifikat berilgan sana</th>
                     <th>Sertifikat</th>
 
@@ -33,6 +34,7 @@
                         <td>{{ $item->name }}</td>
                         <td> {{ $item->getSchool->company_name }} </td>
                         <td> {{ $item->group->course->name }}</td>
+                        <td>{{ $item->sertificat_id }}</td>
                         <td>{{ $item->sertificat_date }}</td>
                         <td>
                             <a target="_blank" class="btn btn-warning" href="/admin/sertificats/{{ $item->sertificat_file }}">Sertifikat</a>

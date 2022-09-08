@@ -43,7 +43,11 @@
                             <tr><th> O'qish turi </th><td> {{ $student->type!=1 ? 'Grant '.$student->type : 'Oddiy'  }} </td></tr>
                             <tr><th>Qarzi </th> <td>  @if($student->debt>0)  <div class="badge badge-danger">{{ number_format($student->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> qarzi yo'q </div>  @endif </td> </tr>
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
-                            <tr><th>Status</th>  <td>{{ $student->status==1? 'O`qimoqda' : 'Bitirib ketgan'}}</td> </tr>
+                            <tr><th>Status </th>
+                                <td>@if($student->status==1)
+                                        O`qimoqda @elseif($student->status==2) Chiqib ketgan @else Bitirgan @endif
+                                </td>
+                            </tr>
                             <tr><th>Dars boshlagan sanasi</th>  <td>{{ $student->start_date}}</td> </tr>
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->qrcode }}" width="300" alt=""></td></tr>
                             <tr><th>Username</th> <td>{{ $student->username }}</td> </tr>

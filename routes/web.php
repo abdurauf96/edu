@@ -40,6 +40,10 @@ Route::get('/', function () {
     return redirect('/school/login');
 })->name('homepage');
 
+Route::get('students', function (){
+    $students=\App\Models\Student::out()->paginate(10);
+    return view('students', compact('students'));
+});
 
 Route::get('/cache', function () {
     \Artisan::call('config:cache');

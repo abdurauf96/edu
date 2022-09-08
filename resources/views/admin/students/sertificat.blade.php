@@ -16,6 +16,10 @@
                                 <input type="text" value="{{ $student->name }}" disabled class="form-control">
                             </div>
                             <div class="form-group">
+                                <label for="">Sertifikat ID</label>
+                                <input type="text" class="form-control" name="sertificat_id" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="">Sertifikat berilish sanasi</label>
                                 <input type="date" class="form-control" name="sertificat_date" required>
                             </div>

@@ -14,4 +14,9 @@ class District extends Model
     {
         return $this->hasMany(Student::class)->where('status', 1);
     }
+
+    public function schools()
+    {
+        return $this->hasMany(School::class);
+    }
 }

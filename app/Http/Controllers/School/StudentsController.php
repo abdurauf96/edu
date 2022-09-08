@@ -134,7 +134,7 @@ class StudentsController extends Controller
     {
         $this->studentService->update($request, $id);
         $last_route=$request->last_route;
-        return redirect($last_route)->with('flash_message', 'O`quvchi yangilandi!');
+        return redirect('school/students')->with('flash_message', 'O`quvchi yangilandi!');
     }
 
     /**

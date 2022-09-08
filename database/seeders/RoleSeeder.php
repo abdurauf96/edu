@@ -46,12 +46,18 @@ class RoleSeeder extends Seeder
                 'name'=>'creator',
                 'guard_name'=>'user',
             ],
+            [
+                'id'=>7,
+                'name'=>'viewer',
+                'guard_name'=>'user',
+            ],
         ];
 
         foreach($roles as $role){
             Role::create($role);
         }
         $admin=Admin::find(1);
+
         $admin->assignRole('super-admin');
 
     }
