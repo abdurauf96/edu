@@ -41,7 +41,10 @@ class WaitingStudents extends Component
             $waitingStudents->where('name', 'like', '%'.$this->key.'%');
         }
 
-        $waitingStudents=$waitingStudents->where('school_id', auth()->guard('user')->user()->school_id)->latest()->paginate(10);
+        $waitingStudents=$waitingStudents->where('school_id', auth()->guard('user')->user()->school_id)
+            ->with('course')
+            ->latest()
+            ->paginate(10);
 
         return view('livewire.waiting-students', ['waitingStudents'=>$waitingStudents]);
     }

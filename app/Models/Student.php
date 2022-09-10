@@ -41,6 +41,19 @@ class Student extends Authenticatable
     // {
     //     return $query->where('study_year', date('Y'));
     // }
+
+    public function statusText(){
+        if($this->attributes['status']==self::ACTIVE){
+            return 'O\'qimoqda';
+        }elseif($this->attributes['status']==self::OUT){
+            return 'Chiqib ketgan';
+        }elseif($this->attributes['status']==self::GRADUATED){
+            return 'Bitirgan';
+        }else{
+            return 'Belgilanmagan';
+        }
+    }
+
     public function scopeSertificated($query)
     {
         return $query->where('sertificat_status', 1);

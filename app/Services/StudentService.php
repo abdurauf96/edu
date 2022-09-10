@@ -25,7 +25,7 @@ class StudentService{
     }
 
     public function create($request){
-        
+
         $student=$this->studentRepo->create($request);
         dispatch(new StudentStartedCourseJob($student));
         generateQrcode($student->id, $student->qrcode, 'student');
@@ -40,11 +40,11 @@ class StudentService{
             dispatch(new StudentOutedCourseJob($student));
         }
     }
-    
+
     public function generateIdCard($student)
     {
         $circled_image=circleImage($student->image, 'students');
-       
+
         if(!file_exists(public_path().'/admin/images/qrcodes/'.$student->qrcode)){
             generateQrcode($student->id, $student->qrcode, 'student');
         }
@@ -52,7 +52,7 @@ class StudentService{
             $student->idcard=$student->name.'.jpg';
             $student->save();
         }
-        return true;  
+        return true;
     }
 
     public function delete($id)
@@ -71,12 +71,12 @@ class StudentService{
         dispatch(new StudentChangeCourseJob($student,$request->start_date, $new_group->course->price));
         $student->group_id=$request->new_group_id;
         $student->save();
-        
+
         $description=<<<TEXT
         {$student->name}  {$student->group->course->name} kursi {$student->group->name} guruhidan {$new_group->course->name} kursi {$new_group->name} guruhiga o'tdi
 TEXT;
         \App\Models\StudentActivity::create(['student_id'=>$request->student_id, 'description'=>$description ]);
-        
+
     }
 
     public function addWaitingStudentToGroup($waitingStudent, $request)
@@ -86,5 +86,41 @@ TEXT;
         generateQrcode($student->id, $student->qrcode, 'student');
         $this->generateIdCard($student);
     }
+
+    public function exportDataToSchool($students){
+        $data=[]; $i=1;
+        foreach ($students as $student){
+            $item['id']=$i;
+            $item['district']=$student->district->name ?? null;
+            $item['name']=$student->name;
+            $item['sex']=$student->sex==1 ? 'Erkak' : 'Ayol';
+            $item['school_number']=$student->school_number;
+            $item['phone']=$student->phone;
+            $item['course']=$student->group->course->name;
+            $item['group']=$student->group->name;
+            $item['teacher']=$student->group->teacher->name;
+            array_push($data, $item);
+            $i++;
+        }
+        return $data;
+    }
+
+    public function exportDataToAcademy($students){
+        $data=[]; $i=1;
+        foreach ($students as $student){
+            $item['N']=$i;
+            $item['name']=$student->name;
+            $item['group']=$student->group->name;
+            $item['course']=$student->group->course->name;
+            $item['phone']=$student->phone;
+            $item['status']=$student->statusText();
+            $item['teacher']=$student->group->teacher->name;
+            $item['id']=$student->id;
+            array_push($data, $item);
+            $i++;
+        }
+        return $data;
+    }
+
 
 }

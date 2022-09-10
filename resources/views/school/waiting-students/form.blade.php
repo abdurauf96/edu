@@ -1,8 +1,9 @@
 <div class="form-group">
     <label for="">Kurs</label>
     <select name="course_id" class="form-control select2" id="">
+
         @foreach($courses as $course)
-            <option @isset($student) {{ $waitingstudent->course_id==$course->id? 'selected' : '' }} @endisset value="{{ $course->id  }}">{{ $course->name }} </option>
+            <option @isset($waitingstudent) {{ $waitingstudent->course_id==$course->id? 'selected' : '' }} @endisset value="{{ $course->id  }}">{{ $course->name }} </option>
         @endforeach
     </select>
 </div>
@@ -31,7 +32,7 @@
     <label for="">Tuman, SHahar</label>
     <select name="district_id" class="form-control select2" required>
         @foreach ($districts as $district)
-            <option @isset($student) {{ $student->district_id==$district->id ? 'selected' : '' }} @endisset value="{{ $district->id }}">{{ $district->name }} </option>
+            <option @isset($student) {{ $waitingstudent->district_id==$district->id ? 'selected' : '' }} @endisset value="{{ $district->id }}">{{ $district->name }} </option>
         @endforeach
     </select>
 </div>
@@ -73,10 +74,13 @@
     <label for="">O'qish oralig'i</label> &nbsp; &nbsp;
     <input type="radio" value="1"  @if(isset($waitingstudent))
     {{ $waitingstudent->course_time==1 ? 'checked' : '' }} @else checked
-           @endif name="course_time"  > Abetgacha &nbsp;&nbsp;
+           @endif name="course_time"  > Obedgacha &nbsp;&nbsp;
     <input type="radio" @isset($waitingstudent)
     {{ $waitingstudent->course_time==2 ? 'checked' : '' }}
-    @endisset value="2" name="course_time"> Abetdan keyin
+    @endisset value="2" name="course_time"> Obeddan keyin
+    <input type="radio" @isset($waitingstudent)
+    {{ $waitingstudent->course_time==3 ? 'checked' : '' }}
+    @endisset value="3" name="course_time"> Kechki
 </div>
 
 <div class="form-group">

@@ -2,19 +2,20 @@
 
 namespace App\Http\Livewire\School;
 
-use App\Models\Student;
 use App\Models\User;
+use App\Models\Student;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Exports\StudentsExport;
+use App\Services\StudentService;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Students extends Component
 {
     use WithPagination;
-
     protected $paginationTheme = 'bootstrap';
-
     public $search='';
-    public $creator_id, $status, $test_status;
+    public $creator_id, $status, $test_status, $studentsToExportExcel;
 
     //protected $listeners = ['StatusChanged'];
 
@@ -24,6 +25,12 @@ class Students extends Component
         $student->test_status==1 ? $student->test_status = null : $student->test_status=1;
         $student->save();
         $this->dispatchBrowserEvent('StatusChanged');
+    }
+
+    public function export(StudentService $service)
+    {
+        $data=$service->exportDataToAcademy($this->studentsToExportExcel);
+        return Excel::download(new StudentsExport($data), 'students.xlsx');
     }
 
     public function updatingSearch()
@@ -50,11 +57,13 @@ class Students extends Component
             $students->where('status', $this->status);
         }
 
-        $students=$students->latest()
+        $students->latest()
             ->where('name', 'LIKE',  '%'.$this->search.'%')
-            ->with('group.course')
-            ->school()
-            ->paginate(10);
+            ->with('group.course','district', 'group.teacher')
+            ->school();
+
+        $this->studentsToExportExcel=$students->get();
+        $students=$students->paginate(10);
 
         return view('livewire.school.students', ['students'=>$students, 'creators'=>$creators]);
     }

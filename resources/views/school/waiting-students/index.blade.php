@@ -27,7 +27,7 @@
                     @foreach($courses as $course)
                     <tr>
                         <td>{{ $course->name }}</td>
-                        <td>{{ count($course->waitingStudents) }}</td>
+                        <td>{{ $course->waiting_students_count }}</td>
                     </tr>
                     @endforeach
                     <tr>

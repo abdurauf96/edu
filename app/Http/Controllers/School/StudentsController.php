@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\School;
 
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -20,6 +21,9 @@ use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Services\StudentService;
 use DB;
+use App\Exports\SchoolStudentsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class StudentsController extends Controller
 {
     /**
@@ -31,22 +35,30 @@ class StudentsController extends Controller
 
     public function __construct(StudentService $studentService)
     {
-        $this->studentService=$studentService;
+        $this->studentService = $studentService;
     }
     public function index(Request $request)
     {
-        $students = $this->studentService->getAll($request);
-
         if(is_academy()){
+
             return view('school.students.index');
+
         }else{
+
+            $students = $this->studentService->getAll($request);
+
+            if($request->has('export')){
+                $data=$this->studentService->exportDataToSchool($students);
+                return Excel::download(new SchoolStudentsExport($data), 'students.xlsx');
+            }
+
             return view('school.students.school.index', compact('students'));
         }
     }
 
     public function creatorStatistics(Request $request)
     {
-        $creators = User::creators()->get();
+        $creators = User::role('creator')->get();
         $students = Student::all();
         return view('school.students.creator-statistics', compact('creators', 'students'));
     }

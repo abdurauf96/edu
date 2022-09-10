@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-header" style="display: flex; justify-content: space-between">
-       
+
             <h4>Navbatda turgan o'quvchilar ro'yhati</h4>
-        
+
         <input type="text" wire:model="key" placeholder="Qidiruv..." class="form-control" style="width: 300px">
             <select style="width: 200px" class="form-control "  id="" wire:model="course_id" >
                 <option value="">Kurslar</option>
@@ -35,7 +35,9 @@
                         <td>{{ $item->name }}</td><td>{{ $item->course->name }}</td>
                         <td>{{ $item->phone }}</td>
                         <td>{{ $item->phone2 }}</td>
-                        <td>{{ $item->course_time==1 ? 'Abetgacha': 'Abetdan keyin' }}</td>
+                        <td>
+                            @if($item->course_time==1) Obedgacha @elseif($item->course_time==2) Obeddan keyin @else Kechki @endif
+                        </td>
                         <td>{{ $item->created_at->format('d.m.Y H:i') }}</td>
                         <td>
                             <form wire:submit.prevent="saveStatus" >
@@ -76,5 +78,5 @@
         </div>
         {{ $waitingStudents->links() }}
     </div>
-    
+
 </div>
