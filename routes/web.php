@@ -17,7 +17,6 @@ use App\Http\Controllers\School\MonthsController;
 use App\Http\Controllers\School\StaffsController;
 use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\School\AppealsController;
-use App\Http\Controllers\School\DistrictsController;
 use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ClassesController;
@@ -85,7 +84,6 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::patch('/teachers/update/school-teacher/{id}', [TeachersController::class, 'updateSchoolTeacher'])->name('updateSchoolTeacher');
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
-    Route::resource('/districts', DistrictsController::class);
     Route::resource('/organizations', OrganizationsController::class);
     Route::resource('classes', ClassesController::class);
     Route::resource('documents', DocumentsController::class);

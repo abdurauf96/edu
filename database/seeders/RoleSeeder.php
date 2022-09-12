@@ -57,8 +57,9 @@ class RoleSeeder extends Seeder
             Role::create($role);
         }
         $admin=Admin::find(1);
-
         $admin->assignRole('super-admin');
+        $admin=Admin::find(2);
+        $admin->assignRole('xtb');
 
     }
 }

@@ -14,23 +14,23 @@
               <h4>Foydalanuvchilar</h4>
               <div class="card-header-form">
                 <a href="{{ route('admin.users.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
-               
+
               </div>
             </div>
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table table-striped">
                   <tbody><tr>
-                    
+
                     <th>#</th>
                     <th>F.I.O</th>
                     <th>O'quv markaz</th>
                     <th>Email</th>
                     <th>Role</th>
-                   
+
                     <th>Action</th>
                   </tr>
-                 
+
                     @foreach($users as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
@@ -41,11 +41,9 @@
                             {{ $role->name }}
                         @endforeach </td>
                         <td>
-                           
+
                             {{-- <a href="{{ route('admin.users.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a> --}}
                             <a href="{{ route('admin.users.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
-
-                           
                             {!! Form::open([
                                 'method' => 'DELETE',
                                 'url' => ['/admin/users', $item->id],
@@ -61,8 +59,9 @@
                         </td>
                     </tr>
                     @endforeach
-                   
+
                 </tbody></table>
+                  {{ $users->links() }}
               </div>
             </div>
           </div>

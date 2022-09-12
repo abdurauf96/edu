@@ -14,7 +14,6 @@
     </select>
 </div>
 
-
 <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
     {!! Form::label('name', 'F.I.O', ['class' => 'control-label']) !!}
     {!! Form::text('name', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}

@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card-header"> <h4> O'quvchilar</h4>
+        <a href="#" wire:click="export"  class="btn btn-warning btn-icon icon-left"><i class="fas fa-file-excel"></i>Yuklab olish</a>
     </div>
     <div class="card-body">
         <div class="row">

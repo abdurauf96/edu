@@ -26,6 +26,12 @@
                 font-size: 33px;
                 margin-bottom: 20px;
             }
+            .success{
+                background-color: #0ca430;
+                padding:18px;
+                color: white;
+                margin-bottom: 10px;
+            }
         </style>
 
         <!-- Scripts -->

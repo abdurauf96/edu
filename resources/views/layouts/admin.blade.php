@@ -58,7 +58,7 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-              <a href="{{ route('school.dashboard') }}"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
+              <a href="{{ route('admin.dashboard') }}"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
                   class="logo-name">{{ auth()->user()->name}}</span>
               </a>
             </div>
@@ -75,7 +75,6 @@
 {{--                    <li><a class="nav-link" href="{{ route('roles.index') }}">Ro'llar</a></li>--}}
                 </ul>
               </li>
-
               <li class="dropdown">
                 <a href="{{ route('admin.schools') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quv markazlar</span></a>
               </li>
@@ -85,6 +84,9 @@
                 </li>
                 <li class="dropdown">
                     <a href="{{ route('admin.contacts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Kontaktlar</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ route('admin.districts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Tumanlar</span></a>
                 </li>
             </ul>
           </aside>

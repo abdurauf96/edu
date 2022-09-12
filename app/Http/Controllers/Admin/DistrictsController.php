@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\School;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +16,7 @@ class DistrictsController extends Controller
     public function index()
     {
         $districts=District::all();
-        return view('school.districts.index', compact('districts'));
+        return view('admin.districts.index', compact('districts'));
     }
 
     /**
@@ -26,7 +26,7 @@ class DistrictsController extends Controller
      */
     public function create()
     {
-        return view('school.districts.create');
+        return view('admin.districts.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class DistrictsController extends Controller
     public function store(Request $request)
     {
         District::create($request->all());
-        return redirect('school/districts')->with('flash_message', 'Tuman qo`shildi!');
+        return redirect('admin/districts')->with('flash_message', 'Tuman qo`shildi!');
     }
 
     /**
@@ -60,7 +60,7 @@ class DistrictsController extends Controller
      */
     public function edit(District $district)
     {
-        return view('school.districts.edit', compact('district'));
+        return view('admin.districts.edit', compact('district'));
     }
 
     /**
@@ -73,7 +73,7 @@ class DistrictsController extends Controller
     public function update(Request $request, District $district)
     {
         $district->update($request->all());
-        return redirect('school/districts')->with('flash_message', 'Tuman yangilandi!');
+        return redirect('admin/districts')->with('flash_message', 'Tuman yangilandi!');
     }
 
     /**
@@ -85,6 +85,6 @@ class DistrictsController extends Controller
     public function destroy(District $district)
     {
         $district->delete();
-        return redirect('school/districts')->with('flash_message', 'Tuman o`chirib yuborildi!');
+        return redirect('admin/districts')->with('flash_message', 'Tuman o`chirib yuborildi!');
     }
 }

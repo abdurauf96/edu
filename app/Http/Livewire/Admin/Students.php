@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Exports\StudentsExport;
 use App\Models\School;
 use App\Models\Student;
+use App\Services\StudentService;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Students extends Component
 {
@@ -13,11 +16,17 @@ class Students extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $school_id,$schools, $status;
+    public $school_id,$schools, $status, $studentsToExportExcel;
 
     public function mount()
     {
         $this->schools=School::all();
+    }
+
+    public function export(StudentService $service)
+    {
+        $data=$service->exportDataToAcademy($this->studentsToExportExcel);
+        return Excel::download(new StudentsExport($data), 'students.xlsx');
     }
 
     public function updatingStatus()
@@ -41,8 +50,11 @@ class Students extends Component
         if(isset($this->status)){
             $students->where('status', $this->status);
         }
+        $students->with('group.course', 'getSchool');
 
-        $students=$students->with('group.course', 'getSchool')->paginate(10);
+        $this->studentsToExportExcel=$students->get();
+        $students=$students->paginate(10);
+
         return view('livewire.admin.students', ['students'=>$students]);
     }
 }

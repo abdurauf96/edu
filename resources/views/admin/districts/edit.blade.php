@@ -1,4 +1,4 @@
-@extends('layouts.school')
+@extends('layouts.admin')
 @section('title', 'Tahrirlash')
 @section('content')
 <div class="row">
@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">Tahrirlash </div>
             <div class="card-body">
-                <a href="{{ url('/school/districts') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
+                <a href="{{ url('/admin/districts') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                 <br />
                 <br />
 
@@ -20,12 +20,12 @@
 
                 {!! Form::model($district, [
                     'method' => 'PATCH',
-                    'url' => ['/school/districts', $district->id],
+                    'url' => ['/admin/districts', $district->id],
                     'class' => 'form-horizontal',
                     'files' => true
                 ]) !!}
 
-                @include ('school.districts.form', ['formMode' => 'edit'])
+                @include ('admin.districts.form', ['formMode' => 'edit'])
 
                 {!! Form::close() !!}
 

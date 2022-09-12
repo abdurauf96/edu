@@ -18,7 +18,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        $users = User::latest()->with(['school', 'roles'])->get();
+        $users = User::latest()->with(['school', 'roles'])->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 

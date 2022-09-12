@@ -116,11 +116,6 @@
       </li>
       @endrole
       <li class="dropdown">
-        <a href="{{ route('districts.index') }}" class="nav-link">
-          <i data-feather="monitor"></i> <span>Tumanlar</span>
-        </a>
-      </li>
-      <li class="dropdown">
         <a href="{{ route('todayGroups') }}" class="nav-link">
           <i data-feather="monitor"></i> <span>Bugungi darslar</span>
         </a>
@@ -138,11 +133,6 @@
       <li class="dropdown">
         <a href="{{ route('organizations.index') }}" class="nav-link">
           <i class="fas fa-school"></i> <span>Tashkilotlar</span>
-        </a>
-      </li>
-      <li class="dropdown">
-        <a href="{{ route('classes.index') }}" class="nav-link">
-          <i class="fas fa-school"></i> <span>Sinflar</span>
         </a>
       </li>
     </ul>

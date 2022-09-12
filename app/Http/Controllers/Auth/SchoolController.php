@@ -36,7 +36,7 @@ class SchoolController extends Controller
         $userData['school_id']=$school->id;
 
         event(new SchoolUserCreated($userData));
-        return redirect('/')->with('msg', 'Murojatingiz qoldirildi! Iltimos tasdiqlanishini kuting...');
+        return redirect()->route('schoolLoginForm')->with('msg', 'Murojatingiz qoldirildi! Iltimos tasdiqlanishini kuting...');
 
     }
 
