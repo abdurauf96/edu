@@ -17,7 +17,6 @@ class StudentPaymentHistory extends JsonResource
         return [
             'payment_id'=>$this->id,
             'course'=>$this->course->name ?? null,
-            'month'=>$this->month->name ?? null,
             'amount'=>$this->amount,
             'type'=>$this->type,
             'description'=>$this->description,

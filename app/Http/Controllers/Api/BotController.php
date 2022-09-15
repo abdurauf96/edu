@@ -12,9 +12,25 @@ use Illuminate\Http\Request;
 
 class BotController extends Controller
 {
+    /**
+     *
+     *
+     * @OA\Get(
+     *     path="/api/courses",
+     *     summary="Get all courses",
+     *     description="test description",
+     *     tags={"Courses"},
+     *     @OA\Response (
+     *       response=404,
+     *       description="not found"
+     *      )
+     * )
+     */
+
+
     public function getCourses(){
         $course_name=request()->get('course_name');
-        
+
         if($course_name){
             $course=Course::where('name', $course_name)->first();
             if($course){
@@ -22,12 +38,12 @@ class BotController extends Controller
             }else{
                 return response()->json("course not found");
             }
-            
+
         }else{
             $courses=Course::all();
             return response()->json(new CourseCollection($courses));
         }
-        
+
     }
 
     public function getOneStudent(){
@@ -36,7 +52,7 @@ class BotController extends Controller
             $student=BotStudent::where('chat_id', $chat_id)->first();
             return response()->json(new BotStudentResource($student));
         }
-        
+
     }
 
     public function saveBotStudent(Request $request){

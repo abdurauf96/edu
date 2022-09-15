@@ -14,58 +14,78 @@ use App\Http\Resources\Staff as StaffResource;
 class EventsController extends BaseController
 {
     public $model;
+
+    /**
+     * @OA\Get(
+     *     path="/api/event/{type}/{id}/{time}",
+     *     operationId="attandanceEvent",
+     *     description="student and staff attandance",
+     *     summary="student and staff attandance",
+     *     tags={"Attandances"},
+     *     @OA\Parameter(
+     *          name="type",
+     *          in="path",
+     *          required=true,
+     *          description="type should be 'staff' or 'student' ",
+     *          example="student"
+     *     ),
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="attandance person ID",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Parameter(
+     *          name="time",
+     *          in="path",
+     *          required=true,
+     *          description="attandance time",
+     *          example="09:00"
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success"
+     *     ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Student or Staff not found "
+     *     )
+     * )
+     *
+     */
     public function event($type, $id, $time)
     {
-        // if($type=='staff'){
-        //     $this->model=St
-        // }
-        $model=$type=='staff' ? Staff::class : Student::class;
 
-       
-            $obj=$model::findOrFail($id);
-            
-            $name=$obj->name;
-            $school_id=$obj->school_id;
-            $organization_id=$obj->organization_id ?? null;
-            $lastEventStatus=$obj->getLastEventStatus();
-            //return $obj->getLastEventStatus();
-            $resource=$type=='staff' ? new StaffResource($obj) : new StudentResource($obj);
-       //}else{
-            //$student=Student::findOrFail($id);
-            //$school_id=$student->school_id;
-            //$name=$student->name;
-            //$lastEventStatus=$student->getLastEventStatus();
-            //$resource=new StudentResource($student);
-        //}
+        $model=$type=='staff' ? Staff::class : Student::class;
+        $obj=$model::find($id);
+        if(is_null($obj)){
+            return response()->json('object not found')->setStatusCode(404);
+        }
+
+        $lastEventStatus=$obj->getLastEventStatus();
 
         $status=$lastEventStatus==1 ? 0 : 1;
         $newRecord=[
             'person_id'=>$id,
             'type'=>$type,
-            'name'=>$name,
+            'name'=>$obj->name,
             'status'=>$status,
             'time'=>$time,
-            'school_id'=>$school_id,
-            'organization_id'=>$organization_id,
+            'school_id'=>$obj->school_id,
+            'organization_id'=>$obj->organization_id ?? null,
         ];
-        //$data=['type'=>$type, 'id'=>$id];
-        //$event=EventModel::where(['type'=>$type, 'person_id'=>$id])->latest()->first();
-
-        // if($event){
-        //     if($event->status!=$status){
-
-        //         EventModel::create($newRecord);
-        //         event(new StudentStaffEvent($data));
-        //         return $this->sendResponse($resource);
-        //     }else{
-        //         return response()->json(['success'=>false, 'data'=>$resource]);
-        //     }
-        // }else {
 
         EventModel::create($newRecord);
-           //event(new StudentStaffEvent($data));
-        return $this->sendResponse($resource,$status);
-        //}
+        $resource=$type=='staff' ? new StaffResource($obj) : new StudentResource($obj);
 
+        $response = [
+            'success' => true,
+            'status'=>$status,
+            'data'    => $resource,
+        ];
+        return response()->json($response);
     }
 }

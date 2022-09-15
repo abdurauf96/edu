@@ -1,0 +1,796 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "EduAPP API documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/courses": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get all courses",
+                "description": "test description",
+                "operationId": "1e4d694c03c73bcf58ceb7b23610bc7f",
+                "responses": {
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            }
+        },
+        "/api/event/{type}/{id}/{time}": {
+            "get": {
+                "tags": [
+                    "Attandances"
+                ],
+                "summary": "student and staff attandance",
+                "description": "student and staff attandance",
+                "operationId": "attandanceEvent",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "type should be 'staff' or 'student' ",
+                        "required": true,
+                        "example": "student"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "attandance person ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "time",
+                        "in": "path",
+                        "description": "attandance time",
+                        "required": true,
+                        "example": "09:00"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Student or Staff not found "
+                    }
+                }
+            }
+        },
+        "/api/student/fullinfo": {
+            "get": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "get all information about student",
+                "description": "get data about student with bearer token",
+                "operationId": "getStudentFullInfo",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Student"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/student/payments": {
+            "get": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "get student payments for courses",
+                "description": "get student payments with bearer token",
+                "operationId": "getStudentPayments",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "payment_history": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/StudentPaymentHistory"
+                                                    },
+                                                    "collectionFormat": "multi"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/student/{id}": {
+            "get": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "get student info",
+                "description": "get student",
+                "operationId": "getStudent",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "student id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Student not found"
+                    }
+                }
+            }
+        },
+        "/api/student/events": {
+            "get": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "get student attandances",
+                "description": "student attandances",
+                "operationId": "getStudentEvents",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/student/update-info": {
+            "post": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "update student information",
+                "description": "update student information",
+                "operationId": "updateStudentInfo",
+                "requestBody": {
+                    "description": "fill in the required fields",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "year": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "passport": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/student/update-image": {
+            "post": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "update student image",
+                "description": "update student image",
+                "operationId": "updateStudentImage",
+                "requestBody": {
+                    "description": "upload image",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "description": "upload image",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/student/update-password": {
+            "post": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "update student password",
+                "description": "update student password",
+                "operationId": "updateStudentPassword",
+                "requestBody": {
+                    "description": "fill in the required fields",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "when user is not authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/student/{id}/plans": {
+            "get": {
+                "tags": [
+                    "Student"
+                ],
+                "summary": "get student course plans",
+                "description": "get student course plans",
+                "operationId": "getCoursePlans",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "student id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1011"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/CoursePlan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Student not found"
+                    }
+                }
+            }
+        },
+        "/api/student/login": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Login student",
+                "description": "Login by id and password",
+                "operationId": "studentLogin",
+                "requestBody": {
+                    "description": "pass student id and password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 986
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "Not found data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, student not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong id or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "username": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiZTczMmI2NjJmMGUwM"
+                                                }
+                                            },
+                                            "type": "object",
+                                            "collectionFormat": "multi"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CoursePlan": {
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    },
+                    "duration": {
+                        "type": "integer"
+                    },
+                    "order": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CoursePlan"
+                }
+            },
+            "Student": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "passport": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "integer"
+                    },
+                    "sex": {
+                        "type": "string"
+                    },
+                    "study_type": {
+                        "type": "integer"
+                    },
+                    "course": {
+                        "type": "string"
+                    },
+                    "course_plans": {
+                        "$ref": "#/components/schemas/CoursePlan"
+                    },
+                    "group": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string"
+                    },
+                    "course-time": {
+                        "type": "string"
+                    },
+                    "payment": {
+                        "type": "boolean"
+                    },
+                    "qrcode_image": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Student"
+                }
+            },
+            "StudentPaymentHistory": {
+                "properties": {
+                    "payment_id": {
+                        "type": "integer"
+                    },
+                    "course": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "StudentPaymentHistory"
+                }
+            }
+        },
+        "securitySchemes": {
+            "passport": {
+                "type": "oauth2",
+                "description": "Laravel passport oauth2 security.",
+                "in": "header",
+                "scheme": "https",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://localhost:8000/oauth/authorize",
+                        "tokenUrl": "http://localhost:8000/oauth/token",
+                        "refreshUrl": "http://localhost:8000/token/refresh",
+                        "scopes": []
+                    }
+                }
+            },
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentification",
+            "description": "API endpoints for authentification"
+        },
+        {
+            "name": "Student",
+            "description": "get student informations"
+        },
+        {
+            "name": "Attandances",
+            "description": "attandance academy"
+        }
+    ]
+}

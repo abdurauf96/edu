@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', ['App\Http\Controllers\Api\RegisterController', 'register']);
-Route::post('login', ['App\Http\Controllers\Api\RegisterController', 'login']);
+//Route::post('register', ['App\Http\Controllers\Api\RegisterController', 'register']);
+//Route::post('login', ['App\Http\Controllers\Api\RegisterController', 'login']);
 
 Route::post('student/login', ['App\Http\Controllers\Api\StudentLoginController', 'login']);
 
