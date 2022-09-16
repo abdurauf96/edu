@@ -79,12 +79,11 @@
                                 <a class="btn btn-icon btn-info " href="{{ route('generateStudentCard', $item->id) }}">Generate </a>
                             @endif
                         </td> --}}
-                        <td>@if($item->debt>0)
+                        <td>
+                            @if($item->is_debt())
                                 <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div>
-                            @elseif($item->debt==0)
-                                <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} Qarzi yo'q </div>
                             @else
-                                <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} xaqdor </div>
+                                <div class="badge badge-success"> Qarzi yo'q </div>
                             @endif
                         </td>
                         {{-- <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td> --}}

@@ -76,7 +76,7 @@ class TeachersController extends Controller
     }
 
     public function updateSchoolTeacher(Request $request, $id)
-    { 
+    {
         $this->teacherRepo->updateSchoolTeacher($id, $request->all());
         return redirect('school/teachers')->with('flash_message', 'O`qituvchi yangilandi!');
     }
@@ -91,7 +91,6 @@ class TeachersController extends Controller
     public function show($id)
     {
         $teacher = $this->teacherRepo->findOne($id);
-
         return view('school.teachers.show', compact('teacher'));
     }
 

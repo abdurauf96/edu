@@ -46,7 +46,7 @@
                                 <td>{{ $item->teacher->name }}</td>
                                 <td>{{ $item->course->name }}</td>
                                 <td> @if($item->status==1) Guruh to`lgan @elseif($item->status==0) Guruh to\'lmoqda' @else Guruh bitirgan @endif</td>
-                                <td>{{ count($item->students) }} ta</td>
+                                <td>{{ $item->students_count }} ta</td>
                                 <td>
                                     <a href="{{ route('groups.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('groups.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>

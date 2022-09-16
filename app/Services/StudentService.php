@@ -19,6 +19,11 @@ class StudentService{
         return $this->studentRepo->getAll($request);
     }
 
+    public function debtStudents()
+    {
+
+    }
+
     public function findOne($id)
     {
         return $this->studentRepo->findOne($id);

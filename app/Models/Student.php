@@ -37,11 +37,6 @@ class Student extends Authenticatable
      */
     protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt', 'creator_id', 'class_id', 'school_number'];
 
-    // public function scopeCurrentYear($query)
-    // {
-    //     return $query->where('study_year', date('Y'));
-    // }
-
     public function statusText(){
         if($this->attributes['status']==self::ACTIVE){
             return 'O\'qimoqda';
@@ -52,6 +47,18 @@ class Student extends Authenticatable
         }else{
             return 'Belgilanmagan';
         }
+    }
+
+    public function is_debt(){
+        if($this->attributes['debt'] > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public function scopeDebt($query)
+    {
+        return $query->where('debt', '>', 0);
     }
 
     public function scopeSertificated($query)

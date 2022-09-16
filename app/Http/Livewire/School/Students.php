@@ -15,8 +15,8 @@ class Students extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search='';
-    public $creator_id, $status, $test_status, $studentsToExportExcel;
-
+    public $creator_id, $test_status, $studentsToExportExcel;
+    public $status=1;
     //protected $listeners = ['StatusChanged'];
 
     public function doActive($id)
@@ -58,12 +58,15 @@ class Students extends Component
         }
 
         $students->latest()
-            ->where('name', 'LIKE',  '%'.$this->search.'%')
+            ->where(function($query){
+                $query->where('name', 'LIKE',  '%'.$this->search.'%')
+                    ->orWhere('id', 'LIKE', '%'.$this->search.'%');
+            })
             ->with('group.course','district', 'group.teacher')
             ->school();
-
         $this->studentsToExportExcel=$students->get();
         $students=$students->paginate(10);
+
 
         return view('livewire.school.students', ['students'=>$students, 'creators'=>$creators]);
     }

@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-           
+
             <div class="card-body">
 
                 <a href="{{ url('/school/teachers') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
@@ -48,14 +48,14 @@
 
                 <hr>
                 <div class="card">
-                   
+
                     <!-- /.card-header -->
                     <div class="card-body no-padding">
                       <table class="table table-striped">
                         <tbody><tr>
                           <th style="width: 10px">#</th>
                           <th>Jami o'quvchilar soni</th>
-                          <th>{{ count($teacher->students) }} ta</th>
+                          <th>{{ $teacher->students_count }} ta</th>
                           <th style="width: 40px"></th>
                         </tr>
                         <tr>
@@ -66,7 +66,7 @@
                               <div class="progress-bar progress-bar-danger" style="width: {{ $teacher->get_percent_debt_students() }}%"></div>
                             </div>
                           </td>
-                          <td><span class="badge bg-red">{{ count($teacher->is_debt_students()) }}ta</span></td>
+                          <td><span class="badge bg-red">{{ $teacher->debt_students_count }}ta</span></td>
                         </tr>
                         <tr>
                           <td>2.</td>
@@ -76,7 +76,7 @@
                               <div class="progress-bar progress-bar-green" style="width: {{ 100- $teacher->get_percent_debt_students() }}%"></div>
                             </div>
                           </td>
-                          <td><span class="badge bg-green">{{ count($teacher->students)-count($teacher->is_debt_students()) }} ta</span></td>
+                          <td><span class="badge bg-green">{{ $teacher->students_count - $teacher->debt_students_count }} ta</span></td>
                         </tr>
                       </tbody></table>
                     </div>
@@ -91,16 +91,16 @@
                     <div class="card-body">
                         <div class="table-responsive  ">
                             <table class="table table-bordered table-striped " id="table-1">
-                            
+
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>F.I.O</th>
                                         <th>Manzil</th>
                                         <th>Tug'ilgan yili</th>
-                                        <th>Telefon</th> 
-                                        <th>Passport</th> 
-                                        <th>Xolati</th> 
+                                        <th>Telefon</th>
+                                        <th>Passport</th>
+                                        <th>Xolati</th>
                                         <th>Rasm</th>
                                         {{-- <th>Amallar</th> --}}
                                     </tr>
@@ -114,24 +114,24 @@
                                         <td>{{ $student->year }}</td>
                                         <td>{{ $student->phone }}</td>
                                         <td>{{ $student->passport }}</td>
-                                        <td>@if($student->debt>0) <span class="label label-danger">Qarzi bor ({{ $student->debt }}) </span> @else <span class="label label-success"> Qarzi yo'q</span>  @endif</td>
+                                        <td>@if($student->is_debt()) <div class="badge badge-danger">Qarzi bor ({{ $student->debt }}) </div> @else <div class="badge badge-success"> Qarzi yo'q</div>  @endif</td>
                                         <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
                                         {{-- <td>
-                                            
+
                                             <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                            
+
                                         </td>
                                     </tr> --}}
                                 @endforeach
                                 </tbody>
                             </table>
-                           
+
                         </div>
                     </div>
                 </div>
-               
-                
-                
+
+
+
             </div>
         </div>
     </div>

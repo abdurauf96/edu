@@ -51,7 +51,6 @@ class StudentsController extends Controller
                 $data=$this->studentService->exportDataToSchool($students);
                 return Excel::download(new SchoolStudentsExport($data), 'students.xlsx');
             }
-
             return view('school.students.school.index', compact('students'));
         }
     }
@@ -229,7 +228,7 @@ class StudentsController extends Controller
 
     public function debtStudents()
     {
-        $students=$this->studentService->getAll()->where('debt', '>', 0);
+        $students=$this->studentService->debtStudents();
         $groups=Group::all();
         $courses=Course::all();
         return view('school.students.debtStudents', compact('students', 'groups', 'courses'));

@@ -36,7 +36,7 @@ class Teacher extends Authenticatable
     protected $attributes=[
         'status'=>1
     ];
-    
+
     public function getSchool()
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');
@@ -53,32 +53,20 @@ class Teacher extends Authenticatable
 
     public function students()
     {
-        return $this->hasManyThrough(Student::class, Group::class)->where(['students.status'=>1, 'students.study_year'=>2022]);
+        return $this->hasManyThrough(Student::class, Group::class)->where(['students.status'=>1]);
     }
 
-    public function is_debt_students()
+    public function debt_students()
     {
-        $students=[];
-        foreach ($this->students as $student) {
-            array_push($students, $student);
-        }
-
-        foreach($students as $student){
-            $res=array_filter($students, function($student){
-                return $student->debt>0;
-            });
-        }
-        return $res ?? [];
+        return $this->students()->debt()->get();
     }
 
     public function get_percent_debt_students()
     {
         if(count($this->students)>0){
-            return (count($this->is_debt_students())*100)/count($this->students);
-        }else{
-            return false;
+            return (count($this->debt_students())*100)/count($this->students);
         }
-        
+        return false;
     }
 
     public static function boot() {

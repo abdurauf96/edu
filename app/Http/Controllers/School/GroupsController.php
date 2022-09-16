@@ -24,15 +24,17 @@ class GroupsController extends Controller
     {
         $year=$request->year;
         $type=$request->type;
-        
+
         $groups = Group::school()
-        ->type($request->type)
-        ->orderBy('status')
-        ->latest()
-        ->when($year, function($query) use ($year){
-            $query->where('year', $year);
-        })
-        ->get();
+            ->with(['teacher', 'course'])
+            ->withCount('students')
+            ->type($request->type)
+            ->orderBy('status')
+            ->latest()
+            ->when($year, function($query) use ($year){
+                $query->where('year', $year);
+            })
+            ->get();
         return view('school.groups.index', compact('groups'));
     }
 
@@ -116,7 +118,7 @@ class GroupsController extends Controller
 			'duration' => 'required'
 		]);
         $group = Group::findOrFail($id);
-        if($request->status==2 && $group->status!=$request->status){  
+        if($request->status==2 && $group->status!=$request->status){
             dispatch(new StudentFinishedCourseJob($group,$request->end_date)); //if group finished course calculate debt students
         }
         $requestData = $request->all();

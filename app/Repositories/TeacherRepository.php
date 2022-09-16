@@ -24,7 +24,7 @@ class TeacherRepository implements TeacherRepositoryInterface
         }elseif($key=='all'){
             $teachers=Teacher::school()->latest()->get();
         }else{
-            $teachers=Teacher::school()->latest()->whereStatus(1)->get();
+            $teachers=Teacher::school()->latest()->whereStatus(1)->withCount('students')->with('courses')->get();
         }
 
         return $teachers;
@@ -32,13 +32,17 @@ class TeacherRepository implements TeacherRepositoryInterface
 
     public function findOne($id)
     {
-        return Teacher::findOrFail($id);
+        return Teacher::withCount(['students', 'students as debt_students_count'=>function($query){
+                $query->debt();
+            }])
+            ->with('courses')
+            ->findOrFail($id);
     }
 
     public function store($data){
 
         $staff=$this->staffObj->findOne($data['staff_id']);
-        
+
         $teacher=new Teacher;
         $teacher->password=generatePassword($data['birthday']);
 

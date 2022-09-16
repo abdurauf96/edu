@@ -9,23 +9,20 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function getAll($request=null){
 
-        $year=$request->year ?? null;
         $type=$request->type ?? null;
-
         $students=Student::query();
-
         switch ($type) {
             case 'graduated':
-                $students->whereStatus(0);
+                $students->graduated();
                 break;
             case 'out':
-                $students->whereStatus(2);
+                $students->out();
                 break;
             case 'active':
-                $students->whereStatus(1);
+                $students->active();
                 break;
             case 'grant':
-                $students->where('type', '!=', 1);
+                $students->grant();
                 break;
             case 'girls':
                 $students->whereSex(0);
@@ -35,18 +32,10 @@ class StudentRepository implements StudentRepositoryInterface{
                 break;
         }
 
-
-        if(request()->segment(3)=='creator'){
-            $students=$students->where('creator_id', $request->creator);
-        }
-
-        $students=$students->when($year, function($query) use ($year){
-            $query->where('study_year', $year);
-        })
-        ->latest()
-        ->with('group.course')
-        ->school()
-        ->get();
+        $students=$students->latest()
+            ->with('group.course')
+            ->school()
+            ->get();
 
         return $students;
     }

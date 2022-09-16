@@ -111,7 +111,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
 
     //student creators
-    Route::get('/students/creator/{creator}', [StudentsController::class, 'index'])->name('school.students.byCreator');
+    //Route::get('/students/creator/{creator}', [StudentsController::class, 'index'])->name('school.students.byCreator');
     Route::get('/student/creator/statistics', [StudentsController::class, 'creatorStatistics'])->name('student.creator.statistics');
     Route::match(['get','post'], '/creator/student/{id?}', [StudentsController::class, 'addCreatorId'])->name('school.students.addCreatorId');
 

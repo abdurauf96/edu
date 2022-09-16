@@ -11,7 +11,7 @@
             <div class="card-header"> <h4> O'quvchilar</h4>
 
                 <div class="card-header-form">
-                    <a class="btn btn-primary" href="{{ route('school.addStudent') }}">Yangi qo'shish</a>
+                    <a class="btn btn-primary" href="{{ route('students.create') }}">Yangi qo'shish</a>
 
                     <a href="?export" class="btn btn-warning btn-icon icon-left"><i class="fas fa-file-excel"></i>Yuklab olish</a>
                     <div class="dropdown d-inline mr-2">
