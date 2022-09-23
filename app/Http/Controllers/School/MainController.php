@@ -57,9 +57,9 @@ class MainController extends Controller
     public function todayGroups()
     {
         $numberDay = date('N', strtotime(date("l")));
-        $courseDays= $numberDay%2==0 ? 2 : 1;
-        $groups=Group::where('course_days', $courseDays)->where('status', '!=', 2)->get();
-
+        $courseDays= $numberDay%2==0 ? Group::EVEN_DAYS : Group::ODD_DAYS;
+        $groups=Group::whereIn('course_days', [$courseDays,Group::EVERYDAY])->where('status', '!=', 2)->get();
+        //dd($groups);
         return view('school.groups.todayGroups', compact('groups'));
     }
 

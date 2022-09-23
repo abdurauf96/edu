@@ -46,7 +46,7 @@ class GroupsController extends Controller
     public function create()
     {
         $courses = Course::school()->get();
-        $teachers = Teacher::school()->get();
+        $teachers = Teacher::school()->whereStatus(1)->get();
         return view('school.groups.create', compact('courses', 'teachers'));
     }
 
@@ -97,7 +97,7 @@ class GroupsController extends Controller
     {
         $group = Group::findOrFail($id);
         $courses = Course::school()->get();
-        $teachers = Teacher::school()->get();
+        $teachers = Teacher::school()->whereStatus(1)->get();
         return view('school.groups.edit', compact('group', 'courses', 'teachers'));
     }
 

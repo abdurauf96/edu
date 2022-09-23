@@ -29,7 +29,7 @@
         {!! Form::date('start_date', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
         {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
     </div>
-    
+
 </div>
 <div class="col-md-6">
     <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
@@ -47,7 +47,10 @@
            @endisset value="1">Dush-Chor-Jum</option>
            <option  @isset($group)
            {{ $group->course_days==2 ? 'selected' : '' }}
-       @endisset value="2">Sesh-Pay-Shan</option>
+            @endisset value="2">Sesh-Pay-Shan</option>
+           <option  @isset($group)
+                    {{ $group->course_days==3 ? 'selected' : '' }}
+                    @endisset value="3">Xar kuni</option>
        </select>
     </div>
 
@@ -66,8 +69,8 @@
     <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">
         {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
        <select name="status" id="status" class="form-control select2" required>
-           
-           
+
+
            <option @isset($group)
                {{ $group->status==1 ? 'selected' : ''}}
            @endisset value="1">Guruh to'lgan</option>
@@ -107,9 +110,9 @@
             startYear: 2019,
             endYear: 2050,
         });
-    
+
         $('#status').change(function(){
-           
+
             if($(this).val()==2){
                 $('#finish_date').css('display', 'block');
             } else{

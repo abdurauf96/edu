@@ -41,8 +41,8 @@
                             <tr><th> Passport ma`lumotlari </th><td> {{ $student->passport }} </td></tr>
                             <tr><th> Jinsi </th><td> {{ $student->sex==1 ? 'O\'g\'il' : 'Qiz'  }} </td></tr>
                             <tr><th> O'qish turi </th><td> {{ $student->type!=1 ? 'Grant '.$student->type : 'Oddiy'  }} </td></tr>
-                            <tr><th>Qarzi </th> <td>   @if($item->is_debt())
-                                        <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div>
+                            <tr><th>Qarzi </th> <td>   @if($student->is_debt())
+                                        <div class="badge badge-danger">{{ number_format($student->debt) }}(qarzdor)</div>
                                     @else
                                         <div class="badge badge-success"> Qarzi yo'q </div>
                                     @endif</td>

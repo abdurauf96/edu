@@ -14,6 +14,9 @@ class Group extends Model
     //status=1 guruh to'lgan
     //status=0 ochilmoqda
     const GRADUATED=2 ; //bitirgan
+    const EVERYDAY=3;
+    const ODD_DAYS=1;
+    const EVEN_DAYS=2;
 
     /**
      * The database table used by the model.
