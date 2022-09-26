@@ -72,7 +72,8 @@ class TeacherRepository implements TeacherRepositoryInterface
         $teacher->email=$data['email'];
         $teacher->status=$data['status'];
         $teacher->birthday=$data['birthday'];
-        $teacher->password=generatePassword($data['birthday']);
+        //$teacher->password=generatePassword($data['birthday']);
+        $teacher->name=$data['name'];
         $teacher->save();
         $teacher->courses()->sync($data['course_id']);
 

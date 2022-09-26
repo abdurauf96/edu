@@ -58,7 +58,7 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-              <a href="{{ route('admin.dashboard') }}"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
+              <a href="#"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
                   class="logo-name">{{ auth()->user()->name}}</span>
               </a>
             </div>
@@ -69,16 +69,16 @@
               </li>
                 @role('super-admin')
               <li class="dropdown">
-                <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Adminstratsiya</span></a>
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Ma'muriyat</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.users.index') }}">Foydalanuvchilar</a></li>
 {{--                    <li><a class="nav-link" href="{{ route('roles.index') }}">Ro'llar</a></li>--}}
                 </ul>
               </li>
+                @endrole
               <li class="dropdown">
                 <a href="{{ route('admin.schools') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quv markazlar</span></a>
               </li>
-                @endrole
                 <li class="dropdown">
                     <a href="{{ route('admin.students') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quvchilar</span></a>
                 </li>
@@ -207,13 +207,15 @@
   <script src="/admin/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="/admin/assets/js/custom.js"></script>
+  @yield('js')
   <script>
       var url=window.location.href;
       a=document.querySelectorAll("[href='"+url+"']")[0];
       a.parentElement.classList.add('active');
       a.parentElement.parentElement.style.display="block";
+
   </script>
-  @yield('js')
+
   @stack('js')
   @livewireScripts
 </body>

@@ -23,7 +23,7 @@
                         @method("PUT")
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label class="section-title">1. Markaz nomi</label>
+                                <label class="section-title">1. Markaz (Maktab) nomi</label>
                                 <input type="text" class="form-control" name="company_name" required value="{{ $school->company_name }}">
                             </div>
                             <div class="form-group col-md-6">

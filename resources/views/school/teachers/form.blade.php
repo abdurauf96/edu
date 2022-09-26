@@ -3,18 +3,20 @@
 @endsection
 
 <div class="form-group">
-    <label for="" class="control-label">Xodim</label>
-    @if(isset($teacher))
-        <h4>{{ $teacher->name }}</h4>
+
+    @if($formMode=='create')
+        <label for="" class="control-label">Xodim</label>
+        <select class="form-control select2"  name="staff_id" data-height="100%" required data-placeholder="Xodimlardan tanlang...">
+            <option value=""></option>
+            @foreach ($staffs as $s)
+                <option  value="{{ $s->id }}">{{ $s->name }}</option>
+            @endforeach
+        </select>
     @else
-    <select class="form-control select2"  name="staff_id" data-height="100%" required data-placeholder="Xodimlardan tanlang...">
-        <option value=""></option>
-        @foreach ($staffs as $s)
-            <option  value="{{ $s->id }}">{{ $s->name }}</option>
-        @endforeach
-    </select>
+        <label for="" class="control-label">O'qituvchi</label>
+    <input type="text" class="form-control" value="{{ $teacher->name }}" name="name">
     @endif
-    
+
 </div>
 
 
@@ -38,7 +40,7 @@
     {!! Form::label('email', 'Email', ['class' => 'control-label']) !!}
     {!! Form::text('email', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-</div> 
+</div>
 
 <div class="form-group" >
     <label for="" class="control-label">Status</label>

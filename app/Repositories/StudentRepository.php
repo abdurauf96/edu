@@ -33,7 +33,7 @@ class StudentRepository implements StudentRepositoryInterface{
         }
 
         $students=$students->latest()
-            ->with('group.course')
+            ->with('group.course','clas')
             ->school()
             ->get();
 

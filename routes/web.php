@@ -63,7 +63,6 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']],
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
-
 });
 
 //routes for school admin and cashier

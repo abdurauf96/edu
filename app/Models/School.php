@@ -30,6 +30,11 @@ class School extends Authenticatable
         return $this->type==self::SCHOOL ;
     }
 
+    public function scopeSchool($query)
+    {
+        return $query->where('type', self::SCHOOL) ;
+    }
+
     public function students()
     {
         return $this->hasMany(Student::class);
@@ -42,6 +47,10 @@ class School extends Authenticatable
     public function courses()
     {
         return $this->hasMany(Course::class);
+    }
+    public function groups()
+    {
+        return $this->hasManyThrough(Group::class, Course::class);
     }
     public function district()
     {

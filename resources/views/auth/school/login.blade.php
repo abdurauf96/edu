@@ -2,18 +2,15 @@
 <x-guest-layout>
 
     <x-auth-card>
-        <h1>Login</h1>
+
         @if(session()->has('msg'))
         <div class="success">
             <p>{{ session('msg') }}</p>
         </div>
         @endif
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
+        <img src="/logo/dcschool.png" alt="">
+            <br>
+            <h1 align="center">Login</h1>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 

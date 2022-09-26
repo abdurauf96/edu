@@ -4,31 +4,38 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\District;
+use App\Models\Group;
 use App\Models\School;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Services\DashboardService;
 use Illuminate\Database\Eloquent\Builder;
 
 class AdminController extends Controller
 {
+    public $statService;
+
+    public function __construct(DashboardService $statService)
+    {
+        $this->statService=$statService;
+    }
+
     public function dashboard()
     {
-        $students = Student::selectRaw('count(*) as total')
-            ->selectRaw("count(case when status='".Student::ACTIVE."' then 1 end) as active")
-            ->selectRaw("count(case when status='".Student::GRADUATED."' then 1 end) as graduated")
-            ->selectRaw("count(case when status='".Student::OUT."' then 1 end) as outed")
-            ->first();
+        if(auth()->user()->hasRole('xtb')){
 
-        $schools=School::withCount(['students', 'students as active_students_count'=> function($query){
-            $query->active();
-        },'students as graduated_students_count'=> function($query){
-            $query->graduated();
-        },'students as outed_students_count'=> function($query){
-                $query->out();
-        }])->get();
+            $students=$this->statService->getSchoolStudentsStatistics();
+            $groups_qty=$this->statService->getQuantityGroups();
+
+        }else{
+            $students = $this->statService->getAllStudentsStatistics();
+            $groups_qty=count(Group::all());
+        }
+
+        $schools=$this->statService->getSchoolStatistics();
 
         $districts=District::withCount('schools')->get();
-        return view('admin.dashboard', compact( 'students','schools','districts'));
+        return view('admin.dashboard', compact( 'students','schools','districts','groups_qty'));
 
     }
 

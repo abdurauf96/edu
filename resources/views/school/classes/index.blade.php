@@ -1,7 +1,7 @@
 @extends('layouts.school')
 
 @section('content')
-   
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -34,7 +34,7 @@
                                 <tbody>
                                 @foreach($classes as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration or $item->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
                                             <a href="{{ url('/school/classes/' . $item->id) }}" title="View Organization"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
@@ -49,12 +49,12 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            
+
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
- 
+
 @endsection

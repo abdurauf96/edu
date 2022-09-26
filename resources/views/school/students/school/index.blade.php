@@ -57,7 +57,7 @@
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->school_number }}</td>
-                                <td> {{ $item->class_id }} - sinf </td>
+                                <td> {{ $item->clas->name }}  </td>
                                 <td> {{ $item->group->name }}</td>
                                 <td> {{ $item->group->course->name }}</td>
 

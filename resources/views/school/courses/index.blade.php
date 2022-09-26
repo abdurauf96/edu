@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-            
+
                 <div class="card-header">
                     <h4>Kurslar</h4>
                     <div class="card-header-form">
@@ -31,7 +31,7 @@
                                     @if(is_academy())<td>{{ $item->price }}</td>@endif
                                     <td>{{ $item->description }}</td>
                                     <td>
-                                        <a href="{{ route('courses.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
+                                        @if(is_academy())<a href="{{ route('courses.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>@endif
                                         <a href="{{ route('courses.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
                                         {!! Form::open([
                                             'method' => 'DELETE',
@@ -45,8 +45,10 @@
                                                     'onclick'=>'return confirm("Confirm delete?")'
                                             )) !!}
                                         {!! Form::close() !!}
-                                        
-                                        <a href="{{ route('coursePlans', $item->id) }}" class="btn btn-icon btn-warning"><i class="fas fa-notes-medical"></i> Kurs rejalari </a>
+                                            @if(is_academy())
+                                        <a href="{{ route('coursePlans', $item->id) }}" class="btn btn-icon btn-warning">
+                                            <i class="fas fa-notes-medical"></i> Kurs rejalari </a>
+                                            @endif
                                     </td>
                                 </tr>
                             @endforeach

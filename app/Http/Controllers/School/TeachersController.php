@@ -106,8 +106,8 @@ class TeachersController extends Controller
         $teacher = $this->teacherRepo->findOne($id);
         $course_ids=$teacher->courses->pluck('id')->toArray();
         $courses = Course::school()->latest()->get();
-        $staffs=$this->staffRepo->getAll();
-        return view('school.teachers.edit', compact('teacher', 'courses', 'course_ids', 'staffs'));
+
+        return view('school.teachers.edit', compact('teacher', 'courses', 'course_ids'));
     }
 
     /**

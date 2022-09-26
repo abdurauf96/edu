@@ -1,6 +1,6 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a style="letter-spacing:0 " href="{{ route('school.dashboard') }}"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
+      <a style="letter-spacing:0 " href="{{ route('school.dashboard') }}"> <img alt="image" src="/logo/dcschool.png" class="header-logo" /> <span
           class="logo-name">{{auth()->guard('user')->user()->school->company_name}}</span>
       </a>
     </div>
@@ -11,12 +11,12 @@
       </li>
 
     {{--      permission--}}
-      <li class="dropdown">
-        <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Adminstratsiya</span></a>
-        <ul class="dropdown-menu">
-          <li><a class="nav-link" href="{{ route('users.index') }}">Foydalanuvchilar</a></li>
-        </ul>
-      </li>
+{{--      <li class="dropdown">--}}
+{{--        <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Adminstratsiya</span></a>--}}
+{{--        <ul class="dropdown-menu">--}}
+{{--          <li><a class="nav-link" href="{{ route('users.index') }}">Foydalanuvchilar</a></li>--}}
+{{--        </ul>--}}
+{{--      </li>--}}
 
 
       <li class="dropdown">

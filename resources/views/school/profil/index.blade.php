@@ -25,7 +25,7 @@
                                 <th>Telefon</th> <td>{{ $school->phone }}</td>
                             </tr>
                             <tr>
-                                <th>Tuman</th> <td>{{ $school->district->name }}</td>
+                                <th>Tuman</th> <td>{{ $school->district->name ?? null }}</td>
                             </tr>
                             <tr>
                                 <th>Manzil</th> <td>{{ $school->addres }}</td>

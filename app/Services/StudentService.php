@@ -19,11 +19,6 @@ class StudentService{
         return $this->studentRepo->getAll($request);
     }
 
-    public function debtStudents()
-    {
-
-    }
-
     public function findOne($id)
     {
         return $this->studentRepo->findOne($id);
@@ -98,6 +93,9 @@ TEXT;
             $item['id']=$i;
             $item['district']=$student->district->name ?? null;
             $item['name']=$student->name;
+            $item['school']=$student->getSchool->company_name;
+            $item['sinf']=$student->clas->name;
+            $item['birthday']=$student->year;
             $item['sex']=$student->sex==1 ? 'Erkak' : 'Ayol';
             $item['school_number']=$student->school_number;
             $item['phone']=$student->phone;

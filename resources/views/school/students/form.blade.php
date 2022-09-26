@@ -165,7 +165,7 @@
     <br>
     <label for="">Yoki bu yerga kiriting</label>
     <input type="text" name="school_text" @if(isset($student)) value="{{ $student->school_number }}"
-    @endisset class="form-control schoolField" placeholder="Maktabni kiriting...">
+    @endisset class="form-control schoolField" placeholder="MFY...">
 </div>
 
 <div class="form-group">

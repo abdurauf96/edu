@@ -26,7 +26,6 @@
 {{--    </div>--}}
     <div class="col-12">
         <div class="card">
-
             <div class="card-body">
                 <div class="card-header">
                     <h4>Markazlar bo'yicha oq'uvchilar soni</h4>
@@ -35,15 +34,20 @@
                     <table class="table table-bordered table-md table-striped">
                         <tbody><tr>
                             <th>T/R</th>
+                            <th>Xudud</th>
                             <th>IT Markazlar</th>
                             <th>O'qiyatganlar</th>
                             <th>Bitirganlar</th>
                             <th>Chiqib ketganlar</th>
                             <th>Jami</th>
+                            <th>Shundan, Bolalar soni</th>
+                            <th>Qizlar soni</th>
+                            <th>Guruhlar soni</th>
                         </tr>
                         @foreach($schools as $school)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $school->district->name ?? '' }}</td>
                             <td>{{ $school->company_name }}</td>
                             <td>{{ $school->active_students_count }}</td>
                             <td>{{ $school->graduated_students_count }}</td>
@@ -51,15 +55,20 @@
                             <td>
                                 {{ $school->students_count }}
                             </td>
+                            <td>{{ $school->boys_count }}</td>
+                            <td>{{ $school->girls_count }}</td>
+                            <td>{{ $school->groups_count }}</td>
                         </tr>
                         @endforeach
                         <tr>
-                            <td><b>JAMI</b></td>
-                            <td><b>{{ $schools->count() }}</b></td>
+                            <td colspan="3"><b>JAMI</b></td>
                             <td>{{ $students->active }}</td>
                             <td>{{ $students->graduated }}</td>
                             <td>{{ $students->outed }}</td>
                             <td>{{ $students->total }}</td>
+                            <td>{{ $students->boys }}</td>
+                            <td>{{ $students->girls }}</td>
+                            <td>{{ $groups_qty }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -81,6 +90,10 @@
                                 <td>{{ $district->schools_count }}</td>
                             </tr>
                         @endforeach
+                        <tr>
+                            <th colspan="2">JAMI</th>
+                            <td>{{ count($schools) }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

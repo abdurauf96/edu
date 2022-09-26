@@ -90,6 +90,11 @@ class Student extends Authenticatable
         return $query->active()->where('type', '!=', 1);
     }
 
+    public function clas()
+    {
+        return $this->belongsTo(Clas::class, 'class_id');
+    }
+
     public function events()
     {
         return $this->hasMany(Event::class, 'person_id')->where('type', 'student');
