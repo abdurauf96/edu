@@ -10,8 +10,7 @@ class SchoolController extends Controller
 {
     public function index()
     {
-        $schools=School::withCount('students')->latest()->get();
-        return view('admin.schools.index', compact('schools'));
+        return view('admin.schools.index');
     }
     public function detail(School $school)
     {

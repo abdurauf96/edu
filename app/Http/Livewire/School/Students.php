@@ -15,7 +15,7 @@ class Students extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search='';
-    public $creator_id, $test_status, $studentsToExportExcel;
+    public $creator_id, $test_status, $studentsToExportExcel, $type;
     public $status=1;
     //protected $listeners = ['StatusChanged'];
 
@@ -55,6 +55,10 @@ class Students extends Component
 
         if(isset($this->status)){
             $students->where('status', $this->status);
+        }
+
+        if($this->type){
+            $students->grant();
         }
 
         $students->latest()

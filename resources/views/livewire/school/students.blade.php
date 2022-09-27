@@ -38,6 +38,16 @@
                 </div>
             </div>
             <div class="col-lg-2">
+                <div class="section-title">Grant (Chegirma) </div>
+                <div class="pretty p-switch">
+                    <input type="checkbox" wire:model="type" name="type" value="1">
+                    <div class="state p-success">
+                        <label></label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2">
                 <div class="section-title">Qidiruv </div>
                 <div class="form-group">
                     <input type="search" class="form-control" wire:model="search" placeholder="search...">

@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="justify-content: space-between">
                     <h4 class="card-title">{{ $school->company_name }}</h4>
+                    <a href="{{ route('admin.schools') }}" class="btn btn-warning"> Ortga <i class="fa fa-arrow-left" aria-hidden="true"></i> </a>
                 </div>
                 <div class="card-body table-responsive ">
                     <table class="table table-hover">

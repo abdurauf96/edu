@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class StudentsExport implements FromArray, WithHeadings
+class SchoolExport implements FromArray, WithHeadings
 {
     protected $data;
 
@@ -15,9 +15,7 @@ class StudentsExport implements FromArray, WithHeadings
     {
         $this->data=$data;
     }
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+
     public function array(): array
     {
         return $this->data;
@@ -27,13 +25,13 @@ class StudentsExport implements FromArray, WithHeadings
     {
         return [
             '№',
-            'F.I.SH',
-            'Guruh',
-            'Kurs',
+            'Xudud',
+            'Markaz',
+            'Direktor',
+            'Manzil',
             'Telefon',
-            'Status',
-            'O\'qituvchi',
-            'ID',
+            'E-mail',
+            'Kompyuterlar soni',
         ];
     }
     public function registerEvents(): array
@@ -41,11 +39,13 @@ class StudentsExport implements FromArray, WithHeadings
         return [
             AfterSheet::class    => function(AfterSheet $event) {
 
-                $event->sheet->getDelegate()->getStyle('A1:I1')
-                    ->getFill()
-                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    ->getStartColor()
-                    ->setARGB('EEEEEE');
+//                $event->sheet->getDelegate()->getStyle('A1:I1')
+//                    ->getFill()
+//                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+//                    ->getStartColor()
+//                    ->setARGB('EEEEEE');
+                $event->sheet->getDelegate()->getRowDimension('1')->setRowHeight(100);
+                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(100);
             },
         ];
     }
