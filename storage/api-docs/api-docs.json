@@ -5,6 +5,63 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/appeals": {
+            "post": {
+                "tags": [
+                    "Appeals"
+                ],
+                "summary": "store appeals",
+                "description": "store appeals from web site",
+                "operationId": "appeals",
+                "requestBody": {
+                    "description": "fill in the required fields",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "course_id": {
+                                        "type": "integer"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "appeal stored !",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Appeal stored"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/courses": {
             "get": {
                 "tags": [
@@ -791,6 +848,10 @@
         {
             "name": "Attandances",
             "description": "attandance academy"
+        },
+        {
+            "name": "Appeals",
+            "description": "store appeals"
         }
     ]
 }

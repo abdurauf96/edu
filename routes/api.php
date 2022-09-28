@@ -38,6 +38,7 @@ Route::get('/event/{type}/{id}/{time}', ['App\Http\Controllers\Api\EventsControl
 Route::get('/courses', ['App\Http\Controllers\Api\BotController', 'getCourses']);
 Route::post('/saveBotStudent', ['App\Http\Controllers\Api\BotController', 'saveBotStudent']);
 Route::get('/botStudent', ['App\Http\Controllers\Api\BotController', 'getOneStudent']);
+Route::post('/appeals', ['App\Http\Controllers\Api\AppealsController', 'store']);
 
 
 Route::get('/student/{id}', ['App\Http\Controllers\Api\StudentController', 'getStudent']);

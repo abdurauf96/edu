@@ -15,7 +15,7 @@ class AppealsController extends Controller
      */
     public function index()
     {
-        $appeals=Appeal::latest()->get();
+        $appeals=Appeal::latest()->with('course')->paginate(10);
         return view('school.appeals.index', compact('appeals'));
     }
 

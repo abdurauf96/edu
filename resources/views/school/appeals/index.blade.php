@@ -26,7 +26,7 @@
                                 <th>Manzil</th>
                                 <th>Yo'nalish</th>
                                 <th>Ariza turi</th>
-                                <th>O'qish/Ish joyi</th>
+
                                 <td>Sana</td>
                                 <th>Amallar</th>
                             </tr>
@@ -38,9 +38,9 @@
                                 <td>{{ $item->name }}</td>
                                 <td> {{ $item->phone }} </td>
                                 <td> {{ $item->address }} </td>
-                                <td>{{ $item->direction==1 ? 'Dasturlash' : 'Dizayn' }}</td>
+                                <td>{{ $item->course->name ?? ''}}</td>
                                 <td>{{ $item->type }} orqali</td>
-                                <td>{{ $item->study_type }} orqali</td>
+
                                 <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                 <td>
                                     <a href="{{ route('appeals.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
@@ -65,7 +65,7 @@
                         @endforeach
                         </tbody>
                     </table>
-
+                    {{ $appeals->links() }}
                 </div>
 
             </div>

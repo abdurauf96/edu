@@ -23,7 +23,12 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Tag(
  *     name="Attandances",
  *     description="attandance academy"
+ * ),
+ * @OA\Tag(
+ *     name="Appeals",
+ *     description="store appeals"
  * )
+ *
  */
 
 
