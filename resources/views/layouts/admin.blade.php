@@ -80,6 +80,9 @@
                 <a href="{{ route('admin.schools') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quv markazlar</span></a>
               </li>
                 <li class="dropdown">
+                    <a href="{{ route('admin.teachers') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'qituvchilar</span></a>
+                </li>
+                <li class="dropdown">
                     <a href="{{ route('admin.students') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quvchilar</span></a>
                 </li>
                 <li class="dropdown">

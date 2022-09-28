@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ContactsController;
 use App\Http\Controllers\Admin\StudentsController as AdminStudentsController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\DistrictsController;
+use App\Http\Controllers\Admin\TeachersController;
 
 
 //super admin routes
@@ -23,6 +24,7 @@ Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () 
         Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('schoolDetail');
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('students', [AdminStudentsController::class, 'students'])->name('students');
+        Route::get('teachers', [TeachersController::class, 'index'])->name('teachers');
         Route::resource('contacts', ContactsController::class);
         Route::match(['get', 'post'],'student/{id}/sertificat', [AdminController::class, 'sertificat'])->name('sertificatForm');
     });

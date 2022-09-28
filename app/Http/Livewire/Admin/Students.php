@@ -43,6 +43,10 @@ class Students extends Component
     {
         $students=Student::query();
 
+        $schoolsId=School::school()->get()->pluck('id')->toArray();
+
+
+
         if($this->school_id){
             $students->where('school_id', $this->school_id);
         }
@@ -50,6 +54,11 @@ class Students extends Component
         if(isset($this->status)){
             $students->where('status', $this->status);
         }
+
+        if(auth()->user()->hasRole('xtb')){
+            $students->whereIn('school_id', $schoolsId);
+        }
+
         $students->with('group.course', 'getSchool');
 
         $this->studentsToExportExcel=$students->get();

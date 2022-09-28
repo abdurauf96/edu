@@ -71,7 +71,6 @@ class Students extends Component
         $this->studentsToExportExcel=$students->get();
         $students=$students->paginate(10);
 
-
         return view('livewire.school.students', ['students'=>$students, 'creators'=>$creators]);
     }
 }
