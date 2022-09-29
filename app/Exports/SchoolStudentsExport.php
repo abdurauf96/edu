@@ -33,6 +33,7 @@ class SchoolStudentsExport implements FromArray, WithHeadings, WithEvents
             'Sinfi',
             'Tug\' sana',
             'Jinsi',
+            'Manzili',
             'o\'qish yoki ish joyi',
             'Telefon raqami',
             'Kurs nomi',

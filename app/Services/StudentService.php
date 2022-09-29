@@ -97,6 +97,7 @@ TEXT;
             $item['sinf']=$student->clas->name;
             $item['birthday']=$student->year;
             $item['sex']=$student->sex==1 ? 'Erkak' : 'Ayol';
+            $item['addres']=$student->address;
             $item['school_number']=$student->school_number;
             $item['phone']=$student->phone;
             $item['course']=$student->group->course->name;

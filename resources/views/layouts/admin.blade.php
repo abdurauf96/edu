@@ -86,6 +86,9 @@
                     <a href="{{ route('admin.students') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quvchilar</span></a>
                 </li>
                 <li class="dropdown">
+                    <a href="{{ route('admin.sertificats') }}" class="nav-link"><i class="material-icons">location_city</i><span>Sertifikatlar</span></a>
+                </li>
+                <li class="dropdown">
                     <a href="{{ route('admin.contacts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Kontaktlar</span></a>
                 </li>
                 <li class="dropdown">

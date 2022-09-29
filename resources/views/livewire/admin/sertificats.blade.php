@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-header"> <h4> O'quvchilar</h4>
-        <a href="#" wire:click="export" class="btn btn-warning btn-icon icon-left"><i class="fas fa-file-excel"></i>Yuklab olish</a>
+    <div class="card-header" style="justify-content: space-between"> <h4> Sertifikatlar</h4>
+        <a href="#" wire:click="export('test')"  class="btn btn-warning btn-icon icon-left"><i class="fas fa-file-excel"></i>Yuklab olish</a>
     </div>
     <div class="card-body">
         <div class="row">
@@ -10,7 +10,7 @@
                     <select class="form-control select2"  id="school_id">
                         <option value="">Markazni tanlang</option>
                         @foreach($schools as $school)
-                        <option value="{{ $school->id }}">{{ $school->company_name }}</option>
+                            <option value="{{ $school->id }}">{{ $school->company_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -20,7 +20,7 @@
                 <div class="pretty p-switch">
                     <input type="radio" wire:model="status" name="switch" value="1">
                     <div class="state p-success">
-                        <label>O'qiyatganlar</label>
+                        <label>O'qiyotganlar</label>
                     </div>
                 </div>
                 <div class="pretty p-switch">
@@ -54,12 +54,11 @@
                     <th>O'quv markaz</th>
                     <th>Xudud</th>
                     <th>Yo'nalish</th>
-                    <th>Jinsi</th>
-                    <th>Tug'.yili</th>
-                    <th>O'qish / Ish joyi</th>
                     <th>Telefon</th>
-                    <th>Guruh</th>
                     <th>O'qish xolati</th>
+                    <th>Sertifikat xolati</th>
+                    <th>Sertifikat</th>
+                    <th>Sertifikat berish </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,13 +68,9 @@
                         <td>{{ $item->id  }}</td>
                         <td>{{ $item->name }}</td>
                         <td> {{ $item->getSchool->company_name }} </td>
-                        <td> {{ $item->getSchool->district->name ?? ''}} </td>
+                        <td> {{ $item->getSchool->district->name ?? '' }} </td>
                         <td> {{ $item->group->course->name }}</td>
-                        <td>{{ $item->sex==1 ? 'Erkak' : 'Ayol' }} </td>
-                        <td>{{ $item->year }} </td>
-                        <td>{{ $item->school_number }} </td>
                         <td>{{ $item->phone }} </td>
-                        <td>{{ $item->group->name }} </td>
                         <td>@if($item->status==2)
                                 <div class="badge badge-danger">Chiqib ketgan</div>
                             @elseif($item->status==1)
@@ -84,19 +79,19 @@
                                 <div class="badge badge-warning"> Bitirgan </div>
                             @endif
                         </td>
-{{--                       <td>--}}
-{{--                           @if($item->sertificat_status)--}}
-{{--                                <div class="badge badge-success"> Berilgan </div>--}}
-{{--                           @else--}}
-{{--                               <div class="badge badge-info"> Berilmagan </div>--}}
-{{--                           @endif--}}
-{{--                       </td>--}}
-{{--                        <td>--}}
-{{--                            <a class="btn {{ !$item->sertificat_status ? 'disabled' : '' }} btn-warning" href="/admin/sertificats/{{ $item->sertificat_file }}">Yuklab olish</a>--}}
-{{--                        </td>--}}
-{{--                        <td>--}}
-{{--                            <a class="btn btn-info" href="{{ route('admin.sertificatForm', $item->id) }}">Sertifikat berish</a>--}}
-{{--                        </td>--}}
+                                               <td>
+                                                   @if($item->sertificat_status)
+                                                        <div class="badge badge-success"> Berilgan </div>
+                                                   @else
+                                                       <div class="badge badge-info"> Berilmagan </div>
+                                                   @endif
+                                               </td>
+                                                <td>
+                                                    <a class="btn {{ !$item->sertificat_status ? 'disabled' : '' }} btn-warning" href="/admin/sertificats/{{ $item->sertificat_file }}">Yuklab olish</a>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-info" href="{{ route('admin.sertificatForm', $item->id) }}">Sertifikat berish</a>
+                                                </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -110,7 +105,7 @@
     <script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
     <script>
         $('#school_id').change(function (e) {
-            @this.set('school_id', $(this).val() );
+        @this.set('school_id', $(this).val() );
         });
 
     </script>

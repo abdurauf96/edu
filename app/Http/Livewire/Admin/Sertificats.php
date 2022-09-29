@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Exports\SchoolStudentsExport;
-use App\Exports\StudentsExport;
 use App\Models\School;
 use App\Models\Student;
 use App\Services\StudentService;
@@ -11,7 +10,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
-class Students extends Component
+class Sertificats extends Component
 {
     use WithPagination;
 
@@ -30,13 +29,7 @@ class Students extends Component
 
     public function export(StudentService $service)
     {
-        if(auth()->user()->hasRole('super-admin')) {
-            $data = $service->exportDataToAcademy($this->studentsToExportExcel);
-            return Excel::download(new StudentsExport($data), 'students.xlsx');
-        }else{
-            $data = $service->exportDataToSchool($this->studentsToExportExcel);
-            return Excel::download(new SchoolStudentsExport($data), 'students.xlsx');
-        }
+        $data=$service->exportDataToSchool($this->studentsToExportExcel);
         return Excel::download(new SchoolStudentsExport($data), 'students.xlsx');
     }
 
@@ -45,12 +38,12 @@ class Students extends Component
         $this->resetPage();
     }
 
-    public function updatingSearch()
+    public function updatingSchoolId()
     {
         $this->resetPage();
     }
 
-    public function updatingSchoolId()
+    public function updatingSearch()
     {
         $this->resetPage();
     }
@@ -81,6 +74,6 @@ class Students extends Component
         $students=$students->paginate(10);
 
 
-        return view('livewire.admin.students', ['students'=>$students]);
+        return view('livewire.admin.sertificats', ['students'=>$students]);
     }
 }
