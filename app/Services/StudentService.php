@@ -126,5 +126,9 @@ TEXT;
         return $data;
     }
 
+    public function getByIds($ids){
+        return $this->studentRepo->getByIds($ids);
+    }
+
 
 }

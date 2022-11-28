@@ -58,8 +58,8 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->school_number }}</td>
                                 <td> {{ $item->clas->name }}  </td>
-                                <td> {{ $item->group->name }}</td>
-                                <td> {{ $item->group->course->name }}</td>
+                                <td> {{ $item->group->name ?? 'Guruhga bog\'lanmagan'}}</td>
+                                <td> {{ $item->group->course->name ?? 'Guruh yoki kursga bog\'lanmagan' }}</td>
 
                                 <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td>
                                 <td> @if($item->status==1)

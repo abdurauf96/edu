@@ -57,7 +57,7 @@ class AdminController extends Controller
             $student->sertificat_date=request()->sertificat_date;
             $student->save();
 
-            return redirect()->route('admin.students');
+            return redirect()->route('admin.sertificats');
         }
     }
 }

@@ -16,7 +16,7 @@
                         <td>Jami o'quvchilar </td>
                         <td><span class="badge badge-success">{{ $active_students }}</span></td>
                     </tr>
-                   
+
                     <tr>
                         <td>2</td>
                         <td>Bolalar soni </td>
@@ -32,7 +32,7 @@
                         <td>Grantlar soni </td>
                         <td><span class="badge badge-success">{{ $grant_students }}</span></td>
                     </tr>
-                    
+
 
                     </tbody>
                 </table>
@@ -51,16 +51,22 @@
               <table class="table table-bordered table-md">
                 <thead>
                   <th>T/R</th>
-                  <th>Bitirib ketganlar</th>
+                  <th colspan="2">Bitirib ketganlar</th>
                   <th>O'qiyotganlar</th>
                   <th>Chiqib ketganlar</th>
                   <th>Jami</th>
                 </thead>
                 <tbody>
+                <tr bgcolor="gray">
+                    <td>Yo'nalishlar</td>
+                    <td>2021</td>
+                    <td>2022</td>
+                </tr>
                   @foreach ($courses as $course)
                   <tr>
                     <td>{{ $course->name }}</td>
-                    <td>{{ $course->graduatedStudents()->count() }} </td>
+                    <td>{{ $course->graduatedStudents()->where('study_year', 2021)->count() }} </td>
+                      <td> {{ $course->graduatedStudents()->where('study_year', 2022)->count() }} </td>
                     <td>{{ $course->activeStudents()->count() }}</td>
                     <td>{{ $course->outStudents()->count() }}</td>
                     <td><b>{{ $course->students->count() }}</b></td>
@@ -90,7 +96,7 @@
                         {{-- <td><a href="http://localhost:8000/school/teachers/16" class="btn btn-primary">Batafsil</a></td> --}}
                     </tr>
                    @endforeach
-                    
+
                     </tbody>
                 </table>
               </div>
@@ -114,7 +120,7 @@
                         {{-- <td><a href="http://localhost:8000/school/teachers/16" class="btn btn-primary">Batafsil</a></td> --}}
                     </tr>
                    @endforeach
-                    
+
                     </tbody>
                 </table>
               </div>

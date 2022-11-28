@@ -30,7 +30,7 @@
             <div class="register-box">
                 <div>
                     <x-label for="name" :value="__('Markaz direktori F.I.SH')" />
-                    <x-input required class="block mt-1 w-full" type="text" name="director" value="{{ old('director') }}"/>
+                    <x-input class="block mt-1 w-full" type="text" name="director" value="{{ old('director') }}"/>
                 </div>
 
                 <div>
@@ -39,7 +39,7 @@
                 </div>
                 <div>
                     <x-label for="name" :value="__('Markaz manzili')" />
-                    <x-input required class="block mt-1 w-full" type="text" name="addres" value="{{ old('addres') }}"/>
+                    <x-input class="block mt-1 w-full" type="text" name="addres" value="{{ old('addres') }}"/>
                 </div>
             </div>
 
@@ -52,7 +52,7 @@
 
                 <div>
                     <x-label for="name" :value="__('Telefon raqami')" />
-                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus />
+                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" autofocus />
                 </div>
 
                 <div >

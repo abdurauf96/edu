@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Student;
 use Illuminate\Console\Command;
 
 class StudentsMonthlyPaymentCommand extends Command
@@ -37,16 +38,17 @@ class StudentsMonthlyPaymentCommand extends Command
      */
     public function handle()
     {
-        $groups=\App\Models\Group::whereDate('end_date', '>', date('Y-m-d'))->get();
-        foreach ($groups as $group) {
-            foreach ($group->students as $student) {
+        //$groups=\App\Models\Group::whereDate('end_date', '>', date('Y-m-d'))->get();
+        $students=Student::active()->get();
+
+            foreach ($students as $student) {
                 if($student->group->course_id==16){ // 16 - comp savodxonligi
                     continue;
                 }
                 $student->debt+= $student->getPriceMonth();
                 $student->save();
             }
-        }
+
         \Log::info("oquvchilarga oylik tolov yozildi");
         return Command::SUCCESS;
     }

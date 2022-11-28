@@ -17,6 +17,17 @@
     {!! Form::label('duration', 'Kurs narxi', ['class' => 'control-label']) !!}
     {!! Form::number('price', null, ['class' => 'form-control']) !!}
 </div>
+<div class="form-group">
+    <label for="">Status</label>
+    <select name="status" id="" class="form-control">
+        <option @isset($course) {{ $course->status==1 ? 'selected' : '' }} @endisset value="true">Faol</option>
+        <option @isset($course) {{ $course->status!=1 ? 'selected' : '' }} @endisset value="false">Faol emas</option>
+    </select>
+</div>
+<div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
+    <label for="">Bot uchun</label>
+    <input @isset($course) {{ $course->is_for_bot==1 ? 'checked' : '' }} @endisset type="checkbox" value="1" name="is_for_bot">
+</div>
 @endif
 {{-- <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
     {!! Form::label('code', 'Kursning maxsus kodi', ['class' => 'control-label']) !!}

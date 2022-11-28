@@ -96,7 +96,7 @@ class CoursesController extends Controller
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
-
+        $requestData['is_for_bot'] = isset($request['is_for_bot']) ? 1 : 0;
         $course = Course::findOrFail($id);
         $course->update($requestData);
 

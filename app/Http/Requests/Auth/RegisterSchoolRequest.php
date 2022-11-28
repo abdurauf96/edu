@@ -24,11 +24,11 @@ class RegisterSchoolRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_name' => 'required',
-            'phone' => 'required',
-            'addres' => 'required',
+//            'company_name' => 'required',
+//            'phone' => 'required',
+//            'addres' => 'required',
             //'domain' => 'required|unique:schools',
-            'director' => 'required',
+            //'director' => 'required',
 
             'email' => 'required|string|email|max:255|unique:users',
             'name' => 'required|string|max:255',

@@ -20,6 +20,7 @@ class Sertificats extends Component
 
     public function mount()
     {
+        $this->status=0;
         if(auth()->user()->hasRole('super-admin')){
             $this->schools=School::all();
         }else{

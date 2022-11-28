@@ -35,6 +35,7 @@ class StudentRepository implements StudentRepositoryInterface{
         $students=$students->latest()
             ->with('group.course','clas')
             ->school()
+            ->latest()
             ->get();
 
         return $students;
@@ -47,9 +48,7 @@ class StudentRepository implements StudentRepositoryInterface{
     public function create($request){
 
         $requestData = $request->all();
-        if(!empty($request->school_text)){
-            $requestData['school_number']=$request->school_text;
-        }
+
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
@@ -67,8 +66,8 @@ class StudentRepository implements StudentRepositoryInterface{
 
         $course_code=Group::findOrFail($request->group_id)->course->code;
         //$requestData['username']=generateIdNumber($lastStudentNumber, $course_code);
-        $requestData['password']=generatePassword($requestData['year'] ?? 12345678);
-
+        //$requestData['password']=generatePassword($requestData['year'] ?? 12345678);
+        $requestData['password']=bcrypt('12345678');
         $student=Student::create($requestData);
         return $student;
 
@@ -82,9 +81,7 @@ class StudentRepository implements StudentRepositoryInterface{
     public function update($request, $id)
     {
         $requestData = $request->all();
-        if(!empty($request->school_text)){
-            $requestData['school_number']=$request->school_text;
-        }
+
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
@@ -133,6 +130,11 @@ class StudentRepository implements StudentRepositoryInterface{
 
         $student=Student::create($data);
         return $student;
+    }
+
+    public function getByIds($ids)
+    {
+        return Student::find($ids);
     }
 
 }

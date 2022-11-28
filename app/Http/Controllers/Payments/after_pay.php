@@ -8,7 +8,7 @@ $purpose = 1;
 // 102 - coworking - 2
 // 103 - conference room - 4
 
-//create loop for service id    
+//create loop for service id
 switch ($service_id) {
     case 100:
         $description = 'Оплата курса';

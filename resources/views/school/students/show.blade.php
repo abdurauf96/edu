@@ -33,7 +33,7 @@
                             </tr>
                             <tr><th> F.I.O </th><td> {{ $student->name }} </td></tr>
                             <tr><th> Guruh </th><td>
-                                {{ $student->group->name }}
+                                {{ $student->group->name ?? 'Guruhga bog\'lanmagan' }}
                             </td></tr>
                             <tr><th> Telefon </th><td> {{ $student->phone }} </td></tr>
                             <tr><th> Manzili </th><td> {{ $student->district->name ?? '' }} | {{ $student->address }} </td></tr>

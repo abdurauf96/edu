@@ -49,7 +49,7 @@ class StudentsController extends Controller
 
             if($request->has('export')){
                 $data=$this->studentService->exportDataToSchool($students);
-                return Excel::download(new SchoolStudentsExport($data), 'students.xlsx');
+                return Excel::download(new  SchoolStudentsExport($data), 'students.xlsx');
             }
             return view('school.students.school.index', compact('students'));
         }
@@ -65,8 +65,7 @@ class StudentsController extends Controller
     public function addCreatorId(Request $request, $id=null)
     {
         if($request->isMethod('post')){
-            $students = $this->studentService->getAll($request)
-            ->whereIn('id',$request->student_ids)
+            $students = $this->studentService->getByIds($request->student_ids)
             ->toQuery()
             ->update(['creator_id'=>auth()->guard('user')->id()]);
             return redirect()->route('school.students.addCreatorId');

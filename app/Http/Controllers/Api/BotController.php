@@ -38,9 +38,12 @@ class BotController extends Controller
             }else{
                 return response()->json("course not found");
             }
-
         }else{
-            $courses=Course::all();
+            $courses=Course::where([
+                'school_id'=> 1,
+                'is_for_bot'=>true,
+                'status'=>true
+            ])->get();
             return response()->json(new CourseCollection($courses));
         }
 

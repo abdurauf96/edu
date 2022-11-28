@@ -28,7 +28,7 @@
                   <th>Guruh</th>
                   <th>Kurs</th>
                   <th>To'lov xolati</th>
-                  
+
                 </tr>
               </thead>
               <tbody>
@@ -43,20 +43,20 @@
                   </td>
                   <td>{{ $item->id  }}</td>
                   <td>{{ $item->name }}</td>
-                  <td> {{ $item->group->name }} </td>
-                  <td> {{ $item->group->course->name }}</td>
-                  <td>@if($item->debt>0) 
-                    <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div> 
+                  <td> {{ $item->group->name ?? '' }} </td>
+                  <td> {{ $item->group->course->name ?? '' }}</td>
+                  <td>@if($item->debt>0)
+                    <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div>
                     @elseif($item->debt==0)
                     <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} Qarzi yo'q </div>
                     @else
-                    <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} xaqdor </div> 
+                    <div class="badge badge-success"> {{ number_format(abs($item->debt)) }} xaqdor </div>
                     @endif
                 </td>
-                  
+
                 </tr>
                 @endforeach
-                
+
               </tbody>
             </table>
             <div style="padding: 10px">

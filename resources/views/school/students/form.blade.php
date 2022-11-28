@@ -74,6 +74,18 @@
         </div>
 
         <div class="">
+            <input type="radio" value="0.9"  @if(isset($student))
+            {{ $student->type==0.9 ? 'checked' : '' }}
+            @endif name="type"  >
+            <span for="">Grant (10%)</span>
+        </div>
+        <div class="">
+            <input type="radio" value="0.85"  @if(isset($student))
+            {{ $student->type==0.85 ? 'checked' : '' }}
+            @endif name="type"  >
+            <span for="">Grant (15%)</span>
+        </div>
+        <div class="">
                 <input type="radio" value="0.7"  @if(isset($student))
                     {{ $student->type==0.7 ? 'checked' : '' }}
                 @endif name="type"  >
@@ -155,16 +167,7 @@
 @else
 <div class="form-group">
     <label for="">Maktab </label>
-    <select name="school_number" class="form-control selectSchool">
-        <option value="">Tanlang</option>
-        @for ($i = 1; $i <= 50 ; $i++)
-        <option @isset($student) {{ $student->school_number==$i ? 'selected' : ' ' }} @endisset  value="{{ $i }}"> {{ $i }}   </option>
-        @endfor
-    </select>
-    <br>
-    <label for="">Yoki bu yerga kiriting</label>
-    <input type="text" name="school_text" @if(isset($student)) value="{{ $student->school_number }}"
-    @endisset class="form-control schoolField" placeholder="MFY...">
+    <input type="text" name="school_number" placeholder="Maktab yoki MFY kiriting..." class="form-control" @isset($student) value="{{ $student->school_number }}" @endisset>
 </div>
 
 <div class="form-group">

@@ -19,7 +19,7 @@
                         <table class="table table-bordered table-striped " id="example1_wrapper">
                             <thead>
                                 <tr>
-                                    <th>#</th><th>Nomi</th><th>Davomiyligi</th>@if(is_academy()) <th>Narxi</th> @endif<th>Ta`rifi</th><th>Amallar</th>
+                                    <th>#</th><th>Nomi</th><th>Davomiyligi</th>@if(is_academy()) <th>Narxi</th> <th>Status</th> <th>Bot uchun</th> @endif<th>Ta`rifi</th>  <th>Amallar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,8 +28,13 @@
                                     <td>{{ $loop->iteration  }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->duration }}</td>
-                                    @if(is_academy())<td>{{ $item->price }}</td>@endif
+                                    @if(is_academy())
+                                        <td>{{ $item->price }}</td>
+                                        <td>{{ $item->status ==true ? 'Faol' : 'Faol emas' }}</td>
+                                        <td>{{ $item->is_for_bot ==true ? 'Yes' : 'No ' }}</td>
+                                    @endif
                                     <td>{{ $item->description }}</td>
+
                                     <td>
                                         @if(is_academy())<a href="{{ route('courses.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>@endif
                                         <a href="{{ route('courses.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>

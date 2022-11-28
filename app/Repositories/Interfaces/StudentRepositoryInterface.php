@@ -9,4 +9,5 @@ interface StudentRepositoryInterface{
     public function getLastStudentNumber();
     public function addWaitingStudentToGroup($waitingStudent, $group_id);
     public function graduated();
+    public function getByIds($ids);
 }
