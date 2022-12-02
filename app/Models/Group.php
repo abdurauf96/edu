@@ -11,9 +11,10 @@ use \App\Traits\School;
 class Group extends Model
 {
     use LogsActivity, School;
-    //status=1 guruh to'lgan
-    //status=0 ochilmoqda
+    //status=1 guruh active
+    //status=2 guruh tolgan
     const GRADUATED=2 ; //bitirgan
+    const ACTIVE=1 ; //active
     const EVERYDAY=3;
     const ODD_DAYS=1;
     const EVEN_DAYS=2;
@@ -47,10 +48,10 @@ class Group extends Model
 
     public function scopeType($query, $type=null)
     {
-        if(isset($type)){
+        if($type=='graduated'){
             return $query->where('status', self::GRADUATED);
         }else{
-            return $query->where('status', '!=', self::GRADUATED);
+            return $query->where('status', self::ACTIVE);
         }
     }
 

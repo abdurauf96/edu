@@ -17,12 +17,12 @@
                     <a href="{{ route('groups.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
                     <div class="dropdown d-inline mr-2">
                         <button class="btn btn-primary note-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Filter {{  request()->get('year') ?? ""  }}
+                            Filter
                         </button>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
 
                           <a class="dropdown-item" href="{{ route('groups.index', ['type'=>'graduated']) }}">Bitirgan</a>
-                          <a class="dropdown-item" href="{{ route('groups.index') }}">Active</a>
+                          <a class="dropdown-item" href="{{ route('groups.index', ['type'=>'active']) }}">Active</a>
                         </div>
                     </div>
                 </div>

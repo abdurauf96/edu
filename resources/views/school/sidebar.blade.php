@@ -29,7 +29,7 @@
         </a>
       </li>
       <li class="dropdown">
-        <a href="{{ route('groups.index', ['year'=>date('Y')]) }}" class="nav-link"><i class="fas fa-user-friends"></i> <span>Guruhlar</span>
+        <a href="{{ route('groups.index') }}" class="nav-link"><i class="fas fa-user-friends"></i> <span>Guruhlar</span>
         </a>
       </li>
 

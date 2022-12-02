@@ -1,15 +1,24 @@
 <div>
-    <form class="col-lg-4">
-        <div class="form-item">
-            <label >Tashkilotlar</label>
-            <select name="type" class="form-control select2 " wire:model="organization_id">
-                <option value="">Barchasi</option>
-                @foreach ($organizations as $organization)
-                <option value="{{ $organization->id }}">{{ $organization->name }}</option>
-                @endforeach
-            </select>
+    <div class="row">
+        <form class="col-lg-4">
+            <div class="form-item">
+                <label >Tashkilotlar</label>
+                <select name="type" class="form-control select2 " wire:model="organization_id">
+                    <option value="">Barchasi</option>
+                    @foreach ($organizations as $organization)
+                        <option value="{{ $organization->id }}">{{ $organization->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </form>
+        <div class="col-lg-4">
+            <div class="form-item">
+                <label >Qidiruv</label>
+                <input type="search" class="form-control" wire:model="key" placeholder="search...">
+            </div>
         </div>
-    </form>
+    </div>
+
     <br>
     <div class="table-responsive form-inline" >
         <table class="table table-bordered table-hover table-striped">

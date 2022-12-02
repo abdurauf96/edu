@@ -69,19 +69,13 @@
     <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">
         {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
        <select name="status" id="status" class="form-control select2" required>
-
-
            <option @isset($group)
                {{ $group->status==1 ? 'selected' : ''}}
-           @endisset value="1">Guruh to'lgan</option>
-
-           <option  @isset($group)
-           {{ $group->status==0 ? 'selected' : '' }}
-           @endisset value="0">Guruh ochilmoqda</option>
+           @endisset value="1">Active</option>
 
             <option @isset($group)
             {{ $group->status==2 ? 'selected' : '' }}
-           @endisset value="2"> Guruh bitirgan</option>
+           @endisset value="2"> Active emas</option>
        </select>
     </div>
 

@@ -30,6 +30,10 @@ class WaitingStudents extends Component
         $this->results=[];
     }
 
+    public function delete($id){
+        WaitingStudent::destroy($id);
+    }
+
     public function render()
     {
         $waitingStudents=WaitingStudent::query();

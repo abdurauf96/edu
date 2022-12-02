@@ -83,7 +83,7 @@ class StudentsController extends Controller
 
     public function create()
     {
-        $groups=Group::school()->where('status', '!=', Group::GRADUATED)->get();
+        $groups=Group::school()->type('active')->get();
         $districts=District::all();
         $classes=Clas::all();
         $waitingStudents=WaitingStudent::all();
@@ -126,7 +126,7 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = $this->studentService->findOne($id);
-        $groups=Group::school()->get();
+        $groups=Group::school()->type('active')->get();
         $districts=District::all();
         $classes=Clas::all();
         return view('school.students.edit', compact('student', 'groups', 'districts','classes'));

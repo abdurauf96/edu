@@ -64,7 +64,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
         $lastStudentNumber=$this->getLastStudentNumber();
 
-        $course_code=Group::findOrFail($request->group_id)->course->code;
+        //$course_code=Group::findOrFail($request->group_id)->course->code;
         //$requestData['username']=generateIdNumber($lastStudentNumber, $course_code);
         //$requestData['password']=generatePassword($requestData['year'] ?? 12345678);
         $requestData['password']=bcrypt('12345678');

@@ -22,18 +22,14 @@ class GroupsController extends Controller
 
     public function index(Request $request)
     {
-        $year=$request->year;
-        $type=$request->type;
+        $type=$request->type ?? 'active';
 
         $groups = Group::school()
             ->with(['teacher', 'course'])
             ->withCount('students')
-            ->type($request->type)
             ->orderBy('status')
             ->latest()
-            ->when($year, function($query) use ($year){
-                $query->where('year', $year);
-            })
+            ->type($type)
             ->get();
         return view('school.groups.index', compact('groups'));
     }
