@@ -20,12 +20,12 @@
                     <tr>
                         <td>2</td>
                         <td>Bolalar soni </td>
-                        <td><span class="badge badge-success">{{ $studentsBySex[1]['total'] }}</span></td>
+                        <td><span class="badge badge-success">{{ $studentsBySex[0]['total'] }}</span></td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Qizlar soni </td>
-                        <td><span class="badge badge-success">{{ $studentsBySex[0]['total'] }}</span></td>
+                        <td><span class="badge badge-success">{{ $studentsBySex[1]['total'] }}</span></td>
                     </tr>
                     <tr>
                         <td>4</td>

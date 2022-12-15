@@ -45,13 +45,13 @@ class StudentsController extends Controller
 
         }else{
 
-            $students = $this->studentService->getAll($request);
-
-            if($request->has('export')){
-                $data=$this->studentService->exportDataToSchool($students);
-                return Excel::download(new  SchoolStudentsExport($data), 'students.xlsx');
-            }
-            return view('school.students.school.index', compact('students'));
+//            $students = $this->studentService->getAll($request);
+//
+//            if($request->has('export')){
+//                $data=$this->studentService->exportDataToSchool($students);
+//                return Excel::download(new  SchoolStudentsExport($data), 'students.xlsx');
+//            }
+            return view('school.students.school.index');
         }
     }
 
@@ -140,10 +140,18 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(UpdateStudentRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $request->validate(['name'=>'required']);
+
+        if($request->status==2){
+            $request->validate(['outed_date'=>'required']);
+        }
+        if($request->status==0){
+            $request->validate(['finished_date'=>'required']);
+        }
         $this->studentService->update($request, $id);
-        $last_route=$request->last_route;
+
         return redirect('school/students')->with('flash_message', 'O`quvchi yangilandi!');
     }
 

@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Admin\DistrictsController;
 use App\Http\Controllers\Admin\TeachersController;
 use App\Http\Controllers\Admin\SertificatsController;
-
+use App\Http\Controllers\Admin\DocumentsController;
 
 //super admin routes
 Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () {
@@ -29,6 +29,7 @@ Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () 
         Route::get('students/sertificats', [SertificatsController::class, 'sertificats'])->name('sertificats');
         Route::resource('contacts', ContactsController::class);
         Route::match(['get', 'post'],'student/{id}/sertificat', [AdminController::class, 'sertificat'])->name('sertificatForm');
+        Route::resource('documents', DocumentsController::class);
     });
 
 });

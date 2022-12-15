@@ -4,10 +4,9 @@
         <a href="#" wire:click="exportToExcel" class="btn btn-warning btn-sm" title="Add New Course">
             <i class="fa fa-download" aria-hidden="true"></i> Yuklab olish
         </a>
-
     </div>
     @if(session('message'))
-        <div class="alert alert-success alert-dismissible">
+        <div class="alert alert-success alert-dismissible col-lg-4">
             <div class="alert-body">
                 <button class="close" data-dismiss="alert">
                     <span>×</span>
@@ -35,6 +34,7 @@
                     <th>Statusni o'zgartirish</th>
                     @endrole
                     <th>Batafsil</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -67,6 +67,9 @@
                         @endrole
                         <td>
                             <a class="btn btn-info" href="{{ route('admin.schoolDetail', $school->id) }}">Batafsil</a>
+                        </td>
+                        <td>
+                            <button wire:click="delete({{ $school->id }})" class="btn btn-danger" ><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                         </td>
                     </tr>
                 @endforeach

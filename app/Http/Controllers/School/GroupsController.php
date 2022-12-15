@@ -65,7 +65,7 @@ class GroupsController extends Controller
 
         Group::create($requestData);
 
-        return redirect('school/groups?year='.date('Y'))->with('flash_message', 'Guruh qo`shildi!');
+        return redirect('school/groups')->with('flash_message', 'Guruh qo`shildi!');
     }
 
     /**
@@ -119,7 +119,7 @@ class GroupsController extends Controller
         }
         $requestData = $request->all();
         $group->update($requestData);
-        return redirect('school/groups?year='.date('Y'))->with('flash_message', 'Guruh yangilandi!');
+        return redirect('school/groups')->with('flash_message', 'Guruh yangilandi!');
     }
 
     /**
@@ -133,6 +133,6 @@ class GroupsController extends Controller
     {
         Group::destroy($id);
 
-        return redirect('school/groups?year='.date('Y'))->with('flash_message', 'Guruh o`chirib yuborildi!');
+        return redirect('school/groups')->with('flash_message', 'Guruh o`chirib yuborildi!');
     }
 }

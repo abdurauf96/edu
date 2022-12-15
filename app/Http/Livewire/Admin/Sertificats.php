@@ -13,7 +13,6 @@ use Maatwebsite\Excel\Facades\Excel;
 class Sertificats extends Component
 {
     use WithPagination;
-
     protected $paginationTheme = 'bootstrap';
     public $search='';
     public $school_id,$schools, $status, $studentsToExportExcel;

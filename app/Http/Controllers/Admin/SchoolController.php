@@ -27,4 +27,5 @@ class SchoolController extends Controller
 
         return back()->with('message', 'Status yangilandi!');
     }
+
 }

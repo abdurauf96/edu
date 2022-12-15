@@ -17,13 +17,13 @@
 <div class="form-group{{ $errors->has('name') ? 'has-error' : ''}}">
     {!! Form::label('name', 'F.I.O', ['class' => 'control-label']) !!}
     {!! Form::text('name', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+    {!! $errors->first('name', '<p class="invalid-feedback">:message</p>') !!}
 </div>
 
 <div class="form-group{{ $errors->has('phone') ? 'has-error' : ''}}">
     {!! Form::label('phone', 'Telefon raqami', ['class' => 'control-label']) !!}
     {!! Form::text('phone', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-    {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+    {!! $errors->first('phone', '<p class="invalid-feedback">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('year') ? 'has-error' : ''}}" style="width:300px">
     {!! Form::label('year', 'Tug\'ilgan yili', ['class' => 'control-label']) !!}
@@ -135,6 +135,11 @@
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
 
+<div class="form-group"  id="start_date" >
+    {!! Form::label('start_date', 'Dars boshlash sanasi', ['class' => 'control-label']) !!}
+    {!! Form::date('start_date', null, ['class' => 'form-control', 'required'=>'required']) !!}
+</div>
+
 <div class="form-group">
     <label for="">Status</label>
     <select  name="status" class="form-control select2" id="status" required>
@@ -150,13 +155,15 @@
     </select>
 </div>
 
-<div class="form-group" style="width:300px; display: none" id="outed_date">
+<div class="form-group" @if(!$errors->has('outed_date')) style="width:300px; display: none" @endif  id="outed_date" >
     {!! Form::label('outed_date', 'Chiqib ketgan sanasi', ['class' => 'control-label']) !!}
     {!! Form::date('outed_date', null, ['class' => 'form-control']) !!}
+    @error('outed_date') <div class="invalid-feedback">Maydon to'ldirilishi shart</div> @enderror
 </div>
-<div class="form-group" style="width:300px; display: none" id="finished_date">
+<div class="form-group" @if(!$errors->has('finished_date'))  style="width:300px; display: none" @endif id="finished_date">
     {!! Form::label('finished_date', 'Bitirib ketgan sanasi', ['class' => 'control-label']) !!}
     {!! Form::date('finished_date', null, ['class' => 'form-control']) !!}
+    @error('finished_date') <div class="invalid-feedback">Maydon to'ldirilishi shart</div> @enderror
 </div>
 @if(is_academy())
 <div class="form-group">

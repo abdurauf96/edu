@@ -8,7 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Document extends Model
 {
     use LogsActivity;
-    
+
 
     /**
      * The database table used by the model.
@@ -29,9 +29,9 @@ class Document extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'file'];
+    protected $fillable = ['title', 'file', 'link'];
 
-    
+
 
     /**
      * Change activity log event description

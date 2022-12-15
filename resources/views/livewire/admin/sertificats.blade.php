@@ -56,6 +56,7 @@
                     <th>Yo'nalish</th>
                     <th>Telefon</th>
                     <th>O'qish xolati</th>
+                    <th>Bitirgan sanasi</th>
                     <th>Sertifikat xolati</th>
                     <th>Sertifikat</th>
                     <th>Sertifikat berish </th>
@@ -79,6 +80,7 @@
                                 <div class="badge badge-warning"> Bitirgan </div>
                             @endif
                         </td>
+                        <td>{{ $item->finished_date }}</td>
                                                <td>
                                                    @if($item->sertificat_status)
                                                         <div class="badge badge-success"> Berilgan </div>

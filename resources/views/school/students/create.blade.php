@@ -11,11 +11,9 @@
             </div>
             <div class="card-body">
                 @if ($errors->any())
-                    <ul class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                    <div class="alert alert-danger">
+                        <p>Kerakli maydonlarni to'ldiring !</p>
+                    </div>
                 @endif
                 <div class="col-lg-12">
                     {!! Form::open(['url' => route('students.store'), 'files'=>true, 'class' => 'form-horizontal add_student_form', 'files' => true]) !!}

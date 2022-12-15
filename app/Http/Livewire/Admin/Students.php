@@ -17,8 +17,8 @@ class Students extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $search='';
-    public $school_id,$schools, $status, $studentsToExportExcel;
-
+    public $school_id,$schools, $studentsToExportExcel,$start_date, $finished_date;
+    public $status=3;
     public function mount()
     {
         if(auth()->user()->hasRole('super-admin')){
@@ -50,6 +50,16 @@ class Students extends Component
         $this->resetPage();
     }
 
+    public function updatingStartDate()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFinishedDate()
+    {
+        $this->resetPage();
+    }
+
     public function updatingSchoolId()
     {
         $this->resetPage();
@@ -63,8 +73,16 @@ class Students extends Component
             $students->where('school_id', $this->school_id);
         }
 
-        if(isset($this->status)){
+        if(isset($this->status) and $this->status!=3){
             $students->where('status', $this->status);
+        }
+
+        if(isset($this->start_date)){
+            $students->where('start_date' , '>', $this->start_date);
+        }
+
+        if(isset($this->finished_date)){
+            $students->where('finished_date', '<', $this->finished_date);
         }
 
         if(auth()->user()->hasRole('xtb')){

@@ -85,7 +85,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/groups', GroupsController::class);
     Route::resource('/organizations', OrganizationsController::class);
     Route::resource('classes', ClassesController::class);
-    Route::resource('documents', DocumentsController::class);
+    Route::resource('documents', DocumentsController::class)->only('index');
     Route::get('contacts', [MainController::class, 'contacts'])->name('school.contacts.index');
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);

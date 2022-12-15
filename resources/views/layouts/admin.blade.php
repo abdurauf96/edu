@@ -91,8 +91,13 @@
                 <li class="dropdown">
                     <a href="{{ route('admin.contacts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Kontaktlar</span></a>
                 </li>
+                @role('admin')
                 <li class="dropdown">
                     <a href="{{ route('admin.districts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Tumanlar</span></a>
+                </li>
+                @endrole
+                <li class="dropdown">
+                    <a href="{{ route('admin.documents.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Darsliklar</span></a>
                 </li>
             </ul>
           </aside>

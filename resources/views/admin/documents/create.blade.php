@@ -1,12 +1,13 @@
-@extends('layouts.school')
+@extends('layouts.admin')
 
 @section('content')
+
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Tahrirlash #{{ $document->id }}</div>
+                    <div class="card-header">Yangi yaratish</div>
                     <div class="card-body">
-                        <a href="{{ url('/school/documents') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/documents') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
                         <br />
                         <br />
 
@@ -18,11 +19,10 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/school/documents/' . $document->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                        <form method="POST" action="{{ url('/admin/documents') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            @include ('school.documents.form', ['formMode' => 'edit'])
+                            @include ('admin.documents.form', ['formMode' => 'create'])
 
                         </form>
 
