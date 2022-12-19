@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -41,7 +42,7 @@ class StudentStartedCourseJob implements ShouldQueue
         $debt=round($priceCourse/$numberAllDays*$remainDays);
         $this->student->update(['debt'=>$debt]);
 
-        \Log::info("qarz-  {$debt} ; qolgan kuni - {$remainDays} ; kurs narxi - {$priceCourse}");
+        Message::create(['student_id'=>$this->student->id, 'body'=>'O\'qishni boshlagani uchun '.$debt.' so`m qarz yozildi !']);
 
     }
 }

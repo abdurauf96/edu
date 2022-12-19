@@ -5,11 +5,17 @@ namespace App\Http\Controllers\School;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Jobs\StudentsMonthlyPaymentJob;
+use App\Models\Message;
 use App\Models\Payment;
 use App\Http\Requests\PaymentRequest;
+use App\Models\User;
+use App\Notifications\PaymentsNotification;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class PaymentsController extends Controller
 {
@@ -43,7 +49,7 @@ class PaymentsController extends Controller
         $courses=\App\Models\Course::all();
         $groups=\App\Models\Group::all();
         $months=\App\Models\Month::all();
-        return view('school.payments.create', compact('courses', 'students', 'groups', 'months'));
+        return view('school.payments.create', compact( 'students', 'groups', 'months'));
     }
 
     /**
@@ -126,5 +132,24 @@ class PaymentsController extends Controller
         $groups=\App\Models\Group::where('course_id', $course_id)->get();
         $res=view('school.payments.ajax', compact('groups'));
         return $res;
+    }
+
+    public function addMonthlyPayment()
+    {
+        $count=Message::whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
+            ->count();
+
+        if($count>0){
+            return back()->with('error_message', 'Ushbu oy uchun to\'lov yozilgan!');
+        }
+
+        $chunkStudents=$this->studentRepo->getActives();
+
+        foreach ($chunkStudents as $students){
+            StudentsMonthlyPaymentJob::dispatch($students);
+        }
+
+        return back()->with('flash_message', 'O\'quvchilarga kurs uchun oylik to\'lov yozildi !');
     }
 }

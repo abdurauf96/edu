@@ -30,6 +30,8 @@ class Student extends Authenticatable
      * @var string
      */
     protected $primaryKey = 'id';
+
+
     /**
      * Attributes that should be mass-assignable.
      *
@@ -123,6 +125,11 @@ class Student extends Authenticatable
     public function payments()
     {
         return $this->hasMany(Payment::class)->orderBy('month_id');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 
     public function getSchool()

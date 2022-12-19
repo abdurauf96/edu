@@ -100,11 +100,11 @@
             </a>
           </li>
 
-           {{-- <li>
-             <a href="{{ route('cashierTable') }}">
-               Ko'rish
+            <li>
+             <a href="{{ route('messages.index') }}">
+               Xabarnomalar
              </a>
-           </li> --}}
+           </li>
 
             <li>
                 <a href="{{ route('paymentStatistics') }}">

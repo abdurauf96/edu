@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,7 +33,7 @@ class StudentChangeCourseJob implements ShouldQueue
      * @return void
      */
     public function handle()
-    { 
+    {
         $numberAllDays=(int)date('t', strtotime($this->start_date)); //number all days for that month
         $numberStudyDay=(int)date('d', strtotime($this->start_date)); //number study days for that month
         $remainDays = $numberAllDays - $numberStudyDay;
@@ -40,6 +41,7 @@ class StudentChangeCourseJob implements ShouldQueue
         $priceNewCourse=$this->priceNewCourse;
         $this->student->debt=round($this->student->debt +$priceNewCourse/$numberAllDays*$remainDays - $priceOldCourse/$numberAllDays*$remainDays);
         $this->student->save();
+        Message::create(['student_id'=>$this->student->id, 'body'=>'Boshqa guruhga o\'tdi !']);
         //\Log::info(['yangi kurs narxi - '.$priceNewCourse." ; eski kurs narxi - {$priceOldCourse}  ; qolgan kun - {$remainDays} ; qarz - {$this->student->debt}"]);
     }
 }

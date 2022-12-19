@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
@@ -29,28 +30,34 @@ class MainController extends Controller
     {
         $num_groups=\App\Models\Group::school()->type('active')->get()->count();
 
-        $girls=Student::school()->active()->whereSex('0')->count();
-        $boys=Student::school()->active()->whereSex(1)->count();
-        $active_students=Student::active()->school()->count();
-        $graduated_students=Student::school()->graduated()->count();
-        $outed_students=Student::school()->out()->count();
-        $courses=\App\Models\Course::school()->with('students')->get();
+        $courses=\App\Models\Course::school()
+            ->withCount(['students as active_students_count' => function ($query) {
+                    $query->where('students.status', Course::ACTIVE);
+                    },
+        ])->get();
+
+        $students = Student::school()
+            ->selectRaw("count(case when status='".Student::ACTIVE."' then 1 end) as count_active")
+            ->selectRaw("count(case when status='".Student::GRADUATED."' then 1 end) as count_graduated")
+            ->selectRaw("count(case when status='".Student::OUT."' then 1 end) as count_outed")
+            ->selectRaw("count(case when sex='1' and status='".Student::ACTIVE."' then 1 end ) as count_boys")
+            ->selectRaw("count(case when sex='0' and status='".Student::ACTIVE."' then 1 end) as count_girls")
+            ->selectRaw("count(case when sex='0' and status='".Student::ACTIVE."' then 1 end) as count_girls")
+            ->first();
+
 
         if(is_school()){
-            $all_students=Student::school()->count();
             $classes=Clas::withCount('students')->get();
 
-            return view('school.school-dashboard', compact('num_groups', 'girls', 'boys', 'active_students', 'graduated_students', 'courses', 'all_students', 'classes','outed_students'));
+            return view('school.school-dashboard', compact('students', 'num_groups',  'courses', 'classes'));
 
         }else{
 
             $grant_students=Student::school()->grant()->count();
 
-            $out_students=Student::school()->out()->count();
-
             $teachers=\App\Models\Teacher::school()->whereStatus(1)->with(['students','courses'])->get();
 
-            return view('school.academy-dashboard', compact( 'courses', 'num_groups', 'teachers', 'boys', 'girls', 'grant_students', 'active_students', 'out_students', 'graduated_students'));
+            return view('school.academy-dashboard', compact( 'students','courses', 'num_groups', 'teachers','grant_students'));
         }
     }
 

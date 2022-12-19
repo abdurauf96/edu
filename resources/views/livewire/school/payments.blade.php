@@ -2,6 +2,8 @@
     <div class="card-header"> <h4>To'lovlar </h4>
         <div class="card-header-form">
             <a href="{{ route('payments.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
+
+            <a href="{{ route('school.addMonthlyPayment') }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-plus"></i>Barcha o'quvchilarga oylik qarz yozish</a>
         </div>
     </div>
     <div class="card-body">

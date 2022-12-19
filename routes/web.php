@@ -22,6 +22,7 @@ use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ClassesController;
 use App\Http\Controllers\School\DocumentsController;
 use App\Http\Controllers\School\ProfileController;
+use App\Http\Controllers\School\MessagesController;
 
 use App\Http\Controllers\Student\StudentController;
 /*
@@ -135,6 +136,10 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
+
+    Route::get('/add/course-payment', [PaymentsController::class, 'addMonthlyPayment'])->name('school.addMonthlyPayment');
+    Route::get('/messages/index', [MessagesController::class, 'index'])->name('messages.index');
+
 });
 
 

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Database\Query\Builder;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Builder::macro('addSubSelect', function ($column, $query) {
+            if (is_null($this->columns)) {
+                $this->select($this->from.'.*');
+            }
+
+            return $this->selectSub($query->limit(1), $column);
+        });
+
         view()->composer('school.sidebar', function($view){
             $creators = \App\Models\User::role('creator')->get();
             $view->with(compact('creators'));

@@ -10,4 +10,5 @@ interface StudentRepositoryInterface{
     public function addWaitingStudentToGroup($waitingStudent, $group_id);
     public function graduated();
     public function getByIds($ids);
+    public function getActives();
 }

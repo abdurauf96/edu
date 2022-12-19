@@ -110,12 +110,7 @@
         {!! Form::text('study_year', null, ('required' == 'required') ? ['class' => 'form-control yearpicker', 'required' => 'required'] : ['class' => 'form-control']) !!}
         {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group">
-    {!! Form::label('start_date', "Dars boshlanish sanasi", ['class' => 'control-label']) !!}
-    {!! Form::date('start_date', null,  $formMode=='edit' ? ['class' => 'form-control', 'required' => 'required' ]
-    : ['class' => 'form-control', 'required' => 'required']   ) !!}
-    {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
-</div>
+
 @endif
 
 <div class="form-group">

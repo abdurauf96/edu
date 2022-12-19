@@ -27,22 +27,22 @@
                                       <tr>
                                           <td>1</td>
                                           <td> <a href="{{ route('students.index')  }}"> Jami o'quvchilar </a></td>
-                                          <td><span class="badge badge-light">{{ $all_students }} ta</span></td>
+                                          <td><span class="badge badge-light">{{ $students['count_active'] }} ta</span></td>
                                       </tr>
                                       <tr>
                                           <td>2</td>
                                           <td> <a href="{{ route('students.index')  }}?type=active"> Ayni vaqt o'qimoqda </a></td>
-                                          <td><span class="badge badge-light">{{ $active_students }} ta</span></td>
+                                          <td><span class="badge badge-light">{{ $students['count_active'] }} ta</span></td>
                                       </tr>
                                       <tr>
                                           <td>3</td>
                                           <td><a href="{{ route('students.index')  }}?type=graduated">Bitirib ketgan </a> </td>
-                                          <td><span class="badge badge-light">{{ $graduated_students }} ta</span></td>
+                                          <td><span class="badge badge-light">{{ $students['count_outed'] }} ta</span></td>
                                       </tr>
                                       <tr>
                                           <td>3</td>
                                           <td><a href="{{ route('students.index')  }}?type=graduated">Chiqib ketgan </a> </td>
-                                          <td><span class="badge badge-light">{{ $outed_students }} ta</span></td>
+                                          <td><span class="badge badge-light">{{ $students['count_graduated'] }} ta</span></td>
                                       </tr>
                                       <tr>
                                           <td colspan="3"><h6>Shundan</h6></td>
@@ -50,12 +50,12 @@
                                       <tr>
                                           <td>4</td>
                                           <td><a href="{{ route('students.index')  }}?type=boys">Bolalar soni </a> </td>
-                                          <td><span class="badge badge-light">{{ $boys }} ta</span></td>
+                                          <td><span class="badge badge-light">{{ $students['count_boys'] }} ta</span></td>
                                       </tr>
                                       <tr>
                                           <td>5</td>
                                           <td><a href="{{ route('students.index')  }}?type=girls">Qizlar soni </a></td>
-                                          <td><span class="badge badge-light">{{ $girls }} ta</span></td>
+                                          <td><span class="badge badge-light">{{ $students['count_girls'] }} ta</span></td>
                                       </tr>
                                       <tr>
                                           <td>6</td>

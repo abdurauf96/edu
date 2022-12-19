@@ -75,7 +75,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function findOne($id)
     {
-        return Student::findOrFail($id);
+        return Student::with('group', 'messages','payments')->findOrFail($id);
     }
 
     public function update($request, $id)
@@ -135,6 +135,11 @@ class StudentRepository implements StudentRepositoryInterface{
     public function getByIds($ids)
     {
         return Student::find($ids);
+    }
+
+    public function getActives()
+    {
+        return Student::school()->active()->get()->chunk(200);
     }
 
 }

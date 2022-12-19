@@ -58,7 +58,7 @@ class StudentsController extends Controller
     public function creatorStatistics(Request $request)
     {
         $creators = User::role('creator')->get();
-        $students = Student::all();
+        $students = Student::school()->get();
         return view('school.students.creator-statistics', compact('creators', 'students'));
     }
 
@@ -255,32 +255,32 @@ class StudentsController extends Controller
     public function statistics()
     {
         $districts=District::all();
-        $courses=Course::all();
+        $courses=Course::school()->get();
 
-        $studentsByAges = Student::active()->get()->groupBy(function($item) {
+        $studentsByAges = Student::active()->school()->get()->groupBy(function($item) {
             return \Carbon\Carbon::parse($item->year)->format('Y');
         });
 
-        $studentsBySex = Student::active()->select('sex', DB::raw('count(*) as total'))
+        $studentsBySex = Student::active()->school()->select('sex', DB::raw('count(*) as total'))
         ->groupBy('sex')
         ->get();
 
-        $studentsBySchool = Student::active()->select('study_type', DB::raw('count(*) as total'))
+        $studentsBySchool = Student::active()->school()->select('study_type', DB::raw('count(*) as total'))
         ->groupBy('study_type')
         ->orderBy('study_type')
         ->get();
 
-        $school=Student::active()->where('study_type', 1)->get()->count();
-        $collegue=Student::active()->where('study_type', 2)->get()->count();
-        $university=Student::active()->where('study_type', 3)->get()->count();
-        $worker=Student::active()->where('study_type', 4)->get()->count();
+        $school=Student::active()->school()->where('study_type', 1)->get()->count();
+        $collegue=Student::active()->school()->where('study_type', 2)->get()->count();
+        $university=Student::active()->school()->where('study_type', 3)->get()->count();
+        $worker=Student::active()->school()->where('study_type', 4)->get()->count();
         $types['school']=$school;
         $types['collegue']=$collegue;
         $types['university']=$university;
         $types['worker']=$worker;
 
         $grant_students=Student::school()->grant()->count();
-        $active_students=Student::active()->count();
+        $active_students=Student::active()->school()->count();
         return view('school.students.statistics',compact('districts', 'studentsBySex', 'studentsByAges','grant_students', 'active_students','types', 'courses'));
     }
 

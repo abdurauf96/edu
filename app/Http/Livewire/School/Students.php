@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\School;
 
+use App\Models\Event;
 use App\Models\User;
 use App\Models\Student;
 use Livewire\Component;
@@ -67,8 +68,13 @@ class Students extends Component
                     ->orWhere('id', 'LIKE', '%'.$this->search.'%');
             })
             ->with('group.course','district', 'group.teacher')
+            ->addSubSelect('last_event_status', Event::select('status')
+                ->whereColumn('person_id', 'students.id')->where('type', 'student')
+                ->latest())
             ->school();
+
         $this->studentsToExportExcel=$students->get();
+
         $students=$students->paginate(10);
 
         return view('livewire.school.students', ['students'=>$students, 'creators'=>$creators]);

@@ -14,7 +14,7 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                 <div class="card-content">
                   <h5 class="font-15">Jami o'quvchilar</h5>
-                  <h2 class="mb-3 font-18">{{ $active_students }}</h2>
+                  <h2 class="mb-3 font-18">{{ $students['count_active'] }}</h2>
 {{--                  <p class="mb-0"><span class="col-green">10%</span> Increase</p>--}}
                 </div>
               </div>
@@ -147,7 +147,7 @@
                   <tr>
                       <td>{{ $loop->iteration }}</td>
                       <td>{{ $course->name }}</td>
-                      <td><span class="badge badge-success">{{ count($course->activeStudents()) }}</span></td>
+                      <td><span class="badge badge-success">{{ $course->active_students_count }}</span></td>
                   </tr>
                   @endforeach
                 </tbody></table>
@@ -173,17 +173,17 @@
                         <tr>
                           <td>2</td>
                           <td> <a href="#"> Ayni vaqt o'qimoqda </a></td>
-                          <td><span class="badge badge-light">{{ $active_students }} ta</span></td>
+                          <td><span class="badge badge-light">{{ $students['count_active'] }} ta</span></td>
                         </tr>
                         <tr>
                           <td>3</td>
                           <td><a href="#">Bitirib ketgan </a> </td>
-                          <td><span class="badge badge-light">{{ $graduated_students }} ta</span></td>
+                          <td><span class="badge badge-light">{{ $students['count_graduated'] }} ta</span></td>
                         </tr>
                         <tr>
                           <td>4</td>
                           <td><a href="#"> Chiqib ketgan </a> </td>
-                          <td><span class="badge badge-light">{{ $out_students }} ta</span></td>
+                          <td><span class="badge badge-light">{{ $students['count_outed'] }} ta</span></td>
                         </tr>
                         <tr>
                           <td>5</td>
@@ -193,12 +193,12 @@
                         <tr>
                           <td>6</td>
                           <td><a href="#">Bolalar soni </a> </td>
-                          <td><span class="badge badge-light">{{ $boys }} ta</span></td>
+                          <td><span class="badge badge-light">{{ $students['count_boys'] }} ta</span></td>
                         </tr>
                         <tr>
                           <td>7</td>
                           <td><a href="#">Qizlar soni </a></td>
-                          <td><span class="badge badge-light">{{ $girls }} ta</span></td>
+                          <td><span class="badge badge-light">{{ $students['count_girls'] }} ta</span></td>
                         </tr>
                     </tbody>
                   </table>

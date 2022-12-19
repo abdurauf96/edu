@@ -47,7 +47,7 @@
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>Dars boshlagan sanasi</th>  <td>{{ $student->start_date}}</td> </tr>
                             @if(is_academy())
-                            <tr><th> O'qish turi </th><td> {{ $student->type!=1 ? 'Grant '.$student->type : 'Oddiy'  }} </td></tr>
+                            <tr><th> O'qish turi </th><td> @if($student->type==1) Oddiy @else Chegirma: {{ 100 - $student->type*100 }}% @endif</td></tr>
                             <tr><th>Qarzi </th> <td>   @if($student->is_debt())
                                         <div class="badge badge-danger">{{ number_format($student->debt) }}(qarzdor)</div>
                                     @else
@@ -101,6 +101,31 @@
 
 
               </tbody></table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">O'quvchining to'lovga oid jarayonlari</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody><tr>
+                        <th>#</th>
+                        <th>Malumot</th>
+                        <th>Sana</th>
+                    </tr>
+                    @foreach ($student->messages as $message)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $message->body }}</td>
+                            <td>{{ $message->created_at->format('d-M-Y') }}</td>
+                        </tr>
+                    @endforeach
+
+
+                    </tbody></table>
             </div>
             <!-- /.box-body -->
         </div>
