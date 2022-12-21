@@ -28,7 +28,7 @@ class StaffsController extends Controller
 
         //$staffs = $this->staffRepo->getAll();
         $organizations = Organization::school()->latest()->get();
-        
+
         return view('school.staffs.index', compact('organizations'));
     }
 
@@ -132,7 +132,7 @@ class StaffsController extends Controller
     {
         $staff=$this->staffRepo->findOne($id);
         $this->staffRepo->generateIdCard($staff);
-           
+
         return back()->with('flash_message', 'Ushbu xodim uchun ID card yaratildi!  ');
     }
 

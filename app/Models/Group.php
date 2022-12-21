@@ -12,7 +12,7 @@ class Group extends Model
 {
     use LogsActivity, School;
     //status=1 guruh active
-    //status=2 guruh tolgan
+    //status=2 guruh bitirgan
     const GRADUATED=2 ; //bitirgan
     const ACTIVE=1 ; //active
     const EVERYDAY=3;

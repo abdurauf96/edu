@@ -5,6 +5,7 @@ namespace App\Http\Controllers\School;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
+use App\Services\StudentService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -20,10 +21,12 @@ class MainController extends Controller
      * @return void
      */
     public $paymentRepo;
+    public $studentService;
 
-    public function __construct(PaymentRepositoryInterface $paymentRepository)
+    public function __construct(PaymentRepositoryInterface $paymentRepository, StudentService $studentService)
     {
         $this->paymentRepo=$paymentRepository;
+        $this->studentService=$studentService;
     }
 
     public function index()
@@ -36,14 +39,7 @@ class MainController extends Controller
                     },
         ])->get();
 
-        $students = Student::school()
-            ->selectRaw("count(case when status='".Student::ACTIVE."' then 1 end) as count_active")
-            ->selectRaw("count(case when status='".Student::GRADUATED."' then 1 end) as count_graduated")
-            ->selectRaw("count(case when status='".Student::OUT."' then 1 end) as count_outed")
-            ->selectRaw("count(case when sex='1' and status='".Student::ACTIVE."' then 1 end ) as count_boys")
-            ->selectRaw("count(case when sex='0' and status='".Student::ACTIVE."' then 1 end) as count_girls")
-            ->selectRaw("count(case when sex='0' and status='".Student::ACTIVE."' then 1 end) as count_girls")
-            ->first();
+        $students = $this->studentService->countByTypes();
 
 
         if(is_school()){
@@ -65,7 +61,11 @@ class MainController extends Controller
     {
         $numberDay = date('N', strtotime(date("l")));
         $courseDays= $numberDay%2==0 ? Group::EVEN_DAYS : Group::ODD_DAYS;
-        $groups=Group::whereIn('course_days', [$courseDays,Group::EVERYDAY])->where('status', '!=', 2)->get();
+        $groups=Group::whereIn('course_days', [$courseDays,Group::EVERYDAY])
+            ->with('course', 'teacher')
+            ->withCount('students')
+            ->type('active')
+            ->get();
         //dd($groups);
         return view('school.groups.todayGroups', compact('groups'));
     }
@@ -83,51 +83,6 @@ class MainController extends Controller
     {
         $contacts=\App\Models\Contact::all();
         return view('school.contacts.index', compact('contacts'));
-    }
-
-    public function test()
-    {
-        //$students=\App\Models\Student::all();
-
-        set_time_limit(600);
-        //$response = Http::get('https://academy.digitalpark.uz/api/payments');
-       //dd($response->json());
-        // foreach ($response->json() as $data) {
-
-        //     \App\Models\Payment::create($data);
-        // }
-
-
-        // $num=1;
-        // foreach ($students as $student) {
-
-        //     //21MDC001 ~ year - course_code - student_number
-        //     $number = str_pad($num, 4, 0, STR_PAD_LEFT);
-        //     $course_code=$student->group->course->code;
-        //     $current_year=date('y');
-        //     $student->student_number=$current_year.$course_code.$number;
-
-        //     $year=explode('-', $student->year);
-        //     $reversed=array_reverse($year);
-        //     $year=implode('', $reversed);
-
-        //     $student->password=bcrypt($year);
-        //     $student->save();
-
-        // }
-
-
-        // foreach($students as $student){
-        //     $filename=str_replace(' ', '-', $student->name).'-'.time().'.png';
-        //     $student->code=$filename;
-        //     $student->save();
-
-        //     $this->createQRCode($student->id, $filename, 'student');
-
-        // }
-
-        return redirect('/school/dashboard');
-
     }
 
 }

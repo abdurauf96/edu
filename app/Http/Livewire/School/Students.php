@@ -63,11 +63,18 @@ class Students extends Component
         }
 
         $students->latest()
+            ->select('id', 'name', 'debt','test_status','group_id')
             ->where(function($query){
                 $query->where('name', 'LIKE',  '%'.$this->search.'%')
                     ->orWhere('id', 'LIKE', '%'.$this->search.'%');
             })
-            ->with('group.course','district', 'group.teacher')
+            ->with([
+                'group'=>function($query){
+                    $query->select('id', 'course_id', 'name');
+                },
+                'group.course' => function($query){
+                    $query->select('id', 'name');
+            }])
             ->addSubSelect('last_event_status', Event::select('status')
                 ->whereColumn('person_id', 'students.id')->where('type', 'student')
                 ->latest())
@@ -76,7 +83,7 @@ class Students extends Component
         $this->studentsToExportExcel=$students->get();
 
         $students=$students->paginate(10);
-
+      
         return view('livewire.school.students', ['students'=>$students, 'creators'=>$creators]);
     }
 }

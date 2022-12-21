@@ -3,46 +3,19 @@ namespace App\Repositories;
 
 use App\Models\Student;
 use App\Models\Group;
+use App\Models\Course;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentRepository implements StudentRepositoryInterface{
 
-    public function getAll($request=null){
+    public function getAll(){
 
-        $type=$request->type ?? null;
-        $students=Student::query();
-        switch ($type) {
-            case 'graduated':
-                $students->graduated();
-                break;
-            case 'out':
-                $students->out();
-                break;
-            case 'active':
-                $students->active();
-                break;
-            case 'grant':
-                $students->grant();
-                break;
-            case 'girls':
-                $students->whereSex(0);
-                break;
-            case 'boys':
-                $students->whereSex(1);
-                break;
-        }
-
-        $students=$students->latest()
-            ->with('group.course','clas')
+        $students=Student::latest()
             ->school()
-            ->latest()
+            ->active()
             ->get();
 
         return $students;
-    }
-
-    public function graduated(){
-        return Student::school()->graduated()->latest()->get();
     }
 
     public function create($request){
@@ -60,13 +33,9 @@ class StudentRepository implements StudentRepositoryInterface{
         $filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
         $requestData['qrcode']=$filename;
         $requestData['idcard']=$filename_idcard;
+
         //$requestData['creator_id']=auth()->guard('user')->id();
-
-        $lastStudentNumber=$this->getLastStudentNumber();
-
-        //$course_code=Group::findOrFail($request->group_id)->course->code;
-        //$requestData['username']=generateIdNumber($lastStudentNumber, $course_code);
-        //$requestData['password']=generatePassword($requestData['year'] ?? 12345678);
+    
         $requestData['password']=bcrypt('12345678');
         $student=Student::create($requestData);
         return $student;
@@ -95,11 +64,6 @@ class StudentRepository implements StudentRepositoryInterface{
         return $student;
     }
 
-    public function getLastStudentNumber()
-    {
-        return Student::school()->latest()->first()->username ?? null;
-    }
-
     public function addWaitingStudentToGroup($waitingStudent, $request)
     {
 
@@ -123,10 +87,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
         $data['qrcode']=$filename;
-        $course_code=Group::findOrFail($request->group_id)->course->code;
-        $lastStudent=$this->getLastStudentNumber();
-        $data['username']=generateIdNumber($lastStudent, $course_code);
-        $data['password']=generatePassword($data['year']);
+        $data['password']=bcrypt('12345678');
 
         $student=Student::create($data);
         return $student;
@@ -140,6 +101,55 @@ class StudentRepository implements StudentRepositoryInterface{
     public function getActives()
     {
         return Student::school()->active()->get()->chunk(200);
+    }
+
+    public function getDebtStudents()
+    {
+        return Student::latest()
+        ->with('group.course')
+        ->school()
+        ->latest()
+        ->debt()
+        ->get();
+    }
+
+    public function countByTypes()
+    {
+        $students = Student::school()
+            ->selectRaw("count(case when status='".Student::ACTIVE."' then 1 end) as count_active")
+            ->selectRaw("count(case when status='".Student::GRADUATED."' then 1 end) as count_graduated")
+            ->selectRaw("count(case when status='".Student::OUT."' then 1 end) as count_outed")
+            ->selectRaw("count(case when sex='1' and status='".Student::ACTIVE."' then 1 end ) as count_boys")
+            ->selectRaw("count(case when sex='0' and status='".Student::ACTIVE."' then 1 end) as count_girls")
+            ->selectRaw("count(case when type!='1' and status='".Student::ACTIVE."' then 1 end) as count_grants")
+            ->selectRaw("count(case when study_type='1' and status='".Student::ACTIVE."' then 1 end) as count_school")
+            ->selectRaw("count(case when study_type='2' and status='".Student::ACTIVE."' then 1 end) as count_collegue")
+            ->selectRaw("count(case when study_type='3' and status='".Student::ACTIVE."' then 1 end) as count_university")
+            ->selectRaw("count(case when study_type='4' and status='".Student::ACTIVE."' then 1 end) as count_worker")
+            ->first();
+
+        return $students;
+    }
+
+    public function countByCourses()
+    {
+        $courses=Course::school()
+            ->withCount(['students', 'students as active_students_count'=>function($query){
+                $query->where('students.status', Course::ACTIVE);
+            },
+            'students as graduated_students_2021_count'=>function($query){
+                $query->where('students.status', Course::GRADUATED)->where('study_year', 2021);
+            },
+            'students as graduated_students_2022_count'=>function($query){
+                $query->where('students.status', Course::GRADUATED)->where('study_year', 2022);
+            },
+            'students as out_students_count'=>function($query){
+                $query->where('students.status', Course::OUT);
+            },
+            ])
+            ->get();
+
+        return $courses;
     }
 
 }

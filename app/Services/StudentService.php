@@ -15,8 +15,8 @@ class StudentService{
         $this->studentRepo=$studentRepo;
     }
 
-    public function getAll($request=null){
-        return $this->studentRepo->getAll($request);
+    public function getAll(){
+        return $this->studentRepo->getAll();
     }
 
     public function findOne($id)
@@ -128,6 +128,21 @@ TEXT;
 
     public function getByIds($ids){
         return $this->studentRepo->getByIds($ids);
+    }
+
+    public function debtStudents()
+    {
+        return $this->studentRepo->getDebtStudents();
+    }
+
+    public function countByTypes()
+    {
+        return $this->studentRepo->countByTypes();
+    }
+
+    public function countByCourses()
+    {
+        return $this->studentRepo->countByCourses();
     }
 
 

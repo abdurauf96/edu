@@ -32,7 +32,7 @@
                                 
                                 <td> <span class="badge badge-primary">{{ $item->room_number  }} </span></td>
                                 <td> <span class="badge badge-primary">{{ date("H:i", strtotime($item->time))   }} </span></td>
-                                <td>{{ count($item->students) }} ta</td>
+                                <td>{{ $item->students_count }} ta</td>
                                 <td>
                                     <a href="{{ route('groups.show', $item->id) }}" class="btn btn-icon btn-success">Batafsil</a>
                                 </td>

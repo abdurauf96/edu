@@ -24,7 +24,7 @@ class Staffs extends Component
         if(isset($this->key)){
             $staffs->where('name', 'LIKE', '%'.$this->key.'%');
         }
-        $staffs=$staffs->latest()->paginate(10);
+        $staffs=$staffs->with('organization')->latest()->paginate(10);
         return view('livewire.staffs',compact('staffs'));
     }
 }
