@@ -14,7 +14,7 @@
     @yield('css')
 </head>
 <body >
-
+    <h4>Abdug'offor</h4>
     <div class="container">
         <br>
         <br>
