@@ -37,22 +37,24 @@ class Student extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt', 'creator_id', 'class_id', 'school_number'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'username', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date', 'debt', 'creator_id', 'class_id', 'school_number'];
 
-    public function statusText(){
-        if($this->attributes['status']==self::ACTIVE){
+    public function statusText()
+    {
+        if ($this->attributes['status'] == self::ACTIVE) {
             return 'O\'qimoqda';
-        }elseif($this->attributes['status']==self::OUT){
+        } elseif ($this->attributes['status'] == self::OUT) {
             return 'Chiqib ketgan';
-        }elseif($this->attributes['status']==self::GRADUATED){
+        } elseif ($this->attributes['status'] == self::GRADUATED) {
             return 'Bitirgan';
-        }else{
+        } else {
             return 'Belgilanmagan';
         }
     }
 
-    public function is_debt(){
-        if($this->attributes['debt'] > 0){
+    public function is_debt()
+    {
+        if ($this->attributes['debt'] > 0) {
             return true;
         }
         return false;
@@ -132,6 +134,11 @@ class Student extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
     public function getSchool()
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');
@@ -139,17 +146,17 @@ class Student extends Authenticatable
 
     public function getPriceMonth()
     {
-        return round($this->type*$this->group->course->price);
+        return round($this->type * $this->group->course->price);
     }
 
     public function isByDateHere($date)
     {
-        $event=Event::whereDate('created_at', $date)
+        $event = Event::whereDate('created_at', $date)
             ->where('type', 'student')
             ->where('status', 1)
             ->where('person_id', $this->id)
             ->first();
-        if($event){
+        if ($event) {
             return true;
         }
         return false;

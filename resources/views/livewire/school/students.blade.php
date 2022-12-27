@@ -1,17 +1,18 @@
 <div class="card">
-    <div class="card-header"> <h4> O'quvchilar</h4>
+    <div class="card-header">
+        <h4> O'quvchilar</h4>
         <a class="btn btn-primary" href="{{ route('students.create') }}">Yangi qo'shish</a>
-        <a href="#" wire:click="export"  class="btn btn-warning btn-icon icon-left"><i class="fas fa-file-excel"></i>Yuklab olish</a>
+        <a href="#" wire:click="export" class="btn btn-warning btn-icon icon-left"><i class="fas fa-file-excel"></i>Yuklab olish</a>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-lg-4">
                 <div class="section-title">Reception </div>
                 <div class="form-group" wire:ignore>
-                    <select class="form-control select2"  id="creator_id">
+                    <select class="form-control select2" id="creator_id">
                         <option value="">Barchasi</option>
                         @foreach($creators as $creator)
-                            <option value="{{ $creator->id }}">{{ $creator->name }}</option>
+                        <option value="{{ $creator->id }}">{{ $creator->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -59,22 +60,22 @@
             <table class="table table-bordered table-striped" id="table-1">
 
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>F.I.O</th>
-                    <th>Guruh</th>
-                    <th>Kurs</th>
-                    <th>QR Code</th>
-                    {{-- <th>ID Card</th> --}}
-                    <th>To'lov xolati</th>
-                    <th>Amallar</th>
-                    <th>Davomat</th>
-                    <th>Qarz</th>
-                    <th>Status</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>F.I.O</th>
+                        <th>Guruh</th>
+                        <th>Kurs</th>
+                        <th>QR Code</th>
+                        {{-- <th>ID Card</th> --}}
+                        <th>To'lov xolati</th>
+                        <th>Amallar</th>
+                        <th>Davomat</th>
+                        <th>Qarz</th>
+                        <th>Status</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($students as $item)
+                    @foreach($students as $item)
 
                     <tr>
                         <td>{{ $item->id  }}</td>
@@ -85,15 +86,15 @@
                         {{-- <td>
                             @php if(isset($item->idcard) and  file_exists(public_path().'/admin/images/idcards/'.$item->idcard)) : @endphp
                                 <a class="btn btn-icon btn-primary " href="{{ route('downloadCard', $item->idcard) }}"><i class="fas fa-download"></i> </a>
-                            @else
-                                <a class="btn btn-icon btn-info " href="{{ route('generateStudentCard', $item->id) }}">Generate </a>
-                            @endif
+                        @else
+                        <a class="btn btn-icon btn-info " href="{{ route('generateStudentCard', $item->id) }}">Generate </a>
+                        @endif
                         </td> --}}
                         <td>
                             @if($item->is_debt())
-                                <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div>
+                            <div class="badge badge-danger">{{ number_format($item->debt) }}(qarzdor)</div>
                             @else
-                                <div class="badge badge-success"> Qarzi yo'q </div>
+                            <div class="badge badge-success"> Qarzi yo'q </div>
                             @endif
                         </td>
                         {{-- <td><img src="/admin/images/students/{{ $item->image }}" width="100" alt=""></td> --}}
@@ -101,49 +102,49 @@
                             <a href="{{ route('students.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
                             <a href="{{ route('students.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>
                             {!! Form::open([
-                                'method' => 'DELETE',
-                                'url' => ['/school/students', $item->id],
-                                'style' => 'display:inline'
+                            'method' => 'DELETE',
+                            'url' => ['/school/students', $item->id],
+                            'style' => 'display:inline'
                             ]) !!}
                             @role('admin')
-                                {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
-                                        'type' => 'submit',
-                                        'class' => 'btn btn-danger btn-icon',
-                                        'title' => 'Delete Student',
-                                        'onclick'=>'return confirm("Confirm delete?")'
-                                )) !!}
+                            {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
+                            'type' => 'submit',
+                            'class' => 'btn btn-danger btn-icon',
+                            'title' => 'Delete Student',
+                            'onclick'=>'return confirm("Confirm delete?")'
+                            )) !!}
                             @endrole
                             {!! Form::close() !!}
                         </td>
                         <td>
                             <a class="btn btn-icon btn-success" href="{{ route('userEvents', ['type'=>'student', 'id'=>$item->id]) }}">Ko'rish</a>
                             @if($item->last_event_status)
-                                <a class="btn btn-icon btn-danger" href="{{ route('studentEvent', $item->id) }}"> OUT</a>
+                            <a class="btn btn-icon btn-danger" href="{{ route('studentEvent', $item->id) }}"> OUT</a>
                             @else
-                                <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $item->id) }}"> IN</a>
+                            <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $item->id) }}"> IN</a>
                             @endif
                         </td>
                         <td>
-                            <form action="/student/pay" method="POST" >
+                            <form action="/student/pay" method="POST">
                                 @csrf
                                 <div class="input-group input-group-sm">
                                     <input type="number" class="form-control" name="debt" required>
-                                    <input type="hidden" class="form-control" name="student_id" value="{{ $item->id }}" >
+                                    <input type="hidden" class="form-control" name="student_id" value="{{ $item->id }}">
                                     <span class="input-group-btn">
-                                              <button type="submit" class="btn btn-info btn-flat">OK</button>
-                                            </span>
+                                        <button type="submit" class="btn btn-info btn-flat">OK</button>
+                                    </span>
                                 </div>
                             </form>
                         </td>
                         <td>
                             @if(empty($item->test_status))
-                                <button wire:click="doActive({{ $item->id }})" class="btn btn-primary">Active qilish</button>
+                            <button wire:click="doActive({{ $item->id }})" class="btn btn-primary">Active qilish</button>
                             @else
-                                <button wire:click="doActive({{ $item->id }})" class="btn btn-success">Aktiv xolatda</button>
+                            <button wire:click="doActive({{ $item->id }})" class="btn btn-success">Aktiv xolatda</button>
                             @endif
                         </td>
                     </tr>
-                @endforeach
+                    @endforeach
                 </tbody>
             </table>
 
@@ -152,16 +153,16 @@
     </div>
 </div>
 @push('js')
-    <script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
-    <script src="/admin/assets/bundles/sweetalert/sweetalert.min.js"></script>
-    <script>
-        $('#creator_id').change(function (e) {
-            @this.set('creator_id', $(this).val() );
-        });
+<script src="/admin/assets/bundles/select2/dist/js/select2.full.min.js"></script>
+<script src="/admin/assets/bundles/sweetalert/sweetalert.min.js"></script>
+<script>
+    $('#creator_id').change(function(e) {
+        @this.set('creator_id', $(this).val());
+    });
 
-        window.addEventListener('StatusChanged', event => {
-            swal('Good Job', 'Status o`zgardi!', 'success');
-        })
+    window.addEventListener('StatusChanged', event => {
+        swal('Good Job', 'Status o`zgardi!', 'success');
+    })
 
-    </script>
+</script>
 @endpush

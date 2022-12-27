@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasRoles,Notifiable,HasApiTokens;
+    use HasFactory, HasRoles, Notifiable, HasApiTokens;
     const RECEPTION_ROLE_ID = 4; // receptionist user role id equal to 4
 
 
@@ -48,7 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function school(){
+    public function school()
+    {
         return $this->belongsTo(School::class);
     }
 
@@ -57,18 +58,23 @@ class User extends Authenticatable
         return $this->hasMany(Student::class, 'creator_id');
     }
 
-//    public function scopeCreators()
-//    {
-//        return $this->whereHas('roles', function ($query) {
-//            return $query->where('role_id', self::RECEPTION_ROLE_ID);
-//        });
-//    }
-//    public static function boot() {
-//        parent::boot();
-//
-//        static::creating(function ($model){
-//            $model->school_id=auth()->guard('user')->user()->school_id;
-//        });
-//
-//    }
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
+    //    public function scopeCreators()
+    //    {
+    //        return $this->whereHas('roles', function ($query) {
+    //            return $query->where('role_id', self::RECEPTION_ROLE_ID);
+    //        });
+    //    }
+    //    public static function boot() {
+    //        parent::boot();
+    //
+    //        static::creating(function ($model){
+    //            $model->school_id=auth()->guard('user')->user()->school_id;
+    //        });
+    //
+    //    }
 }

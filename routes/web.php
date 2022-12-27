@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\School\RolesController;
@@ -40,8 +41,8 @@ Route::get('/', function () {
     return redirect('/school/login');
 })->name('homepage');
 
-Route::get('students', function (){
-    $students=\App\Models\Student::out()->paginate(10);
+Route::get('students', function () {
+    $students = \App\Models\Student::out()->paginate(10);
     return view('students', compact('students'));
 });
 
@@ -52,15 +53,15 @@ Route::get('/cache', function () {
 
 Route::get('/download', function () {
     return response()->file('eduapp.apk', [
-        'Content-Type'=>'application/vnd.android.package-archive',
-        'Content-Disposition'=> 'attachment; filename="android.apk"',
+        'Content-Type' => 'application/vnd.android.package-archive',
+        'Content-Disposition' => 'attachment; filename="android.apk"',
     ]);
 });
 
 //Route::get('statistika', [AdminController::class, 'statistika'])->name('statistika');
 
 //routes for only school admin
-Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin']], function () {
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
@@ -71,7 +72,7 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:cashier'
     Route::resource('payments', PaymentsController::class);
     Route::get('payment-statistics', [MainController::class, 'paymentStatistics'])->name('paymentStatistics');
     Route::get('cashier/table', [CashierController::class, 'index'])
-    ->name('cashierTable');
+        ->name('cashierTable');
 });
 
 
@@ -113,7 +114,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     //student creators
     //Route::get('/students/creator/{creator}', [StudentsController::class, 'index'])->name('school.students.byCreator');
     Route::get('/student/creator/statistics', [StudentsController::class, 'creatorStatistics'])->name('student.creator.statistics');
-    Route::match(['get','post'], '/creator/student/{id?}', [StudentsController::class, 'addCreatorId'])->name('school.students.addCreatorId');
+    Route::match(['get', 'post'], '/creator/student/{id?}', [StudentsController::class, 'addCreatorId'])->name('school.students.addCreatorId');
 
     Route::resource('students', StudentsController::class);
     Route::get('/debt-students', [StudentsController::class, 'debtStudents'])->name('debtStudents');
@@ -140,16 +141,19 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('/add/course-payment', [PaymentsController::class, 'addMonthlyPayment'])->name('school.addMonthlyPayment');
     Route::get('/messages/index', [MessagesController::class, 'index'])->name('messages.index');
 
+    // Comments Styudesnts
+    Route::get('/commentstuden/{id}', [CommentsController::class, 'commentstuden'])->name('commentstuden');
+    Route::post('/sendcomment', [CommentsController::class, 'sendcomment'])->name('sendcomment');
 });
 
 
-require __DIR__.'/superadmin.php';
-require __DIR__.'/teacher.php';
+require __DIR__ . '/superadmin.php';
+require __DIR__ . '/teacher.php';
 require __DIR__ . '/auth.php';
 
 
 //student routes
-Route::middleware('auth:student')->prefix('student')->name('student.')->group(function(){
+Route::middleware('auth:student')->prefix('student')->name('student.')->group(function () {
     Route::get('dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
     Route::post('payment', [StudentController::class, 'redirectToPaymentSystem'])->name('redirectToPaymentSystem');
 });
@@ -179,8 +183,8 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
 
 Route::post('/student/pay', function (\Illuminate\Http\Request $request) {
     //dd($request->all());
-    $student=\App\Models\Student::findOrFail($request->student_id);
-    $student->debt+=$request->debt;
+    $student = \App\Models\Student::findOrFail($request->student_id);
+    $student->debt += $request->debt;
     $student->save();
     return back();
 });
