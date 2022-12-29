@@ -1,23 +1,5 @@
 <?php
 
-if (! function_exists('is_school')) {
-
-    function is_school()
-    {
-        return auth()->guard('user')->user()->school->isSchool();
-    }
-
-}
-
-if (! function_exists('is_academy')) {
-
-    function is_academy()
-    {
-        return auth()->guard('user')->user()->school->isAcademy();
-    }
-    
-}
-
 if (! function_exists('generateQrcode')) {
 
     function generateQrcode($id, $filename, $type) {
@@ -67,9 +49,6 @@ if(!function_exists('generateIdNumber')){
     }
 }
 
-
-
-
 if(!function_exists('makeCard')){
 
     function makeCard($model, $circled_image, $type)
@@ -107,7 +86,6 @@ if(!function_exists('makeCard')){
         return true;
     }
 }
-
 
 if(!function_exists('circleImage')){
 

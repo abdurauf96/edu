@@ -67,7 +67,6 @@
               <li class="dropdown">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i data-feather="home"></i><span>Dashboard</span></a>
               </li>
-                @role('super-admin')
               <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Ma'muriyat</span></a>
                 <ul class="dropdown-menu">
@@ -75,30 +74,16 @@
 {{--                    <li><a class="nav-link" href="{{ route('roles.index') }}">Ro'llar</a></li>--}}
                 </ul>
               </li>
-                @endrole
               <li class="dropdown">
                 <a href="{{ route('admin.schools') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quv markazlar</span></a>
               </li>
-                <li class="dropdown">
-                    <a href="{{ route('admin.teachers') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'qituvchilar</span></a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('admin.students') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quvchilar</span></a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('admin.sertificats') }}" class="nav-link"><i class="material-icons">location_city</i><span>Sertifikatlar</span></a>
-                </li>
-                <li class="dropdown">
-                    <a href="{{ route('admin.contacts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Kontaktlar</span></a>
-                </li>
-                @role('admin')
-                <li class="dropdown">
-                    <a href="{{ route('admin.districts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Tumanlar</span></a>
-                </li>
-                @endrole
-                <li class="dropdown">
-                    <a href="{{ route('admin.documents.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Darsliklar</span></a>
-                </li>
+               
+              <li class="dropdown">
+                  <a href="{{ route('admin.students') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quvchilar</span></a>
+              </li>
+              <li class="dropdown">
+                  <a href="{{ route('admin.districts.index') }}" class="nav-link"><i class="material-icons">location_city</i><span>Tumanlar</span></a>
+              </li>
             </ul>
           </aside>
       </div>

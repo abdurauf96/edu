@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseCollection;
-use App\Http\Resources\Course as CourseResource;
+use App\Http\Resources\CourseResource;
 use App\Http\Resources\BotStudent as BotStudentResource;
 use App\Models\Course;
 use App\Models\BotStudent;

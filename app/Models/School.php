@@ -10,25 +10,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class School extends Authenticatable
 {
     use HasFactory;
-    public const ACADEMY = 1;
-    public const SCHOOL = 2;
 
-    protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'status', 'computers_qty', 'district_id', 'email'];
+    protected $fillable=['company_name', 'phone', 'addres', 'domain', 'director', 'status', 'district_id', 'email'];
 
     /**
         * The roles that belong to the School
         *
         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
         */
-    public function isAcademy()
-    {
-        return $this->type==self::ACADEMY ;
-    }
-
-    public function isSchool()
-    {
-        return $this->type==self::SCHOOL ;
-    }
 
     public function scopeSchool($query)
     {

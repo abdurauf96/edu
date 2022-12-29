@@ -52,9 +52,14 @@ class User extends Authenticatable
         return $this->belongsTo(School::class);
     }
 
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
     public function students()
     {
-        return $this->hasMany(Student::class, 'creator_id');
+        return $this->hasManyThrough(Student::class, Group::class);
     }
 
 //    public function scopeCreators()

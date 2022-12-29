@@ -23,16 +23,13 @@
                 <tr>
                     <th>#</th>
                     <th>Xudud</th>
-                    <th>Markaz tashkil etilgan maktab</th>
+                    <th>Markaz nomi</th>
                     <th>Maktab direktori</th>
                     <th>Maktab manzili</th>
                     <th>Telefon</th>
                     <th>Email</th>
-                    <th>O'quv xonaga biriktirilgan kompyuterlar soni</th>
                     <th>Status</th>
-                    @role('super-admin')
                     <th>Statusni o'zgartirish</th>
-                    @endrole
                     <th>Batafsil</th>
                     <th>Action</th>
                 </tr>
@@ -47,9 +44,7 @@
                         <td>{{ $school->addres }}</td>
                         <td>{{ $school->phone }}</td>
                         <td>{{ $school->email }}</td>
-                        <td>{{ $school->computers_qty }}</td>
                         <td>@if($school->status==1) <span class="badge badge-success">Faol </span> @else <span class="badge badge-danger">Faol emas </span> @endif</td>
-                        @role('super-admin')
                         <td>
                             {!! Form::open([
                                 'method' => 'POST',
@@ -64,7 +59,7 @@
                             )) !!}
                             {!! Form::close() !!}
                         </td>
-                        @endrole
+                      
                         <td>
                             <a class="btn btn-info" href="{{ route('admin.schoolDetail', $school->id) }}">Batafsil</a>
                         </td>

@@ -61,9 +61,7 @@
                                 <th>Dars boshlagan sanasi</th>
                                 <th>Telefon</th>
                                 <th>Rasm</th>
-                                @if(is_academy())
                                 <th>To'lov holati</th>
-                                @endif
                                 <th>Amallar</th>
                             </tr>
                         </thead>
@@ -75,15 +73,10 @@
                                 <td>{{ $student->address }}  </td>
                                 <td>{{ $student->start_date }}</td>
                                 <td>{{ $student->phone }}</td>
-
                                 <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
-                                @if(is_academy())
                                 <td>@if($student->debt>0) <div class="badge badge-danger">{{ number_format($student->debt) }}(qarzdor)</div> @else <div class="badge badge-success"> qarzi yo'q </div>  @endif</td>
-                                @endif
                                 <td>
-
                                     <a href="{{ url('/school/students/' . $student->id . '/edit') }}" title="Edit Student"><button class="btn btn-icon btn-info"><i class="far fa-edit"></i></button></a>
-
                                 </td>
 
                             </tr>

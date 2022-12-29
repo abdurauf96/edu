@@ -20,7 +20,6 @@ use App\Models\StudentActivity;
 use App\Services\StudentService;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
-use App\Exports\SchoolStudentsExport;
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 
@@ -39,35 +38,7 @@ class StudentsController extends Controller
     }
     public function index(Request $request)
     {
-        if(is_academy()){
-
-            return view('school.students.index');
-
-        }else{
-
-            return view('school.students.school.index');
-        
-        }
-    }
-
-    public function creatorStatistics(Request $request)
-    {
-        $creators = User::role('creator')->get();
-        $students = Student::school()->get();
-        return view('school.students.creator-statistics', compact('creators', 'students'));
-    }
-
-    public function addCreatorId(Request $request, $id=null)
-    {
-        if($request->isMethod('post')){
-            $students = $this->studentService->getByIds($request->student_ids)
-            ->toQuery()
-            ->update(['creator_id'=>auth()->guard('user')->id()]);
-            return redirect()->route('school.students.addCreatorId');
-        }else{
-            $students=Student::active()->whereNull('creator_id')->get();
-            return view('school.students.creator', compact('students'));
-        }
+        return view('school.students.index');
     }
 
     /**
@@ -80,9 +51,8 @@ class StudentsController extends Controller
     {
         $groups=Group::school()->type('active')->get();
         $districts=District::all();
-        $classes=Clas::all();
         $waitingStudents=WaitingStudent::all();
-        return view('school.students.create', compact('groups','districts','classes', 'waitingStudents'));
+        return view('school.students.create', compact('groups','districts', 'waitingStudents'));
     }
 
     /**
@@ -123,8 +93,8 @@ class StudentsController extends Controller
         $student = $this->studentService->findOne($id);
         $groups=Group::school()->type('active')->get();
         $districts=District::all();
-        $classes=Clas::all();
-        return view('school.students.edit', compact('student', 'groups', 'districts','classes'));
+       
+        return view('school.students.edit', compact('student', 'groups', 'districts'));
     }
 
     /**

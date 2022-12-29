@@ -17,7 +17,6 @@
                         @endforeach
                     </ul>
                 @endif
-                @if(is_academy())
                 {!! Form::model($teacher, [
                     'method' => 'PATCH',
                     'url' => ['/school/teachers', $teacher->id],
@@ -26,13 +25,7 @@
                 ]) !!}
                 @include ('school.teachers.form', ['formMode' => 'edit'])
                 {!! Form::close() !!}
-                @else
-                <form action="{{ route('updateSchoolTeacher', $teacher->id) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    @include('school.teachers.school-form', ['formMode'=>'edit']);
-                @endif
-
+               
             </div>
         </div>
     </div>

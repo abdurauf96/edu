@@ -36,6 +36,8 @@
                             <tr><th> Davomiyligi </th><td> {{ $course->duration }} </td></tr>
                             <tr><th> Narxi </th><td> {{ $course->price }} </td></tr>
                             <tr><th> Maxsus kodi </th><td> {{ $course->code }} </td></tr>
+                            <tr><th> Kurs ta'rifi  </th><td> {{ $course->description }} </td></tr>
+                            <tr><th> Kurs haqida  </th><td> {!! $course->body !!} </td></tr>
                         </tbody>
                     </table>
                 </div>

@@ -87,28 +87,6 @@ TEXT;
         $this->generateIdCard($student);
     }
 
-    public function exportDataToSchool($students){
-        $data=[]; $i=1;
-        foreach ($students as $student){
-            $item['id']=$i;
-            $item['district']=$student->district->name ?? null;
-            $item['name']=$student->name;
-            $item['school']=$student->getSchool->company_name;
-            $item['sinf']=$student->clas->name;
-            $item['birthday']=$student->year;
-            $item['sex']=$student->sex==1 ? 'Erkak' : 'Ayol';
-            $item['addres']=$student->address;
-            $item['school_number']=$student->school_number;
-            $item['phone']=$student->phone;
-            $item['course']=$student->group->course->name;
-            $item['group']=$student->group->name;
-            $item['teacher']=$student->group->teacher->name;
-            array_push($data, $item);
-            $i++;
-        }
-        return $data;
-    }
-
     public function exportDataToAcademy($students){
         $data=[]; $i=1;
         foreach ($students as $student){

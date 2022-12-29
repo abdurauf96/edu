@@ -41,20 +41,12 @@ class MainController extends Controller
 
         $students = $this->studentService->countByTypes();
 
+        $grant_students=Student::school()->grant()->count();
 
-        if(is_school()){
-            $classes=Clas::withCount('students')->get();
+        $teachers=\App\Models\Teacher::school()->whereStatus(1)->with(['students','courses'])->get();
 
-            return view('school.school-dashboard', compact('students', 'num_groups',  'courses', 'classes'));
-
-        }else{
-
-            $grant_students=Student::school()->grant()->count();
-
-            $teachers=\App\Models\Teacher::school()->whereStatus(1)->with(['students','courses'])->get();
-
-            return view('school.academy-dashboard', compact( 'students','courses', 'num_groups', 'teachers','grant_students'));
-        }
+        return view('school.dashboard', compact( 'students','courses', 'num_groups', 'teachers','grant_students'));
+        
     }
 
     public function todayGroups()
@@ -77,12 +69,6 @@ class MainController extends Controller
         $payments=$this->paymentRepo->getPaymentsByMonth(date('m'), date('Y'));
 
         return view('school.payments.statistics', compact('statistika','students', 'payments'));
-    }
-
-    public function contacts()
-    {
-        $contacts=\App\Models\Contact::all();
-        return view('school.contacts.index', compact('contacts'));
     }
 
 }

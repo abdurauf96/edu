@@ -46,7 +46,16 @@ class CoursesController extends Controller
 			'name' => 'required',
 			'duration' => 'required'
 		]);
+
         $requestData = $request->all();
+
+        if($request->hasFile('image')){
+            $file=$request->file('image');
+            $filename=time().$file->getClientOriginalName();
+            $path='admin/images/courses';
+            $file->move(public_path($path), $filename);
+            $requestData['image']=$path.'/'.$filename;
+        }
 
         Course::create($requestData);
 
@@ -96,6 +105,15 @@ class CoursesController extends Controller
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
+        
+        if($request->hasFile('image')){
+            $file=$request->file('image');
+            $filename=time().$file->getClientOriginalName();
+            $path='admin/images/courses';
+            $file->move(public_path($path), $filename);
+            $requestData['image']=$path.'/'.$filename;
+        }
+
         $requestData['is_for_bot'] = isset($request['is_for_bot']) ? 1 : 0;
         $course = Course::findOrFail($id);
         $course->update($requestData);

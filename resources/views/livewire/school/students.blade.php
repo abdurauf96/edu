@@ -137,7 +137,7 @@
                         </td>
                         <td>
                             @if(empty($item->test_status))
-                                <button wire:click="doActive({{ $item->id }})" class="btn btn-primary">Active qilish</button>
+                                <button wire:click="doActive({{ $item->id }})" class="btn btn-primary">Active qilish {{ $item->test_status }} </button>
                             @else
                                 <button wire:click="doActive({{ $item->id }})" class="btn btn-success">Aktiv xolatda</button>
                             @endif

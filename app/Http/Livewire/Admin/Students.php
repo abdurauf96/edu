@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Exports\SchoolStudentsExport;
 use App\Exports\StudentsExport;
 use App\Models\School;
 use App\Models\Student;
@@ -21,23 +20,15 @@ class Students extends Component
     public $status=3;
     public function mount()
     {
-        if(auth()->user()->hasRole('super-admin')){
-            $this->schools=School::all();
-        }else{
-            $this->schools=School::school()->get();
-        }
+
+        $this->schools=School::all();
+
     }
 
     public function export(StudentService $service)
     {
-        if(auth()->user()->hasRole('super-admin')) {
-            $data = $service->exportDataToAcademy($this->studentsToExportExcel);
-            return Excel::download(new StudentsExport($data), 'students.xlsx');
-        }else{
-            $data = $service->exportDataToSchool($this->studentsToExportExcel);
-            return Excel::download(new SchoolStudentsExport($data), 'students.xlsx');
-        }
-        return Excel::download(new SchoolStudentsExport($data), 'students.xlsx');
+        $data = $service->exportDataToAcademy($this->studentsToExportExcel);
+        return Excel::download(new StudentsExport($data), 'students.xlsx');
     }
 
     public function updatingStatus()
@@ -83,11 +74,6 @@ class Students extends Component
 
         if(isset($this->finished_date)){
             $students->where('finished_date', '<', $this->finished_date);
-        }
-
-        if(auth()->user()->hasRole('xtb')){
-            $schoolsId=School::school()->get()->pluck('id')->toArray();
-            $students->whereIn('school_id', $schoolsId);
         }
 
         $students->where(function($query){

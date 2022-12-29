@@ -22,16 +22,10 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        if(auth()->user()->hasRole('xtb')){
-
-            $students=$this->statService->getSchoolStudentsStatistics();
-            $groups_qty=$this->statService->getQuantityGroups();
-
-        }else{
-            $students = $this->statService->getAllStudentsStatistics();
-            $groups_qty=count(Group::all());
-        }
-
+       
+        $students = $this->statService->getAllStudentsStatistics();
+        $groups_qty=count(Group::all());
+        
         $schools=$this->statService->getSchoolStatistics();
 
         $districts=District::withCount('schools')->get();

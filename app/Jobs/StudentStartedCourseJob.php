@@ -39,7 +39,7 @@ class StudentStartedCourseJob implements ShouldQueue
         $numberStartDay=(int)date('j', strtotime($this->student->start_date));
         $remainDays = $numberAllDays - $numberStartDay+1;
         $priceCourse=(int)$this->student->getPriceMonth();
-        $debt=round($priceCourse/$numberAllDays*$remainDays);
+        $debt=round($priceCourse/$numberAllDays*$remainDays,-3);
         $this->student->update(['debt'=>$debt]);
 
         Message::create(['student_id'=>$this->student->id, 'body'=>'O\'qishni boshlagani uchun '.$debt.' so`m qarz yozildi !']);

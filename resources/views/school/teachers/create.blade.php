@@ -18,16 +18,10 @@
                     </ul>
                 @endif
                    
-                @if(is_academy())
                 {!! Form::open(['url' => '/school/teachers', 'class' => 'form-horizontal', 'files' => true]) !!}
                     @include ('school.teachers.form', ['formMode' => 'create'])
                 {!! Form::close() !!}
-                @else
-                <form action="{{ route('storeSchoolTeacher') }}" method="POST">
-                    @csrf
-                    @include('school.teachers.school-form')
-                </form>
-                @endif
+               
             </div>
         </div>
     </div>

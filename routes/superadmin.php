@@ -20,16 +20,12 @@ Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () 
     });
 
 
-    Route::middleware('role:super-admin|xtb')->group(function (){
+    Route::middleware('role:super-admin')->group(function (){
         Route::get('/schools', [SchoolController::class, 'index'])->name('schools');
         Route::get('/schools/{school}', [SchoolController::class, 'detail'])->name('schoolDetail');
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('students', [AdminStudentsController::class, 'students'])->name('students');
-        Route::get('teachers', [TeachersController::class, 'index'])->name('teachers');
-        Route::get('students/sertificats', [SertificatsController::class, 'sertificats'])->name('sertificats');
-        Route::resource('contacts', ContactsController::class);
-        Route::match(['get', 'post'],'student/{id}/sertificat', [AdminController::class, 'sertificat'])->name('sertificatForm');
-        Route::resource('documents', DocumentsController::class);
+       
     });
 
 });

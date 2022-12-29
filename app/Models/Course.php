@@ -33,7 +33,7 @@ class Course extends Model
      *
      * @var array
      */
-    protected $fillable = ['school_id', 'name', 'duration', 'price', 'code', 'description', 'is_for_bot', 'status'];
+    protected $fillable = ['school_id', 'name', 'duration', 'price', 'code', 'description', 'is_for_bot', 'status', 'image', 'body'];
 
     public function groups()
     {

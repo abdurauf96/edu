@@ -40,11 +40,6 @@ Route::get('/', function () {
     return redirect('/school/login');
 })->name('homepage');
 
-Route::get('students', function (){
-    $students=\App\Models\Student::out()->paginate(10);
-    return view('students', compact('students'));
-});
-
 Route::get('/cache', function () {
     \Artisan::call('config:cache');
     return back();
@@ -80,8 +75,6 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
 
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::resource('/teachers', TeachersController::class);
-    Route::post('/teachers/store/school-teacher', [TeachersController::class, 'storeSchoolTeacher'])->name('storeSchoolTeacher');
-    Route::patch('/teachers/update/school-teacher/{id}', [TeachersController::class, 'updateSchoolTeacher'])->name('updateSchoolTeacher');
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
     Route::resource('/organizations', OrganizationsController::class);
@@ -110,10 +103,8 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup'])->name('students.addToGroup');
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
 
-    //student creators
-    //Route::get('/students/creator/{creator}', [StudentsController::class, 'index'])->name('school.students.byCreator');
-    Route::get('/student/creator/statistics', [StudentsController::class, 'creatorStatistics'])->name('student.creator.statistics');
-    Route::match(['get','post'], '/creator/student/{id?}', [StudentsController::class, 'addCreatorId'])->name('school.students.addCreatorId');
+    //select groups for managers
+    Route::match(['post', 'get'], '/groups/select/managers', [GroupsController::class, 'selectManagers'])->name('school.groups.selectManagers');
 
     Route::resource('students', StudentsController::class);
     Route::get('/debt-students', [StudentsController::class, 'debtStudents'])->name('debtStudents');
@@ -132,7 +123,6 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/months', MonthsController::class);
     Route::resource('/staffs', StaffsController::class);
     Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
-    Route::get('/reception', [MainController::class, 'reception'])->name('schoolReception');
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
@@ -180,7 +170,7 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
 Route::post('/student/pay', function (\Illuminate\Http\Request $request) {
     //dd($request->all());
     $student=\App\Models\Student::findOrFail($request->student_id);
-    $student->debt+=$request->debt;
+    $student->debt=$request->debt;
     $student->save();
     return back();
 });

@@ -72,11 +72,9 @@
         </ul>
       </nav>
       <div class="main-sidebar sidebar-style-2">
-        @if(is_academy())
+      
           @include('school.sidebar')
-        @else
-          @include('school.school-sidebar')
-        @endif
+      
       </div>
 
       @if (Session::has('flash_message'))
@@ -227,13 +225,14 @@
   <script src="/admin/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="/admin/assets/js/custom.js"></script>
-  @yield('js')
+
   <script>
     var url=window.location.href;
     a=document.querySelectorAll("[href='"+url+"']")[0];
     a.parentElement.classList.add('active');
     a.parentElement.parentElement.style.display="block";
   </script>
+  @yield('js')
   @stack('js')
 </body>
 

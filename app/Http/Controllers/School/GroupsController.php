@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Group;
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
@@ -134,5 +135,24 @@ class GroupsController extends Controller
         Group::destroy($id);
 
         return redirect('school/groups')->with('flash_message', 'Guruh o`chirib yuborildi!');
+    }
+
+    public function selectManagers(Request $request)
+    {
+        if($request->isMethod('post')){
+            
+            Group::findOrFail($request->group_id)->update(['user_id'=>auth()->guard('user')->id()]);;
+    
+            return back()->with('flash_message', 'Guruh '.auth()->guard('user')->user()->name.'ga biriktirildi !');
+        }
+        
+        $groups=Group::school()->with('course')->type('active')->whereNull('user_id')->get();
+        
+        $managers = User::role('creator')
+            ->withCount(['groups', 'students'])
+            ->get();
+     
+        return view('school.groups.select-managers', compact('groups', 'managers'));
+        
     }
 }

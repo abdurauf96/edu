@@ -121,11 +121,9 @@
         </a>
       </li>
       <li class="dropdown">
-        <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Reception</span></a>
-        <ul class="dropdown-menu">
-          <li><a class="nav-link" href="{{ route('school.students.addCreatorId', auth()->guard('user')->id()) }}">O'quvchilarni tanlash</a></li>
-          <li><a class="nav-link" href="{{ route('student.creator.statistics') }}">Statistika</a></li>
-        </ul>
+        <a href="{{ route('school.groups.selectManagers') }}" class="nav-link">
+          <i class="fas fa-school"></i> <span>Guruhlarni tanlash</span>
+        </a>
       </li>
       <li class="dropdown">
         <a href="{{ route('organizations.index') }}" class="nav-link">

@@ -46,9 +46,9 @@
                             </tr>
                             <tr><th> Rasmi </th><td> <img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td></tr>
                             <tr><th>Dars boshlagan sanasi</th>  <td>{{ $student->start_date}}</td> </tr>
-                            @if(is_academy())
+                           
                             <tr><th> O'qish turi </th><td> @if($student->type==1) Oddiy @else Chegirma: {{ 100 - $student->type*100 }}% @endif</td></tr>
-                            <tr><th>Qarzi </th> <td>   @if($student->is_debt())
+                            <tr><th>Qarzi  </th> <td>   @if($student->is_debt())
                                         <div class="badge badge-danger">{{ number_format($student->debt) }}(qarzdor)</div>
                                     @else
                                         <div class="badge badge-success"> Qarzi yo'q </div>
@@ -58,16 +58,13 @@
                             <tr><th>QR Code</th> <td><img src="/admin/images/qrcodes/{{ $student->qrcode }}" width="300" alt=""></td></tr>
                             <tr><th>Username</th> <td>{{ $student->username }}</td> </tr>
                             <tr><th>Kursni tamomlab ishga kirgan joyi</th> <td>{{ $student->future_work }}</td> </tr>
-                            @endif
+                           
                         </tbody>
                     </table>
                 </div>
-
             </div>
-
-
         </div>
-        @if(is_academy())
+     
         <div class="box">
             <div class="box-header">
               <h3 class="box-title">O'quvchining kurslar uchun qilgan to'lovlari</h3>
@@ -98,8 +95,6 @@
 
                 </tr>
                 @endforeach
-
-
               </tbody></table>
             </div>
             <!-- /.box-body -->
@@ -129,7 +124,6 @@
             </div>
             <!-- /.box-body -->
         </div>
-        @endif
     </div>
 </div>
 @endsection

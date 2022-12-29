@@ -46,7 +46,7 @@
     {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
 </div>
 
-@if(is_academy())
+
 <div class="form-group">
     <label for="">O'qish joyi</label> &nbsp; &nbsp;
     <input type="radio" value="1"  @if(isset($student))
@@ -111,8 +111,6 @@
         {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
 </div>
 
-@endif
-
 <div class="form-group">
     <label for="">Jinsi</label> &nbsp; &nbsp;
     <input type="radio" value="1"  @if(isset($student))
@@ -160,28 +158,12 @@
     {!! Form::date('finished_date', null, ['class' => 'form-control']) !!}
     @error('finished_date') <div class="invalid-feedback">Maydon to'ldirilishi shart</div> @enderror
 </div>
-@if(is_academy())
+
 <div class="form-group">
         {!! Form::label('future_work', "Kursni tamomlab ishga kirgan joyi", ['class' => 'control-label']) !!}
         {!! Form::text('future_work', null,  ['class' => 'form-control']) !!}
         {!! $errors->first('future_work', '<p class="help-block">:message</p>') !!}
 </div>
-@else
-<div class="form-group">
-    <label for="">Maktab </label>
-    <input type="text" name="school_number" placeholder="Maktab yoki MFY kiriting..." class="form-control" @isset($student) value="{{ $student->school_number }}" @endisset>
-</div>
-
-<div class="form-group">
-    <label for="">Sinfni tanlang</label>
-    <select name="class_id" class="form-control">
-        @foreach ($classes as $class)
-        <option @isset($student) {{ $student->class_id==$class->id ? 'selected' : '' }} @endisset value="{{ $class->id }}"> {{ $class->name }} </option>
-        @endforeach
-    </select>
-</div>
-
-@endif
 
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
