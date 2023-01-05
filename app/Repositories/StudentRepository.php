@@ -5,6 +5,7 @@ use App\Models\Student;
 use App\Models\Group;
 use App\Models\Course;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
+use Illuminate\Database\Query\Builder;
 
 class StudentRepository implements StudentRepositoryInterface{
 
@@ -35,7 +36,7 @@ class StudentRepository implements StudentRepositoryInterface{
         $requestData['idcard']=$filename_idcard;
 
         //$requestData['creator_id']=auth()->guard('user')->id();
-    
+
         $requestData['password']=bcrypt('12345678');
         $student=Student::create($requestData);
         return $student;
@@ -122,7 +123,7 @@ class StudentRepository implements StudentRepositoryInterface{
             ->selectRaw("count(case when status='".Student::OUT."' then 1 end) as count_outed")
             ->selectRaw("count(case when sex='1' and status='".Student::ACTIVE."' then 1 end ) as count_boys")
             ->selectRaw("count(case when sex='0' and status='".Student::ACTIVE."' then 1 end) as count_girls")
-            ->selectRaw("count(case when type!='1' and status='".Student::ACTIVE."' then 1 end) as count_grants")
+            ->selectRaw("count(case when type!='1' and status='".Student::ACTIVE."' then 1 end) as count_sales")
             ->selectRaw("count(case when study_type='1' and status='".Student::ACTIVE."' then 1 end) as count_school")
             ->selectRaw("count(case when study_type='2' and status='".Student::ACTIVE."' then 1 end) as count_collegue")
             ->selectRaw("count(case when study_type='3' and status='".Student::ACTIVE."' then 1 end) as count_university")
@@ -151,6 +152,26 @@ class StudentRepository implements StudentRepositoryInterface{
             ->get();
 
         return $courses;
+    }
+
+    public function countLeftThisMonth()
+    {
+        $currentMonth=date('m');
+
+        return Student::out()
+            ->whereMonth('outed_date', $currentMonth)
+            ->count();
+    }
+
+    public function countTheMostActives()
+    {
+        $day=\Carbon\Carbon::today()->subWeek();
+
+        return  Student::where('test_status', 1)
+            ->whereHas('events', function ($q) use($day){
+                $q->where('created_at', '>', $day);
+            })
+            ->count();
     }
 
 }

@@ -123,5 +123,15 @@ TEXT;
         return $this->studentRepo->countByCourses();
     }
 
+    public function countTheMostActives()
+    {
+        return $this->studentRepo->countTheMostActives();
+    }
+
+    public function countLeftThisMonth()
+    {
+        return $this->studentRepo->countLeftThisMonth();
+    }
+
 
 }

@@ -12,4 +12,5 @@ interface TeacherRepositoryInterface
     public function update($id, $data);
     public function storeSchoolTeacher($data);
     public function updateSchoolTeacher($id,$data);
+    public function numberActives();
 }

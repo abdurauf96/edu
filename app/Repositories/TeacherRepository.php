@@ -78,4 +78,9 @@ class TeacherRepository implements TeacherRepositoryInterface
         $teacher->courses()->sync($data['course_id']);
 
     }
+
+    public function numberActives()
+    {
+        return Teacher::school()->whereStatus(1)->count();
+    }
 }

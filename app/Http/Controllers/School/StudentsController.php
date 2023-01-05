@@ -186,7 +186,7 @@ class StudentsController extends Controller
     public function event($id)
     {
         $student=$this->studentService->findOne($id);
-        $lastEventStatus = $student->getLastEventStatus($id);
+        $lastEventStatus = $student->getLastEventStatus();
         \App\Models\Event::create([
             'person_id'=>$id,
             'type'=>'student',

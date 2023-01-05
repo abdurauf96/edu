@@ -5,7 +5,9 @@ namespace App\Http\Controllers\School;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
+use App\Repositories\Interfaces\TeacherRepositoryInterface;
 use App\Services\StudentService;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -22,18 +24,22 @@ class MainController extends Controller
      */
     public $paymentRepo;
     public $studentService;
+    public $teacherRepo;
 
-    public function __construct(PaymentRepositoryInterface $paymentRepository, StudentService $studentService)
+    public function __construct(PaymentRepositoryInterface $paymentRepository, StudentService $studentService, TeacherRepositoryInterface $teacherRepo)
     {
         $this->paymentRepo=$paymentRepository;
         $this->studentService=$studentService;
+        $this->teacherRepo=$teacherRepo;
     }
 
     public function index()
     {
-        $num_groups=\App\Models\Group::school()->type('active')->get()->count();
+        $num_groups=\App\Models\Group::school()->type('active')->count();
 
-        $courses=\App\Models\Course::school()
+        $num_teachers=$this->teacherRepo->numberActives();
+
+        $courses=\App\Models\Course::school()->select('name')
             ->withCount(['students as active_students_count' => function ($query) {
                     $query->where('students.status', Course::ACTIVE);
                     },
@@ -41,12 +47,14 @@ class MainController extends Controller
 
         $students = $this->studentService->countByTypes();
 
+        $the_most_actives=$this->studentService->countTheMostActives();
+
+        $left_this_month=$this->studentService->countLeftThisMonth();
+
         $grant_students=Student::school()->grant()->count();
 
-        $teachers=\App\Models\Teacher::school()->whereStatus(1)->with(['students','courses'])->get();
+        return view('school.dashboard', compact( 'students','courses', 'num_groups', 'num_teachers','grant_students','the_most_actives', 'left_this_month'));
 
-        return view('school.dashboard', compact( 'students','courses', 'num_groups', 'teachers','grant_students'));
-        
     }
 
     public function todayGroups()

@@ -12,4 +12,6 @@ interface StudentRepositoryInterface{
     public function getDebtStudents();
     public function countByTypes();
     public function countByCourses();
+    public function countLeftThisMonth();
+    public function countTheMostActives();
 }
