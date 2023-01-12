@@ -99,7 +99,8 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     //students
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup'])->name('students.addToGroup');
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
-
+    Route::post('/student/message/store', [StudentsController::class, 'storeMessage'])->name('storeStudentMessage');
+    
     //select groups for managers
     Route::match(['post', 'get'], '/groups/select/managers', [GroupsController::class, 'selectManagers'])->name('school.groups.selectManagers');
 

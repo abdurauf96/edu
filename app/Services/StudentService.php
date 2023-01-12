@@ -133,5 +133,15 @@ TEXT;
         return $this->studentRepo->countLeftThisMonth();
     }
 
+    public function storeMessage($data)
+    {
+        
+        \App\Models\StudentMessage::create([
+            'student_id'=>$data['student_id'],
+            'user_id'=>auth()->guard('user')->id(),
+            'message'=>$data['message']
+        ]);
+    }
+
 
 }

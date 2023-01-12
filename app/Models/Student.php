@@ -68,6 +68,11 @@ class Student extends Authenticatable
         return $this->hasMany(StudentActivity::class);
     }
 
+    public function messages()
+    {
+        return $this->hasMany(StudentMessage::class)->latest();
+    }
+
     public function events()
     {
         return $this->hasMany(Event::class, 'person_id')->where('type', 'student')
@@ -102,11 +107,6 @@ class Student extends Authenticatable
     public function payments()
     {
         return $this->hasMany(Payment::class)->orderBy('month_id')->select('student_id', 'amount', 'type', 'created_at');
-    }
-
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
     }
 
     public function getSchool()

@@ -262,9 +262,13 @@
                 </div>
                 <div id="content-2">
                     <div class="user-table__content-wrap">
-                        <textarea class="user-tabs__textarea" placeholder="Izohh..." name="#" id="#" cols="30"
-                            rows="10"></textarea>
-                        <button class="user-tabs__btn">Jo’natish</button>
+                        <form action="{{ route('storeStudentMessage') }}" method="POST" >
+                            @csrf
+                            <input type="hidden" name="student_id" value="{{ $student->id }}">
+                            <textarea class="user-tabs__textarea" placeholder="Izoh..." name="message" id="#" cols="30"
+                                rows="10" required></textarea>
+                            <button type="submit" class="user-tabs__btn">Saqlash</button>
+                        </form>
                     </div>
 
                     <table class="table">
@@ -276,20 +280,14 @@
                             </tr>
                         </thead>
                         <tbody class="user-table__tbody">
+                            @foreach ($student->messages as $message)
                             <tr class="user-table__tr">
-                                <td class="user-table__td">Komiljonov Raxmatillo</td>
-                                <td class="user-table__td">Apr 27, 2019 - Explore Alupa
-                                    Creative's board "Ui - Profile
-                                    Design",</td>
-                                <td class="user-table__td">06-01-2023</td>
+                                <td class="user-table__td">{{ $message->message }}</td>
+                                <td class="user-table__td">{{ $message->creator->name ?? '' }}</td>
+                                <td class="user-table__td">{{ $message->created_at->format('d-M-Y') }}</td>
                             </tr>
-                            <tr class="user-table__tr">
-                                <td class="user-table__td">Komiljonov Raxmatillo</td>
-                                <td class="user-table__td">Apr 27, 2019 - Explore Alupa
-                                    Creative's board "Ui - Profile
-                                    Design",</td>
-                                <td class="user-table__td">06-01-2023</td>
-                            </tr>
+                            @endforeach
+                           
                         </tbody>
                     </table>
                 </div>

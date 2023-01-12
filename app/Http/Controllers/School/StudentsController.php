@@ -194,4 +194,13 @@ class StudentsController extends Controller
         return view('school.students.statistics',compact('students', 'districts', 'courses'));
     }
 
+    public function storeMessage(Request $request)
+    {
+        $validatedData=$request->validate(['message'=>'required', 'student_id'=>'required']);
+
+        $this->studentService->storeMessage($validatedData);
+
+        return back()->with('flash_message', 'Ushbu o\'quvchi uchun izoh qoldirildi!');
+    }
+
 }

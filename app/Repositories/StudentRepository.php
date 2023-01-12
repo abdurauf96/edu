@@ -43,7 +43,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function findOne($id)
     {
-        return Student::findOrFail($id);
+        return Student::with('messages.creator')->findOrFail($id);
     }
 
     public function update($request, $id)
