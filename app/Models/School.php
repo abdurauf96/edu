@@ -19,11 +19,6 @@ class School extends Authenticatable
         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
         */
 
-    public function scopeSchool($query)
-    {
-        return $query->where('type', self::SCHOOL) ;
-    }
-
     public function students()
     {
         return $this->hasMany(Student::class);

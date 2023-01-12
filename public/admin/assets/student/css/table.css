@@ -1,0 +1,121 @@
+.edu-panel-table {
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow-x: auto;
+}
+
+.edu-panel-table {
+    /* min-height:100px ; */
+    /* Foreground, Background */
+    /* border-radius: 20px; */
+    /* scrollbar-color: #999 #333; */
+  }
+  .edu-panel-table::-webkit-scrollbar {
+    width: 10px; /* Mostly for vertical scrollbars */
+    height: 5px; /* Mostly for horizontal scrollbars */
+  }
+  .edu-panel-table::-webkit-scrollbar-thumb { /* Foreground */
+    border-radius: 10px;
+    background: #999;
+  }
+  .edu-panel-table::-webkit-scrollbar-track { /* Background */
+    padding: 5px 0;
+    /* background: #333; */
+  }
+
+.edu-panel-table__thead {
+    border-bottom: 1px solid #EFEFEF !important;
+}
+
+edu-panel-table__tbody {
+    padding-top: 17px !important;
+}
+
+.edu-panel-table__th {
+    position: relative;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #4D525B;
+    padding-bottom: 17px !important;
+    background-color: transparent !important;
+}
+
+.edu-panel-table__td {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #6A6C72;
+}
+
+.edu-panel-table__btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -18px;
+    left: 30px !important;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #E6EFFC;
+    cursor: pointer;
+}
+
+.edu-panel-table__btn span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #1340DE;
+}
+
+.edu-panel-table__btn span+span {
+    margin-top: 2px;
+}
+
+.edu-panel-table tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-color: none !important;
+    border-style: none !important;
+    border-width: none !important;
+}
+
+.edu-panel-table tbody {
+    padding: 20px 0;
+}
+
+.edu-panel__drop-menu {
+    width: 170px !important;
+    border: none !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 10px !important;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 15px;
+    color: #6A6C72;
+}
+
+.edu-panel__drop-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.edu-panel__drop-menu li + li {
+    margin-top: 0px !important;
+}
+
+.edu-panel__drop-menu-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 20px !important;
+    margin-left: 5px !important;
+}

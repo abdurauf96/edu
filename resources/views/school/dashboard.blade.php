@@ -16,9 +16,8 @@
         <div class="padding-20">
           <div class="text-right">
             <h3 class="font-light mb-0">
-              <i class="ti-arrow-up text-success"></i> {{ $students['count_active'] }} ({{ $students['count_test_active'] }})
-            </h3>
-            <span class="text-muted">O'quvchilar</span>
+              <i class="ti-arrow-up text-success"></i> {{ $students['count_active'] }}
+            </h3><a href="{{ route('students.index') }}"><span class="text-muted"> O'quvchilar </span></a>
           </div>
         </div>
       </div>
@@ -33,9 +32,9 @@
         <div class="padding-20">
           <div class="text-right">
             <h3 class="font-light mb-0">
-              <i class="ti-arrow-up text-success"></i> {{ $the_most_actives }}
+              <i class="ti-arrow-up text-success"></i> {{ $count_good_attandance }}
             </h3>
-            <span class="text-muted">Faol o'quvchilar</span>
+              <a href="{{ route('students.index', ['status'=>'good-attandance']) }}"><span class="text-muted">Faol o'quvchilar</span></a>
           </div>
         </div>
       </div>
@@ -50,9 +49,9 @@
         <div class="padding-20">
           <div class="text-right">
             <h3 class="font-light mb-0">
-              <i class="ti-arrow-up text-success"></i> {{ $students['count_test_active']-$the_most_actives }}
+              <i class="ti-arrow-up text-success"></i> {{ $count_bad_attandance }}
             </h3>
-            <span class="text-muted">Nofaol o'quvchilar</span>
+              <a href="{{ route('students.index', ['status'=>'bad-attandance']) }}"><span class="text-muted">Nofaol o'quvchilar</span> </a>
           </div>
         </div>
       </div>
@@ -69,7 +68,7 @@
             <h3 class="font-light mb-0">
               <i class="ti-arrow-up text-success"></i>{{ $left_this_month }}
             </h3>
-            <span class="text-muted">Ushbu oyda chiqib ketganlar</span>
+              <a href="{{ route('students.index', ['status'=>'left-recently']) }}"><span class="text-muted">Ushbu oyda chiqib ketganlar</span> </a>
           </div>
         </div>
       </div>
@@ -86,7 +85,7 @@
             <h3 class="font-light mb-0">
               <i class="ti-arrow-up text-success"></i> {{ $students['count_graduated'] }}
             </h3>
-            <span class="text-muted">Bitirganlar</span>
+              <a href="{{ route('students.index', ['status'=>'graduated']) }}"> <span class="text-muted">Bitirganlar</span> </a>
           </div>
         </div>
       </div>
@@ -101,9 +100,9 @@
         <div class="padding-20">
           <div class="text-right">
             <h3 class="font-light mb-0">
-              <i class="ti-arrow-up text-success"></i>{{ $students['count_sales'] }} 
+              <i class="ti-arrow-up text-success"></i>{{ $students['count_discount'] }}
             </h3>
-            <span class="text-muted">Chegirmali</span>
+              <a href="{{ route('students.index', ['payment'=>'discount']) }}"><span class="text-muted">Chegirmali</span> </a>
           </div>
         </div>
       </div>
@@ -118,9 +117,9 @@
         <div class="padding-20">
           <div class="text-right">
             <h3 class="font-light mb-0">
-              <i class="ti-arrow-up text-success"></i>{{ $students['count_girls'] }} 
+              <i class="ti-arrow-up text-success"></i>{{ $students['count_girls'] }}
             </h3>
-            <span class="text-muted">Qizlar soni</span>
+              <a href="{{ route('students.index', ['gender'=>'girls']) }}"><span class="text-muted">Qizlar soni</span></a>
           </div>
         </div>
       </div>
@@ -135,9 +134,9 @@
         <div class="padding-20">
           <div class="text-right">
             <h3 class="font-light mb-0">
-              <i class="ti-arrow-up text-success"></i>{{ $students['count_boys'] }} 
+              <i class="ti-arrow-up text-success"></i>{{ $students['count_boys'] }}
             </h3>
-            <span class="text-muted">Bollar soni</span>
+              <a href="{{ route('students.index', ['gender'=>'boys']) }}"><span class="text-muted">Bollar soni</span></a>
           </div>
         </div>
       </div>
@@ -181,7 +180,7 @@
           <div class="table-responsive">
             <table class="table table-striped table-md">
               <tbody>
-            
+
               <tr>
                   <td>1.</td>
                   <td>Guruhlar soni</td>
@@ -192,7 +191,7 @@
                 <td>O'qituvchilar soni</td>
                 <td><span class="badge badge-success">{{ $num_teachers }}</span></td>
               </tr>
-            
+
             </tbody></table>
           </div>
         </div>

@@ -58,7 +58,7 @@ class Teacher extends Authenticatable
 
     public function debt_students()
     {
-        return $this->students()->debt()->get();
+        return $this->students()->debtors()->get();
     }
 
     public function get_percent_debt_students()

@@ -33,7 +33,7 @@ class TeacherRepository implements TeacherRepositoryInterface
     public function findOne($id)
     {
         return Teacher::withCount(['students', 'students as debt_students_count'=>function($query){
-                $query->debt();
+                $query->debtors();
             }])
             ->with('courses')
             ->findOrFail($id);

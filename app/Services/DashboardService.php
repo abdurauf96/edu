@@ -10,7 +10,7 @@ class DashboardService{
 
     public function __construct()
     {
-        $this->schoolsId=School::school()->get()->pluck('id')->toArray();
+        $this->schoolsId=School::get()->pluck('id')->toArray();
     }
 
     public function getSchoolStudentsStatistics()
@@ -50,7 +50,7 @@ class DashboardService{
         },'students as graduated_students_count'=> function($query){
             $query->graduated();
         },'students as outed_students_count'=> function($query){
-            $query->out();
+            $query->left();
         }, 'students as girls_count'=> function($query){
             $query->where('sex', 0);
         }, 'students as boys_count'=> function($query){

@@ -19,8 +19,6 @@ use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\School\AppealsController;
 use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
-use App\Http\Controllers\School\ClassesController;
-use App\Http\Controllers\School\DocumentsController;
 use App\Http\Controllers\School\ProfileController;
 use App\Http\Controllers\School\MessagesController;
 
@@ -78,8 +76,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
     Route::resource('/organizations', OrganizationsController::class);
-    Route::resource('classes', ClassesController::class);
-    Route::resource('documents', DocumentsController::class)->only('index');
+
     Route::get('contacts', [MainController::class, 'contacts'])->name('school.contacts.index');
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);
@@ -107,13 +104,10 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::match(['post', 'get'], '/groups/select/managers', [GroupsController::class, 'selectManagers'])->name('school.groups.selectManagers');
 
     Route::resource('students', StudentsController::class);
-    Route::get('/debt-students', [StudentsController::class, 'debtStudents'])->name('debtStudents');
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);
-    Route::match(['get', 'post'], '/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
-    Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
-    Route::post('getStudentsByGroup', [StudentsController::class, 'getStudentsByGroup'])->name('getStudentsByGroup');
-
+    Route::post('/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
+  
     //events
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
@@ -131,7 +125,6 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('/messages/index', [MessagesController::class, 'index'])->name('messages.index');
 
 });
-
 
 require __DIR__.'/superadmin.php';
 require __DIR__.'/teacher.php';

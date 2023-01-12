@@ -47,13 +47,13 @@ class MainController extends Controller
 
         $students = $this->studentService->countByTypes();
 
-        $the_most_actives=$this->studentService->countTheMostActives();
+        $count_good_attandance=$this->studentService->countGoodAttandance();
+
+        $count_bad_attandance=$this->studentService->countBadAttandance();
 
         $left_this_month=$this->studentService->countLeftThisMonth();
 
-        $grant_students=Student::school()->grant()->count();
-
-        return view('school.dashboard', compact( 'students','courses', 'num_groups', 'num_teachers','grant_students','the_most_actives', 'left_this_month'));
+        return view('school.dashboard', compact( 'students','courses', 'num_groups', 'num_teachers','count_good_attandance','count_bad_attandance', 'left_this_month'));
 
     }
 

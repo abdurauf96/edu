@@ -1,20 +1,25 @@
 @extends('layouts.school')
 @section('css')
     <link rel="stylesheet" href="/admin/assets/bundles/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="/admin/assets/bundles/pretty-checkbox/pretty-checkbox.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"      rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/admin/assets/student/css/select.css">
+    <link rel="stylesheet" href="/admin/assets/student/css/global.css">
+    <link rel="stylesheet" href="/admin/assets/student/css/table.css">
     @livewireStyles
 @endsection
 @section('title', 'O`quvchilar')
 
 @section('content')
-<div class="row">
-    <div class="col-12">
+  
         @livewire('school.students')
-    </div>
-</div>
 
 @endsection
 
 @section('js')
+    <script src="/admin/assets/student/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
     @livewireScripts
 @endsection

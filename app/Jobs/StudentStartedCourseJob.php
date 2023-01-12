@@ -42,7 +42,7 @@ class StudentStartedCourseJob implements ShouldQueue
         $debt=round($priceCourse/$numberAllDays*$remainDays,-3);
         $this->student->update(['debt'=>$debt]);
 
-        Message::create(['student_id'=>$this->student->id, 'body'=>'O\'qishni boshlagani uchun '.$debt.' so`m qarz yozildi !']);
+        StudentActivity::create(['student_id'=>$this->student->id, 'description'=>'O\'qishni boshlagani uchun '.$debt.' so`m qarz yozildi !']);
 
     }
 }

@@ -39,7 +39,7 @@ class StudentOutedCourseJob implements ShouldQueue
         $summa=round($priceCourse/$numberAllDays*$remainDays);
         $this->student->debt-=$summa;
         $this->student->save();
-        Message::create(['student_id'=>$this->student->id, 'body'=>'Kursdan chiqib ketgani uchun '.$summa.' so`m qarzidan ayrildi !']);
+        StudentActivity::create(['student_id'=>$this->student->id, 'description'=>'Kursdan chiqib ketgani uchun '.$summa.' so`m qarzidan ayrildi !']);
         \Log::info("qarz-  {$summa} ; qolgan kuni - {$remainDays} ; ");
     }
 }

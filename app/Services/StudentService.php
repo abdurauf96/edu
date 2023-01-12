@@ -108,11 +108,6 @@ TEXT;
         return $this->studentRepo->getByIds($ids);
     }
 
-    public function debtStudents()
-    {
-        return $this->studentRepo->getDebtStudents();
-    }
-
     public function countByTypes()
     {
         return $this->studentRepo->countByTypes();
@@ -123,9 +118,14 @@ TEXT;
         return $this->studentRepo->countByCourses();
     }
 
-    public function countTheMostActives()
+    public function countGoodAttandance()
     {
-        return $this->studentRepo->countTheMostActives();
+        return $this->studentRepo->countGoodAttandance();
+    }
+
+    public function countBadAttandance()
+    {
+        return $this->studentRepo->countBadAttandance();
     }
 
     public function countLeftThisMonth()

@@ -20,11 +20,7 @@ class Schools extends Component
 
     public function exportToExcel(SchoolService $schoolService)
     {
-        if(auth()->user()->hasRole('super-admin')){
-            $schools=School::latest()->get();
-        }else{
-            $schools=School::school()->latest()->get();
-        }
+        $schools=School::latest()->get();
         return $schoolService->exportToExcel($schools);
     }
 
@@ -37,7 +33,7 @@ class Schools extends Component
     }
     public function render()
     {
-        $schools=School::school()->latest()->paginate(10);
+        $schools=School::latest()->paginate(10);
         return view('livewire.admin.schools', compact('schools'));
     }
 }

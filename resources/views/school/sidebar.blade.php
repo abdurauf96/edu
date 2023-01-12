@@ -54,11 +54,6 @@
               </li>
 
               <li>
-                <a class="nav-link" href="{{ route('changeStudentGroup') }}">
-                    O'quvchilarni ko'chirish
-                </a>
-              </li>
-              <li>
                 <a class="nav-link" href="{{ route('appeals.index') }}">
                     Ariza qoldirganlar
                 </a>
@@ -68,11 +63,7 @@
                     Statistika
                 </a>
               </li>
-              <li>
-                <a class="nav-link" href="{{ route('debtStudents') }}">
-                    Qarzdorlar
-                </a>
-              </li>
+
           </ul>
       </li>
 
@@ -99,13 +90,6 @@
               To'lovlar
             </a>
           </li>
-
-            <li>
-             <a href="{{ route('messages.index') }}">
-               Xabarnomalar
-             </a>
-           </li>
-
             <li>
                 <a href="{{ route('paymentStatistics') }}">
                     Statistika

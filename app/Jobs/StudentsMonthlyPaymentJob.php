@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Message;
+use App\Models\StudentActivity;
 use App\Models\Student;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -41,7 +41,7 @@ class StudentsMonthlyPaymentJob implements ShouldQueue
             foreach($this->students as $student){
                 $student->debt += $student->getPriceMonth();
                 $student->save();
-                Message::create(['student_id'=>$student->id, 'body'=>$student->getPriceMonth().' so`m oylik to`lov yozildi !']);
+                StudentActivity::create(['student_id'=>$student->id, 'description'=>$student->getPriceMonth().' so`m oylik to`lov yozildi !']);
             }
 
             DB::commit();

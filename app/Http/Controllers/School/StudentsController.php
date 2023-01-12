@@ -78,7 +78,10 @@ class StudentsController extends Controller
     public function show($id)
     {
         $student = $this->studentService->findOne($id);
-        return view('school.students.show', compact('student'));
+        $events=$student->events()->paginate(10);
+        $groups=Group::school()->with('course')->select('id', 'course_id', 'name')->type('active')->get();
+        $courses=Course::school()->select('id','name')->get();
+        return view('school.students.show', compact('student', 'events', 'groups', 'courses'));
     }
 
     /**
@@ -130,7 +133,7 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         $student = $this->studentService->delete($id);
-        return redirect()->route('school.students.index')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
+        return redirect()->route('students.index')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
      public function addStudentToGroup(Request $request)
@@ -163,16 +166,8 @@ class StudentsController extends Controller
     }
 
     public function changeGroup(Request $request){
-        if($request->isMethod('post')){
-            $this->studentService->changeGroup($request);
-            return back()->with('flash_message', 'O`quvchi yangi guruhga ko`chirildi');
-        }else{
-            $students = $this->studentService->getAll();
-            $groups=Group::school()->get();
-            $courses=Course::school()->get();
-            return view('school.students.changeGroup', compact('students', 'groups', 'courses'));
-        }
-
+        $this->studentService->changeGroup($request);
+        return back()->with('flash_message', 'O`quvchi yangi guruhga ko`chirildi');
     }
 
     public function generateCard($id)
@@ -181,36 +176,6 @@ class StudentsController extends Controller
         $this->studentService->generateIdCard($student);
 
         return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
-    }
-
-    public function event($id)
-    {
-        $student=$this->studentService->findOne($id);
-        $lastEventStatus = $student->getLastEventStatus();
-        \App\Models\Event::create([
-            'person_id'=>$id,
-            'type'=>'student',
-            'name'=>$student->name,
-            'status'=>!$lastEventStatus,
-            'time'=>date('H:i'),
-            'school_id'=>$student->school_id,
-        ]);
-        return back()->with('flash_message', 'Natija kiritildi !');
-    }
-
-    public function debtStudents()
-    {
-        $students=$this->studentService->debtStudents();
-      
-        $groups=Group::school()->get();
-        $courses=Course::school()->get();
-        return view('school.students.debtStudents', compact('students', 'groups', 'courses'));
-    }
-
-    public function getStudentsByGroup(Request $request)
-    {
-        $students=$this->studentService->getAll()->where('debt', '>', 0)->where('group_id', $request->group_id);
-        return view('school.ajax.getStudentsByGroup', compact('students'));
     }
 
     public function sertificatedStudents()

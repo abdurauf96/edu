@@ -31,11 +31,6 @@ class AppServiceProvider extends ServiceProvider
 
             return $this->selectSub($query->limit(1), $column);
         });
-
-        view()->composer('school.sidebar', function($view){
-            $creators = \App\Models\User::role('creator')->get();
-            $view->with(compact('creators'));
-        });
         Paginator::useBootstrap();
     }
 }

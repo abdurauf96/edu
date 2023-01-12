@@ -9,9 +9,9 @@ interface StudentRepositoryInterface{
     public function addWaitingStudentToGroup($waitingStudent, $group_id);
     public function getByIds($ids);
     public function getActives();
-    public function getDebtStudents();
     public function countByTypes();
     public function countByCourses();
     public function countLeftThisMonth();
-    public function countTheMostActives();
+    public function countGoodAttandance();
+    public function countBadAttandance();
 }

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #F3F8FF !important;
+}
+
+.container-edu-panel {
+    /* width: 1130px; */
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    margin-top: 50px;
+}
+
+.sidebar-menu .dropdown span {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+
+.dropdown-menu {
+    border: none !important;
+}
+
+.edu-panel-table__td a {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #6A6C72;
+    text-decoration: none;
+}
+
+.modal-dialog .modal-dialog-centered {
+    /* z-index: 100 !important; */
+}
+
+.modal-backdrop {
+display: none;
+    z-index: initial;
+}
