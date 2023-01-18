@@ -1,2 +1,2 @@
 <?php
-return \App\Models\Student::where('username', $key)->first();
+return \App\Models\Student::find($key);

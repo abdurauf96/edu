@@ -150,6 +150,9 @@ class Students extends Component
                     $query->select('id', 'name');
                 },
             ])
+            ->addSubSelect('last_event_status', Event::select('status')
+                ->whereColumn('person_id', 'students.id')->where('type', 'student')
+                ->latest())
             ->school();
 
         $this->studentsToExportExcel=$students->get();

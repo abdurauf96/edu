@@ -96,7 +96,7 @@ class StudentsController extends Controller
         $student = $this->studentService->findOne($id);
         $groups=Group::school()->type('active')->get();
         $districts=District::all();
-       
+
         return view('school.students.edit', compact('student', 'groups', 'districts'));
     }
 
@@ -170,6 +170,22 @@ class StudentsController extends Controller
         return back()->with('flash_message', 'O`quvchi yangi guruhga ko`chirildi');
     }
 
+    public function event($id)
+    {
+        $student=$this->studentService->findOne($id);
+        $lastEventStatus = $student->getLastEventStatus();
+        \App\Models\Event::create([
+            'person_id'=>$id,
+            'type'=>'student',
+            'name'=>$student->name,
+            'status'=>!$lastEventStatus,
+            'time'=>date('H:i'),
+            'school_id'=>$student->school_id,
+        ]);
+        return back()->with('flash_message', 'Natija kiritildi !');
+    }
+
+
     public function generateCard($id)
     {
         $student=$this->studentService->findOne($id);
@@ -188,7 +204,7 @@ class StudentsController extends Controller
         $students=$this->studentService->countByTypes();
 
         $courses=$this->studentService->countByCourses();
-    
+
         $districts=District::withCount('students')->get();
 
         return view('school.students.statistics',compact('students', 'districts', 'courses'));

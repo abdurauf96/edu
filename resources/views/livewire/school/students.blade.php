@@ -213,6 +213,13 @@
                                             </svg>
                                             QR kod yuklash</a>
                                     </li>
+                                    <li>
+                                        @if($item->last_event_status)
+                                            <a class="btn btn-icon btn-danger" href="{{ route('studentEvent', $item->id) }}"> OUT</a>
+                                        @else
+                                            <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $item->id) }}"> IN</a>
+                                        @endif
+                                    </li>
                                 </ul>
                             </div>
                         </th>
