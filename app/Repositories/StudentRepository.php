@@ -20,9 +20,7 @@ class StudentRepository implements StudentRepositoryInterface{
     }
 
     public function create($request){
-
         $requestData = $request->all();
-
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
@@ -34,11 +32,9 @@ class StudentRepository implements StudentRepositoryInterface{
         $filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
         $requestData['qrcode']=$filename;
         $requestData['idcard']=$filename_idcard;
-
         $requestData['password']=bcrypt('12345678');
         $student=Student::create($requestData);
         return $student;
-
     }
 
     public function findOne($id)
@@ -57,7 +53,6 @@ class StudentRepository implements StudentRepositoryInterface{
             $file->move($path, $image);
             $requestData['image']=$image;
         }
-
         $student = $this->findOne($id);
         $student->update($requestData);
         return $student;

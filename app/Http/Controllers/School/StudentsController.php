@@ -1,8 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\School;
-
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -22,7 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\AddStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
-
+use PDF;
 class StudentsController extends Controller
 {
     /**
@@ -202,21 +199,21 @@ class StudentsController extends Controller
     public function statistics()
     {
         $students=$this->studentService->countByTypes();
-
         $courses=$this->studentService->countByCourses();
-
         $districts=District::withCount('students')->get();
-
         return view('school.students.statistics',compact('students', 'districts', 'courses'));
     }
 
     public function storeMessage(Request $request)
     {
         $validatedData=$request->validate(['message'=>'required', 'student_id'=>'required']);
-
         $this->studentService->storeMessage($validatedData);
-
         return back()->with('flash_message', 'Ushbu o\'quvchi uchun izoh qoldirildi!');
+    }
+
+    public function downloadContract($id)
+    {
+        return $this->studentService->downloadContract($id);
     }
 
 }

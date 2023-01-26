@@ -93,7 +93,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
 
     //downloads
     Route::get('/staff/qrcode-download/{id}', [StaffsController::class, 'downloadStaffQrcode'])->name('downloadStaffQrcode');
-    Route::get('/student/qrcode-download/{code}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
+    Route::get('/student/qrcode-download/{id}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
     Route::get('/student/card-download/{idcard}', [StudentsController::class, 'downloadCard'])->name('downloadCard');
 
     //students
@@ -101,6 +101,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup'])->name('students.addToGroup');
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
     Route::post('/student/message/store', [StudentsController::class, 'storeMessage'])->name('storeStudentMessage');
+
 
     //select groups for managers
     Route::match(['post', 'get'], '/groups/select/managers', [GroupsController::class, 'selectManagers'])->name('school.groups.selectManagers');
@@ -127,6 +128,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('/messages/index', [MessagesController::class, 'index'])->name('messages.index');
 
 });
+Route::get('/school/student/{id}/download-contract', [StudentsController::class, 'downloadContract'])->name('students.downloadContract');
 
 require __DIR__.'/superadmin.php';
 require __DIR__.'/teacher.php';

@@ -5,7 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header"> <h4> Bot orqali ariza qoldirgan o'quvchilar</h4>
-        
+
             </div>
             <div class="card-body">
 
@@ -15,11 +15,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>F.I.O</th>
-                               
                                 <th>Telefon</th>
                                 <th>Kurs</th>
-
-                                <th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,23 +25,7 @@
                                 <td>{{ $loop->iteration  }}</td>
                                 <td>{{ $item->fio }}</td>
                                 <td> {{ $item->phone }} </td>
-                                <td> {{ $item->course->name }} </td>
-                               
-                                <td>
-                                    
-                                    {!! Form::open([
-                                        'method' => 'DELETE',
-                                        'url' => ['/school/students', $item->id],
-                                        'style' => 'display:inline'
-                                    ]) !!}
-                                        {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
-                                                'type' => 'submit',
-                                                'class' => 'btn btn-danger ',
-                                                'title' => 'Delete Student',
-                                                'onclick'=>'return confirm("Confirm delete?")'
-                                        )) !!}
-                                    {!! Form::close() !!}
-                                </td>
+                                <td> {{ $item->course->name ?? ''}} </td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -84,14 +84,16 @@
                     </div>
 
                     <!-- USER QR CODE IMG -->
+                    @if(file_exists('admin/images/qrcodes/'.$student->qrcode))
                     <img class="profil-user__info-qr"
                         src="/admin/images/qrcodes/{{ $student->qrcode }}"
                         alt="qr-img" width="75" height="75">
-
+                    @endif
                     <!-- ===================USER INFO EDIT DELET BUTTONS=================== -->
                     <div class="user__info-btn-wrap">
                         <button class="user__info-btn user__info-btn--colr" data-bs-target="#exampleModalToggle"
                             data-bs-toggle="modal">Guruhni almashtirish</button>
+                        <a class="user__info-btn user__info-btn--colr"  href="{{ route('students.downloadContract', $student->id) }}"><i class="material-icons">assignment</i>Shartnoma</a>
                         <a href="{{ route('students.edit', $student->id) }}" class="user__info-btn user__info-btn--oval">
                             <svg class="edu-panel__drop-menu-icon" width="15" height="15" viewBox="0 0 15 15"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,6 +105,7 @@
                                     stroke-linejoin="round" />
                             </svg>
                         </a>
+
                         @role('admin')
                         <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                             @csrf
@@ -129,7 +132,7 @@
                         @endrole
                     </div>
 
-                 
+
                         <!-- =====================USER EDIT MODAL===================== -->
                         <div class="modal fade " id="exampleModalToggle" aria-hidden="true"
                             aria-labelledby="exampleModalToggleLabel" tabindex="1">
@@ -196,7 +199,7 @@
                             <td class="user-table__td">{{ $payment->created_at->format('d.m.Y') }}</td>
                         </tr>
                         @endforeach
-                     
+
                     </tbody>
                 </table>
             </div>
@@ -218,7 +221,7 @@
                             <td class="user-table__td">{{ $activity->created_at->format('d.m.Y') }}</td>
                         </tr>
                         @endforeach
-                     
+
                     </tbody>
                 </table>
             </div>
@@ -248,14 +251,14 @@
                             </tr>
                         </thead>
                         <tbody class="user-table__tbody">
-                           
+
                             @foreach ($events as $event)
                             <tr class="user-table__tr">
                                 <td class="user-table__td"> {{$event->created_at->format('h:i d-m-Y') }}</td>
                                 <td class="user-table__td">{{ $event->status==1 ? 'Kirdi' : 'Chiqdi' }}</td>
                             </tr>
                             @endforeach
-                          
+
                         </tbody>
                     </table>
                     {{ $events->links() }}
@@ -287,7 +290,7 @@
                                 <td class="user-table__td">{{ $message->created_at->format('d-M-Y') }}</td>
                             </tr>
                             @endforeach
-                           
+
                         </tbody>
                     </table>
                 </div>

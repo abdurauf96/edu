@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-12 col-md-6 col-lg-12">
         <div class="card">
-           
+
             <div class="card-body">
 
                 <a href="{{ url('/school/courses') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Ortga</button></a>
@@ -35,6 +35,7 @@
                             <tr><th> Nomi </th><td> {{ $course->name }} </td></tr>
                             <tr><th> Davomiyligi </th><td> {{ $course->duration }} </td></tr>
                             <tr><th> Narxi </th><td> {{ $course->price }} </td></tr>
+                            <tr><th> Narxi (yozuv bilan) </th><td> {{ $course->price_as_text }} </td></tr>
                             <tr><th> Maxsus kodi </th><td> {{ $course->code }} </td></tr>
                             <tr><th> Kurs ta'rifi  </th><td> {{ $course->description }} </td></tr>
                             <tr><th> Kurs haqida  </th><td> {!! $course->body !!} </td></tr>

@@ -5,7 +5,7 @@
 </div>
 <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
     {!! Form::label('duration', 'Kurs davomiyligi', ['class' => 'control-label']) !!}
-    {!! Form::text('duration', null, ['class' => 'form-control', 'required'=>'required'] ) !!}
+    {!! Form::number('duration', null, ['class' => 'form-control', 'required'=>'required'] ) !!}
     {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
@@ -24,6 +24,10 @@
 <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
     {!! Form::label('duration', 'Kurs narxi', ['class' => 'control-label']) !!}
     {!! Form::number('price', null, ['class' => 'form-control']) !!}
+</div>
+<div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
+    {!! Form::label('duration', 'Kurs narxi (Yozuv bilan)', ['class' => 'control-label']) !!}
+    {!! Form::text('price_as_text', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
     <label for="">Status</label>
