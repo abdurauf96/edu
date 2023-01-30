@@ -121,16 +121,23 @@
     @endisset value="0" name="sex"> Qiz
 </div>
 
-
 <div class="form-group{{ $errors->has('passport') ? 'has-error' : ''}}">
-    {!! Form::label('image', 'Rasm', ['class' => 'control-label']) !!}
-    {!! Form::file('image', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! Form::label('passport', 'Passport seriya va raqami', ['class' => 'control-label']) !!}
+    {!! Form::text('passport', null,['class' => 'form-control']) !!}
     {!! $errors->first('passport', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group"  id="start_date" >
+
+<div class="form-group{{ $errors->has('image') ? 'has-error' : ''}}">
+    {!! Form::label('image', 'Rasm', ['class' => 'control-label']) !!}
+    {!! Form::file('image', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
+</div>
+
+<div class="form-group" >
     {!! Form::label('start_date', 'Dars boshlash sanasi', ['class' => 'control-label']) !!}
-    {!! Form::date('start_date', null, ['class' => 'form-control', 'required'=>'required']) !!}
+    <input type="date" name="start_date" @isset($student) value="{{ $student->start_date->format('Y-m-d') }}" @endisset class="form-control">
+
 </div>
 
 <div class="form-group">

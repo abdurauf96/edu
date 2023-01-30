@@ -77,6 +77,7 @@
                         <option value="left-recently">Ushbu oyda chiqib ketgan</option>
                         <option value="good-attandance">Faol o'quvchilar</option>
                         <option value="bad-attandance">Nofaol o'quvchilar</option>
+                        <option value="unknown">Noma'lum o'quvchilar</option>
                     </select>
                 </div>
 
@@ -136,7 +137,6 @@
                                     <span></span>
                                     <span></span>
                                 </div>
-
                                 <ul id="edu-panel__drop-menu" class="dropdown-menu ">
                                     <li>
                                         <a class="dropdown-item" id="edu-panel__drop-item" href="{{ route('students.edit', $item->id) }}">
@@ -212,13 +212,6 @@
                                                     fill="#B3B3B3" />
                                             </svg>
                                             QR kod yuklash</a>
-                                    </li>
-                                    <li>
-                                        @if($item->last_event_status)
-                                            <a class="btn btn-icon btn-danger" href="{{ route('studentEvent', $item->id) }}"> OUT</a>
-                                        @else
-                                            <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $item->id) }}"> IN</a>
-                                        @endif
                                     </li>
                                 </ul>
                             </div>

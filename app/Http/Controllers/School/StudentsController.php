@@ -108,7 +108,6 @@ class StudentsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate(['name'=>'required']);
-
         if($request->status==2){
             $request->validate(['outed_date'=>'required']);
         }

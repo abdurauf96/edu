@@ -32,6 +32,7 @@ class GroupsController extends Controller
             ->latest()
             ->type($type)
             ->get();
+
         return view('school.groups.index', compact('groups'));
     }
 
@@ -140,19 +141,19 @@ class GroupsController extends Controller
     public function selectManagers(Request $request)
     {
         if($request->isMethod('post')){
-            
+
             Group::findOrFail($request->group_id)->update(['user_id'=>auth()->guard('user')->id()]);;
-    
+
             return back()->with('flash_message', 'Guruh '.auth()->guard('user')->user()->name.'ga biriktirildi !');
         }
-        
+
         $groups=Group::school()->with('course')->type('active')->whereNull('user_id')->get();
-        
+
         $managers = User::role('creator')
             ->withCount(['groups', 'students'])
             ->get();
-     
+
         return view('school.groups.select-managers', compact('groups', 'managers'));
-        
+
     }
 }

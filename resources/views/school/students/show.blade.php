@@ -26,10 +26,8 @@
                     alt="user-img" width="157" height="157">
 
                 <div class="profil-user__info">
-
                     <!-- USER PROFIL NAME -->
                     <div class="profil-user__info-name">{{ $student->name }}</div>
-
                     <!-- USER PROFIL LIST -->
                     <div class="profil-user__info-box">
                         <ul class="profil-user__info-list">
@@ -94,6 +92,11 @@
                         <button class="user__info-btn user__info-btn--colr" data-bs-target="#exampleModalToggle"
                             data-bs-toggle="modal">Guruhni almashtirish</button>
                         <a class="user__info-btn user__info-btn--colr"  href="{{ route('students.downloadContract', $student->id) }}"><i class="material-icons">assignment</i>Shartnoma</a>
+                        @if($student->last_event_status)
+                            <a class="btn btn-icon btn-danger" href="{{ route('studentEvent', $student->id) }}"> OUT</a>
+                        @else
+                            <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $student->id) }}"> IN</a>
+                        @endif
                         <a href="{{ route('students.edit', $student->id) }}" class="user__info-btn user__info-btn--oval">
                             <svg class="edu-panel__drop-menu-icon" width="15" height="15" viewBox="0 0 15 15"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +108,6 @@
                                     stroke-linejoin="round" />
                             </svg>
                         </a>
-
                         @role('admin')
                         <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                             @csrf
@@ -131,8 +133,6 @@
                         </form>
                         @endrole
                     </div>
-
-
                         <!-- =====================USER EDIT MODAL===================== -->
                         <div class="modal fade " id="exampleModalToggle" aria-hidden="true"
                             aria-labelledby="exampleModalToggleLabel" tabindex="1">

@@ -127,6 +127,9 @@ class Students extends Component
                 case 'good-attandance':
                     $students->goodAttandance();
                     break;
+                case 'unknown':
+                    $students->where('status', 1)->where('test_status', null);
+                    break;
                 case 'bad-attandance':
                     $students->badAttandance();
                     break;
@@ -140,25 +143,13 @@ class Students extends Component
                     ->orWhere('id', 'LIKE', '%'.$this->search.'%');
             })
             ->with([
-                'group'=>function($query){
-                    $query->select('id', 'course_id', 'name', 'start_date', 'end_date', 'teacher_id');
-                },
-                'group.course' => function($query){
-                    $query->select('id', 'name');
-                },
                 'group.teacher' => function($query){
                     $query->select('id', 'name');
                 },
             ])
-            ->addSubSelect('last_event_status', Event::select('status')
-                ->whereColumn('person_id', 'students.id')->where('type', 'student')
-                ->latest())
             ->school();
-
         $this->studentsToExportExcel=$students->get();
-
         $students=$students->paginate(10);
-
         return view('livewire.school.students', ['students'=>$students]);
     }
 }

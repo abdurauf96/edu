@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Event;
 use App\Models\Student;
 use App\Models\Group;
 use App\Models\Course;
@@ -39,7 +40,11 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function findOne($id)
     {
-        return Student::with('messages.creator')->findOrFail($id);
+        return Student::addSubSelect(
+                'last_event_status', Event::select('status')
+                ->whereColumn('person_id', 'students.id')->where('type', 'student')
+                ->latest())
+            ->findOrFail($id);
     }
 
     public function update($request, $id)

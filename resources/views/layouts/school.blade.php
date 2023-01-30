@@ -72,9 +72,9 @@
         </ul>
       </nav>
       <div class="main-sidebar sidebar-style-2">
-      
+
           @include('school.sidebar')
-      
+
       </div>
 
       @if (Session::has('flash_message'))
@@ -216,16 +216,11 @@
     </div>
   </div>
   <!-- General JS Scripts -->
-  {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
   <script src="/admin/assets/js/app.min.js"></script>
-
-  <!-- Page Specific JS File -->
-  {{-- <script src="/admin/assets/js/page/index.js"></script> --}}
-  <!-- Template JS File -->
+<!-- Template JS File -->
   <script src="/admin/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="/admin/assets/js/custom.js"></script>
-
   <script>
     var url=window.location.href;
     a=document.querySelectorAll("[href='"+url+"']")[0];
