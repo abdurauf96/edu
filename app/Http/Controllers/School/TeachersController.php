@@ -29,9 +29,7 @@ class TeachersController extends Controller
 
     public function index(Request $request)
     {
-        $teachers=$this->teacherRepo->getAll($request->status);
-
-        return view('school.teachers.index', compact('teachers'));
+        return view('school.teachers.index');
     }
 
     /**
@@ -58,29 +56,9 @@ class TeachersController extends Controller
         $this->validate($request, [
 			'email' => 'required|unique:teachers',
 		]);
-
         $this->teacherRepo->store($request->all());
-
         return redirect('school/teachers')->with('flash_message', 'O`qituvchi qo`shildi!');
     }
-
-    public function storeSchoolTeacher(Request $request)
-    {
-        $this->validate($request, [
-			'email' => 'required|unique:teachers',
-		]);
-
-        $this->teacherRepo->storeSchoolTeacher($request->all());
-
-        return redirect('school/teachers')->with('flash_message', 'O`qituvchi qo`shildi!');
-    }
-
-    public function updateSchoolTeacher(Request $request, $id)
-    {
-        $this->teacherRepo->updateSchoolTeacher($id, $request->all());
-        return redirect('school/teachers')->with('flash_message', 'O`qituvchi yangilandi!');
-    }
-
     /**
      * Display the specified resource.
      *
@@ -141,7 +119,6 @@ class TeachersController extends Controller
     public function destroy($id)
     {
         Teacher::destroy($id);
-
         return redirect('school/teachers')->with('flash_message', 'O`qituvchi o`chirib yuborildi!');
     }
 }

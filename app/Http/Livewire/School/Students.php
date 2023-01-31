@@ -146,9 +146,12 @@ class Students extends Component
                 'group.teacher' => function($query){
                     $query->select('id', 'name');
                 },
+                'group.course' => function($query){
+                    $query->select('id', 'name');
+                },
             ])
             ->school();
-        $this->studentsToExportExcel=$students->get();
+        //$this->studentsToExportExcel=$students->get();
         $students=$students->paginate(10);
         return view('livewire.school.students', ['students'=>$students]);
     }

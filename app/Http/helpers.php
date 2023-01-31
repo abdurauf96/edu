@@ -89,7 +89,7 @@ if(!function_exists('makeCard')){
 
 if(!function_exists('circleImage')){
 
-    function circleImage($img=null, $type)
+    function circleImage($type, $img=null)
     {
         if(file_exists(public_path().'/admin/images/'.$type.'/'.$img) and isset($img)){
             $filename = 'admin/images/'.$type.'/'.$img;

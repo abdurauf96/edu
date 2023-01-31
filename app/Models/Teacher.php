@@ -36,7 +36,14 @@ class Teacher extends Authenticatable
     protected $attributes=[
         'status'=>1
     ];
-
+    public function scopeActive($query)
+    {
+        return $query->whereStatus(1);
+    }
+    public function scopeInActive($query)
+    {
+        return $query->whereStatus(0);
+    }
     public function getSchool()
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');

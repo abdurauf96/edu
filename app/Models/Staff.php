@@ -10,7 +10,6 @@ class Staff extends Model
 {
     use LogsActivity,School;
 
-
     /**
      * The database table used by the model.
      *

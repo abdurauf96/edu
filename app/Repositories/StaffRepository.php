@@ -67,7 +67,7 @@ class StaffRepository implements StaffRepositoryInterface{
 
     public function generateIdCard($staff)
     {
-        $circled_image=circleImage($staff->image, 'staffs');
+        $circled_image=circleImage('staffs',$staff->image);
 
         if(!file_exists(public_path().'/admin/images/qrcodes/'.$staff->qrcode)){
             generateQrcode($staff->id, $staff->qrcode, 'staff');

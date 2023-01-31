@@ -1,6 +1,7 @@
 <div class="container-edu-panel">
     <section class="edu-panel">
         <div class="edu-panel-top">
+            <h4>O'quvchilar</h4>
             <a href="{{ route('students.create') }}" class="edu-panel-top__btn">
                 <svg class="edu-panel-top__icon" width="15" height="15" viewBox="0 0 15 15" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -12,19 +13,19 @@
                         fill="white" />
                 </svg>
             </a>
-            <button class="edu-panel-top__btn" wire:click="export">
-                <svg class="edu-panel-top__icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"
-                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M9 11.51L12 14.51L15 11.51" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M12 14.51V6.51001" stroke="white" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M6 16.51C9.89 17.81 14.11 17.81 18 16.51" stroke="white" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </button>
+{{--            <button class="edu-panel-top__btn" wire:click="export">--}}
+{{--                <svg class="edu-panel-top__icon" width="20" height="20" viewBox="0 0 24 24" fill="none"--}}
+{{--                    xmlns="http://www.w3.org/2000/svg">--}}
+{{--                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z"--}}
+{{--                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />--}}
+{{--                    <path d="M9 11.51L12 14.51L15 11.51" stroke="white" stroke-width="1.5" stroke-linecap="round"--}}
+{{--                        stroke-linejoin="round" />--}}
+{{--                    <path d="M12 14.51V6.51001" stroke="white" stroke-width="1.5" stroke-linecap="round"--}}
+{{--                        stroke-linejoin="round" />--}}
+{{--                    <path d="M6 16.51C9.89 17.81 14.11 17.81 18 16.51" stroke="white" stroke-width="1.5"--}}
+{{--                        stroke-linecap="round" stroke-linejoin="round" />--}}
+{{--                </svg>--}}
+{{--            </button>--}}
             <button class="edu-panel-top__btn">
                 <svg class="edu-panel-top__icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -40,10 +41,7 @@
 
         <!-- HEADER-SECTION -->
         <div class="edu-panel-header">
-
-
             <form action="" class="edu-panel-header">
-
                 <!-- HEADER SELECT BOX -->
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">Personal menejer</div>
@@ -84,7 +82,6 @@
                 <!-- HEADER SELECT BOX -->
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">To'lovlar bo’yicha</div>
-
                     <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="payment">
 
                         <option value="" class="edu-panel-select__option" selected>Barchasi</option>
@@ -93,11 +90,9 @@
                         <option value="discount">Chegirmaga ega</option>
                     </select>
                 </div>
-
                 <!-- HEADER SEARCH BOX -->
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">Qidiruv</div>
-
                     <input class="edu-panel-header__search" placeholder="Izlash..." type="text" wire:model="search">
                     <button class="edu-panel-header__search-btn"></button>
                 </div>

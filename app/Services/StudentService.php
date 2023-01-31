@@ -51,7 +51,7 @@ class StudentService{
 
     public function generateIdCard($student)
     {
-        $circled_image=circleImage($student->image, 'students');
+        $circled_image=circleImage('students',$student->image);
 
         if(!file_exists(public_path().'/admin/images/qrcodes/'.$student->qrcode)){
             generateQrcode($student->id, $student->qrcode, 'student');

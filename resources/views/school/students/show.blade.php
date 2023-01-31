@@ -1,22 +1,16 @@
 @extends('layouts.school')
 
 @section('css')
-    <link rel="stylesheet" href="/admin/assets/student/css/global.css">
-    <link rel="stylesheet" href="/admin/assets/student/css/profil.css">
-    <link rel="stylesheet" href="/admin/assets/student/css/select.css">
+    <link rel="stylesheet" href="/admin/assets/css/new.css">
 @endsection
 
 @section('content')
-
-
 <div class="container-edu-panel">
 
     <div class="profil-title">Profil</div>
 
     <div class="container-user">
-
         <div>
-
             <!-- =============SECTION USER PROFIL INFO============= -->
             <section class="profil-user">
 

@@ -19,7 +19,6 @@
 
 </div>
 
-
 <div class="form-group{{ $errors->has('course_id') ? 'has-error' : ''}}">
     {!! Form::label('course_id', 'Mutahassisliklari', ['class' => 'control-label']) !!}
 
