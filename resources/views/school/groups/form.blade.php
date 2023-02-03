@@ -26,15 +26,15 @@
     </div>
     <div class="form-group{{ $errors->has('start_date') ? 'has-error' : ''}} " style="width:300px">
         {!! Form::label('start_date', 'Kurs boshlanish sanasi', ['class' => 'control-label']) !!}
-        {!! Form::date('start_date', null, ('required' == 'required') ? ['class' => 'form-control'] : ['class' => 'form-control']) !!}
+        {!! Form::date('start_date', null,  ['class' => 'form-control', 'required' == 'required']) !!}
         {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
     </div>
 
 </div>
 <div class="col-md-6">
     <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
-        {!! Form::label('duration', 'Kurs davomiyligi', ['class' => 'control-label']) !!}
-        {!! Form::text('duration', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+        {!! Form::label('duration', 'Kurs davomiyligi(Oy)', ['class' => 'control-label']) !!}
+        {!! Form::number('duration', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
         {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
     </div>
 

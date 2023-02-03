@@ -39,7 +39,10 @@ class Group extends Model
      * @var array
      */
     protected $fillable = ['name', 'teacher_id', 'course_id', 'course_days', 'start_date', 'end_date', 'duration', 'time', 'status', 'year', 'room_number', 'user_id'];
-
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->addMonths($this->attributes['duration']);
+    }
 
     public function teacher()
     {
@@ -53,6 +56,15 @@ class Group extends Model
         }else{
             return $query->where('status', self::ACTIVE);
         }
+    }
+    public function scopeWithCourseName($query){
+        $query->addSubSelect('course_name',Course::select('name')
+            ->whereColumn('id', 'groups.course_id'));
+    }
+
+    public function scopeWithTeacherName($query){
+        $query->addSubSelect('teacher_name',Teacher::select('name')
+            ->whereColumn('id', 'groups.teacher_id'));
     }
 
     public function course()

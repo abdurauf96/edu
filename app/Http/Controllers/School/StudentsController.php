@@ -61,7 +61,11 @@ class StudentsController extends Controller
      */
     public function store(AddStudentRequest $request)
     {
-        $this->studentService->create($request);
+        try {
+            $this->studentService->create($request);
+        }catch (\Exception $e){
+            return $e->getMessage();
+        }
         return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
     }
 

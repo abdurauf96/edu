@@ -31,7 +31,7 @@
                             </li>
                             <li class="profil-user__info-item">
                                 <div class="profil-user__info-item-id">Guruh:</div>
-                                <div class="profil-user__info-item-inf">{{ $student->group->name }}</div>
+                                <div class="profil-user__info-item-inf">{{ $student->group_name }}</div>
                             </li>
                             <li class="profil-user__info-item">
                                 <div class="profil-user__info-item-id">Telefon:</div>

@@ -28,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
             if (is_null($this->columns)) {
                 $this->select($this->from.'.*');
             }
-
             return $this->selectSub($query->limit(1), $column);
         });
         Paginator::useBootstrap();

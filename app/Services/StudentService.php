@@ -28,16 +28,14 @@ class StudentService{
     }
 
     public function create($request){
-        try {
-            DB::transaction(function () use ($request): void {
-                $student=$this->studentRepo->create($request);
-                dispatch(new StudentStartedCourseJob($student));
-                generateQrcode($student->id, $student->qrcode, 'student');
-                $this->generateIdCard($student);
-            });
-        }catch (\Exception $e){
-            return $e->getMessage();
-        }
+
+        DB::transaction(function () use ($request): void {
+            $student=$this->studentRepo->create($request);
+            dispatch(new StudentStartedCourseJob($student));
+            generateQrcode($student->id, $student->qrcode, 'student');
+            $this->generateIdCard($student);
+        });
+
     }
 
     public function update($request, $id)

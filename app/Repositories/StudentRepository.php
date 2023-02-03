@@ -40,10 +40,8 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function findOne($id)
     {
-        return Student::addSubSelect(
-                'last_event_status', Event::select('status')
-                ->whereColumn('person_id', 'students.id')->where('type', 'student')
-                ->latest())
+        return Student::withLastEventStatus()
+            ->withGroupName()
             ->findOrFail($id);
     }
 

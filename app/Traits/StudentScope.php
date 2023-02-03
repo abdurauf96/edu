@@ -2,6 +2,9 @@
 
 namespace App\Traits;
 
+use App\Models\Event;
+use App\Models\Group;
+
 trait StudentScope
 {
     public function scopeBoys($query)
@@ -71,6 +74,17 @@ trait StudentScope
         $ids=$this->goodAttandance()
                         ->pluck('id');
         return $query->active()->whereNotIn('id', $ids);
+    }
+
+    public function scopeWithLastEventStatus($query){
+        $query->addSubSelect('last_event_status', Event::select('status')
+            ->whereColumn('person_id', 'students.id')->where('type', 'student')
+            ->latest());
+    }
+
+    public function scopeWithGroupName($query){
+        $query->addSubSelect('group_name', Group::select('name')
+            ->whereColumn('id', 'students.group_id'));
     }
 
 }
