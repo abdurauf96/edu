@@ -31,7 +31,7 @@ class Student extends Authenticatable
      * @var string
      */
     protected $primaryKey = 'id';
-    protected $dates = ['start_date'];
+    protected $dates = ['start_date','finished_date', 'outed_date'];
     /**
      * Attributes that should be mass-assignable.
      *

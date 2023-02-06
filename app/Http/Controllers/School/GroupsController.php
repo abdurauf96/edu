@@ -23,17 +23,7 @@ class GroupsController extends Controller
 
     public function index(Request $request)
     {
-        $type=$request->type ?? 'active';
-
-        $groups = Group::school()
-            ->with(['teacher', 'course'])
-            ->withCount('students')
-            ->orderBy('status')
-            ->latest()
-            ->type($type)
-            ->get();
-
-        return view('school.groups.index', compact('groups'));
+        return view('school.groups.index');
     }
 
     /**
@@ -61,7 +51,6 @@ class GroupsController extends Controller
 			'name' => 'required',
 			'teacher_id' => 'required',
 			'course_id' => 'required',
-			'duration' => 'required'
 		]);
         $requestData = $request->all();
 
@@ -79,7 +68,7 @@ class GroupsController extends Controller
      */
     public function show($id)
     {
-        $group = Group::findOrFail($id);
+        $group = Group::withCourseName()->withTeacherName()->findOrFail($id);
 
         return view('school.groups.show', compact('group'));
     }
@@ -113,7 +102,6 @@ class GroupsController extends Controller
 			'name' => 'required',
 			'teacher_id' => 'required',
 			'course_id' => 'required',
-			'duration' => 'required'
 		]);
         $group = Group::findOrFail($id);
         if($request->status==2 && $group->status!=$request->status){
@@ -141,9 +129,7 @@ class GroupsController extends Controller
     public function selectManagers(Request $request)
     {
         if($request->isMethod('post')){
-
-            Group::findOrFail($request->group_id)->update(['user_id'=>auth()->guard('user')->id()]);;
-
+            Group::findOrFail($request->group_id)->update(['user_id'=>auth()->guard('user')->id()]);
             return back()->with('flash_message', 'Guruh '.auth()->guard('user')->user()->name.'ga biriktirildi !');
         }
 

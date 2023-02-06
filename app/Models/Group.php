@@ -32,16 +32,19 @@ class Group extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-
+    protected $casts = [
+        'start_date' => 'date:Y-m-d',
+        'end_date'=>'date:Y-m-d'
+    ];
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'teacher_id', 'course_id', 'course_days', 'start_date', 'end_date', 'duration', 'time', 'status', 'year', 'room_number', 'user_id'];
+    protected $fillable = ['name', 'teacher_id', 'course_id', 'course_days', 'start_date', 'end_date',  'time', 'status', 'room_number', 'user_id'];
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->addMonths($this->attributes['duration']);
+        $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->addMonths($this->course->duration);
     }
 
     public function teacher()

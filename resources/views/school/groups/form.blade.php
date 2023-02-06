@@ -26,18 +26,12 @@
     </div>
     <div class="form-group{{ $errors->has('start_date') ? 'has-error' : ''}} " style="width:300px">
         {!! Form::label('start_date', 'Kurs boshlanish sanasi', ['class' => 'control-label']) !!}
-        {!! Form::date('start_date', null,  ['class' => 'form-control', 'required' == 'required']) !!}
+        <input type="date" name="start_date" required @if(isset($group) and $group->start_date!='')  value="{{ $group->start_date->format('Y-m-d') }}" @endif class="form-control">
         {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
     </div>
 
 </div>
 <div class="col-md-6">
-    <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
-        {!! Form::label('duration', 'Kurs davomiyligi(Oy)', ['class' => 'control-label']) !!}
-        {!! Form::number('duration', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-        {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
-    </div>
-
     <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">
         {!! Form::label('status', 'Dars kunlari', ['class' => 'control-label']) !!}
        <select name="course_days" id="" class="form-control select2" required>
@@ -81,12 +75,7 @@
 
     <div class="form-group" style="width:300px; display: none" id="finish_date">
         {!! Form::label('finish_date', 'Yakunlangan sana', ['class' => 'control-label']) !!}
-        {!! Form::date('end_date', null, ['class' => 'form-control']) !!}
-    </div>
-
-    <div class="form-group">
-        {!! Form::label('study_year', "O'quv yili", ['class' => 'control-label']) !!}
-       <input type="text" class="form-control yearpicker" required name="year" value="{{ $formMode === 'edit' ? $group->year : '' }}">
+        <input type="date" name="end_date" @if(isset($group) and $group->end_date!='')  value="{{ $group->end_date->format('Y-m-d') }}" @endif class="form-control">
     </div>
 
     <div class="form-group">
@@ -95,25 +84,13 @@
 </div>
 
 @section('js')
-<!-- Moment Js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
- <!-- Year Picker Js -->
-<script src="/admin/assets/bundles/datepicker/js/yearpicker.js"></script>
     <script>
-        $(".yearpicker").yearpicker({
-            startYear: 2019,
-            endYear: 2050,
-        });
-
         $('#status').change(function(){
-
             if($(this).val()==2){
                 $('#finish_date').css('display', 'block');
             } else{
                 $('#finish_date').css('display', 'none');
             }
         })
-
-
     </script>
 @endsection

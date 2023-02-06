@@ -19,6 +19,7 @@
             <!-- HEADER SELECT BOX -->
             <div class="edu-panel-header__box">
                 <div class="edu-panel-header__title">Status bo’yicha</div>
+                <i class="bi bi-clipboard-data"></i>
                 <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="status">
                     <option value="" class="edu-panel-select__option" selected>Barchasi</option>
                     <option value="active">Faol</option>
@@ -26,10 +27,10 @@
                 </select>
             </div>
             <!-- HEADER SEARCH BOX -->
-            <div class="edu-panel-header__box">
-                <div class="edu-panel-header__title">Qidiruv</div>
-                <input class="edu-panel-header__search" placeholder="Izlash..." type="text" wire:model="search">
-                <button class="edu-panel-header__search-btn"></button>
+            <div class="edu-panel-header__search-box">
+                <i class="bi bi-search"></i>
+                <div class="edu-panel-header__title">Qidiruv (Ism yoki ID) </div>
+                <input class="edu-search-input" type="text" placeholder="Search..." wire:model="search">
             </div>
         </div>
         <!-- EDU PANEL TABLE -->

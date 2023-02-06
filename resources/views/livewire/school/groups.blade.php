@@ -32,6 +32,7 @@
                 <!-- HEADER SELECT BOX -->
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">Status bo'yicha</div>
+                    <i class="bi bi-clipboard-data"></i>
                     <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="status">
                         <option class="edu-panel-select__option" value="">Barchasi</option>
                             <option value="active">Active</option>
@@ -42,6 +43,7 @@
                 <!-- HEADER SELECT BOX -->
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">Kurslar bo’yicha</div>
+                    <i class="bi bi-briefcase"></i>
                     <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="course_id">
                         <option value="" class="edu-panel-select__option" selected>Barchasi</option>
                         @foreach($courses as $course)
@@ -53,6 +55,7 @@
                 <!-- HEADER SELECT BOX -->
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">O'qituvchilar bo'yicha</div>
+                    <i class="bi bi-app-indicator"></i>
                     <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="teacher_id">
                         <option value="" class="edu-panel-select__option" selected>Barchasi</option>
                         @foreach($teachers as $teacher)
@@ -63,21 +66,22 @@
                 <!-- HEADER SELECT BOX -->
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">Dars kunlari bo'yicha</div>
+                    <i class="bi bi-calendar"></i>
                     <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="days">
                         <option value="" class="edu-panel-select__option" selected>Barchasi</option>
-                        <option value="debtors">Dush/Chor/Juma</option>
-                        <option value="no-debt">Sesh/Pay/Shan</option>
-                        <option value="no-debt">Xar kuni</option>
+                        <option value="1">Dush/Chor/Juma</option>
+                        <option value="2">Sesh/Pay/Shan</option>
+                        <option value="3">Xar kuni</option>
                     </select>
                 </div>
                 <!-- HEADER SELECT BOX -->
-                <div class="edu-panel-header__box">
+                <div class="edu-panel-header__box-new">
                     <div class="edu-panel-header__title">Boshlanish sanasi</div>
-                    <input type="date" wire:model="start_date">
+                    <input class="edu-date-input" type="date" wire:model="start_date">
                 </div>
-                <div class="edu-panel-header__box">
+                <div class="edu-panel-header__box-new">
                     <div class="edu-panel-header__title">Tugash sanasi</div>
-                    <input type="date" wire:model="end_date">
+                    <input class="edu-date-input" type="date" wire:model="end_date">
                 </div>
             </form>
         </div>
@@ -103,7 +107,7 @@
                         <td class="edu-panel-table__td"><a href="{{ route('groups.show', $group->id) }}">{{ $group->name }}</a></td>
                         <td class="edu-panel-table__td"> {{ $group->course_name }} </td>
                         <td class="edu-panel-table__td">{{ $group->teacher_name }}</td>
-                        <td class="edu-panel-table__td">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $group->start_date)->format('d-m-Y') }} / {{  \Carbon\Carbon::createFromFormat('Y-m-d', $group->end_date)->format('d-m-Y') }}</td>
+                        <td class="edu-panel-table__td">{{ $group->start_date !=null ? $group->start_date->format('d-m-Y') : 'belgilanmagan' }} / {{ $group->end_date !=null ? $group->end_date->format('d-m-Y') : 'belgilanmagan' }}</td>
                         <td class="edu-panel-table__td">{{ $group->room_number }} </td>
                         <td class="edu-panel-table__td"> {{ $group->students_count }} </td>
                         <th>

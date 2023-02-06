@@ -136,7 +136,7 @@
 
 <div class="form-group" >
     {!! Form::label('start_date', 'Dars boshlash sanasi', ['class' => 'control-label']) !!}
-    <input type="date" name="start_date" @isset($student) value="{{ $student->start_date->format('Y-m-d') }}" @endisset class="form-control">
+    <input type="date" name="start_date" @if(isset($student) and $student->start_date!='')  value="{{ $student->start_date->format('Y-m-d') }}" @endif class="form-control">
 
 </div>
 
@@ -162,7 +162,7 @@
 </div>
 <div class="form-group" @if(!$errors->has('finished_date'))  style="width:300px; display: none" @endif id="finished_date">
     {!! Form::label('finished_date', 'Bitirib ketgan sanasi', ['class' => 'control-label']) !!}
-    {!! Form::date('finished_date', null, ['class' => 'form-control']) !!}
+    <input type="date" name="finished_date" @if(isset($student) and $student->finished_date!='')  value="{{ $student->finished_date->format('Y-m-d') }}" @endif class="form-control">
     @error('finished_date') <div class="invalid-feedback">Maydon to'ldirilishi shart</div> @enderror
 </div>
 
@@ -185,13 +185,6 @@
  <!-- Year Picker Js -->
 <script src="/admin/assets/bundles/datepicker/js/yearpicker.js"></script>
 <script>
-    // $('.selectSchool').change(function(){
-    //     if($(this).val()==0){
-    //         $('.schoolField').css('display', 'block');
-    //     }else{
-    //         $('.schoolField').css('display', 'none');
-    //     }
-    // })
   $(".yearpicker").yearpicker({
       startYear: 2019,
       endYear: 2050,

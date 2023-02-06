@@ -42,7 +42,7 @@ class Teacher extends Authenticatable
     }
     public function scopeInActive($query)
     {
-        return $query->whereStatus(0);
+        return $query->where('status', 0);
     }
     public function getSchool()
     {

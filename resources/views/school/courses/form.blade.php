@@ -4,7 +4,7 @@
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
 <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
-    {!! Form::label('duration', 'Kurs davomiyligi', ['class' => 'control-label']) !!}
+    {!! Form::label('duration', 'Kurs davomiyligi(Oy)', ['class' => 'control-label']) !!}
     {!! Form::number('duration', null, ['class' => 'form-control', 'required'=>'required'] ) !!}
     {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
 </div>

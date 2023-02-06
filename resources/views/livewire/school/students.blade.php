@@ -83,7 +83,6 @@
                 <div class="edu-panel-header__box">
                     <div class="edu-panel-header__title">To'lovlar bo’yicha</div>
                     <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="payment">
-
                         <option value="" class="edu-panel-select__option" selected>Barchasi</option>
                         <option value="debtors">Qarzdorlar</option>
                         <option value="no-debt">Ijobiy balans</option>
@@ -96,7 +95,6 @@
                     <input class="edu-panel-header__search" placeholder="Izlash..." type="text" wire:model="search">
                     <button class="edu-panel-header__search-btn"></button>
                 </div>
-
             </form>
         </div>
 
@@ -122,7 +120,7 @@
                         <td class="edu-panel-table__td"><a href="{{ route('students.show', $item->id) }}">{{ $item->name }}</a></td>
                         <td class="edu-panel-table__td"> {{ $item->group->name }} ({{ $item->group->course->name }}) </td>
                         <td class="edu-panel-table__td">{{ $item->group->teacher->name }}</td>
-                        <td class="edu-panel-table__td">{{ $item->group->start_date }} / {{ $item->group->end_date }}</td>
+                        <td class="edu-panel-table__td"> {{ $item->group->start_date !=null ? $item->group->start_date->format('d-m-Y') : 'belgilanmagan' }} / {{ $item->group->end_date !=null ? $item->group->end_date->format('d-m-Y') : 'belgilanmagan' }}</td>
                         <td class="edu-panel-table__td">{{ $item->is_debt() ? '-' : '+' }} {{ number_format(abs($item->debt)) }} so’m</td>
                         <td class="edu-panel-table__td"> {{ $item->statusText() }} </td>
                         <th>

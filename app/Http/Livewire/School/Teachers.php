@@ -29,12 +29,12 @@ class Teachers extends Component
         $teachers=Teacher::query();
         if($this->status){
             if($this->status=='active'){
-                $teachers->active();
+                $teachers=$teachers->active();
             }else{
                 $teachers->inActive();
             }
         }
-        $teachers=$teachers->latest()
+        $teachers->latest()
             ->where(function($query){
                 $query->where('name', 'LIKE',  '%'.$this->search.'%')
                     ->orWhere('id', 'LIKE', '%'.$this->search.'%');
@@ -43,8 +43,8 @@ class Teachers extends Component
                 'courses' => function($query){
                     $query->select('name');
                 }
-            ])->school()
-            ->paginate(10);
+            ])->school();
+        $teachers=$teachers->paginate(10);
         return view('livewire.school.teachers', ['teachers'=>$teachers]);
     }
 }

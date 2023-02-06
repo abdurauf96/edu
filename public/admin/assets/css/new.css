@@ -83,7 +83,8 @@ body {
 .edu-panel-header {
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
+    width: 100%;
+    justify-content: space-between;
     /* flex-wrap: wrap; */
     grid-gap: 15px;
     overflow-x: auto;
@@ -110,7 +111,14 @@ body {
 
 .edu-panel-header__box {
     position: relative;
-    min-width: 300px;
+    width: 240px;
+    min-width: 170px !important;
+}
+
+.edu-panel-header__box-new {
+    position: relative;
+    width: 240px;
+    min-width: 170px !important;
 }
 
 .edu-panel-header__title {
@@ -121,10 +129,19 @@ body {
     margin-bottom: 17px;
 }
 
-.drop-down {
+/* .drop-down {
     max-width: 213px;
     position: relative;
+} */
+
+.edu-panel-header__box i {
+    position: absolute;
+    top: 55%;
+    left: 7%;
+    color: #444444 !important;
+    z-index: 1;
 }
+
 
 .edu-panel-header__drop-btn {
     font-weight: 500;
@@ -145,17 +162,28 @@ body {
     font-size: 14px !important;
     line-height: 18px;
     color: #444444 !important;
-    min-width: 100%;
-    height: 55px;
+    /* min-width: 100%; */
+    height: 50px;
     text-align: left;
     background: #ffffff;
     border: 1px solid transparent;
     border-radius: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 60px;
-    padding-right: 40px;
+    padding-left: 40px;
+    padding-right: 35px;
     cursor: pointer;
+}
+
+.edu-date-input {
+    width: 100%;
+    min-width: 150px !important;
+    padding: 0 20px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 15px;
 }
 
 .form-select:focus {
@@ -164,7 +192,7 @@ body {
     box-shadow: none !important;
 }
 
-.edu-panel-header__box::before {
+/* .edu-panel-header__box::before {
     content: "";
     position: absolute;
     width: 20px;
@@ -175,7 +203,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 11;
-}
+} */
 
 .edu-panel-header__box::after {
     content: "";
@@ -190,7 +218,7 @@ body {
     z-index: 11;
 }
 
-.edu-panel-header__box:nth-child(2)::before {
+/* .edu-panel-header__box:nth-child(2)::before {
     background-image: url("../img/Work.svg");
 }
 
@@ -200,15 +228,8 @@ body {
 
 .edu-panel-header__box:nth-child(4)::before {
     background-image: url("../img/Graph.svg");
-}
+} */
 
-.edu-panel-header__box:nth-child(5)::before {
-    content: none;
-}
-
-.edu-panel-header__box:nth-child(5)::after {
-    content: none;
-}
 
 .edu-panel-select__option {
     font-size: 14px;
@@ -232,7 +253,7 @@ body {
     font-weight: 600;
 }
 
-.edu-panel-header__search-btn {
+/* .edu-panel-header__search-btn {
     position: absolute;
     top: 60%;
     right: 10%;
@@ -242,7 +263,7 @@ body {
     background: url("../img/search.svg") no-repeat;
     background-size: cover;
     background-color: transparent;
-}
+} */
 
 /*TABLE*/
 .edu-panel-table {
@@ -468,6 +489,7 @@ tr {
     position: absolute;
     top: 5%;
     right: 3%;
+    grid-gap: 10px;
 }
 
 .user__info-btn {
@@ -485,7 +507,6 @@ tr {
 }
 
 .user__info-btn--colr {
-    margin-right: 20px;
     width: 110px;
     padding: 8px 15px;
     font-weight: 500;
@@ -500,21 +521,45 @@ tr {
 .user__info-btn--oval {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #72CFE7;
 }
 
-.user__info-btn--oval:nth-child(3) {
-    background: #F3A874;
+.user__info-btn--oval i {
+    font-size: 18px;
+    color: #fff;
 }
 
-.user__info-btn--oval+.user__info-btn--oval {
-    margin-left: 5px;
+.user__info-btn--oval-cl--red {
+    background-color: red;
 }
+
+.user__info-btn--oval-cl--springgreen {
+    background-color: springgreen;
+}
+
+.user__info-btn--oval-cl--e7 {
+    background-color: #72CFE7;
+}
+
+.user__info-btn--oval-cl--74 {
+    background-color: #F3A874;
+}
+
+.user__info-ds {
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+}
+
+.user__info-ds i {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
 
 /* ===========USER CURS MODAL================ */
 
@@ -817,7 +862,29 @@ tr {
 .user-tabs__btn:active {
     opacity: 0.6;
 }
+.edu-panel-header__search-box {
+    position: relative;
+    width: 240px;
+    min-width: 170px;
+}
 
+.edu-panel-header__search-box i {
+    position: absolute;
+    top: 57%;
+    right: 10%;
+    color: #444444;
+}
+
+.edu-search-input {
+    width: 100%;
+    min-width: 150px !important;
+    padding: 0 40px 0 20px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 15px;
+}
 @media only screen and (max-width: 1043px) {
 
     .container-user {

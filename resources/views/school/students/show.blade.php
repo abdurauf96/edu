@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/admin/assets/css/new.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 @endsection
 
 @section('content')
@@ -85,44 +86,25 @@
                     <div class="user__info-btn-wrap">
                         <button class="user__info-btn user__info-btn--colr" data-bs-target="#exampleModalToggle"
                             data-bs-toggle="modal">Guruhni almashtirish</button>
-                        <a class="user__info-btn user__info-btn--colr"  href="{{ route('students.downloadContract', $student->id) }}"><i class="material-icons">assignment</i>Shartnoma</a>
+                        <a class="user__info-btn user__info-btn--colr user__info-ds"
+                           href="{{ route('students.downloadContract', $student->id) }}"><i
+                                class="material-icons">assignment</i>Shartnoma</a>
                         @if($student->last_event_status)
-                            <a class="btn btn-icon btn-danger" href="{{ route('studentEvent', $student->id) }}"> OUT</a>
+                            <a class="btn btn-icon btn-danger user__info-btn--oval" href="{{ route('studentEvent', $student->id) }}">OUT</a>
                         @else
-                            <a class="btn btn-icon btn-success" href="{{ route('studentEvent', $student->id) }}"> IN</a>
+                            <a class="btn btn-icon btn-success user__info-btn--oval" href="{{ route('studentEvent', $student->id) }}">IN</a>
                         @endif
-                        <a href="{{ route('students.edit', $student->id) }}" class="user__info-btn user__info-btn--oval">
-                            <svg class="edu-panel__drop-menu-icon" width="15" height="15" viewBox="0 0 15 15"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.875 13.125H13.125" stroke="#fff" stroke-linecap="round" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M10.5528 3.01486C9.69719 2.26489 8.39006 2.34339 7.63263 3.19062C7.63263 3.19062 3.86804 7.40119 2.56261 8.86269C1.25547 10.3234 2.21364 12.3413 2.21364 12.3413C2.21364 12.3413 4.37125 13.0178 5.65858 11.5776C6.94675 10.1374 10.7303 5.90637 10.7303 5.90637C11.4878 5.05914 11.4076 3.76482 10.5528 3.01486Z"
-                                    stroke="#fff" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M6.47525 4.55774L9.32844 7.04945" stroke="#fff" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
+                        <a href="{{ route('students.edit', $student->id) }}"
+                           class="user__info-btn user__info-btn--oval user__info-btn--oval-cl--e7">
+                            <i class="bi bi-pencil-square"></i>
                         </a>
                         @role('admin')
                         <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="user__info-btn user__info-btn--oval">
-                                <svg class="edu-panel__drop-menu-icon" width="15" height="15" viewBox="0 0 15 15"
-                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M13.125 3.73749C11.0438 3.53124 8.95 3.42499 6.8625 3.42499C5.625 3.42499 4.3875 3.48749 3.15 3.61249L1.875 3.73749"
-                                        stroke="#fff" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M5.3125 3.10625L5.45 2.2875C5.55 1.69375 5.625 1.25 6.68125 1.25H8.31875C9.375 1.25 9.45625 1.71875 9.55 2.29375L9.6875 3.10625"
-                                        stroke="#fff" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M11.7812 5.71252L11.3749 12.0063C11.3062 12.9875 11.2499 13.75 9.50619 13.75H5.49369C3.74994 13.75 3.69369 12.9875 3.62494 12.0063L3.21869 5.71252"
-                                        stroke="#fff" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M6.45599 10.3125H8.53724" stroke="#fff" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M5.9375 7.8125H9.0625" stroke="#fff" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+                            <button type="submit"
+                                    class="user__info-btn user__info-btn--oval user__info-btn--oval-cl--74">
+                                <i class="bi bi-trash3"></i>
                             </button>
                         </form>
                         @endrole
