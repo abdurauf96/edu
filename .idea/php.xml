@@ -186,6 +186,7 @@
       <path value="$PROJECT_DIR$/vendor/masterminds/html5" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
       <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/adrianorosa/laravel-geolocation" />
     </include_path>
   </component>
   <component name="PhpUnit">

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\School\RolesController;
 use App\Http\Controllers\School\MainController;
 use App\Http\Controllers\School\PermissionsController;
@@ -20,7 +19,7 @@ use App\Http\Controllers\School\AppealsController;
 use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ProfileController;
-use App\Http\Controllers\School\MessagesController;
+use App\Http\Controllers\School\LoginsController;
 
 use App\Http\Controllers\Student\StudentController;
 /*
@@ -57,6 +56,7 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']],
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
+    Route::resource('logins', LoginsController::class);
 });
 
 //routes for school admin and cashier

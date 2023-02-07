@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserLoginEvent;
 use App\Models\District;
 use Illuminate\Http\Request;
 use App\Models\School;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use App\Events\SchoolUserCreated;
+
 class SchoolController extends Controller
 {
     public function showRegisterForm()
@@ -42,11 +44,9 @@ class SchoolController extends Controller
 
     public function login(LoginRequest $request)
     {
-
         $request->userAuthenticate();
-
         $request->session()->regenerate();
-
+        event(new UserLoginEvent($request->ip()));
         return redirect(RouteServiceProvider::SCHOOL_HOME);
     }
 

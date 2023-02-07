@@ -1,24 +1,19 @@
 <?php
 namespace App\Http\Controllers\School;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use DB;
 use App\Models\User;
 use App\Models\Clas;
 use App\Models\Group;
 use App\Models\Course;
-use App\Models\Student;
 use App\Models\District;
 use App\Models\BotStudent;
 use Illuminate\Http\Request;
 use App\Models\WaitingStudent;
-use App\Models\StudentActivity;
 use App\Services\StudentService;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\File;
 use App\Http\Requests\AddStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
 use PDF;
 class StudentsController extends Controller
 {

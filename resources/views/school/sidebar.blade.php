@@ -15,6 +15,7 @@
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Adminstratsiya</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="{{ route('users.index') }}">Foydalanuvchilar</a></li>
+          <li><a class="nav-link" href="{{ route('logins.index') }}">Kirishlar tarixi</a></li>
 {{--          <li><a class="nav-link" href="{{ route('roles.index') }}">Ro'llar</a></li>--}}
         </ul>
       </li>
