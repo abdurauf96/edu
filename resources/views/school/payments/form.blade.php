@@ -63,7 +63,7 @@
 
     <div class="form-group{{ $errors->has('description') ? 'has-error' : ''}}">
         {!! Form::label('description', 'To`lov haqida qisqacha', ['class' => 'control-label']) !!}
-       <textarea name="description" class="form-control" id="" cols="30" rows="2">@isset($payment)
+       <textarea name="description" class="form-control" id="" cols="30" required rows="2">@isset($payment)
         {{ $payment->description }}
             @endisset
         </textarea>

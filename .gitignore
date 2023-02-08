@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/public/admin/sertificats
+/public/admin/contracts
 /public/admin/images/qrcodes
 /public/admin/images/students
 /public/admin/images/circled-images

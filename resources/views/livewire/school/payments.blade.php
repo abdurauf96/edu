@@ -1,87 +1,134 @@
-<div class="card">
-    <div class="card-header"> <h4>To'lovlar </h4>
-        <div class="card-header-form">
-            <a href="{{ route('payments.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Yangi qo'shish</a>
-
-            <a href="{{ route('school.addMonthlyPayment') }}" class="btn btn-icon icon-left btn-warning"><i class="fas fa-plus"></i>Barcha o'quvchilarga oylik qarz yozish</a>
+<div class="container-edu-panel">
+    <section class="edu-panel">
+        <div class="edu-panel-top">
+            <h4>To'lovlar</h4>
+            <a href="{{ route('payments.create') }}" class="edu-panel-top__btn">
+                <svg class="edu-panel-top__icon" width="15" height="15" viewBox="0 0 15 15" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M0 7.5C0 6.67157 0.671573 6 1.5 6H13.5C14.3284 6 15 6.67157 15 7.5C15 8.32843 14.3284 9 13.5 9H1.5C0.671573 9 0 8.32843 0 7.5Z"
+                        fill="white" />
+                    <path
+                        d="M7.5 15C6.67157 15 6 14.3284 6 13.5L6 1.5C6 0.671573 6.67157 1.01779e-07 7.5 6.55671e-08C8.32843 2.93554e-08 9 0.671573 9 1.5L9 13.5C9 14.3284 8.32843 15 7.5 15Z"
+                        fill="white" />
+                </svg>
+            </a>
         </div>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="section-title">Qidiruv </div>
-                <div class="form-group">
-                    <input type="search" class="form-control" wire:model="search" placeholder="search...">
+
+        <!-- HEADER-SECTION -->
+        <div class="edu-panel-header">
+            <form action="" class="edu-panel-header">
+                <!-- HEADER SELECT BOX -->
+                <div class="edu-panel-header__box">
+                    <div class="edu-panel-header__title">To'lov turi bo'yicha</div>
+                    <i class="bi bi-clipboard-data"></i>
+                    <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="type">
+                        <option class="edu-panel-select__option" value="">Barchasi</option>
+                        <option value="paynet">Paynet</option>
+                        <option value="payme">Payme</option>
+                        <option value="click">Click</option>
+                        <option value="terminal">Terminal</option>
+                        <option value="Naqd">Naqd</option>
+                    </select>
                 </div>
-            </div>
-        </div>
-        <div class="table-responsive dataTables_wrapper " >
-            <table class="table table-bordered table-striped table-hover " id="table-1">
 
-                <thead>
+                <!-- HEADER SELECT BOX -->
+                <div class="edu-panel-header__box">
+                    <div class="edu-panel-header__title">Guruhlar bo’yicha</div>
+                    <i class="bi bi-briefcase"></i>
+                    <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="group_id">
+                        <option value="" class="edu-panel-select__option" selected>Barchasi</option>
+                        @foreach($groups as $group)
+                            <option value="{{ $group->id }}">{{ $group->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- HEADER SELECT BOX -->
+                <div class="edu-panel-header__box-new">
+                    <div class="edu-panel-header__title">Oraliq sana(dan)</div>
+                    <input class="edu-date-input" type="date" wire:model="start_date">
+                </div>
+                <div class="edu-panel-header__box-new">
+                    <div class="edu-panel-header__title">Oraliq sana(gacha)</div>
+                    <input class="edu-date-input" type="date" wire:model="end_date">
+                </div>
+                <!-- HEADER SEARCH BOX -->
+                <div class="edu-panel-header__search-box">
+                    <i class="bi bi-search"></i>
+                    <div class="edu-panel-header__title">Qidiruv</div>
+                    <input class="edu-search-input" type="text" placeholder="Search..." wire:model="search">
+                </div>
+            </form>
+        </div>
+        <!-- EDU PANEL TABLE -->
+        <div class="edu-panel-table">
+            <table class="table">
+                <thead class="edu-panel-table__thead">
                 <tr>
-                    <th>#</th>
-                    <th>To'lovchi</th>
-                    <th>Miqdor</th>
-                    <th>Turi</th>
-                    <th>Maqsadi</th>
-                    <th>Ma'lumot</th>
-                    <th>To'lov sanasi</th>
-                    <th>CourseID</th>
-                    <th>Amallar</th>
+                    <th class="edu-panel-table__th">#</th>
+                    <th class="edu-panel-table__th">To'lovchi</th>
+                    <th class="edu-panel-table__th">Miqdor</th>
+                    <th class="edu-panel-table__th">Turi</th>
+                    <th class="edu-panel-table__th">Ma'lumot</th>
+                    <th class="edu-panel-table__th">To'lov sanasi</th>
+                    <th class="edu-panel-table__th">Amallar</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="edu-panel-table__tbody">
                 @foreach($payments as $item)
-                    <tr>
-                        <td>{{ $item->id  }}</td>
-                        <td>{{ $item->student->name ?? 'null' }}</td>
-                        <td>{{ $item->amount }}</td>
-                        <td>{{ $item->type }}</td>
-                        <td>
-                            @switch($item->purpose)
-                                @case(1)
-                                O'quv kursi
-                                @break
-                                @case(2)
-                                Kibersport
-                                @break
-                                @case(3)
-                                Coworking
-                                @break
-                                @case(4)
-                                Konferens zal
-                                @break
-                                @default
-                                Boshqa
-                            @endswitch
-                        </td>
-
-                        <td>{{ $item->description }}</td>
-                        <td>{{ $item->created_at->format('d/m/Y') }}</td>
-                        <td>{{ $item->course_id }}</td>
-                        <td>
-                            <a href="{{ route('payments.show', $item->id) }}" class="btn btn-icon btn-primary"><i class="fas fa-eye"></i></a>
-                            {{--                                    <a href="{{ route('payments.edit', $item->id) }}" class="btn btn-icon btn-info"><i class="far fa-edit"></i></a>--}}
-                            {!! Form::open([
-                                'method' => 'DELETE',
-                                'url' => ['/school/payments', $item->id],
-                                'style' => 'display:inline'
-                            ]) !!}
-                            {!! Form::button('<i class="fas fa-trash-alt" aria-hidden="true"></i>', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger ',
-                                    'title' => 'Delete Payment',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            )) !!}
-                            {!! Form::close() !!}
-                        </td>
+                    <tr class="edu-panel-table__tr">
+                        <td class="edu-panel-table__td">{{ $item->id  }}</td>
+                        <td class="edu-panel-table__td">{{ $item->student_name ?? 'null' }}</td>
+                        <td class="edu-panel-table__td">{{ $item->amount }}</td>
+                        <td class="edu-panel-table__td">{{ $item->type }}</td>
+                        <td class="edu-panel-table__td">{{ $item->description }}</td>
+                        <td class="edu-panel-table__td">{{ $item->created_at->format('d/m/Y') }}</td>
+                        <th>
+                            <div class="btn-group dropstart">
+                                <div class="edu-panel-table__btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <ul id="edu-panel__drop-menu" class="dropdown-menu ">
+                                    <li>
+                                        @role('admin')
+                                        <form action="{{ route('payments.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="dropdown-item" type="submit" id="edu-panel__drop-item" onclick="return confirm("Confirm delete?")">
+                                            <svg class="edu-panel__drop-menu-icon" width="15" height="15"
+                                                 viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M13.125 3.73749C11.0438 3.53124 8.95 3.42499 6.8625 3.42499C5.625 3.42499 4.3875 3.48749 3.15 3.61249L1.875 3.73749"
+                                                    stroke="#B3B3B3" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path
+                                                    d="M5.3125 3.10625L5.45 2.2875C5.55 1.69375 5.625 1.25 6.68125 1.25H8.31875C9.375 1.25 9.45625 1.71875 9.55 2.29375L9.6875 3.10625"
+                                                    stroke="#B3B3B3" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path
+                                                    d="M11.7812 5.71252L11.3749 12.0063C11.3062 12.9875 11.2499 13.75 9.50619 13.75H5.49369C3.74994 13.75 3.69369 12.9875 3.62494 12.0063L3.21869 5.71252"
+                                                    stroke="#B3B3B3" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                                <path d="M6.45599 10.3125H8.53724" stroke="#B3B3B3"
+                                                      stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M5.9375 7.8125H9.0625" stroke="#B3B3B3"
+                                                      stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            O’chirish</button>
+                                        </form>
+                                        @endrole
+                                    </li>
+                                </ul>
+                            </div>
+                        </th>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-
+            {{ $payments->onEachSide(0)->links() }}
         </div>
-        {{ $payments->onEachSide(0)->links() }}
-    </div>
+    </section>
 </div>

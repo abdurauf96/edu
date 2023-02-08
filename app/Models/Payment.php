@@ -24,7 +24,10 @@ class Payment extends Model
      */
     protected $primaryKey = 'id';
 
-
+    public function scopeWithStudentName($query){
+        $query->addSubSelect('student_name',Student::select('name')
+            ->whereColumn('id', 'payments.student_id'));
+    }
 
     /**
      * Attributes that should be mass-assignable.
