@@ -189,9 +189,22 @@ class StudentsController extends Controller
         return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
     }
 
-    public function sertificatedStudents()
+    public function createSertificate(Request $request, $id)
     {
-        return view('school.students.sertificats');
+        $student=$this->studentService->findOne($id);
+        $courses=Course::school()->where('is_for_bot',true)->get();
+        if($request->isMethod('POST')){
+            $request->validate([
+                'name'=>'required',
+                'surname'=>'required',
+                'date'=>'required',
+                'course'=>'required',
+                'type'=>'required',
+            ]);
+            $this->studentService->generateSertificate($request->all());
+            return response()->download(public_path('admin/sertificats/sertificate.jpg'));
+        }
+        return view('school.students.create-sertificate', compact('student','courses'));
     }
 
     public function statistics()

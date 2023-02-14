@@ -17,9 +17,9 @@ class LoginsController extends Controller
      */
     public function index(Request $request)
     {
-       
-        $logins = Login::latest()->get();
-    
+
+        $logins = Login::latest()->with('user')->get();
+
         return view('school.logins.index', compact('logins'));
     }
 
@@ -42,9 +42,9 @@ class LoginsController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $requestData = $request->all();
-        
+
         Login::create($requestData);
 
         return redirect('school/logins')->with('flash_message', 'Login qo`shildi!');
@@ -88,9 +88,9 @@ class LoginsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
-        
+
         $login = Login::findOrFail($id);
         $login->update($requestData);
 

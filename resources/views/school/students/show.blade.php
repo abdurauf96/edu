@@ -98,6 +98,10 @@
                            class="user__info-btn user__info-btn--oval user__info-btn--oval-cl--e7">
                             <i class="bi bi-pencil-square"></i>
                         </a>
+                        <a href="{{ route('createSertificate', $student->id) }}"
+                           class="user__info-btn user__info-btn--oval user__info-btn--oval-cl--e7">
+                            <i class="bi bi-file-text"></i>
+                        </a>
                         @role('admin')
                         <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                             @csrf

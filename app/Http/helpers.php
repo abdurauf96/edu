@@ -29,23 +29,38 @@ if(!function_exists('generatePassword')){
         return bcrypt($yearToString);
     }
 }
+if (! function_exists('selectSertificateTemplate')) {
+    function selectSertificateTemplate($course_code,$type) {
+        return public_path('admin/sertificats/'.$course_code.'-'.$type.'.jpg');
+    }
+}
 
+if(!function_exists('generateSertificate')){
 
-if(!function_exists('generateIdNumber')){
-
-    function generateIdNumber($lastStudentNumber, $course_code)
+    function generateSertificate($template,$name,$surname,$sertificateId, $date)
     {
-        //21MDC001 ~ year - course_code - student_number
-        if(!isset($lastStudentNumber)){
-            $last_number=0000;
-        }
-
-        $last_number=intval(substr($lastStudentNumber, -4));
-
-        $number = str_pad($last_number+1, 4, 0, STR_PAD_LEFT);
-        $current_year=date('y');
-        $idNumber=$current_year.$course_code.$number;
-        return $idNumber;
+        $image = \Image::make($template);
+        $image->text($name, 1150, 1750, function($font) {
+            $font->file(public_path('admin/sertificats/univia.ttf'));
+            $font->size(80);
+            $font->color('#1D1D1B');
+        });
+        $image->text($surname, 1180, 1850, function($font) {
+            $font->file(public_path('admin/sertificats/univia.ttf'));
+            $font->size(80);
+            $font->color('#1D1D1B');
+        });
+        $image->text("ID ".$sertificateId, 1600, 2975, function($font) {
+            $font->file(public_path('admin/sertificats/univia.ttf'));
+            $font->size(50);
+            $font->color('#1D1D1B');
+        });
+        $image->text($date, 1200, 2600 , function($font) {
+            $font->file(public_path('admin/sertificats/univia.ttf'));
+            $font->size(44);
+            $font->color('#1D1D1B');
+        });
+        $image->save(public_path('admin/sertificats/sertificate.jpg'));
     }
 }
 

@@ -14,4 +14,5 @@ interface StudentRepositoryInterface{
     public function countLeftThisMonth();
     public function countGoodAttandance();
     public function countBadAttandance();
+    public function getLastSertificateId();
 }

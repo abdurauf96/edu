@@ -39,6 +39,11 @@ class Student extends Authenticatable
      */
     protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt'];
 
+    public function sertificates()
+    {
+        return $this->hasMany(Sertificate::class);
+    }
+
     public function getDiscountPercentAttribute()
     {
         return (1-$this->type)*100;

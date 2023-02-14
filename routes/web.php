@@ -80,7 +80,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('contacts', [MainController::class, 'contacts'])->name('school.contacts.index');
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);
-    Route::get('students/sertificats', [StudentsController::class, 'sertificatedStudents'])->name('sertificatedStudents');
+
 
     //groups
     Route::get('/today/groups', [MainController::class, 'todayGroups'])->name('todayGroups');
@@ -101,7 +101,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup'])->name('students.addToGroup');
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
     Route::post('/student/message/store', [StudentsController::class, 'storeMessage'])->name('storeStudentMessage');
-
+    Route::match(['GET', 'POST'],'/students/{id}/create-sertificate', [StudentsController::class, 'createSertificate'])->name('createSertificate');
 
     //select groups for managers
     Route::match(['post', 'get'], '/groups/select/managers', [GroupsController::class, 'selectManagers'])->name('school.groups.selectManagers');

@@ -41,11 +41,11 @@
     <input @isset($course) {{ $course->is_for_bot==1 ? 'checked' : '' }} @endisset type="checkbox" value="1" name="is_for_bot">
 </div>
 
-{{-- <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
-    {!! Form::label('code', 'Kursning maxsus kodi', ['class' => 'control-label']) !!}
-    {!! Form::text('code', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+ <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
+    {!! Form::label('code', 'maxsus kod sertifikat uchun', ['class' => 'control-label']) !!}
+    {!! Form::text('code', null, ['class' => 'form-control']) !!}
     {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
-</div> --}}
+</div>
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
 </div>

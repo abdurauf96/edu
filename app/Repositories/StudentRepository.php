@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Event;
+use App\Models\Sertificate;
 use App\Models\Student;
 use App\Models\Group;
 use App\Models\Course;
@@ -153,6 +154,11 @@ class StudentRepository implements StudentRepositoryInterface{
     public function countBadAttandance()
     {
         return Student::school()->badAttandance()->count();
+    }
+
+    public function getLastSertificateId()
+    {
+        return Sertificate::orderBy('id', 'desc')->first()->sertificate_id;
     }
 
 }
