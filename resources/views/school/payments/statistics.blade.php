@@ -18,7 +18,7 @@
                             <th>Paynet orqali</th>
                             <th>Payme orqali</th>
                         </tr>
-                        
+
                         <tr>
                             <td>{{ $students->count() }}</td>
                             <td>{{ $students->count() - $students->toQuery()->where('debt', '>', 0)->count() }} </td>
@@ -53,7 +53,6 @@
                     <th >Foiz ko'rsatkichi</th>
                     </tr>
                     @foreach ($statistika as $stat)
-
                         @continue($loop->first)
                     <tr>
                         <td>{{ $loop->iteration }}.</td>

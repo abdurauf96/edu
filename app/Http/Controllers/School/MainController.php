@@ -4,16 +4,11 @@ namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\TeacherRepositoryInterface;
 use App\Services\StudentService;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
-use App\Models\Student;
 use App\Models\Group;
-use App\Models\School;
-use App\Models\Clas;
 
 class MainController extends Controller
 {
@@ -22,13 +17,11 @@ class MainController extends Controller
      *
      * @return void
      */
-    public $paymentRepo;
     public $studentService;
     public $teacherRepo;
 
-    public function __construct(PaymentRepositoryInterface $paymentRepository, StudentService $studentService, TeacherRepositoryInterface $teacherRepo)
+    public function __construct(StudentService $studentService, TeacherRepositoryInterface $teacherRepo)
     {
-        $this->paymentRepo=$paymentRepository;
         $this->studentService=$studentService;
         $this->teacherRepo=$teacherRepo;
     }
@@ -68,15 +61,6 @@ class MainController extends Controller
             ->get();
         //dd($groups);
         return view('school.groups.todayGroups', compact('groups'));
-    }
-
-    public function paymentStatistics()
-    {
-        $statistika=$this->paymentRepo->getPaymentResultsByMonth(date('m'), date('Y'));
-        $students=Student::active()->school()->get();
-        $payments=$this->paymentRepo->getPaymentsByMonth(date('m'), date('Y'));
-
-        return view('school.payments.statistics', compact('statistika','students', 'payments'));
     }
 
 }

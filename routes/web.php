@@ -61,10 +61,11 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']],
 
 //routes for school admin and cashier
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:cashier']], function () {
-    Route::resource('payments', PaymentsController::class);
-    Route::get('payment-statistics', [MainController::class, 'paymentStatistics'])->name('paymentStatistics');
-    Route::get('cashier/table', [CashierController::class, 'index'])
-    ->name('cashierTable');
+    Route::resource('payments', PaymentsController::class)->except('show');
+    Route::get('payment-statistics', [PaymentsController::class, 'paymentStatistics'])->name('paymentStatistics');
+    Route::get('payments/statistics', [PaymentsController::class, 'statistics'])
+    ->name('payments.statistics');
+
 });
 
 

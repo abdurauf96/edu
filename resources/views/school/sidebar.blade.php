@@ -96,7 +96,11 @@
                     Statistika
                 </a>
             </li>
-
+            <li>
+                <a href="{{ route('payments.statistics') }}">
+                    To'lovlar grafigi
+                </a>
+            </li>
         </ul>
       </li>
       @endrole

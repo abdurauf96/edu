@@ -9,6 +9,7 @@ use App\Jobs\StudentsMonthlyPaymentJob;
 use App\Models\Message;
 use App\Models\Payment;
 use App\Http\Requests\PaymentRequest;
+use App\Models\Student;
 use App\Models\User;
 use App\Notifications\PaymentsNotification;
 use Illuminate\Http\Request;
@@ -132,6 +133,20 @@ class PaymentsController extends Controller
         $groups=\App\Models\Group::where('course_id', $course_id)->get();
         $res=view('school.payments.ajax', compact('groups'));
         return $res;
+    }
+
+    public function paymentStatistics()
+    {
+        $statistika=$this->paymentRepo->getPaymentResultsByMonth(date('m'), date('Y'));
+        $students=Student::active()->school()->get();
+        $payments=$this->paymentRepo->getPaymentsByMonth(date('m'), date('Y'));
+
+        return view('school.payments.statistics', compact('statistika','students', 'payments'));
+    }
+
+    public function statistics()
+    {
+        return view('school.payments.graphic');
     }
 
     public function addMonthlyPayment()
