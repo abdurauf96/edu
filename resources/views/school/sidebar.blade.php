@@ -92,13 +92,18 @@
             </a>
           </li>
             <li>
-                <a href="{{ route('paymentStatistics') }}">
+                <a href="{{ route('payments.statistics') }}">
                     Statistika
                 </a>
             </li>
             <li>
-                <a href="{{ route('payments.statistics') }}">
+                <a href="{{ route('payments.results') }}">
                     To'lovlar grafigi
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('payments.debtors') }}">
+                    Qarzdorlar
                 </a>
             </li>
         </ul>

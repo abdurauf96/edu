@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Jobs\StudentsMonthlyPaymentJob;
+use App\Models\Course;
 use App\Models\Message;
 use App\Models\Payment;
 use App\Http\Requests\PaymentRequest;
@@ -135,18 +136,23 @@ class PaymentsController extends Controller
         return $res;
     }
 
-    public function paymentStatistics()
-    {
-        $statistika=$this->paymentRepo->getPaymentResultsByMonth(date('m'), date('Y'));
-        $students=Student::active()->school()->get();
-        $payments=$this->paymentRepo->getPaymentsByMonth(date('m'), date('Y'));
-
-        return view('school.payments.statistics', compact('statistika','students', 'payments'));
-    }
-
     public function statistics()
     {
+        $courses=Course::school()
+            ->active()
+            ->withSum('debtorStudents', 'debt')
+            ->get();
+        return view('school.payments.statistics',compact('courses'));
+    }
+
+    public function results()
+    {
         return view('school.payments.graphic');
+    }
+
+    public function debtors()
+    {
+        return view('school.payments.debtors');
     }
 
     public function addMonthlyPayment()

@@ -124,16 +124,16 @@
                         }
                     }
                 },
-                title: {
-                    text: 'Joriy yil to\'lovlar grafigi',
-                    floating: true,
-                    offsetY: 320,
-                    align: 'center',
-                    style: {
-                        color: '#9aa0ac',
-                        fontSize:'22px',
-                    }
-                },
+                // title: {
+                //     text: 'Joriy yil to\'lovlar grafigi',
+                //     floating: true,
+                //     offsetY: 320,
+                //     align: 'center',
+                //     style: {
+                //         color: '#9aa0ac',
+                //         fontSize:'22px',
+                //     }
+                // },
             }
             var chart = new ApexCharts(
                 document.querySelector("#chart2"),

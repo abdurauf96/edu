@@ -35,6 +35,10 @@ class Course extends Model
      */
     protected $fillable = ['school_id', 'name', 'duration', 'price', 'code', 'description', 'is_for_bot', 'status', 'image', 'body', 'price_as_text'];
 
+    public function scopeActive($query)
+    {
+        return $query->where('is_for_bot', true);
+    }
     public function groups()
     {
         return $this->hasMany(Group::class);
@@ -48,6 +52,11 @@ class Course extends Model
     public function students()
     {
         return $this->hasManyThrough(Student::class, Group::class);
+    }
+
+    public function debtorStudents()
+    {
+        return $this->students()->where('debt', '>', 0);
     }
 
     public function activeStudents()
@@ -67,11 +76,6 @@ class Course extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
-    }
-
-    public function paymentsByMonth($month,$year)
-    {
-        return $this->payments()->whereMonth('created_at', $month)->whereYear('created_at', $year)->get();
     }
 
     public function waitingStudents()

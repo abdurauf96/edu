@@ -62,10 +62,9 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']],
 //routes for school admin and cashier
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:cashier']], function () {
     Route::resource('payments', PaymentsController::class)->except('show');
-    Route::get('payment-statistics', [PaymentsController::class, 'paymentStatistics'])->name('paymentStatistics');
-    Route::get('payments/statistics', [PaymentsController::class, 'statistics'])
-    ->name('payments.statistics');
-
+    Route::get('payments/statistics', [PaymentsController::class, 'statistics'])->name('payments.statistics');
+    Route::get('payments/results', [PaymentsController::class, 'results'])->name('payments.results');
+    Route::get('payments/debtors', [PaymentsController::class, 'debtors'])->name('payments.debtors');
 });
 
 
@@ -78,10 +77,8 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/groups', GroupsController::class);
     Route::resource('/organizations', OrganizationsController::class);
 
-    Route::get('contacts', [MainController::class, 'contacts'])->name('school.contacts.index');
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);
-
 
     //groups
     Route::get('/today/groups', [MainController::class, 'todayGroups'])->name('todayGroups');
