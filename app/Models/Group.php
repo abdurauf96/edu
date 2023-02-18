@@ -91,8 +91,9 @@ class Group extends Model
         static::deleting(function ($group) {
             $group->allStudents()->delete();
         });
-        static::creating(function ($model) {
+        static::saving(function ($model) {
             $model->school_id = auth()->guard('user')->user()->school_id;
+            $model->allStudents()->update(['finished_date'=>$model->end_date]);
         });
     }
 

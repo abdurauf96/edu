@@ -111,7 +111,7 @@ class Student extends Authenticatable
 
     public function payments()
     {
-        return $this->hasMany(Payment::class)->orderBy('month_id')->select('student_id', 'amount', 'type', 'created_at');
+        return $this->hasMany(Payment::class)->select('student_id', 'amount', 'type', 'created_at');
     }
 
     public function getSchool()
@@ -143,8 +143,9 @@ class Student extends Authenticatable
         static::deleting(function ($student) {
             $student->payments()->delete();
         });
-        static::creating(function ($model) {
+        static::saving(function ($model) {
             $model->school_id = auth()->guard('user')->user()->school_id;
+            $model->finished_date = $model->group->end_date;
         });
     }
 

@@ -30,10 +30,10 @@ class StudentRepository implements StudentRepositoryInterface{
             $file->move($path, $image);
             $requestData['image']=$image;
         }
-        $filename=str_replace(' ', '-', $request->name).'-'.time().'.png';
-        $filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
-        $requestData['qrcode']=$filename;
-        $requestData['idcard']=$filename_idcard;
+        $qrcodeName=str_replace(' ', '-', $request->name).'-'.time().'.png';
+        //$filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
+        $requestData['qrcode']=$qrcodeName;
+        //$requestData['idcard']=$filename_idcard;
         $requestData['password']=bcrypt('12345678');
         $student=Student::create($requestData);
         return $student;

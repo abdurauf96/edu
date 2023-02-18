@@ -27,11 +27,6 @@ trait StudentScope
         return $query->where('debt', '<=', 0);
     }
 
-    public function scopeSertificated($query)
-    {
-        return $query->where('sertificat_status', 1);
-    }
-
     public function scopeSchool($query)
     {
         return $query->where('school_id', auth()->guard('user')->user()->school_id);

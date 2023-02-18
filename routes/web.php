@@ -77,6 +77,9 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/groups', GroupsController::class);
     Route::resource('/organizations', OrganizationsController::class);
 
+    //xisobotlar
+    Route::get('reports/students', \App\Http\Livewire\School\StudentsReport::class)->name('reports.students');
+
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);
 
@@ -112,8 +115,6 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     //events
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
-
-    Route::get('/filter', [EventsController::class, 'filter'])->name('filterEvents');
 
     Route::resource('/months', MonthsController::class);
     Route::resource('/staffs', StaffsController::class);

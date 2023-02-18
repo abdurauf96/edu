@@ -83,9 +83,7 @@
       @role('cashier')
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Buxgalteriya</span></a>
-
         <ul class="dropdown-menu" >
-
           <li>
             <a href="{{ route('payments.index') }}">
               To'lovlar
@@ -109,6 +107,21 @@
         </ul>
       </li>
       @endrole
+      <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Xisobotlar</span></a>
+            <ul class="dropdown-menu" >
+                <li>
+                    <a href="{{ route('reports.students') }}">
+                       O'quvchilar
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('payments.statistics') }}">
+                        Guruhlar
+                    </a>
+                </li>
+            </ul>
+        </li>
       <li class="dropdown">
         <a href="{{ route('todayGroups') }}" class="nav-link">
           <i data-feather="monitor"></i> <span>Bugungi darslar</span>

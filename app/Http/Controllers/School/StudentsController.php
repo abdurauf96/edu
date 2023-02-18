@@ -110,9 +110,6 @@ class StudentsController extends Controller
         if($request->status==2){
             $request->validate(['outed_date'=>'required']);
         }
-        if($request->status==0){
-            $request->validate(['finished_date'=>'required']);
-        }
         $this->studentService->update($request, $id);
 
         return redirect('school/students')->with('flash_message', 'O`quvchi yangilandi!');

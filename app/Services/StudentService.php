@@ -33,7 +33,7 @@ class StudentService{
             $student=$this->studentRepo->create($request);
             dispatch(new StudentStartedCourseJob($student));
             generateQrcode($student->id, $student->qrcode, 'student');
-            $this->generateIdCard($student);
+//            $this->generateIdCard($student);
         });
 
     }
