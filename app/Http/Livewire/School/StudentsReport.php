@@ -11,7 +11,6 @@ class StudentsReport extends Component
     public function mount()
     {
         $this->start_date=\Carbon\Carbon::now()->startOfMonth()->toDateString();
-        //$this->finished_date=\Carbon\Carbon::now()->endOfMonth()->toDateString();
     }
     public function render()
     {

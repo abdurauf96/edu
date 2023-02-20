@@ -66,31 +66,20 @@
            <option @isset($group)
                {{ $group->status==1 ? 'selected' : ''}}
            @endisset value="1">Active</option>
-
             <option @isset($group)
             {{ $group->status==2 ? 'selected' : '' }}
            @endisset value="2"> Active emas</option>
        </select>
     </div>
 
-    <div class="form-group" style="width:300px; display: none" id="finish_date">
-        {!! Form::label('finish_date', 'Yakunlangan sana', ['class' => 'control-label']) !!}
+    @if($formMode === 'edit')
+    <div class="form-group">
+        {!! Form::label('finish_date', 'Yakunlanish sanasi', ['class' => 'control-label']) !!}
         <input type="date" name="end_date" @if(isset($group) and $group->end_date!='')  value="{{ $group->end_date->format('Y-m-d') }}" @endif class="form-control">
     </div>
-
+    @endif
     <div class="form-group">
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
     </div>
 </div>
 
-@section('js')
-    <script>
-        $('#status').change(function(){
-            if($(this).val()==2){
-                $('#finish_date').css('display', 'block');
-            } else{
-                $('#finish_date').css('display', 'none');
-            }
-        })
-    </script>
-@endsection

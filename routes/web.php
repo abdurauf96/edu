@@ -79,6 +79,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
 
     //xisobotlar
     Route::get('reports/students', \App\Http\Livewire\School\StudentsReport::class)->name('reports.students');
+    Route::get('reports/groups', \App\Http\Livewire\School\GroupsReport::class)->name('reports.groups');
 
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);

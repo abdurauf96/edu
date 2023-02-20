@@ -116,7 +116,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('payments.statistics') }}">
+                    <a href="{{ route('reports.groups') }}">
                         Guruhlar
                     </a>
                 </li>

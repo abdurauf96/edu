@@ -94,7 +94,7 @@ class Course extends Model
              $course->groups()->delete();
              $course->teachers()->delete();
         });
-        static::creating(function ($model){
+        static::saving(function ($model){
             $model->school_id=auth()->guard('user')->user()->school_id;
         });
     }
