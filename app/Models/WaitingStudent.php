@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\School;
 
 class WaitingStudent extends Model
 {
-    use LogsActivity, School;
+    use LogsActivity, School,SoftDeletes;
 
 
     /**

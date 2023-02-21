@@ -181,8 +181,6 @@ class StudentsController extends Controller
     public function generateCard($id)
     {
         $student=$this->studentService->findOne($id);
-        $this->studentService->generateIdCard($student);
-
         return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
     }
 

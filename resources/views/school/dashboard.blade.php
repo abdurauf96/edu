@@ -16,7 +16,7 @@
         <div class="padding-20">
           <div class="text-right">
             <h3 class="font-light mb-0">
-              <i class="ti-arrow-up text-success"></i> {{ $students['count_active'] }}
+              <i class="ti-arrow-up text-success"></i> {{ $students['count_active'] }} / {{ $students['count_test_active'] }}
             </h3><a href="{{ route('students.index') }}"><span class="text-muted"> O'quvchilar </span></a>
           </div>
         </div>

@@ -105,11 +105,6 @@
         </div>
     </div>
 </div>
-<div class="form-group">
-        {!! Form::label('study_year', "O'quv yili", ['class' => 'control-label']) !!}
-        {!! Form::text('study_year', null, ('required' == 'required') ? ['class' => 'form-control yearpicker', 'required' => 'required'] : ['class' => 'form-control']) !!}
-        {!! $errors->first('study_year', '<p class="help-block">:message</p>') !!}
-</div>
 
 <div class="form-group">
     <label for="">Jinsi</label> &nbsp; &nbsp;

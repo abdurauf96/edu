@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Staff;
 use App\Repositories\Interfaces\StaffRepositoryInterface;
-use App\Repositories\StaffRepository;
 
 class StaffRepository implements StaffRepositoryInterface{
 

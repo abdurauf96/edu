@@ -132,8 +132,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-
+        $user=User::find($id);
+        $user->groups()->update(['user_id'=>null]);
+        $user->delete();
         return redirect('school/users')->with('flash_message', 'Foydalanuvchi o`chirib yuborildi!');
     }
 }

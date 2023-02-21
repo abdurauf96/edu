@@ -121,6 +121,17 @@
                                         </form>
                                         @endrole
                                     </li>
+                                    <li><a class="dropdown-item" href="{{ route('payments.edit', $item->id) }}">  <svg class="edu-panel__drop-menu-icon" width="15" height="15"
+                                                                                                                       viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.875 13.125H13.125" stroke="#B3B3B3"
+                                                      stroke-linecap="round" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                      d="M10.5528 3.01486C9.69719 2.26489 8.39006 2.34339 7.63263 3.19062C7.63263 3.19062 3.86804 7.40119 2.56261 8.86269C1.25547 10.3234 2.21364 12.3413 2.21364 12.3413C2.21364 12.3413 4.37125 13.0178 5.65858 11.5776C6.94675 10.1374 10.7303 5.90637 10.7303 5.90637C11.4878 5.05914 11.4076 3.76482 10.5528 3.01486Z"
+                                                      stroke="#B3B3B3" stroke-linecap="round"
+                                                      stroke-linejoin="round" />
+                                                <path d="M6.47525 4.55774L9.32844 7.04945" stroke="#B3B3B3"
+                                                      stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg> Edit</a></li>
                                 </ul>
                             </div>
                         </th>

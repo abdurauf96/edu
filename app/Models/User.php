@@ -14,7 +14,6 @@ class User extends Authenticatable
     use HasFactory, HasRoles,Notifiable,HasApiTokens;
     const RECEPTION_ROLE_ID = 4; // receptionist user role id equal to 4
 
-
     /**
      * The attributes that are mass assignable.
      *

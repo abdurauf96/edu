@@ -65,10 +65,10 @@ class EventsController extends BaseController
             return response()->json('object not found')->setStatusCode(404);
         }
 
-        if($type=='student'){
-            $obj->test_status=1;
-            $obj->save(); 
-        }
+//        if($type=='student'){
+//            $obj->test_status=1;
+//            $obj->save();
+//        }
 
         $lastEventStatus=$obj->getLastEventStatus();
 

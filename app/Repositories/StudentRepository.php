@@ -76,11 +76,9 @@ class StudentRepository implements StudentRepositoryInterface{
             'sex'=>$waitingStudent->sex,
             'type'=>$waitingStudent->type,
             'status'=>1,
-            'study_year'=>date('Y'),
             'district_id'=>$waitingStudent->district_id,
             'study_type'=>$waitingStudent->study_type,
             'start_date'=>$request->start_date,
-            'creator_id'=>$waitingStudent->creator_id,
         ];
 
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
@@ -127,10 +125,10 @@ class StudentRepository implements StudentRepositoryInterface{
                 $query->where('students.status', Course::ACTIVE);
             },
             'students as graduated_students_2021_count'=>function($query){
-                $query->where('students.status', Course::GRADUATED)->where('study_year', 2021);
+                $query->where('students.status', Course::GRADUATED)->whereYear('finished_date', 2021);
             },
             'students as graduated_students_2022_count'=>function($query){
-                $query->where('students.status', Course::GRADUATED)->where('study_year', 2022);
+                $query->where('students.status', Course::GRADUATED)->whereYear('finished_date', 2022);
             },
             'students as out_students_count'=>function($query){
                 $query->where('students.status', Course::OUT);

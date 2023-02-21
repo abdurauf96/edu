@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\School;
 
 class Course extends Model
 {
-    use LogsActivity, School;
+    use LogsActivity,SoftDeletes, School;
 
     const ACTIVE = 1; // xozirgi vaqtda o'qiyotgan o'quvchilar
     const OUT = 2; // chiqib ketgan o'quvchilar

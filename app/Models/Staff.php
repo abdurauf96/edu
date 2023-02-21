@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\School;
 use App\Models\School as SchoolModel;
 class Staff extends Model
 {
-    use LogsActivity,School;
+    use LogsActivity,School,SoftDeletes;
 
     /**
      * The database table used by the model.

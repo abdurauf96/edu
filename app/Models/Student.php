@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
@@ -12,7 +13,7 @@ use App\Models\School as SchoolModel;
 
 class Student extends Authenticatable
 {
-    use LogsActivity, HasApiTokens, StudentScope;
+    use LogsActivity,SoftDeletes, HasApiTokens, StudentScope;
 
     const ACTIVE = 1; // xozirgi vaqtda o'qiyotgan o'quvchilar
     const OUT   = 2; // chiqib ketgan o'quvchilar
@@ -37,7 +38,7 @@ class Student extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type', 'is_debt', 'status', 'password', 'study_year', 'outed_date', 'finished_date', 'idcard', 'district_id', 'study_type', 'future_work', 'start_date','debt'];
+    protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type',  'status', 'password', 'outed_date', 'finished_date', 'district_id', 'study_type', 'future_work', 'start_date','debt'];
 
     public function sertificates()
     {
@@ -143,7 +144,7 @@ class Student extends Authenticatable
         static::deleting(function ($student) {
             $student->payments()->delete();
         });
-        static::saving(function ($model) {
+        static::creating(function ($model) {
             $model->school_id = auth()->guard('user')->user()->school_id;
             $model->finished_date = $model->group->end_date;
         });

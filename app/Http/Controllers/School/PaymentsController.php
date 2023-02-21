@@ -48,10 +48,7 @@ class PaymentsController extends Controller
     public function create()
     {
         $students=$this->studentRepo->getAll();
-        $courses=\App\Models\Course::all();
-        $groups=\App\Models\Group::all();
-        $months=\App\Models\Month::all();
-        return view('school.payments.create', compact( 'students', 'groups', 'months'));
+        return view('school.payments.create', compact( 'students'));
     }
 
     /**
@@ -94,10 +91,8 @@ class PaymentsController extends Controller
     {
         $payment = $this->paymentRepo->findOne($id);
         $students=$this->studentRepo->getAll();
-        $courses=\App\Models\Course::all();
-        $groups=\App\Models\Group::all();
-        $months=\App\Models\Month::all();
-        return view('school.payments.edit', compact('payment', 'students', 'courses', 'groups', 'months'));
+
+        return view('school.payments.edit', compact('payment', 'students'));
     }
 
     /**

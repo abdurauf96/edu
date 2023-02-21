@@ -47,20 +47,6 @@ class StudentService{
         }
     }
 
-    public function generateIdCard($student)
-    {
-        $circled_image=circleImage('students',$student->image);
-
-        if(!file_exists(public_path().'/admin/images/qrcodes/'.$student->qrcode)){
-            generateQrcode($student->id, $student->qrcode, 'student');
-        }
-        if(makeCard($student, $circled_image, 'student')){
-            $student->idcard=$student->name.'.jpg';
-            $student->save();
-        }
-        return true;
-    }
-
     public function delete($id)
     {
         $student = $this->studentRepo->findOne($id);
@@ -90,7 +76,6 @@ TEXT;
         $student=$this->studentRepo->addWaitingStudentToGroup($waitingStudent, $request);
         dispatch(new StudentStartedCourseJob($student));
         generateQrcode($student->id, $student->qrcode, 'student');
-        $this->generateIdCard($student);
     }
 
     public function exportDataToAcademy($students){
