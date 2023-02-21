@@ -120,6 +120,11 @@
                         Guruhlar
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('reports.courses') }}">
+                        Kurs samaradorligi
+                    </a>
+                </li>
             </ul>
         </li>
       <li class="dropdown">

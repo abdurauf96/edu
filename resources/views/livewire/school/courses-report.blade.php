@@ -7,7 +7,7 @@
 <div class="container-edu-panel">
     <section class="edu-panel">
         <div class="edu-panel-top">
-            <h4>Guruhlar xisoboti</h4>
+            <h4>Kurs samaradorligi</h4>
         </div>
         <!-- HEADER-SECTION -->
         <div class="edu-panel-header">
@@ -28,17 +28,19 @@
             <table class="table">
                 <thead class="edu-panel-table__thead">
                 <tr>
-                    <th class="edu-panel-table__th">Faol guruhlar</th>
-                    <th class="edu-panel-table__th">Yangi ochilgan guruhlar</th>
-                    <th class="edu-panel-table__th">Bitirgan guruhlar</th>
+                    <th class="edu-panel-table__th">Kurs nomi</th>
+                    <th class="edu-panel-table__th">Ro’yhatdan o’tganlar soni</th>
+                    <th class="edu-panel-table__th">Ketganlar soni</th>
                 </tr>
                 </thead>
                 <tbody class="edu-panel-table__tbody">
+                @foreach($courses as $course)
                 <tr class="edu-panel-table__tr">
-                    <td class="edu-panel-table__td">{{ $activeGroupsCount }}</td>
-                    <td class="edu-panel-table__td">{{ $newGroupsCount }}</td>
-                    <td class="edu-panel-table__td">{{ $finishedGroupsCount }}</td>
+                    <td class="edu-panel-table__td">{{ $course->name }}</td>
+                    <td class="edu-panel-table__td">{{ $course->registered_students }}</td>
+                    <td class="edu-panel-table__td">{{ $course->left_students }}</td>
                 </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
