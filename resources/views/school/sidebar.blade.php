@@ -125,6 +125,11 @@
                         Kurs samaradorligi
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('reports.teachers') }}">
+                        O'qituvchi samaradorligi
+                    </a>
+                </li>
             </ul>
         </li>
       <li class="dropdown">

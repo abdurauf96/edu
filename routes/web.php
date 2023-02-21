@@ -81,6 +81,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::get('reports/students', \App\Http\Livewire\School\StudentsReport::class)->name('reports.students');
     Route::get('reports/groups', \App\Http\Livewire\School\GroupsReport::class)->name('reports.groups');
     Route::get('reports/courses', \App\Http\Livewire\School\CoursesReport::class)->name('reports.courses');
+    Route::get('reports/teachers', \App\Http\Livewire\School\TeachersReport::class)->name('reports.teachers');
 
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);

@@ -14,7 +14,9 @@ class CoursesReport extends Component
     }
     public function render()
     {
-        $courses=Course::withCount([
+        $courses=Course::school()
+            ->active()
+            ->withCount([
             'students as registered_students'=>function($query){
             $query->when($this->start_date, function ($q){
                 $q->where('students.start_date', '>=', $this->start_date);
