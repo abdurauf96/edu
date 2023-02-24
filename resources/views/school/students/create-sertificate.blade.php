@@ -34,12 +34,6 @@
                                 @foreach($courses as $course)
                                 <option value="{{ $course->id }}_{{ $course->code }}">{{ $course->name }}</option>
                                 @endforeach
-{{--                                <option value="frontend">Frontend</option>--}}
-{{--                                <option value="3d-design">3D-Dizayn</option>--}}
-{{--                                <option value="graphic-design">Grafik Dizayn</option>--}}
-{{--                                <option value="bootcamp">Bootcamp</option>--}}
-{{--                                <option value="mobile">Mobil dasturlash</option>--}}
-{{--                                <option value="robotics">Robototexnika</option>--}}
                             </select>
                             @error('course')<div class="invalid-feedback">Tanlanishi shart</div>@enderror
                         </div>

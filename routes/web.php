@@ -105,6 +105,7 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup'])->name('students.addToGroup');
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
     Route::post('/student/message/store', [StudentsController::class, 'storeMessage'])->name('storeStudentMessage');
+    Route::get('/student/sertificate/{id}/download', [StudentsController::class, 'downloadSertificate'])->name('downloadSertificate');
     Route::match(['GET', 'POST'],'/students/{id}/create-sertificate', [StudentsController::class, 'createSertificate'])->name('createSertificate');
 
     //select groups for managers

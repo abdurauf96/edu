@@ -3,9 +3,8 @@ namespace App\Http\Controllers\School;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use DB;
+use App\Models\Sertificate;
 use App\Models\User;
-use App\Models\Clas;
 use App\Models\Group;
 use App\Models\Course;
 use App\Models\District;
@@ -14,7 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\WaitingStudent;
 use App\Services\StudentService;
 use App\Http\Requests\AddStudentRequest;
-use PDF;
+
 class StudentsController extends Controller
 {
     /**
@@ -196,8 +195,12 @@ class StudentsController extends Controller
                 'course'=>'required',
                 'type'=>'required',
             ]);
-            $this->studentService->generateSertificate($request->all());
-            return response()->download(public_path('admin/sertificats/sertificate.jpg'));
+            try {
+                $this->studentService->generateSertificate($request->all());
+                return response()->download(public_path('admin/sertificats/sertificate.jpg'));
+            }catch (\Exception $e){
+                return redirect()->back()->with('error_message', $e->getMessage());
+            }
         }
         return view('school.students.create-sertificate', compact('student','courses'));
     }
@@ -220,6 +223,17 @@ class StudentsController extends Controller
     public function downloadContract($id)
     {
         return $this->studentService->downloadContract($id);
+    }
+
+    public function downloadSertificate($sertificateId)
+    {
+        try {
+            $this->studentService->downloadSertificate($sertificateId);
+            return response()->download(public_path('admin/sertificats/sertificate.jpg'));
+        }catch (\Exception $e){
+            return redirect()->back()->with('error_message', $e->getMessage());
+        }
+
     }
 
 }

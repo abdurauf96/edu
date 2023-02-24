@@ -41,7 +41,8 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function findOne($id)
     {
-        return Student::withLastEventStatus()
+        return Student::with('sertificates.course')
+            ->withLastEventStatus()
             ->withGroupName()
             ->findOrFail($id);
     }
@@ -156,7 +157,7 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function getLastSertificateId()
     {
-        return Sertificate::orderBy('id', 'desc')->first()->sertificate_id;
+        return Sertificate::orderBy('id', 'desc')->first()->sertificate_id ?? null;
     }
 
 }

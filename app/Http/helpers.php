@@ -29,8 +29,12 @@ if(!function_exists('generatePassword')){
         return bcrypt($yearToString);
     }
 }
+
 if (! function_exists('selectSertificateTemplate')) {
     function selectSertificateTemplate($course_code,$type) {
+        if($course_code=='foundation'){
+            return public_path('admin/sertificats/foundation.jpg');
+        }
         return public_path('admin/sertificats/'.$course_code.'-'.$type.'.jpg');
     }
 }
@@ -55,11 +59,12 @@ if(!function_exists('generateSertificate')){
             $font->size(50);
             $font->color('#1D1D1B');
         });
-        $image->text($date, 1200, 2600 , function($font) {
+        $image->text($date, 1150, 2650 , function($font) {
             $font->file(public_path('admin/sertificats/univia.ttf'));
             $font->size(44);
             $font->color('#1D1D1B');
         });
+        $image->insert(public_path('admin/sertificats/qrcode.png'), 'bottom-right', 570, 600);
         $image->save(public_path('admin/sertificats/sertificate.jpg'));
     }
 }

@@ -275,6 +275,27 @@
                     </table>
                 </div>
             </div>
+            <div class="user-table">
+                <div class="user-table__title">Sertifikatlari</div>
+                <table class="table">
+                    <thead class="user-table__thead">
+                    <tr>
+                        <th class="user-table__th">Yo'nalish</th>
+                        <th class="user-table__th">Sana</th>
+                        <th class="user-table__th">Xarakat</th>
+                    </tr>
+                    </thead>
+                    <tbody class="user-table__tbody">
+                    @foreach($student->sertificates as $sertificate)
+                        <tr class="user-table__tr">
+                            <td class="user-table__td">{{ $sertificate->course->name }}</td>
+                            <td class="user-table__td">{{ date('d-M-Y', strtotime($sertificate->date)) }}</td>
+                            <td class="user-table__td"><a class="btn btn-primary" href="{{ route('downloadSertificate',$sertificate->id) }}">Yuklab olish <i class="bi bi-download"></i></a> </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
