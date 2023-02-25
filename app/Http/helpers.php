@@ -65,7 +65,7 @@ if(!function_exists('generateSertificate')){
             $font->color('#1D1D1B');
         });
         $image->insert(public_path('admin/sertificats/qrcode.png'), 'bottom-right', 570, 600);
-        $image->save(public_path('admin/sertificats/sertificate.jpg'));
+        $image->save(public_path('admin/sertificats/students/'.$sertificateId.'.jpg'));
     }
 }
 

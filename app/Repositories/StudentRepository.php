@@ -31,9 +31,7 @@ class StudentRepository implements StudentRepositoryInterface{
             $requestData['image']=$image;
         }
         $qrcodeName=str_replace(' ', '-', $request->name).'-'.time().'.png';
-        //$filename_idcard=str_replace(' ', '-', $request->name).'-'.time().'.jpg';
         $requestData['qrcode']=$qrcodeName;
-        //$requestData['idcard']=$filename_idcard;
         $requestData['password']=bcrypt('12345678');
         $student=Student::create($requestData);
         return $student;
@@ -50,7 +48,6 @@ class StudentRepository implements StudentRepositoryInterface{
     public function update($request, $id)
     {
         $requestData = $request->all();
-
         if($request->hasFile('image')){
             $file=$request->file('image');
             $image=time().$file->getClientOriginalName();
@@ -65,7 +62,6 @@ class StudentRepository implements StudentRepositoryInterface{
 
     public function addWaitingStudentToGroup($waitingStudent, $request)
     {
-
         $data=[
             'group_id'=>$request->group_id,
             'name'=>$waitingStudent->name,
@@ -79,13 +75,11 @@ class StudentRepository implements StudentRepositoryInterface{
             'status'=>1,
             'district_id'=>$waitingStudent->district_id,
             'study_type'=>$waitingStudent->study_type,
-            'start_date'=>$request->start_date,
+            'start_date'=>$request->start_date
         ];
-
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
         $data['qrcode']=$filename;
         $data['password']=bcrypt('12345678');
-
         $student=Student::create($data);
         return $student;
     }

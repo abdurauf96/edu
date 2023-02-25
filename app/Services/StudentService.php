@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+use App\Models\Group;
+use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
 use App\Jobs\StudentOutedCourseJob;
@@ -29,18 +31,14 @@ class StudentService{
     public function create($request){
         DB::transaction(function () use ($request): void {
             $student=$this->studentRepo->create($request);
-            dispatch(new StudentStartedCourseJob($student));
+            dispatch(new StudentStartedCourseJob($student, $request->first_month_debt));
             generateQrcode($student->id, $student->qrcode, 'student');
         });
     }
 
     public function update($request, $id)
     {
-        $s=$this->studentRepo->findOne($id);
         $student=$this->studentRepo->update($request, $id);
-        if($request->status==2 && $s->status!=$request->status){ //if student outed course
-            dispatch(new StudentOutedCourseJob($student));
-        }
     }
 
     public function delete($id)
@@ -55,22 +53,15 @@ class StudentService{
     public function changeGroup($request)
     {
         $student=$this->studentRepo->findOne($request->student_id);
-        $new_group=\App\Models\Group::find($request->new_group_id);
-        dispatch(new StudentChangeCourseJob($student,$request->start_date, $new_group->course->price));
-        $student->group_id=$request->new_group_id;
-        $student->save();
-
-        $description=<<<TEXT
-        {$student->name}  {$student->group->course->name} kursi {$student->group->name} guruhidan {$new_group->course->name} kursi {$new_group->name} guruhiga o'tdi
-TEXT;
-        \App\Models\StudentActivity::create(['student_id'=>$request->student_id, 'description'=>$description ]);
-
+        $new_group=Group::find($request->new_group_id);
+        dispatch(new StudentChangeCourseJob($student,$new_group));
+        $student->update(['group_id'=>$request->new_group_id]);
     }
 
     public function addWaitingStudentToGroup($waitingStudent, $request)
     {
         $student=$this->studentRepo->addWaitingStudentToGroup($waitingStudent, $request);
-        dispatch(new StudentStartedCourseJob($student));
+        dispatch(new StudentStartedCourseJob($student,$request->first_month_debt));
         generateQrcode($student->id, $student->qrcode, 'student');
     }
 

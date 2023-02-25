@@ -4,6 +4,7 @@ namespace App\Http\Controllers\School;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Sertificate;
+use App\Models\Student;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Course;
@@ -106,7 +107,7 @@ class StudentsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate(['name'=>'required']);
-        if($request->status==2){
+        if($request->status==Student::OUT){
             $request->validate(['outed_date'=>'required']);
         }
         $this->studentService->update($request, $id);
@@ -196,8 +197,8 @@ class StudentsController extends Controller
                 'type'=>'required',
             ]);
             try {
-                $this->studentService->generateSertificate($request->all());
-                return response()->download(public_path('admin/sertificats/sertificate.jpg'));
+                $sertificateId=$this->studentService->generateSertificate($request->all());
+                return redirect('/admin/sertificats/students/'.$sertificateId.'.jpg');
             }catch (\Exception $e){
                 return redirect()->back()->with('error_message', $e->getMessage());
             }
@@ -225,15 +226,10 @@ class StudentsController extends Controller
         return $this->studentService->downloadContract($id);
     }
 
-    public function downloadSertificate($sertificateId)
+    public function downloadSertificate($id)
     {
-        try {
-            $this->studentService->downloadSertificate($sertificateId);
-            return response()->download(public_path('admin/sertificats/sertificate.jpg'));
-        }catch (\Exception $e){
-            return redirect()->back()->with('error_message', $e->getMessage());
-        }
-
+        $sertificateId=Sertificate::findOrFail($id)->sertificate_id;
+        return redirect('/admin/sertificats/students/'.$sertificateId.'.jpg');
     }
 
 }

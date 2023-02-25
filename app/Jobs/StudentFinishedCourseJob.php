@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Student;
 use App\Models\StudentActivity;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -34,20 +35,10 @@ class StudentFinishedCourseJob implements ShouldQueue
      */
     public function handle()
     {
-        $numberAllDays=(int)date('t'); //number all days for that month
-        $numberStudyDay=(int)date('d', strtotime($this->end_date)); //number study days for that month
-        $remainDays = $numberAllDays - $numberStudyDay;
-
-
         foreach($this->group->students as $student){
-            $priceCourse=$student->getPriceMonth();
-            $summa=round($priceCourse/$numberAllDays*$remainDays);
-            $student->debt-=$summa;
             $student->finished_date=$this->end_date;
-            $student->status=0;
+            $student->status=Student::GRADUATED;
             $student->save();
-            StudentActivity::create(['student_id'=>$student->id, 'description'=>'Kursni bitirgani uchun '.$summa.' so`m qarzidan ayrildi !']);
         }
-        //\Log::info("qarz-  {$summa} ; qolgan kuni - {$remainDays} ; ");
     }
 }

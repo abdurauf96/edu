@@ -56,7 +56,7 @@
 
     <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
         {!! Form::label('room_number', 'Xona raqami', ['class' => 'control-label']) !!}
-        {!! Form::number('room_number', null,  ['class' => 'form-control']) !!}
+        {!! Form::number('room_number', null,  ['class' => 'form-control', 'required'=>'required']) !!}
         {!! $errors->first('room_number', '<p class="help-block">:message</p>') !!}
     </div>
 
@@ -68,8 +68,12 @@
            @endisset value="1">Active</option>
             <option @isset($group)
             {{ $group->status==2 ? 'selected' : '' }}
-           @endisset value="2"> Active emas</option>
+           @endisset value="2"> Bitirgan</option>
        </select>
+    </div>
+    <div class="form-group">
+        <label for="">Oxirgi oyda chiqarilib yuboriladigan qarz miqdori</label>
+        {!! Form::input('number', 'last_month_debt', null, (['class' => 'form-control']) )!!}
     </div>
 
     @if($formMode === 'edit')
@@ -78,6 +82,7 @@
         <input type="date" name="end_date" @if(isset($group) and $group->end_date!='')  value="{{ $group->end_date->format('Y-m-d') }}" @endif class="form-control">
     </div>
     @endif
+
     <div class="form-group">
         {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
     </div>

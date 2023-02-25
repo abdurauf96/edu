@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Message;
 use App\Models\StudentActivity;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -11,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class StudentStartedCourseJob implements ShouldQueue
+class StudentRemoveDebtJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -20,12 +19,13 @@ class StudentStartedCourseJob implements ShouldQueue
      *
      * @return void
      */
-    protected $student;
-    protected $debt;
-    public function __construct($student,$debt)
+
+    protected $group;
+    protected $summa;
+    public function __construct($group, $summa)
     {
-        $this->student=$student;
-        $this->debt=$debt;
+        $this->group=$group;
+        $this->summa=$summa;
     }
 
     /**
@@ -35,7 +35,10 @@ class StudentStartedCourseJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->student->update(['debt'=>$this->debt]);
-        StudentActivity::create(['student_id'=>$this->student->id, 'description'=>'O\'qishni boshlagani uchun '.$this->debt.' so`m qarz yozildi !']);
+        foreach($this->group->students as $student){
+            $student->debt-=$this->summa;
+            $student->save();
+            StudentActivity::create(['student_id'=>$student->id, 'description'=>'Kursni bitirgani uchun '.$this->summa.' so`m qarzidan ayrildi !']);
+        }
     }
 }

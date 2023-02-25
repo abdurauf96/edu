@@ -71,7 +71,7 @@ class Student extends Authenticatable
 
     public function activities()
     {
-        return $this->hasMany(StudentActivity::class);
+        return $this->hasMany(StudentActivity::class)->latest();
     }
 
     public function messages()

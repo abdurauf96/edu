@@ -5,6 +5,8 @@ namespace App\Http\Controllers\School;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\GroupRequest;
+use App\Jobs\StudentRemoveDebtJob;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Course;
@@ -45,17 +47,10 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(GroupRequest $request)
     {
-        $this->validate($request, [
-			'name' => 'required',
-			'teacher_id' => 'required',
-			'course_id' => 'required',
-		]);
         $requestData = $request->all();
-
         Group::create($requestData);
-
         return redirect('school/groups')->with('flash_message', 'Guruh qo`shildi!');
     }
 
@@ -69,7 +64,6 @@ class GroupsController extends Controller
     public function show($id)
     {
         $group = Group::withCourseName()->withTeacherName()->findOrFail($id);
-
         return view('school.groups.show', compact('group'));
     }
 
@@ -96,16 +90,14 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(GroupRequest $request, $id)
     {
-        $this->validate($request, [
-			'name' => 'required',
-			'teacher_id' => 'required',
-			'course_id' => 'required',
-		]);
         $group = Group::findOrFail($id);
-        if($request->status==2 && $group->status!=$request->status){
-            dispatch(new StudentFinishedCourseJob($group,$request->end_date)); //if group finished course calculate debt students
+        if($request->last_month_debt){
+            dispatch(new StudentRemoveDebtJob($group, $request->last_month_debt));
+        }
+        if($request->status==Group::GRADUATED){
+            dispatch(new StudentFinishedCourseJob($group, $request->end_date));
         }
         $requestData = $request->all();
         $group->update($requestData);

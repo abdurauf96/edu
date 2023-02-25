@@ -60,7 +60,10 @@
                         {!! Form::date('start_date', null, ['class' => 'form-control', 'required' => 'required'] ) !!}
                         {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
                     </div>
-
+                    <div class="form-group">
+                        <label for="">Birinchi oy uchun to'lov miqdori</label>
+                        {!! Form::input('number', 'first_month_debt', null, (['class' => 'form-control']) )!!}
+                    </div>
                     <div class="form-group">
                         <input type='submit' class="btn btn-primary" value='Guruhga qo`shish' >
                     </div>

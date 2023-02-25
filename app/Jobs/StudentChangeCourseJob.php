@@ -19,12 +19,11 @@ class StudentChangeCourseJob implements ShouldQueue
      *
      * @return void
      */
-    protected $student,$start_date,$priceNewCourse;
-    public function __construct($student, $start_date, $priceNewCourse)
+    protected $student,$new_group;
+    public function __construct($student, $new_group)
     {
-        $this->start_date=$start_date;
+        $this->new_group=$new_group;
         $this->student=$student;
-        $this->priceNewCourse=$this->student->type*$priceNewCourse; //check for grant
     }
 
     /**
@@ -34,14 +33,9 @@ class StudentChangeCourseJob implements ShouldQueue
      */
     public function handle()
     {
-        $numberAllDays=(int)date('t', strtotime($this->start_date)); //number all days for that month
-        $numberStudyDay=(int)date('d', strtotime($this->start_date)); //number study days for that month
-        $remainDays = $numberAllDays - $numberStudyDay;
-        $priceOldCourse=(int)$this->student->getPriceMonth();
-        $priceNewCourse=$this->priceNewCourse;
-        $this->student->debt=round($this->student->debt +$priceNewCourse/$numberAllDays*$remainDays - $priceOldCourse/$numberAllDays*$remainDays);
-        $this->student->save();
-       
-        //\Log::info(['yangi kurs narxi - '.$priceNewCourse." ; eski kurs narxi - {$priceOldCourse}  ; qolgan kun - {$remainDays} ; qarz - {$this->student->debt}"]);
+        $description=<<<TEXT
+        {$this->student->name}  {$this->student->group->course->name} kursi {$this->student->group->name} guruhidan {$this->new_group->course->name} kursi {$this->new_group->name} guruhiga o'tdi
+TEXT;
+        \App\Models\StudentActivity::create(['student_id'=>$this->student->id, 'description'=>$description ]);
     }
 }

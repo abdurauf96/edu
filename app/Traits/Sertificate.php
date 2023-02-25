@@ -23,6 +23,7 @@ trait Sertificate
                 'name'=>$data['name'],
                 'surname'=>$data['surname'],
             ]);
+            return $sertificateId;
         }else{
             throw new \Exception("Ushbu o'quvchi uchun ushbu sertifikat berilgan, yuklab oling!");
         }
@@ -56,14 +57,5 @@ trait Sertificate
             ->errorCorrection('H')
             ->merge('/public/admin/images/DC.png')
             ->generate($text, public_path('admin/sertificats/qrcode.png'));
-    }
-
-    public function downloadSertificate($sertificateId)
-    {
-        $sertificate=\App\Models\Sertificate::find($sertificateId);
-        $template=selectSertificateTemplate($sertificate->course->code, $sertificate->type);
-        $this->generateQrcodeForSertificate($sertificate->student_id);
-        generateSertificate($template, $sertificate['name'] ,$sertificate['surname'],$sertificate->sertificate_id, date("j M Y", strtotime($sertificate->date)));
-
     }
 }

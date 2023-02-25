@@ -154,7 +154,12 @@
     {!! Form::date('outed_date', null, ['class' => 'form-control']) !!}
     @error('outed_date') <div class="invalid-feedback">Maydon to'ldirilishi shart</div> @enderror
 </div>
-
+@if($formMode === 'create')
+<div class="form-group">
+    <label for="">Birinchi oy uchun to'lov miqdori</label>
+    {!! Form::input('number', 'first_month_debt', null, (['class' => 'form-control']) )!!}
+</div>
+@endif
 <div class="form-group">
         {!! Form::label('future_work', "Kursni tamomlab ishga kirgan joyi", ['class' => 'control-label']) !!}
         {!! Form::text('future_work', null,  ['class' => 'form-control']) !!}
