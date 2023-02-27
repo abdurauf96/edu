@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\StudentActivity;
-use App\Models\Student;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,22 +33,17 @@ class StudentsMonthlyPaymentJob implements ShouldQueue
      */
     public function handle()
     {
-
         try {
             DB::beginTransaction();
-
             foreach($this->students as $student){
                 $student->debt += $student->getPriceMonth();
                 $student->save();
                 StudentActivity::create(['student_id'=>$student->id, 'description'=>$student->getPriceMonth().' so`m oylik to`lov yozildi !']);
             }
-
             DB::commit();
-
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
-
     }
 }

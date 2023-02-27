@@ -7,17 +7,13 @@ use App\Http\Controllers\Controller;
 
 use App\Jobs\StudentsMonthlyPaymentJob;
 use App\Models\Course;
-use App\Models\Message;
 use App\Models\Payment;
 use App\Http\Requests\PaymentRequest;
+use App\Models\PaymentActivity;
 use App\Models\Student;
-use App\Models\User;
-use App\Notifications\PaymentsNotification;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
 
 class PaymentsController extends Controller
 {
@@ -119,7 +115,6 @@ class PaymentsController extends Controller
     public function destroy($id)
     {
         Payment::destroy($id);
-
         return redirect('school/payments')->with('flash_message', 'To`lov o`chirib yuborildi!');
     }
 
@@ -135,9 +130,10 @@ class PaymentsController extends Controller
     {
         $courses=Course::school()
             ->active()
-            ->withSum('debtorStudents', 'debt')
+            ->withSum('students', 'debt')
             ->get();
-        return view('school.payments.statistics',compact('courses'));
+        $totalDebt=Student::school()->select('debt')->sum('debt');
+        return view('school.payments.statistics',compact('courses', 'totalDebt'));
     }
 
     public function results()
@@ -152,20 +148,17 @@ class PaymentsController extends Controller
 
     public function addMonthlyPayment()
     {
-        $count=Message::whereMonth('created_at', date('m'))
+        $count=PaymentActivity::whereMonth('created_at', date('m'))
             ->whereYear('created_at', date('Y'))
             ->count();
-
         if($count>0){
             return back()->with('error_message', 'Ushbu oy uchun to\'lov yozilgan!');
         }
-
-        $chunkStudents=$this->studentRepo->getActives();
-
+        $chunkStudents=$this->studentRepo->getAll()->chunk(200);
         foreach ($chunkStudents as $students){
             StudentsMonthlyPaymentJob::dispatch($students);
         }
-
+        PaymentActivity::create(['message'=>'Oylik to\'lov yozildi !', 'quantity'=>count($this->studentRepo->getAll())]);
         return back()->with('flash_message', 'O\'quvchilarga kurs uchun oylik to\'lov yozildi !');
     }
 }

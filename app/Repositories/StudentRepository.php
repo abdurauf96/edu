@@ -89,11 +89,6 @@ class StudentRepository implements StudentRepositoryInterface{
         return Student::find($ids);
     }
 
-    public function getActives()
-    {
-        return Student::school()->active()->get()->chunk(200);
-    }
-
     public function countByTypes()
     {
         $students = Student::school()

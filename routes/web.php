@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\School\PaymentActivitiesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\School\RolesController;
 use App\Http\Controllers\School\MainController;
@@ -126,9 +127,8 @@ Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(functi
     Route::resource('/waiting-students', WaitingStudentsController::class);
 
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
-
     Route::get('/add/course-payment', [PaymentsController::class, 'addMonthlyPayment'])->name('school.addMonthlyPayment');
-    Route::get('/messages/index', [MessagesController::class, 'index'])->name('messages.index');
+    Route::get('payment-activities', [PaymentActivitiesController::class, 'index'])->name('payment-activities');
 
 });
 Route::get('/school/student/{id}/download-contract', [StudentsController::class, 'downloadContract'])->name('students.downloadContract');
@@ -136,7 +136,6 @@ Route::get('/school/student/{id}/download-contract', [StudentsController::class,
 require __DIR__.'/superadmin.php';
 require __DIR__.'/teacher.php';
 require __DIR__ . '/auth.php';
-
 
 //student routes
 Route::middleware('auth:student')->prefix('student')->name('student.')->group(function(){
@@ -153,7 +152,6 @@ Route::any('/handle/{paysys}', function ($paysys) {
     (new Goodoneuz\PayUz\PayUz)->driver($paysys)->handle();
 });
 
-
 //redirect to payment system or payment form
 Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
     $model = Goodoneuz\PayUz\Services\PaymentService::convertKeyToModel($key);
@@ -164,8 +162,6 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
         ->setDescription(true)
         ->redirect($model, $amount, 860, $url);
 })->name('paymentSystem');
-
-
 
 Route::post('/student/pay', function (\Illuminate\Http\Request $request) {
     //dd($request->all());

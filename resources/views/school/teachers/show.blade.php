@@ -114,7 +114,7 @@
                                         <td>{{ $student->year }}</td>
                                         <td>{{ $student->phone }}</td>
                                         <td>{{ $student->passport }}</td>
-                                        <td>@if($student->is_debt()) <div class="badge badge-danger">Qarzi bor ({{ $student->debt }}) </div> @else <div class="badge badge-success"> Qarzi yo'q</div>  @endif</td>
+                                        <td>@if($student->debt>0) <div class="badge badge-danger">Qarzi bor ({{ $student->debt }}) </div> @else <div class="badge badge-success"> Qarzi yo'q</div>  @endif</td>
                                         <td><img src="/admin/images/students/{{ $student->image }}" width="100" alt=""></td>
                                         {{-- <td>
 

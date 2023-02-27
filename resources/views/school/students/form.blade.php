@@ -148,7 +148,7 @@
     @endisset value="2">Chiqib ketgan</option>
     </select>
 </div>
-
+0
 <div class="form-group" @if(!$errors->has('outed_date')) style="width:300px; display: none" @endif  id="outed_date" >
     {!! Form::label('outed_date', 'Chiqib ketgan sanasi', ['class' => 'control-label']) !!}
     {!! Form::date('outed_date', null, ['class' => 'form-control']) !!}

@@ -69,10 +69,6 @@
                                 <div class="profil-user__info-item-id">O’qish turi:</div>
                                 <div class="profil-user__info-item-inf">{{ $student->type==1 ? 'Odatiy' : 'Chegirma bilan ('.$student->discount_percent.'%)' }}</div>
                             </li>
-                            <li class="profil-user__info-item">
-                                <div class="profil-user__info-item-id">Qarzi:</div>
-                                <div class="profil-user__info-item-inf">{{ $student->is_debt() ? 'Qarzdor' : 'Qarzi yo\'q'  }}</div>
-                            </li>
                         </ul>
                     </div>
 
@@ -209,9 +205,9 @@
 
         <div>
             <!-- =============SECTION BALANS============== -->
-            <section class="{{ $student->is_debt() ? 'user-balans-red' : 'user-balans-blue' }} user-balans">
+            <section class="{{ $student->debt>0 ? 'user-balans-red' : 'user-balans-blue' }} user-balans">
                 <div class="user-balans__title">Balans</div>
-                <div class="user-balans__money"> {{ $student->is_debt() ? '-' : '+' }} {{ number_format(abs($student->debt)) }} so'm</div>
+                <div class="user-balans__money"> {{ $student->formatted_debt }} so'm</div>
                 {{-- <div class="user-balans__text">Pul miqodri 3,000.000 so’m</div> --}}
             </section>
 

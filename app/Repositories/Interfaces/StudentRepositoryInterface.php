@@ -8,7 +8,6 @@ interface StudentRepositoryInterface{
     public function update($data,$id);
     public function addWaitingStudentToGroup($waitingStudent, $group_id);
     public function getByIds($ids);
-    public function getActives();
     public function countByTypes();
     public function countByCourses();
     public function countLeftThisMonth();

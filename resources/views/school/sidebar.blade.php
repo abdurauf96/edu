@@ -80,7 +80,6 @@
         </a>
       </li>
 
-      @role('cashier')
       <li class="dropdown">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Buxgalteriya</span></a>
         <ul class="dropdown-menu" >
@@ -89,9 +88,10 @@
               To'lovlar
             </a>
           </li>
+            @role('cashier')
             <li>
                 <a href="{{ route('payments.statistics') }}">
-                    Statistika
+                    Qarzdorlik statistikasi
                 </a>
             </li>
             <li>
@@ -104,9 +104,14 @@
                     Qarzdorlar
                 </a>
             </li>
+            <li>
+                <a href="{{ route('payment-activities') }}">
+                    Oylik to'lovlar yechilishi
+                </a>
+            </li>
+            @endrole
         </ul>
       </li>
-      @endrole
       <li class="dropdown">
             <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Xisobotlar</span></a>
             <ul class="dropdown-menu" >

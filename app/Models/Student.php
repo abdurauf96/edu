@@ -61,12 +61,12 @@ class Student extends Authenticatable
             return 'Belgilanmagan';
         }
     }
-
-    public function is_debt(){
+    public function getFormattedDebtAttribute(){
         if($this->attributes['debt'] > 0){
-            return true;
+            return '-'.number_format(abs($this->attributes['debt']));
+        }else{
+            return number_format(abs($this->attributes['debt']));
         }
-        return false;
     }
 
     public function activities()

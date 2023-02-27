@@ -13,9 +13,6 @@
                         fill="white" />
                 </svg>
             </a>
-            @role('cashier')
-            <a style="margin-left: 30px" class="btn btn-warning" href="{{ route('school.addMonthlyPayment') }}">Oylik to'lov yozish</a>
-            @endrole
         </div>
 
         <!-- HEADER-SECTION -->
