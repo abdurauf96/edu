@@ -18,7 +18,7 @@ class Students extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $search='';
-    public $studentsToExportExcel, $course_id,$courses, $payment, $gender, $manager_id,$creators;
+    public $studentsToExportExcel, $course_id,$courses, $payment, $gender, $manager_id,$managers;
     public $status='active';
 
     protected $queryString = [
@@ -32,7 +32,7 @@ class Students extends Component
 
     public function mount(){
         $this->courses=Course::school()->whereStatus(true)->get();
-        $this->creators=User::role('creator')->get();
+        $this->managers=User::role('manager')->get();
     }
 
     public function export(StudentService $studentService)

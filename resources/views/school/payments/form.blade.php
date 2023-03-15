@@ -13,17 +13,6 @@
             @endforeach
         </select>
     </div>
-
-    {{-- <div class="form-group{{ $errors->has('month') ? 'has-error' : ''}}">
-        {!! Form::label('month', 'Qaysi oy uchun', ['class' => 'control-label']) !!}
-        <select name="month_id" class="form-control " required >
-            <option></option>
-
-            @foreach ($months as $month)
-            <option @if(isset($payment))  {{ $payment->month_id==$month->number? 'selected' : '' }} @endif value="{{ $month->number }}">{{ $month->name }}</option>
-            @endforeach
-        </select>
-    </div> --}}
     <div class="form-group{{ $errors->has('amount') ? 'has-error' : ''}}">
         {!! Form::label('amount', 'To`lov miqdori', ['class' => 'control-label']) !!}
         {!! Form::number('amount', null, ('required' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}

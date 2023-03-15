@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
-use App\Models\Permission;
 use Illuminate\Http\Request;
-
+use Spatie\Permission\Models\Role;
 class RolesController extends Controller
 {
     /**

@@ -2,30 +2,30 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Course;
 use App\Models\WaitingStudent;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class WaitingStudents extends Component
+class WaitingStudentsArchive extends Component
 {
     use WithPagination;
-    public $courses;
     public $course_id;
     public $results=[];
     public $key;
     protected $paginationTheme = 'bootstrap';
 
-
     public function saveStatus()
     {
         foreach ($this->results as $id => $value){
-            WaitingStudent::find($id)->update(['call_result'=>$value]);
+            WaitingStudent::onlyTrashed()->where('id',$id)->update(['call_result'=>$value]);
         }
         $this->results=[];
     }
 
-    public function delete($id){
-        WaitingStudent::destroy($id);
+    public function delete($id)
+    {
+       $student = WaitingStudent::onlyTrashed()->where('id',$id)->restore();
     }
 
     public function render()
@@ -41,9 +41,11 @@ class WaitingStudents extends Component
 
         $waitingStudents=$waitingStudents->school()
             ->with('course')
+            ->onlyTrashed()
             ->latest()
             ->paginate(10);
 
-        return view('livewire.waiting-students', ['waitingStudents'=>$waitingStudents]);
+        $courses=Course::school()->get();
+        return view('livewire.waiting-students-archive', ['waitingStudents'=>$waitingStudents, 'courses'=>$courses]);
     }
 }

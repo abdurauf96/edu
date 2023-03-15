@@ -127,7 +127,7 @@ class GroupsController extends Controller
 
         $groups=Group::school()->with('course')->type('active')->whereNull('user_id')->get();
 
-        $managers = User::role('creator')
+        $managers = User::role('manager')
             ->withCount(['groups', 'students'])
             ->get();
 

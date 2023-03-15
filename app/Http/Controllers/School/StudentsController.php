@@ -142,19 +142,12 @@ class StudentsController extends Controller
         return view('school.students.botStudents', compact('botStudents'));
     }
 
-
     public function downloadQrcode($id){
         $student=$this->studentService->findOne($id);
         if(!file_exists('admin/images/qrcodes/'.$student->qrcode)){
             generateQrcode($student->id, $student->qrcode, 'student');
         }
         return response()->download('admin/images/qrcodes/'.$student->qrcode);
-    }
-
-    public function downloadCard($idcard){
-        if(file_exists('admin/images/idcards/'.$idcard)){
-            return response()->download(public_path('admin/images/idcards/'.$idcard));
-        }
     }
 
     public function changeGroup(Request $request){
@@ -175,13 +168,6 @@ class StudentsController extends Controller
             'school_id'=>$student->school_id,
         ]);
         return back()->with('flash_message', 'Natija kiritildi !');
-    }
-
-
-    public function generateCard($id)
-    {
-        $student=$this->studentService->findOne($id);
-        return back()->with('flash_message', 'Ushbu o\'quvchi uchun ID card yaratildi!  ');
     }
 
     public function createSertificate(Request $request, $id)

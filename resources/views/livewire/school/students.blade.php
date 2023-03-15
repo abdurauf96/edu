@@ -47,8 +47,8 @@
                     <div class="edu-panel-header__title">Personal menejer</div>
                     <select id="dropdown__button" class="form-select" aria-label="Default select example" wire:model="manager_id">
                         <option class="edu-panel-select__option" value="">Barchasi</option>
-                        @foreach ($creators as $creator)
-                        <option value="{{ $creator->id }}">{{ $creator->name }}</option>
+                        @foreach ($managers as $manager)
+                        <option value="{{ $manager->id }}">{{ $manager->name }}</option>
                         @endforeach
                     </select>
                 </div>

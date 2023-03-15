@@ -7,13 +7,11 @@ use App\Http\Controllers\School\MainController;
 use App\Http\Controllers\School\PermissionsController;
 use App\Http\Controllers\School\UsersController;
 use App\Http\Controllers\School\PaymentsController;
-use App\Http\Controllers\School\CashierController;
 use App\Http\Controllers\School\TeachersController;
 use App\Http\Controllers\School\CoursesController;
 use App\Http\Controllers\School\GroupsController;
 use App\Http\Controllers\School\StudentsController;
 use App\Http\Controllers\School\EventsController;
-use App\Http\Controllers\School\MonthsController;
 use App\Http\Controllers\School\StaffsController;
 use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\School\AppealsController;
@@ -21,7 +19,6 @@ use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ProfileController;
 use App\Http\Controllers\School\LoginsController;
-
 use App\Http\Controllers\Student\StudentController;
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +47,6 @@ Route::get('/download', function () {
     ]);
 });
 
-//Route::get('statistika', [AdminController::class, 'statistika'])->name('statistika');
-
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']], function () {
     Route::resource('roles', RolesController::class);
@@ -61,77 +56,67 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']],
 });
 
 //routes for school admin and cashier
-Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:cashier']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin|manager|cashier']], function () {
     Route::resource('payments', PaymentsController::class)->except('show');
     Route::get('payments/statistics', [PaymentsController::class, 'statistics'])->name('payments.statistics');
     Route::get('payments/results', [PaymentsController::class, 'results'])->name('payments.results');
     Route::get('payments/debtors', [PaymentsController::class, 'debtors'])->name('payments.debtors');
 });
 
-
-//routes for all school users
-Route::middleware(['auth:user', 'schoolStatus'])->prefix('school')->group(function () {
-
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user']], function () {
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
+    Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
+});
+//routes for all school users
+Route::middleware(['auth:user', 'schoolStatus', 'role:admin|manager'])->prefix('school')->group(function () {
     Route::resource('/teachers', TeachersController::class);
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
-    Route::resource('/organizations', OrganizationsController::class);
-
+    Route::get('/today/groups', [MainController::class, 'todayGroups'])->name('todayGroups');
     //xisobotlar
     Route::get('reports/students', \App\Http\Livewire\School\StudentsReport::class)->name('reports.students');
     Route::get('reports/groups', \App\Http\Livewire\School\GroupsReport::class)->name('reports.groups');
     Route::get('reports/courses', \App\Http\Livewire\School\CoursesReport::class)->name('reports.courses');
     Route::get('reports/teachers', \App\Http\Livewire\School\TeachersReport::class)->name('reports.teachers');
 
-    Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::resource('profile', ProfileController::class);
-
-    //groups
-    Route::get('/today/groups', [MainController::class, 'todayGroups'])->name('todayGroups');
-    Route::get('/groups/{id}/add-student', [StudentsController::class, 'createStudentToGroup']);
-    // Route::get('/groups/{group_id}/student/{student_id}', ['StudentsController', 'removeFromGroup']);
-
-    //card generate
-    Route::get('/student/card-generate/{id}', [StudentsController::class, 'generateCard'])->name('generateStudentCard');
-    Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
-
     //downloads
-    Route::get('/staff/qrcode-download/{id}', [StaffsController::class, 'downloadStaffQrcode'])->name('downloadStaffQrcode');
     Route::get('/student/qrcode-download/{id}', [StudentsController::class, 'downloadQrcode'])->name('downloadQrcode');
-    Route::get('/student/card-download/{idcard}', [StudentsController::class, 'downloadCard'])->name('downloadCard');
 
     //students
+    Route::resource('students', StudentsController::class);
     Route::get('/student/event/{id}', [StudentsController::class, 'event'])->name('studentEvent');
     Route::post('/add-student-to-group', [StudentsController::class, 'addStudentToGroup'])->name('students.addToGroup');
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
     Route::post('/student/message/store', [StudentsController::class, 'storeMessage'])->name('storeStudentMessage');
     Route::get('/student/sertificate/{id}/download', [StudentsController::class, 'downloadSertificate'])->name('downloadSertificate');
     Route::match(['GET', 'POST'],'/students/{id}/create-sertificate', [StudentsController::class, 'createSertificate'])->name('createSertificate');
+    Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
+    Route::post('/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
+    Route::get('/student/{id}/download-contract', [StudentsController::class, 'downloadContract'])->name('students.downloadContract');
 
     //select groups for managers
     Route::match(['post', 'get'], '/groups/select/managers', [GroupsController::class, 'selectManagers'])->name('school.groups.selectManagers');
 
-    Route::resource('students', StudentsController::class);
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);
-    Route::post('/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');
-
-    //events
-    Route::get('/events', [EventsController::class, 'events'])->name('events');
-    Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
-
-    Route::resource('/months', MonthsController::class);
-    Route::resource('/staffs', StaffsController::class);
     Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
+    Route::get('/waiting-students/archive', [WaitingStudentsController::class, 'archive'])->name('waitingStudents.archive');
     Route::resource('/waiting-students', WaitingStudentsController::class);
-
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
     Route::get('/add/course-payment', [PaymentsController::class, 'addMonthlyPayment'])->name('school.addMonthlyPayment');
     Route::get('payment-activities', [PaymentActivitiesController::class, 'index'])->name('payment-activities');
-
 });
-Route::get('/school/student/{id}/download-contract', [StudentsController::class, 'downloadContract'])->name('students.downloadContract');
+
+// admin and HR routes
+Route::middleware(['auth:user', 'schoolStatus', 'role:admin|hr'])->prefix('school')->group(function () {
+    Route::resource('/organizations', OrganizationsController::class);
+    Route::resource('/staffs', StaffsController::class);
+    Route::get('/events', [EventsController::class, 'events'])->name('events');
+    Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
+    Route::get('/staff/card-download/{idcard}', [StaffsController::class, 'downloadCard'])->name('downloadCard');
+    Route::get('/staff/qrcode-download/{id}', [StaffsController::class, 'downloadStaffQrcode'])->name('downloadStaffQrcode');
+});
 
 require __DIR__.'/superadmin.php';
 require __DIR__.'/teacher.php';
@@ -164,7 +149,6 @@ Route::any('/pay/{paysys}/{key}/{amount}', function ($paysys, $key, $amount) {
 })->name('paymentSystem');
 
 Route::post('/student/pay', function (\Illuminate\Http\Request $request) {
-    //dd($request->all());
     $student=\App\Models\Student::findOrFail($request->student_id);
     $student->debt=$request->debt;
     $student->save();

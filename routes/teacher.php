@@ -2,9 +2,6 @@
 use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Teacher\PlansController as TeacherPlansController;
 
-
-
-
 //teacher routes
 Route::middleware('auth:teacher')->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('dashboard',  [TeacherController::class, 'dashboard'])->name('dashboard');

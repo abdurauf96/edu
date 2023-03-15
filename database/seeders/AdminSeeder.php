@@ -20,13 +20,5 @@ class AdminSeeder extends Seeder
             'email'=>'admin@admin.com',
             'password'=>\Hash::make('password'),
         ]);
-
-        Admin::create([
-            'id'=>2,
-            'name'=>'XTB',
-            'email'=>'xtb@xtb.com',
-            'password'=>\Hash::make('password'),
-        ]);
-
     }
 }

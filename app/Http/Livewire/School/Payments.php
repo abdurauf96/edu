@@ -65,7 +65,7 @@ class Payments extends Component
             ->when($this->end_date, function ($query){
                 return $query->where('created_at', '<=', $this->end_date);
             })
-            ->latest()
+            ->orderby('id','desc')
             ->withStudentName()
             ->whereHas('student', function ($query) {
                 $query->where('name', 'like', '%'.$this->search.'%')

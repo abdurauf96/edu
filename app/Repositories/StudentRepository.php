@@ -104,7 +104,6 @@ class StudentRepository implements StudentRepositoryInterface{
             ->selectRaw("count(case when study_type='3' and status='".Student::ACTIVE."' then 1 end) as count_university")
             ->selectRaw("count(case when study_type='4' and status='".Student::ACTIVE."' then 1 end) as count_worker")
             ->first();
-
         return $students;
     }
 

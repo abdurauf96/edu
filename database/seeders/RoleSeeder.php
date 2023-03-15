@@ -23,32 +23,22 @@ class RoleSeeder extends Seeder
             ],
             [
                 'id'=>2,
-                'name'=>'xtb',
-                'guard_name'=>'admin',
-            ],
-            [
-                'id'=>3,
                 'name'=>'admin',
                 'guard_name'=>'user',
             ],
             [
-                'id'=>4,
+                'id'=>3,
                 'name'=>'cashier',
                 'guard_name'=>'user',
             ],
             [
-                'id'=>5,
+                'id'=>4,
                 'name'=>'manager',
                 'guard_name'=>'user',
             ],
             [
-                'id'=>6,
-                'name'=>'creator',
-                'guard_name'=>'user',
-            ],
-            [
-                'id'=>7,
-                'name'=>'viewer',
+                'id'=>5,
+                'name'=>'hr',
                 'guard_name'=>'user',
             ],
         ];
@@ -58,8 +48,6 @@ class RoleSeeder extends Seeder
         }
         $admin=Admin::find(1);
         $admin->assignRole('super-admin');
-        $admin=Admin::find(2);
-        $admin->assignRole('xtb');
 
     }
 }
