@@ -73,6 +73,8 @@ class StudentService{
             $item['group']=$student->group->name;
             $item['course']=$student->group->course->name;
             $item['phone']=$student->phone;
+            $item['region']=$student->district->name ?? ' ';
+            $item['addres']=$student->address;
             $item['status']=$student->statusText();
             $item['teacher']=$student->group->teacher->name;
             $item['id']=$student->id;

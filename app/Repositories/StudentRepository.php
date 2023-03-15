@@ -147,5 +147,4 @@ class StudentRepository implements StudentRepositoryInterface{
     {
         return Sertificate::orderBy('id', 'desc')->first()->sertificate_id ?? null;
     }
-
 }

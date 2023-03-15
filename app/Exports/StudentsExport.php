@@ -31,6 +31,8 @@ class StudentsExport implements FromArray, WithHeadings
             'Guruh',
             'Kurs',
             'Telefon',
+            'Tuman,Shahar',
+            'Manzil',
             'Status',
             'O\'qituvchi',
             'ID',

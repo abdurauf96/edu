@@ -35,12 +35,6 @@ class Students extends Component
         $this->managers=User::role('manager')->get();
     }
 
-    public function export(StudentService $studentService)
-    {
-        $data=$studentService->exportDataToAcademy($this->studentsToExportExcel);
-        return Excel::download(new StudentsExport($data), 'students.xlsx');
-    }
-
     public function updatingSearch()
     {
         $this->resetPage();
@@ -68,7 +62,14 @@ class Students extends Component
 
     public function render()
     {
+        $students=$this->getStudents();
+        //$this->studentsToExportExcel=$students->get();
+        $students=$students->paginate(10);
+        return view('livewire.school.students', ['students'=>$students]);
+    }
 
+    public function getStudents()
+    {
         $students=Student::query();
 
         if($this->course_id){
@@ -137,7 +138,7 @@ class Students extends Component
         }
 
         $students->latest()
-            ->select('id', 'name', 'debt','test_status','group_id','status')
+            ->select('id', 'name', 'debt','test_status','group_id','status','address','district_id','phone')
             ->where(function($query){
                 $query->where('name', 'LIKE',  '%'.$this->search.'%')
                     ->orWhere('id', 'LIKE', '%'.$this->search.'%');
@@ -151,8 +152,15 @@ class Students extends Component
                 },
             ])
             ->school();
-        //$this->studentsToExportExcel=$students->get();
-        $students=$students->paginate(10);
-        return view('livewire.school.students', ['students'=>$students]);
+
+        return $students;
+    }
+
+    public function export(StudentService $studentService)
+    {
+        $students=$this->getStudents()->get();
+        $students->load('district');
+        $data=$studentService->exportDataToAcademy($students);
+        return Excel::download(new StudentsExport($data), 'students.xlsx');
     }
 }
