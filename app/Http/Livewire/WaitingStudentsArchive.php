@@ -23,7 +23,7 @@ class WaitingStudentsArchive extends Component
         $this->results=[];
     }
 
-    public function delete($id)
+    public function restore($id)
     {
        $student = WaitingStudent::onlyTrashed()->where('id',$id)->restore();
     }

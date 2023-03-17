@@ -53,7 +53,7 @@
                             </form>
                         </td>
                         <td>
-                            <button wire:click="back({{ $item->id }})" href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            <button wire:click="restore({{ $item->id }})" href="#" class="btn btn-icon btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                 @endforeach

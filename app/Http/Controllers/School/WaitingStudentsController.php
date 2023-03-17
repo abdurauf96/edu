@@ -54,7 +54,7 @@ class WaitingStudentsController extends Controller
         }
         WaitingStudent::create($requestData);
 
-        return redirect('school/arxive-students')->with('flash_message', 'O`quvchi qo`shildi!');
+        return redirect('school/waiting-students')->with('flash_message', 'O`quvchi qo`shildi!');
     }
 
     /**
