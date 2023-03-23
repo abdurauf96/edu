@@ -21,6 +21,7 @@
         "guzzlehttp/guzzle": "^7.3",
         "intervention/image": "^2.7",
         "laravel/framework": "^8.12",
+        "laravel/horizon": "*",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",

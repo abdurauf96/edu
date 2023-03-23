@@ -154,11 +154,7 @@ class PaymentsController extends Controller
         if($count>0){
             return back()->with('error_message', 'Ushbu oy uchun to\'lov yozilgan!');
         }
-        $chunkStudents=$this->studentRepo->getAll()->chunk(200);
-        foreach ($chunkStudents as $students){
-            StudentsMonthlyPaymentJob::dispatch($students);
-        }
-        PaymentActivity::create(['message'=>'Oylik to\'lov yozildi !', 'quantity'=>count($this->studentRepo->getAll())]);
+        StudentsMonthlyPaymentJob::dispatch($this->studentRepo->getAll());
         return back()->with('flash_message', 'O\'quvchilarga kurs uchun oylik to\'lov yozildi !');
     }
 }

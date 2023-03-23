@@ -14,7 +14,6 @@ class AddSchoolIdToStudentActivitiesTable extends Migration
     public function up()
     {
         Schema::table('student_activities', function (Blueprint $table) {
-            $table->integer('school_id')->default(1);
             $table->softDeletes();
         });
     }
@@ -27,7 +26,6 @@ class AddSchoolIdToStudentActivitiesTable extends Migration
     public function down()
     {
         Schema::table('student_activities', function (Blueprint $table) {
-            $table->dropColumn('school_id');
             $table->dropColumn('deleted_at');
         });
     }

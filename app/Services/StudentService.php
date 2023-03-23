@@ -5,7 +5,6 @@ use App\Models\Group;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
-use App\Jobs\StudentOutedCourseJob;
 use App\Jobs\StudentStartedCourseJob;
 use App\Jobs\StudentChangeCourseJob;
 use App\Traits\Sertificate;
