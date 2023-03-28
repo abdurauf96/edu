@@ -1,13 +1,11 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\Event;
 use App\Models\Sertificate;
 use App\Models\Student;
-use App\Models\Group;
 use App\Models\Course;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Validator;
 
 class StudentRepository implements StudentRepositoryInterface{
 
@@ -74,9 +72,14 @@ class StudentRepository implements StudentRepositoryInterface{
             'type'=>$waitingStudent->type,
             'status'=>1,
             'district_id'=>$waitingStudent->district_id,
-            'study_type'=>$waitingStudent->study_type,
+            'study_type'=>$waitingStudent->study_typde,
             'start_date'=>$request->start_date
         ];
+        Validator::make($data, [
+            'name' => 'required|unique:students,name',
+            'phone' => 'required',
+            'start_date'=>'required'
+        ])->validate();
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';
         $data['qrcode']=$filename;
         $data['password']=bcrypt('12345678');

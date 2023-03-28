@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Models\WaitingStudent;
 use App\Services\StudentService;
 use App\Http\Requests\AddStudentRequest;
+use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
@@ -59,7 +60,7 @@ class StudentsController extends Controller
         try {
             $this->studentService->create($request);
         }catch (\Exception $e){
-            return $e->getMessage();
+            return back()->with('error_message', $e->getMessage());
         }
         return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
     }
@@ -124,15 +125,21 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        $student = $this->studentService->delete($id);
+        $this->studentService->delete($id);
         return redirect()->route('students.index')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
      public function addStudentToGroup(Request $request)
      {
-        $waitingStudent=WaitingStudent::findOrFail($request->waiting_student_id);
-        $this->studentService->addWaitingStudentToGroup($waitingStudent, $request);
-        $waitingStudent->delete();
+         try {
+             DB::transaction(function () use ($request){
+                 $waitingStudent=WaitingStudent::findOrFail($request->waiting_student_id);
+                 $this->studentService->addWaitingStudentToGroup($waitingStudent, $request);
+                 $waitingStudent->delete();
+             });
+         }catch (\Exception $e){
+             return back()->with('error_message', $e->getMessage());
+         }
         return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
      }
 

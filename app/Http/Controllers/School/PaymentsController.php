@@ -56,9 +56,7 @@ class PaymentsController extends Controller
      */
     public function store(PaymentRequest $request)
     {
-
         $this->paymentRepo->create($request);
-
         return redirect('school/payments')->with('flash_message', 'To`lov qo`shildi!');
     }
 

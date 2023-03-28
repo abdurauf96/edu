@@ -77,6 +77,8 @@
                     <img class="profil-user__info-qr"
                         src="/admin/images/qrcodes/{{ $student->qrcode }}"
                         alt="qr-img" width="75" height="75">
+                    @else
+                        <a style="float: right" class="btn btn-warning" href="{{ route('downloadQrcode', $student->id) }}">Generate</a>
                     @endif
                     <!-- ===================USER INFO EDIT DELET BUTTONS=================== -->
                     <div class="user__info-btn-wrap">

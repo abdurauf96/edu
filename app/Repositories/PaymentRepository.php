@@ -2,9 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Course;
+use App\Models\Student;
 use App\Repositories\Interfaces\PaymentRepositoryInterface;
 use App\Models\Payment;
+use Illuminate\Support\Facades\DB;
 
 class PaymentRepository implements PaymentRepositoryInterface{
     public function getAll()
@@ -14,13 +15,14 @@ class PaymentRepository implements PaymentRepositoryInterface{
 
     public function create($request)
     {
-
-        $requestData=$request->all();
-        $student=\App\Models\Student::findOrFail($request->student_id);
-        $student->debt-=$request->amount;
-        $student->save();
-        $requestData['course_id']=$student->group->course_id;
-        Payment::create($requestData);
+        DB::transaction(function () use ($request){
+            $requestData=$request->all();
+            $student=Student::select('id','group_id','debt')->findOrFail($request->student_id);
+            $student->debt-=$request->amount;
+            $student->save();
+            $requestData['course_id']=$student->group->course_id;
+            Payment::create($requestData);
+        });
     }
 
     public function findOne($id)
