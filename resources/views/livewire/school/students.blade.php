@@ -120,7 +120,7 @@
                         <td class="edu-panel-table__td"><a href="{{ route('students.show', $item->id) }}">{{ $item->name }}</a></td>
                         <td class="edu-panel-table__td"> {{ $item->group->name ?? '' }} ({{ $item->group->course->name ?? '' }}) </td>
                         <td class="edu-panel-table__td">{{ $item->group->teacher->name ?? '' }}</td>
-                        <td class="edu-panel-table__td"> {{ $item->group->start_date !=null ? $item->group->start_date->format('d-m-Y') : 'belgilanmagan' }} / {{ $item->group->end_date !=null ? $item->group->end_date->format('d-m-Y') : 'belgilanmagan' }}</td>
+                        <td class="edu-panel-table__td"> {{ $item->group->start_date ?? 'belgilanmagan' }} / {{ $item->group->end_date ?? 'belgilanmagan' }}</td>
                         <td class="edu-panel-table__td">{{ $item->formatted_debt }} so’m</td>
                         <td class="edu-panel-table__td"> {{ $item->statusText() }} </td>
                         <th>
