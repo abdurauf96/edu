@@ -41,6 +41,11 @@ class RoleSeeder extends Seeder
                 'name'=>'hr',
                 'guard_name'=>'user',
             ],
+            [
+                'id'=>6,
+                'name'=>'reception',
+                'guard_name'=>'user',
+            ],
         ];
 
         foreach($roles as $role){

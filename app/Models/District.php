@@ -12,7 +12,7 @@ class District extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class)->where('status', 1);
+        return $this->hasMany(Student::class)->where('status', 1)->where('school_id', auth()->guard('user')->user()->school_id);
     }
 
     public function schools()

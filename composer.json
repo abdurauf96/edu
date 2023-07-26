@@ -18,6 +18,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "goodoneuz/pay-uz": "^2.2.7",
+        "google/apiclient": "*",
         "guzzlehttp/guzzle": "^7.3",
         "intervention/image": "^2.7",
         "laravel/framework": "^8.12",
@@ -31,7 +32,10 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "~3.0",
         "realrashid/sweet-alert": "^4.0",
+        "revolution/laravel-google-sheets": "*",
+        "sheetdb/sheetdb-php": "*",
         "simplesoftwareio/simple-qrcode": "^4.2",
+        "spatie/laravel-backup": "*",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {

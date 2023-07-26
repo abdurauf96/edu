@@ -40,7 +40,7 @@ trait StudentContract
     }
     public function setValuesToContract($student)
     {
-        $my_template = new \PhpOffice\PhpWord\TemplateProcessor(public_path('admin/contracts/shablon2.docx'));
+        $my_template = new \PhpOffice\PhpWord\TemplateProcessor(public_path('admin/contracts/shablon3.docx'));
         $my_template->setValue('student_id', $student->id);
         $my_template->setValue('date', $student->start_date->format('d.m.Y'));
         $my_template->setValue('addres', $student->address);

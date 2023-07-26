@@ -2,18 +2,10 @@
 <project version="4">
   <component name="PublishConfigData" serverName="eduapp">
     <serverData>
-      <paths name="LMS">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$/../../../OSPanel/domains/lms" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="eduapp">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
-            <mapping local="" />
           </mappings>
         </serverdata>
       </paths>

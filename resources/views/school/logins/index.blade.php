@@ -37,7 +37,7 @@
                             </table>
 
                         </div>
-
+                        {{ $logins->links() }}
                     </div>
                 </div>
             </div>

@@ -36,6 +36,8 @@ class StudentsExport implements FromArray, WithHeadings
             'Status',
             'O\'qituvchi',
             'ID',
+            'Boshlanish sanasi',
+            'Tugash sanasi',
         ];
     }
     public function registerEvents(): array

@@ -18,7 +18,7 @@ class LoginsController extends Controller
     public function index(Request $request)
     {
 
-        $logins = Login::latest()->with('user')->get();
+        $logins = Login::latest()->with('user')->paginate(10);
 
         return view('school.logins.index', compact('logins'));
     }

@@ -17,11 +17,19 @@ class PaymentRepository implements PaymentRepositoryInterface{
     {
         DB::transaction(function () use ($request){
             $requestData=$request->all();
-            $student=Student::select('id','group_id','debt')->findOrFail($request->student_id);
+            $student=Student::select('id','group_id','debt','name')->findOrFail($request->student_id);
             $student->debt-=$request->amount;
             $student->save();
             $requestData['course_id']=$student->group->course_id;
             Payment::create($requestData);
+            $sheetdb = new \SheetDB\SheetDB('6fmw9bjg3sfwt');
+            $sheetdb->create([
+                'ID' => $student->id,
+                'STUDENT'=>$student->name,
+                'COURSE'=>$student->group->name,
+                'PAYMENTS'=>$request->amount,
+                'DATE'=>$request->created_at,
+            ]);
         });
     }
 

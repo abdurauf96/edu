@@ -69,14 +69,16 @@ class StudentService{
         foreach ($students as $student){
             $item['N']=$i;
             $item['name']=$student->name;
-            $item['group']=$student->group->name;
-            $item['course']=$student->group->course->name;
+            $item['group']=$student->group->name ?? 'belgilanmagan';
+            $item['course']=$student->group->course->name ?? 'belgilanmagan';
             $item['phone']=$student->phone;
-            $item['region']=$student->district->name ?? ' ';
+            $item['region']=$student->district->name ?? ' belgilanmagan';
             $item['addres']=$student->address;
             $item['status']=$student->statusText();
-            $item['teacher']=$student->group->teacher->name;
+            $item['teacher']=$student->group->teacher->name ?? 'belgilanmagan ';
             $item['id']=$student->id;
+            $item['start_date']=$student->group->start_date ?? 'belgilanmagan' ;
+            $item['END_date']=$student->group->end_date ?? 'belgilanmagan' ;
             array_push($data, $item);
             $i++;
         }

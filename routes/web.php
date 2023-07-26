@@ -20,6 +20,7 @@ use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\ProfileController;
 use App\Http\Controllers\School\LoginsController;
 use App\Http\Controllers\Student\StudentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -101,12 +102,17 @@ Route::middleware(['auth:user', 'schoolStatus', 'role:admin|manager'])->prefix('
     Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
     Route::resource('appeals', AppealsController::class);
     Route::post('/get-groups', [PaymentsController::class, 'getGroups']);
-    Route::get('/waiting-students/archive', [WaitingStudentsController::class, 'archive'])->name('waitingStudents.archive');
-    Route::resource('/waiting-students', WaitingStudentsController::class);
+
     Route::get('/course/{id}/plans', [PlansController::class, 'plans'])->name('coursePlans');
     Route::get('/add/course-payment', [PaymentsController::class, 'addMonthlyPayment'])->name('school.addMonthlyPayment');
     Route::get('payment-activities', [PaymentActivitiesController::class, 'index'])->name('payment-activities');
 });
+
+Route::middleware(['auth:user', 'schoolStatus', 'role:admin|reception'])->prefix('school')->group(function () {
+    Route::get('/waiting-students/archive', [WaitingStudentsController::class, 'archive'])->name('waitingStudents.archive');
+    Route::resource('/waiting-students', WaitingStudentsController::class);
+});
+
 
 // admin and HR routes
 Route::middleware(['auth:user', 'schoolStatus', 'role:admin|hr'])->prefix('school')->group(function () {
@@ -133,8 +139,12 @@ Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\P
 
 //handle requests from payment system
 Route::any('/handle/{paysys}', function ($paysys) {
-    info(file_get_contents('php://input'));
+    //info(file_get_contents('php://input'));
     (new Goodoneuz\PayUz\PayUz)->driver($paysys)->handle();
+});
+Route::get('/success', function () {
+    info('success');
+    return 'success';
 });
 
 //redirect to payment system or payment form

@@ -76,8 +76,7 @@ class StudentRepository implements StudentRepositoryInterface{
             'start_date'=>$request->start_date
         ];
         Validator::make($data, [
-            'name' => 'required|unique:students,name',
-            'phone' => 'required',
+            'name' => 'required',
             'start_date'=>'required'
         ])->validate();
         $filename=str_replace(' ', '-', $waitingStudent->name).'-'.time().'.png';

@@ -29,6 +29,7 @@
                         <option value="click">Click</option>
                         <option value="terminal">Terminal</option>
                         <option value="Naqd">Naqd</option>
+                        <option value="bank">Bank</option>
                     </select>
                 </div>
 

@@ -1,6 +1,10 @@
 <?php
-$service_id = $transaction->detail['serviceId'] ?? 100;
-$params = $transaction->detail['params'];
+if(isset($transaction->detail['serviceId'])){
+    $service_id = $transaction->detail['serviceId'];
+}else{
+    $service_id =100;
+}
+
 $description = '';
 $purpose = 1;
 // 100 - course - 1
@@ -31,21 +35,24 @@ switch ($service_id) {
         $purpose = 1;
         break;
 }
-
-if (!isset($params['paramKey'])) {
-    info($params);
-    $keys = $params;
-    foreach ($keys as $k) {
-        if ($k['paramKey'] == 'description') {
-            $description = $k['paramValue'];
+if($transaction->payment_system=='paynet'){
+    $params = $transaction->detail['params'];
+    if (!isset($params['paramKey'])) {
+        $keys = $params;
+        foreach ($keys as $k) {
+            if ($k['paramKey'] == 'description') {
+                $description = $k['paramValue'];
+            }
         }
     }
 }
+
 $amount=$transaction->payment_system =='paynet' ? $transaction->amount/100 : $transaction->amount;
 $student = \App\Models\Student::findOrFail($transaction->transactionable_id);
 $student->debt-=$amount;
 $student->save();
 $data = [];
+
 $data['student_id'] = $student->id;
 $data['amount'] =  $amount;
 $data['course_id'] = ($purpose == 1) ? $student->group->course_id : null;
@@ -54,3 +61,10 @@ $data['purpose'] = $purpose;
 $data['description'] = $description;
 $data['type'] = $transaction->payment_system;
 \App\Models\Payment::create($data);
+$sheetdb = new \SheetDB\SheetDB('3tjm0t35cnndr');
+$sheetdb->create([
+    'ID' => $student->id,
+    'Student'=>$student->name,
+    'Payment'=>$amount,
+    'Date'=>date('d/m/Y')
+]);

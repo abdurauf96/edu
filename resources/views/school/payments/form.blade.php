@@ -41,6 +41,9 @@
             <option @isset($payment)
                     {{ $payment->type=='terminal'? 'selected' : '' }}
                     @endisset value="terminal">Terminal</option>
+            <option @isset($payment)
+                    {{ $payment->type=='bank'? 'selected' : '' }}
+                    @endisset value="bank">Bank</option>
         </select>
 
     </div>
