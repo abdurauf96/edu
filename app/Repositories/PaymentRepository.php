@@ -22,7 +22,7 @@ class PaymentRepository implements PaymentRepositoryInterface{
             $student->save();
             $requestData['course_id']=$student->group->course_id;
             Payment::create($requestData);
-            $sheetdb = new \SheetDB\SheetDB('6fmw9bjg3sfwt');
+            $sheetdb = new \SheetDB\SheetDB('7vt29o2emjk6p');
             $sheetdb->create([
                 'ID' => $student->id,
                 'STUDENT'=>$student->name,
