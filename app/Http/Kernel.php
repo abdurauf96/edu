@@ -38,6 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\UserActiveSession::class,
         ],
 
         'api' => [
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'cors' => \App\Http\Middleware\Cors::class,
         'schoolStatus' => \App\Http\Middleware\CheckSchoolStatus::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'logout.user'=>\App\Http\Middleware\LogoutUser::class
     ];
 }

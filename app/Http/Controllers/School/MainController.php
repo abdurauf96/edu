@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Repositories\Interfaces\TeacherRepositoryInterface;
 use App\Services\StudentService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\Group;
@@ -28,15 +29,6 @@ class MainController extends Controller
 
     public function index()
     {
-        $num_groups=\App\Models\Group::school()->type('active')->count();
-
-        $num_teachers=$this->teacherRepo->numberActives();
-
-        $courses=\App\Models\Course::school()->select('name')
-            ->withCount(['students as active_students_count' => function ($query) {
-                    $query->where('students.status', Course::ACTIVE);
-                    },
-        ])->get();
 
         $students = $this->studentService->countByTypes();
 
@@ -46,7 +38,7 @@ class MainController extends Controller
 
         $left_this_month=$this->studentService->countLeftThisMonth();
 
-        return view('school.dashboard', compact( 'students','courses', 'num_groups', 'num_teachers','count_good_attandance','count_bad_attandance', 'left_this_month'));
+        return view('school.dashboard', compact( 'students','count_good_attandance','count_bad_attandance', 'left_this_month'));
 
     }
 

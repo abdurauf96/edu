@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -11,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasRoles,Notifiable,HasApiTokens;
+    use HasFactory, HasRoles,Notifiable,HasApiTokens,SoftDeletes;
     const RECEPTION_ROLE_ID = 4; // receptionist user role id equal to 4
 
     /**
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_active'
     ];
 
     protected $guard_name = 'user';
@@ -47,8 +49,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function school(){
+    public function school()
+    {
         return $this->belongsTo(School::class);
+    }
+
+    public function logins()
+    {
+        return $this->hasMany(Login::class);
     }
 
     public function groups()

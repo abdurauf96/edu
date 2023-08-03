@@ -27,6 +27,7 @@ class UserLoginListener
      */
     public function handle($event)
     {
+        auth()->guard('user')->user()->update(['is_active'=>true]);
         $details = GeoLocation::lookup($event->ip);
         Login::create([
             'user_id'=>auth()->guard('user')->id(),

@@ -49,27 +49,28 @@ Route::get('/download', function () {
 });
 
 //routes for only school admin
-Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin','logout.user']], function () {
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
+    Route::get('user/{id}/archive', [UsersController::class, 'archive'])->name('user.archive');
     Route::resource('logins', LoginsController::class);
 });
 
 //routes for school admin and cashier
-Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin|manager|cashier']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user', 'role:admin|manager|cashier', 'logout.user']], function () {
     Route::resource('payments', PaymentsController::class)->except('show');
     Route::get('payments/statistics', [PaymentsController::class, 'statistics'])->name('payments.statistics');
     Route::get('payments/results', [PaymentsController::class, 'results'])->name('payments.results');
     Route::get('payments/debtors', [PaymentsController::class, 'debtors'])->name('payments.debtors');
 });
 
-Route::group(['prefix' => 'school', 'middleware' => ['auth:user']], function () {
+Route::group(['prefix' => 'school', 'middleware' => ['auth:user','logout.user']], function () {
     Route::get('/dashboard', [MainController::class, 'index'])->name('school.dashboard');
     Route::get('/events/{type}/{id}', [EventsController::class, 'userEvents'])->name('userEvents');
 });
 //routes for all school users
-Route::middleware(['auth:user', 'schoolStatus', 'role:admin|manager'])->prefix('school')->group(function () {
+Route::middleware(['auth:user', 'schoolStatus', 'role:admin|manager','logout.user'])->prefix('school')->group(function () {
     Route::resource('/teachers', TeachersController::class);
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
@@ -108,14 +109,14 @@ Route::middleware(['auth:user', 'schoolStatus', 'role:admin|manager'])->prefix('
     Route::get('payment-activities', [PaymentActivitiesController::class, 'index'])->name('payment-activities');
 });
 
-Route::middleware(['auth:user', 'schoolStatus', 'role:admin|reception'])->prefix('school')->group(function () {
+Route::middleware(['auth:user', 'schoolStatus', 'role:admin|reception','logout.user'])->prefix('school')->group(function () {
     Route::get('/waiting-students/archive', [WaitingStudentsController::class, 'archive'])->name('waitingStudents.archive');
     Route::resource('/waiting-students', WaitingStudentsController::class);
 });
 
 
 // admin and HR routes
-Route::middleware(['auth:user', 'schoolStatus', 'role:admin|hr'])->prefix('school')->group(function () {
+Route::middleware(['auth:user', 'schoolStatus', 'role:admin|hr', 'logout.user'])->prefix('school')->group(function () {
     Route::resource('/organizations', OrganizationsController::class);
     Route::resource('/staffs', StaffsController::class);
     Route::get('/events', [EventsController::class, 'events'])->name('events');
@@ -141,10 +142,6 @@ Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\P
 Route::any('/handle/{paysys}', function ($paysys) {
     //info(file_get_contents('php://input'));
     (new Goodoneuz\PayUz\PayUz)->driver($paysys)->handle();
-});
-Route::get('/success', function () {
-    info('success');
-    return 'success';
 });
 
 //redirect to payment system or payment form

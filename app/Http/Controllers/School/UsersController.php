@@ -16,7 +16,16 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with(['roles'])->where('school_id', auth()->guard('user')->user()->school_id)->latest()->get();
+        $archive=$request->archive ?? false;
+        $users = User::with(['roles'])
+            ->withCount('logins')
+            ->withSum('logins','session_time')
+            ->where('school_id', auth()->guard('user')->user()->school_id)
+            ->when($archive, function ($query){
+                $query->withTrashed();
+            })
+            ->latest()
+            ->get();
         return view('school.users.index', compact('users'));
     }
 
@@ -69,7 +78,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::withTrashed()->findOrFail($id);
 
         return view('school.users.show', compact('user'));
     }
@@ -85,7 +94,7 @@ class UsersController extends Controller
     {
         $roles = Role::where('guard_name', 'user')->get();
 
-        $user = User::with('roles')->select('id', 'name', 'email')->findOrFail($id);
+        $user = User::withTrashed()->with('roles')->select('id', 'name', 'email')->findOrFail($id);
         $userRoles = $user->roles->pluck('id')->toArray();
 
         return view('school.users.edit', compact('user', 'roles', 'userRoles'));
@@ -115,7 +124,7 @@ class UsersController extends Controller
             $data['password'] = bcrypt($request->password);
         }
 
-        $user = User::findOrFail($id);
+        $user = User::withTrashed()->findOrFail($id);
         $user->update($data);
 
         $user->syncRoles($request->roles);
@@ -132,9 +141,15 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user=User::find($id);
+        $user=User::withTrashed()->find($id);
         $user->groups()->update(['user_id'=>null]);
-        $user->delete();
+        $user->forceDelete();
         return redirect('school/users')->with('flash_message', 'Foydalanuvchi o`chirib yuborildi!');
+    }
+    public function archive($id)
+    {
+        $user=User::find($id);
+        $user->delete();
+        return redirect('school/users')->with('flash_message', 'Foydalanuvchi arxivga olindi!');
     }
 }

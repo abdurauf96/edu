@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Login extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','ip','login_at','latitude','longitude','city'];
+    protected $fillable=['user_id','ip','login_at','latitude','longitude','city','logout_at','session_time'];
     protected $dates=['login_at'];
     public function user()
     {
