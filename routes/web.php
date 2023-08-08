@@ -92,6 +92,7 @@ Route::middleware(['auth:user', 'schoolStatus', 'role:admin|manager','logout.use
     Route::get('/student/create', [StudentsController::class, 'addStudent'])->name('school.addStudent');
     Route::post('/student/message/store', [StudentsController::class, 'storeMessage'])->name('storeStudentMessage');
     Route::get('/student/sertificate/{id}/download', [StudentsController::class, 'downloadSertificate'])->name('downloadSertificate');
+    Route::get('/student/sertificate/{sertificateId}/delete', [StudentsController::class, 'deleteSertificate'])->name('deleteSertificate');
     Route::match(['GET', 'POST'],'/students/{id}/create-sertificate', [StudentsController::class, 'createSertificate'])->name('createSertificate');
     Route::get('/student-statistics', [StudentsController::class, 'statistics'])->name('students.statistics');
     Route::post('/student/change-group', [StudentsController::class, 'changeGroup'])->name('changeStudentGroup');

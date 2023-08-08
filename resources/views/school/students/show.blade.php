@@ -288,7 +288,10 @@
                         <tr class="user-table__tr">
                             <td class="user-table__td">{{ $sertificate->course->name }}</td>
                             <td class="user-table__td">{{ date('d-M-Y', strtotime($sertificate->date)) }}</td>
-                            <td class="user-table__td"><a class="btn btn-primary" target="_blank" href="{{ route('downloadSertificate',$sertificate->id) }}">Yuklab olish <i class="bi bi-download"></i></a> </td>
+                            <td class="user-table__td">
+                                <a class="btn btn-primary" target="_blank" href="{{ route('downloadSertificate',$sertificate->id) }}">Yuklab olish <i class="bi bi-download"></i></a>
+                                <a class="btn btn-danger" href="{{ route('deleteSertificate',$sertificate->sertificate_id) }}">O'chirib yuborish<i class="bi bi-trash"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

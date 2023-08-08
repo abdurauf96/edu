@@ -225,4 +225,10 @@ class StudentsController extends Controller
         return redirect('/admin/sertificats/students/'.$sertificateId.'.jpg');
     }
 
+    public function deleteSertificate($sertificateId)
+    {
+        Sertificate::where('sertificate_id', $sertificateId)->first()->delete();
+        return back()->with('flash_message', 'Sertifikat o`chirib yuborildi!');
+    }
+
 }
