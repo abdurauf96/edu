@@ -38,7 +38,7 @@
             <tbody>
             @foreach($staffs as $item)
                 <tr>
-                    <td>{{ $loop->iteration  }}</td>
+                    <td>{{ $loop->index + $staffs->firstItem()  }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->position }}</td>
                     <td>{{ $item->phone }}</td>

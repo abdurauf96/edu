@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Login;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LoginsController extends Controller
@@ -17,9 +18,11 @@ class LoginsController extends Controller
      */
     public function index(Request $request)
     {
+        $schoolId=auth()->guard('user')->user()->school_id;
+        $userIds=User::where('school_id', $schoolId)->pluck('id');
 
-        $logins = Login::latest()->with('user')->paginate(10);
-
+        $logins = Login::latest()->with('user')->whereIn('user_id', $userIds)->paginate(10);
+        //dd($logins->count());
         return view('school.logins.index', compact('logins'));
     }
 

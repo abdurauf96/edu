@@ -20,7 +20,7 @@ class WaitingStudentsController extends Controller
     public function index(Request $request)
     {
         $courses=Course::school()->withCount('waitingStudents')->get();
-        $all=WaitingStudent::all()->count();
+        $all=WaitingStudent::school()->get()->count();
         return view('school.waiting-students.index', compact('courses', 'all'));
     }
 

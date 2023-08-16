@@ -94,7 +94,6 @@ class StudentRepository implements StudentRepositoryInterface{
     public function countByTypes()
     {
         $students = Student::school()
-            ->selectRaw("count(case when test_status='1' then 1 end) as count_test_active")
             ->selectRaw("count(case when status='".Student::ACTIVE."' then 1 end) as count_active")
             ->selectRaw("count(case when status='".Student::GRADUATED."' then 1 end) as count_graduated")
             ->selectRaw("count(case when status='".Student::OUT."' then 1 end) as count_outed")

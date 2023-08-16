@@ -76,6 +76,7 @@ class Groups extends Component
             ->withTeacherName()
             ->withCount('students')
             ->latest()
+            ->school()
             ->paginate(10);
         return view('livewire.school.groups', compact('groups'));
     }

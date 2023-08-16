@@ -17,7 +17,7 @@
                                 <tbody>
                                 @foreach($logins as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $loop->index + $logins->firstItem() }}</td>
                                         <td>{{ $item->user->name }}</td>
                                         <td>{{ $item->login_at->format('d.m.Y H:i') }}</td>
                                         <td>{{ $item->ip }}</td>

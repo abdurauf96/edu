@@ -22,7 +22,7 @@ class Staffs extends Component
             $staffs->where('organization_id', $this->organization_id);
         }
         if(isset($this->key)){
-            $staffs->where('name', 'LIKE', '%'.$this->key.'%');
+            $staffs->where('name', 'LIKE', '%'.ucfirst($this->key).'%');
         }
         $staffs=$staffs->with('organization')->latest()->paginate(10);
         return view('livewire.staffs',compact('staffs'));

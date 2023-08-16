@@ -8,33 +8,31 @@
             <div class="card-body">
                 <form class="form-inline" style="display: flex; justify-content:space-around">
                     <div class="form-item">
-                        <label >Tashkilotlar</label>
-                        <select name="type" class="form-control select2 " wire:model="organization_id">
-                            <option value="">Tanlang</option>
-                            @foreach ($organizations as $organization)
-                            <option value="{{ $organization->id }}">{{ $organization->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-item">
-                        <label class="custom-switch">
-                            <span class="custom-switch-description">Faqat o'quvchilar</span>
-                            <input type="checkbox" wire:model="onlyStudents" name="custom-switch-checkbox" class="custom-switch-input">
-                            <span class="custom-switch-indicator"></span>
-                        </label>
+                        <div class="custom-switches-stacked mt-2">
+                            <label class="custom-switch">
+                                <input type="radio" name="radio1" wire:model="type" value="staff" class="custom-switch-input" checked>
+                                <span class="custom-switch-indicator"></span>
+                                <span class="custom-switch-description">Xodimlar</span>
+                            </label>
+                            <label class="custom-switch">
+                                <input type="radio" name="radio1" value="student" wire:model="type" class="custom-switch-input">
+                                <span class="custom-switch-indicator"></span>
+                                <span class="custom-switch-description">O'quvchilar</span>
+                            </label>
+                        </div>
                     </div>
                     <div class="form-item">
                         <label >Xodisa turi</label>
                         <div class="custom-switches-stacked mt-2">
                             <label class="custom-switch">
-                            <input type="radio" name="option" wire:model="event" value="1" class="custom-switch-input" checked>
-                            <span class="custom-switch-indicator"></span>
-                            <span class="custom-switch-description">Kelish</span>
+                                <input type="radio" name="radio2" wire:model="event" value="1" class="custom-switch-input" checked>
+                                <span class="custom-switch-indicator"></span>
+                                <span class="custom-switch-description">Kelish</span>
                             </label>
                             <label class="custom-switch">
-                            <input type="radio" name="option" value="0" wire:model="event" class="custom-switch-input">
-                            <span class="custom-switch-indicator"></span>
-                            <span class="custom-switch-description">Ketish</span>
+                                <input type="radio" name="radio2" value="0" wire:model="event" class="custom-switch-input">
+                                <span class="custom-switch-indicator"></span>
+                                <span class="custom-switch-description">Ketish</span>
                             </label>
                         </div>
                     </div>
@@ -46,15 +44,13 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="form-item">
                         <label>Oraliqni tugashi  </label>
                         <div class="input-group date">
                             <input type="date" class="form-control pull-right" value="" wire:model="end_date" name="end_date" >
                         </div>
                     </div>
-
+                    <button class="btn btn-warning" wire:click.prevent="$set('apply', true)">Qo'llash</button>
                 </form>
             </div>
         </div>
@@ -79,12 +75,13 @@
                             <th>Xodisa</th>
                             <th>Vaqt</th>
                             <th>Sana</th>
+                            <th>Tarix</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($events as $event)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $loop->index + $events->firstItem() }}</td>
                                 <td>
                                     @if ($event->type=='staff')
                                         <a href="{{ route('staffs.show', $event->person_id) }}"> {{ $event->name  }} </a>
@@ -96,7 +93,9 @@
                                 <td> @if($event->status==1) <span class='label label-success'>Keldi </span> @else <span class='label label-danger'>Chiqib ketdi </span> @endif </td>
                                 <td> {{ $event->time }} </td>
                                 <td> {{ $event->created_at->format('d-M-Y') }} </td>
-
+                                <td>
+                                    <a href="{{ route('userEvents', ['type'=>$event->type, 'id'=>$event->person_id]) }}" class="btn btn-icon btn-primary">Tarix</a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
