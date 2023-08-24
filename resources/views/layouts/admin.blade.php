@@ -38,7 +38,7 @@
               class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="/admin/assets/img/user.png"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
-              <div class="dropdown-title">{{ auth()->user()->name }}</div>
+              <div class="dropdown-title">{{ auth()->user()->name ?? '' }}</div>
               <a href="#" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> Profile
               </a>
@@ -59,7 +59,7 @@
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
               <a href="#"> <img alt="image" src="/admin/assets/img/logo.png" class="header-logo" /> <span
-                  class="logo-name">{{ auth()->user()->name}}</span>
+                  class="logo-name">{{ auth()->user()->name ?? ''}}</span>
               </a>
             </div>
             <ul class="sidebar-menu">
@@ -77,7 +77,7 @@
               <li class="dropdown">
                 <a href="{{ route('admin.schools') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quv markazlar</span></a>
               </li>
-               
+
               <li class="dropdown">
                   <a href="{{ route('admin.students') }}" class="nav-link"><i class="material-icons">location_city</i><span>O'quvchilar</span></a>
               </li>

@@ -54,10 +54,13 @@
         {!! $errors->first('time', '<p class="help-block">:message</p>') !!}
     </div>
 
-    <div class="form-group{{ $errors->has('duration') ? 'has-error' : ''}}">
-        {!! Form::label('room_number', 'Xona raqami', ['class' => 'control-label']) !!}
-        {!! Form::number('room_number', null,  ['class' => 'form-control', 'required'=>'required']) !!}
-        {!! $errors->first('room_number', '<p class="help-block">:message</p>') !!}
+    <div class="form-group{{ $errors->has('teacher_id') ? 'has-error' : ''}}">
+        {!! Form::label('teacher_id', 'Xonani biriktiring', ['class' => 'control-label']) !!}
+        <select name="room_id" class="form-control" id="">
+            @foreach ($rooms as $room)
+                <option @isset($group) {{ $group->room_id==$room->id ? 'selected' : '' }} @endisset value="{{ $room->id }}">{{ $room->room_number }}</option>
+            @endforeach
+        </select>
     </div>
 
     <div class="form-group{{ $errors->has('time') ? 'has-error' : ''}}">

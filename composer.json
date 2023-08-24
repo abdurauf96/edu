@@ -11,6 +11,7 @@
         "php": "^7.3|^8.0",
         "adrianorosa/laravel-geolocation": "^1.1",
         "appzcoder/laravel-admin": "^3.3",
+        "asantibanez/livewire-status-board": "^2.1",
         "barryvdh/laravel-dompdf": "^2.0",
         "beyondcode/laravel-websockets": "^1.12",
         "darkaonline/l5-swagger": "^8.3",

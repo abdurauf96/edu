@@ -117,6 +117,11 @@
                 <i class="fas fa-school"></i> <span>Guruhlarni tanlash</span>
             </a>
         </li>
+        <li class="dropdown">
+            <a href="{{ route('rooms.index') }}" class="nav-link">
+                <i class="fas fa-school"></i> <span>Xonalar</span>
+            </a>
+        </li>
         @endrole
 
         @role('cashier|admin|manager')

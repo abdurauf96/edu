@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d59613974d6160bf118ede3e0d84a164",
+    "content-hash": "564b9c496890dee0318c07db15d6cdc5",
     "packages": [
         {
             "name": "adrianorosa/laravel-geolocation",
@@ -186,6 +186,68 @@
                 "laravel admin panel"
             ],
             "time": "2021-05-25T16:50:56+00:00"
+        },
+        {
+            "name": "asantibanez/livewire-status-board",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asantibanez/livewire-status-board.git",
+                "reference": "3f794e35c6db4858a5373886c474b7d37f24a586"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asantibanez/livewire-status-board/zipball/3f794e35c6db4858a5373886c474b7d37f24a586",
+                "reference": "3f794e35c6db4858a5373886c474b7d37f24a586",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0|^8.0",
+                "livewire/livewire": "^2.0",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.0",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Asantibanez\\LivewireStatusBoard\\LivewireStatusBoardServiceProvider"
+                    ],
+                    "aliases": {
+                        "LivewireStatusBoard": "Asantibanez\\LivewireStatusBoard\\LivewireStatusBoardFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Asantibanez\\LivewireStatusBoard\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrés Santibáñez",
+                    "email": "santibanez.andres@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Livewire component to show models/data according to its current status",
+            "homepage": "https://github.com/asantibanez/livewire-status-board",
+            "keywords": [
+                "asantibanez",
+                "livewire-status-board"
+            ],
+            "support": {
+                "issues": "https://github.com/asantibanez/livewire-status-board/issues",
+                "source": "https://github.com/asantibanez/livewire-status-board/tree/2.1.0"
+            },
+            "time": "2021-01-25T21:05:18+00:00"
         },
         {
             "name": "asm89/stack-cors",

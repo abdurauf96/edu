@@ -53,7 +53,7 @@ class Groups extends Component
     }
     public function render()
     {
-        $groups = Group::select('id', 'name', 'start_date', 'end_date', 'room_number')
+        $groups = Group::select('id', 'name', 'start_date', 'end_date','room_id')
             ->when($this->status, function ($query){
                 return $query->type($this->status);
             })
@@ -74,6 +74,7 @@ class Groups extends Component
             })
             ->withCourseName()
             ->withTeacherName()
+            ->with('room')
             ->withCount('students')
             ->latest()
             ->school()

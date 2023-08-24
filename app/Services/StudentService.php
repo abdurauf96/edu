@@ -28,6 +28,11 @@ class StudentService{
     }
 
     public function create($request){
+        $group=Group::find($request->group_id);
+        $room_capacity=$group->room->room_capacity ?? 0 ;
+        if($group->students->count()>=$room_capacity){
+            throw new \Exception('Guruh o`qiyotgan xonada joy mavjud emas!');
+        }
         DB::transaction(function () use ($request): void {
             $student=$this->studentRepo->create($request);
             dispatch(new StudentStartedCourseJob($student, $request->first_month_debt));
@@ -59,6 +64,12 @@ class StudentService{
 
     public function addWaitingStudentToGroup($waitingStudent, $request)
     {
+        $group=Group::find($request->group_id);
+        $room_capacity=$group->room->room_capacity ?? 0 ;
+        if($group->students->count()>=$room_capacity){
+            throw new \Exception('Guruh o`qiyotgan xonada joy mavjud emas!');
+        }
+
         $student=$this->studentRepo->addWaitingStudentToGroup($waitingStudent, $request);
         dispatch(new StudentStartedCourseJob($student,$request->first_month_debt));
         generateQrcode($student->id, $student->qrcode, 'student');

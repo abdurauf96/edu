@@ -41,10 +41,15 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'teacher_id', 'course_id', 'course_days', 'start_date', 'end_date',  'time', 'status', 'room_number', 'user_id'];
+    protected $fillable = ['name', 'teacher_id', 'course_id', 'course_days', 'start_date', 'end_date',  'time', 'status', 'room_number', 'user_id','room_id'];
     public function setEndDateAttribute($value)
     {
         $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->addMonths($this->course->duration);
+    }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 
     public function teacher()

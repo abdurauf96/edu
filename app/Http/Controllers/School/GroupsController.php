@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Jobs\StudentRemoveDebtJob;
 use App\Models\Group;
+use App\Models\Room;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Teacher;
@@ -37,7 +38,8 @@ class GroupsController extends Controller
     {
         $courses = Course::school()->get();
         $teachers = Teacher::school()->whereStatus(1)->get();
-        return view('school.groups.create', compact('courses', 'teachers'));
+        $rooms = Room::latest()->get();
+        return view('school.groups.create', compact('courses', 'teachers','rooms'));
     }
 
     /**
@@ -79,7 +81,8 @@ class GroupsController extends Controller
         $group = Group::findOrFail($id);
         $courses = Course::school()->get();
         $teachers = Teacher::school()->whereStatus(1)->get();
-        return view('school.groups.edit', compact('group', 'courses', 'teachers'));
+        $rooms = Room::latest()->get();
+        return view('school.groups.edit', compact('group', 'courses', 'teachers', 'rooms'));
     }
 
     /**

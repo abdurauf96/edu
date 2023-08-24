@@ -108,7 +108,7 @@
                         <td class="edu-panel-table__td"> {{ $group->course_name }} </td>
                         <td class="edu-panel-table__td">{{ $group->teacher_name }}</td>
                         <td class="edu-panel-table__td">{{ $group->start_date !=null ? $group->start_date->format('d-m-Y') : 'belgilanmagan' }} / {{ $group->end_date !=null ? $group->end_date->format('d-m-Y') : 'belgilanmagan' }}</td>
-                        <td class="edu-panel-table__td">{{ $group->room_number }} </td>
+                        <td class="edu-panel-table__td">{{ $group->room->room_number ?? 'tanlanmagan' }} </td>
                         <td class="edu-panel-table__td"> {{ $group->students_count }} </td>
                         <th>
                             <div class="btn-group dropstart">

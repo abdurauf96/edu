@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\School\PaymentActivitiesController;
+use App\Http\Controllers\School\RoomsController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\School\RolesController;
 use App\Http\Controllers\School\MainController;
@@ -74,6 +76,7 @@ Route::middleware(['auth:user', 'schoolStatus', 'role:admin|manager','logout.use
     Route::resource('/teachers', TeachersController::class);
     Route::resource('/courses', CoursesController::class);
     Route::resource('/groups', GroupsController::class);
+    Route::resource('/rooms', RoomsController::class);
     Route::get('/today/groups', [MainController::class, 'todayGroups'])->name('todayGroups');
     //xisobotlar
     Route::get('reports/students', \App\Http\Livewire\School\StudentsReport::class)->name('reports.students');
