@@ -69,6 +69,8 @@
                 <tr>
                     <th class="edu-panel-table__th">#</th>
                     <th class="edu-panel-table__th">To'lovchi</th>
+                    <th class="edu-panel-table__th">To'lovchi ID</th>
+                    <th class="edu-panel-table__th">Guruh</th>
                     <th class="edu-panel-table__th">Miqdor</th>
                     <th class="edu-panel-table__th">Turi</th>
                     <th class="edu-panel-table__th">Ma'lumot</th>
@@ -80,7 +82,9 @@
                 @foreach($payments as $item)
                     <tr class="edu-panel-table__tr">
                         <td class="edu-panel-table__td">{{ $item->id  }}</td>
-                        <td class="edu-panel-table__td">{{ $item->student_name ?? 'null' }}</td>
+                        <td class="edu-panel-table__td">{{ $item->student_name ?? 'null' }} </td>
+                        <td class="edu-panel-table__td">{{ $item->student->id }} </td>
+                        <td class="edu-panel-table__td">{{ $item->student->group->name }} </td>
                         <td class="edu-panel-table__td">{{ $item->amount }}</td>
                         <td class="edu-panel-table__td">{{ $item->type }}</td>
                         <td class="edu-panel-table__td">{{ $item->description }}</td>
