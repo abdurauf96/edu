@@ -105,7 +105,7 @@ class CoursesController extends Controller
 			'duration' => 'required'
 		]);
         $requestData = $request->all();
-        
+
         if($request->hasFile('image')){
             $file=$request->file('image');
             $filename=time().$file->getClientOriginalName();

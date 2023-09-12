@@ -1,13 +1,11 @@
 <?php
 
 if (! function_exists('generateQrcode')) {
-
     function generateQrcode($id, $filename, $type) {
         $qrcode_info=<<<TEXT
         id: {$id}
         type: {$type}
 TEXT;
-
         \QrCode::size(600)
         ->format('png')
         ->color(41,38,91)
@@ -18,10 +16,8 @@ TEXT;
     }
 }
 
-if(!function_exists('generatePassword')){
-
-    function generatePassword($year)
-    {
+if(!function_exists('generatePassword')) {
+    function generatePassword($year): string {
         $yearToArray=explode('-', $year);
         $reversed=array_reverse($yearToArray);
         $yearToString=implode('', $reversed);
@@ -31,40 +27,38 @@ if(!function_exists('generatePassword')){
 }
 
 if (! function_exists('selectSertificateTemplate')) {
-    function selectSertificateTemplate($course_code,$type) {
-        if($course_code=='foundation'){
-            return public_path('admin/sertificats/foundation.jpg');
+    function selectSertificateTemplate($course_code, $type): string {
+        if($course_code == 'foundation') {
+            return public_path('admin/sertificats/foundation.png');
         }
-        return public_path('admin/sertificats/'.$course_code.'-'.$type.'.jpg');
+        return public_path('admin/sertificats/'.$course_code.'-'.$type.'.png');
     }
 }
 
-if(!function_exists('generateSertificate')){
-
-    function generateSertificate($template,$name,$surname,$sertificateId, $date)
-    {
+if(! function_exists('generateSertificate')) {
+    function generateSertificate($template, $name, $surname, $sertificateId, $date): void {
         $image = \Image::make($template);
-        $image->text($name, 1150, 1750, function($font) {
-            $font->file(public_path('admin/sertificats/univia.ttf'));
-            $font->size(80);
-            $font->color('#1D1D1B');
+        $image->text($name, 830, 1710, function($font) {
+            $font->file(public_path('admin/sertificats/Days.ttf'));
+            $font->size(110);
+            $font->color('#015f8b');
         });
-        $image->text($surname, 1180, 1850, function($font) {
-            $font->file(public_path('admin/sertificats/univia.ttf'));
-            $font->size(80);
-            $font->color('#1D1D1B');
+        $image->text($surname, 830, 1850, function($font) {
+            $font->file(public_path('admin/sertificats/Days.ttf'));
+            $font->size(110);
+            $font->color('#015f8b');
         });
-        $image->text("ID ".$sertificateId, 1600, 2975, function($font) {
-            $font->file(public_path('admin/sertificats/univia.ttf'));
+        $image->text("ID ".$sertificateId, 1980, 3290, function($font) {
+            $font->file(public_path('admin/sertificats/Montserrat-SemiBold.ttf'));
             $font->size(50);
-            $font->color('#1D1D1B');
+            $font->color('#606872');
         });
-        $image->text($date, 1150, 2650 , function($font) {
-            $font->file(public_path('admin/sertificats/univia.ttf'));
-            $font->size(44);
-            $font->color('#1D1D1B');
+        $image->text($date, 830, 3300 , function($font) {
+            $font->file(public_path('admin/sertificats/Montserrat-SemiBold.ttf'));
+            $font->size(50);
+            $font->color('#606872');
         });
-        $image->insert(public_path('admin/sertificats/qrcode.png'), 'bottom-right', 570, 600);
+        $image->insert(public_path('admin/sertificats/qrcode.png'), 'bottom-right', 170, 290);
         $image->save(public_path('admin/sertificats/students/'.$sertificateId.'.jpg'));
     }
 }

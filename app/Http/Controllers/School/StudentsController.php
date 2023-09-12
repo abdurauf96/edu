@@ -18,27 +18,12 @@ use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public $studentService;
+    public function __construct(public StudentService $studentService) {}
 
-    public function __construct(StudentService $studentService)
-    {
-        $this->studentService = $studentService;
-    }
     public function index(Request $request)
     {
         return view('school.students.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
 
     public function create()
     {
@@ -48,13 +33,6 @@ class StudentsController extends Controller
         return view('school.students.create', compact('groups','districts', 'waitingStudents'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function store(AddStudentRequest $request)
     {
         try {
@@ -65,13 +43,6 @@ class StudentsController extends Controller
         return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function show($id)
     {
         $student = $this->studentService->findOne($id);
@@ -81,13 +52,6 @@ class StudentsController extends Controller
         return view('school.students.show', compact('student', 'events', 'groups', 'courses'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function edit($id)
     {
         $student = $this->studentService->findOne($id);
@@ -97,14 +61,6 @@ class StudentsController extends Controller
         return view('school.students.edit', compact('student', 'groups', 'districts'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function update(Request $request, $id)
     {
         $request->validate(['name'=>'required']);
@@ -116,13 +72,6 @@ class StudentsController extends Controller
         return redirect('school/students')->with('flash_message', 'O`quvchi yangilandi!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function destroy($id)
     {
         $this->studentService->delete($id);

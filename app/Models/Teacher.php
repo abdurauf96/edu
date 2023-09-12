@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\School;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -104,5 +105,8 @@ class Teacher extends Authenticatable
         return __CLASS__ . " model has been {$eventName}";
     }
 
-
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
+    }
 }

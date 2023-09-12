@@ -10,15 +10,14 @@ use App\Jobs\StudentChangeCourseJob;
 use App\Traits\Sertificate;
 use App\Traits\StudentContract;
 
-class StudentService{
+class StudentService
+{
     use Sertificate, StudentContract;
-    protected $studentRepo;
 
-    public function __construct(StudentRepositoryInterface $studentRepo){
-        $this->studentRepo=$studentRepo;
-    }
+    public function __construct(protected StudentRepositoryInterface $studentRepo) {}
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->studentRepo->getAll();
     }
 
