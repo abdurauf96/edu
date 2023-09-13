@@ -1,31 +1,32 @@
 <?php
 namespace App\Http\Controllers\School;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\Sertificate;
-use App\Models\Student;
-use App\Models\User;
-use App\Models\Group;
+use App\Http\Requests\AddStudentRequest;
+use App\Models\BotStudent;
 use App\Models\Course;
 use App\Models\District;
-use App\Models\BotStudent;
-use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\Group;
+use App\Models\Sertificate;
+use App\Models\Student;
 use App\Models\WaitingStudent;
 use App\Services\StudentService;
-use App\Http\Requests\AddStudentRequest;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
     public function __construct(public StudentService $studentService) {}
 
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         return view('school.students.index');
     }
 
-    public function create()
+    public function create(): View
     {
         $groups=Group::school()->type('active')->get();
         $districts=District::all();
@@ -33,7 +34,7 @@ class StudentsController extends Controller
         return view('school.students.create', compact('groups','districts', 'waitingStudents'));
     }
 
-    public function store(AddStudentRequest $request)
+    public function store(AddStudentRequest $request): RedirectResponse
     {
         try {
             $this->studentService->create($request);
@@ -43,16 +44,16 @@ class StudentsController extends Controller
         return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
     }
 
-    public function show($id)
+    public function show($id): View
     {
         $student = $this->studentService->findOne($id);
         $events=$student->events()->paginate(10);
-        $groups=Group::school()->with('course')->select('id', 'course_id', 'name')->type('active')->get();
-        $courses=Course::school()->select('id','name')->get();
+        $groups=Group::school()->with('course')->select(['id', 'course_id', 'name'])->type('active')->get();
+        $courses=Course::school()->select(['id','name'])->get();
         return view('school.students.show', compact('student', 'events', 'groups', 'courses'));
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $student = $this->studentService->findOne($id);
         $groups=Group::school()->type('active')->get();
@@ -61,7 +62,7 @@ class StudentsController extends Controller
         return view('school.students.edit', compact('student', 'groups', 'districts'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $request->validate(['name'=>'required']);
         if($request->status==Student::OUT){
@@ -72,13 +73,13 @@ class StudentsController extends Controller
         return redirect('school/students')->with('flash_message', 'O`quvchi yangilandi!');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $this->studentService->delete($id);
         return redirect()->route('students.index')->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
-     public function addStudentToGroup(Request $request)
+     public function addStudentToGroup(Request $request): RedirectResponse
      {
          try {
              DB::transaction(function () use ($request){
@@ -92,7 +93,7 @@ class StudentsController extends Controller
         return redirect('school/students')->with('flash_message', 'O`quvchi qo`shildi!');
      }
 
-    public function botStudents()
+    public function botStudents(): View
     {
         $botStudents=BotStudent::school()->latest()->get();
         return view('school.students.botStudents', compact('botStudents'));
@@ -115,7 +116,7 @@ class StudentsController extends Controller
     {
         $student=$this->studentService->findOne($id);
         $lastEventStatus = $student->getLastEventStatus();
-        \App\Models\Event::create([
+        Event::create([
             'person_id'=>$id,
             'type'=>'student',
             'name'=>$student->name,
@@ -126,7 +127,7 @@ class StudentsController extends Controller
         return back()->with('flash_message', 'Natija kiritildi !');
     }
 
-    public function createSertificate(Request $request, $id)
+    public function createSertificate(Request $request, $id): View|RedirectResponse
     {
         $student=$this->studentService->findOne($id);
         $courses=Course::school()->where('is_for_bot',true)->get();
@@ -148,7 +149,7 @@ class StudentsController extends Controller
         return view('school.students.create-sertificate', compact('student','courses'));
     }
 
-    public function statistics()
+    public function statistics(): View
     {
         $students=$this->studentService->countByTypes();
         $courses=$this->studentService->countByCourses();
@@ -168,7 +169,7 @@ class StudentsController extends Controller
         return $this->studentService->downloadContract($id);
     }
 
-    public function downloadSertificate($id)
+    public function downloadSertificate($id): RedirectResponse
     {
         $sertificateId=Sertificate::findOrFail($id)->sertificate_id;
         return redirect('/admin/sertificats/students/'.$sertificateId.'.jpg');
@@ -179,5 +180,4 @@ class StudentsController extends Controller
         Sertificate::where('sertificate_id', $sertificateId)->first()->delete();
         return back()->with('flash_message', 'Sertifikat o`chirib yuborildi!');
     }
-
 }

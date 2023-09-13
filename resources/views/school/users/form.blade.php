@@ -30,5 +30,4 @@
 </div>
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Yangilash' : 'Saqlash', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('user.archive', $user->id) }}" title="Arxivga olish" class="btn btn-icon btn-warning"><i class="fas fa-archive"></i>Arxivga</a>
 </div>

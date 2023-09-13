@@ -1,4 +1,4 @@
-@extends('layouts.school')
+@extends('layouts.admin')
 @section('title')
     Yaratish
 @endsection
@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header">Yangi yaratish</div>
             <div class="card-body">
-                <a href="{{ url('/school/roles') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                <a href="{{ url('/admin/roles') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                 <br />
                 <br />
 
@@ -22,7 +22,7 @@
 
                 {!! Form::open(['url' => '/admin/roles', 'class' => 'form-horizontal']) !!}
 
-                @include ('school.roles.form', ['formMode' => 'create'])
+                @include ('admin.roles.form', ['formMode' => 'create'])
 
                 {!! Form::close() !!}
 

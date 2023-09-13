@@ -81,6 +81,7 @@
 
             </ul>
         </li>
+
         {{--xisobotlar--}}
         <li class="dropdown">
             <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-money-check-alt"></i><span>Xisobotlar</span></a>
@@ -157,6 +158,18 @@
             @endrole
         </ul>
       </li>
+        @endrole
+
+        @role('nasib')
+        <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users"></i><span>O'quvchilar</span></a>
+            <ul class="dropdown-menu" >
+                <li> <a class="nav-link" href="{{ route('waiting-students.index') }}"> Navbat kutayotganlar </a> </li>
+                <li> <a class="nav-link" href="{{ route('waitingStudents.archive') }}"> Navbat arxivi </a> </li>
+                <li> <a class="nav-link" href="{{ route('botStudents') }}"> Bot orqali ariza qoldirganlar </a> </li>
+                <li> <a class="nav-link" href="{{ route('appeals.index') }}"> Ariza qoldirganlar</a> </li>
+            </ul>
+        </li>
         @endrole
     </ul>
   </aside>

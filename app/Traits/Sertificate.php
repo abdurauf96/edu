@@ -6,7 +6,6 @@ trait Sertificate
 {
     public function generateSertificate($data): string
     {
-        dd($data);
         $student = $this->studentRepo->findOne($data['student_id']);
         $course = explode('_', $data['course']);
         $course_id = $course[0];

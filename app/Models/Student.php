@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -41,17 +44,18 @@ class Student extends Authenticatable
      */
     protected $fillable = ['group_id', 'name', 'image', 'phone', 'year', 'address', 'passport', 'sex', 'qrcode', 'type',  'status', 'password', 'outed_date', 'finished_date', 'district_id', 'study_type', 'future_work', 'start_date','debt'];
 
-    public function sertificates()
+    public function sertificates(): HasMany
     {
         return $this->hasMany(Sertificate::class);
     }
 
-    public function getDiscountPercentAttribute()
+    public function getDiscountPercentAttribute(): float|int
     {
         return (1-$this->type)*100;
     }
 
-    public function statusText(){
+    public function statusText(): string
+    {
         if($this->attributes['status']==self::ACTIVE){
             return 'O\'qimoqda';
         }elseif($this->attributes['status']==self::OUT){
@@ -62,7 +66,9 @@ class Student extends Authenticatable
             return 'Belgilanmagan';
         }
     }
-    public function getFormattedDebtAttribute(){
+
+    public function getFormattedDebtAttribute(): string
+    {
         if($this->attributes['debt'] > 0){
             return '-'.number_format(abs($this->attributes['debt']));
         }else{
@@ -70,17 +76,17 @@ class Student extends Authenticatable
         }
     }
 
-    public function activities()
+    public function activities(): HasMany
     {
         return $this->hasMany(StudentActivity::class)->latest();
     }
 
-    public function messages()
+    public function messages(): HasMany
     {
         return $this->hasMany(StudentMessage::class)->latest();
     }
 
-    public function events()
+    public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'person_id')->where('type', 'student')
             ->select('person_id', 'type', 'status', 'created_at')
@@ -92,12 +98,13 @@ class Student extends Authenticatable
         return $this->events()->latest()->first()->status ?? null;
     }
 
-    public function group()
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
 
-    public function teacher(){
+    public function teacher(): HasOneThrough
+    {
         return $this->hasOneThrough(Teacher::class,Group::class);
     }
 
@@ -106,27 +113,27 @@ class Student extends Authenticatable
         return $this->group->course;
     }
 
-    public function district()
+    public function district(): BelongsTo
     {
         return $this->belongsTo(District::class);
     }
 
-    public function payments()
+    public function payments(): HasMany
     {
         return $this->hasMany(Payment::class)->select('student_id', 'amount', 'type', 'created_at');
     }
 
-    public function getSchool()
+    public function getSchool(): BelongsTo
     {
         return $this->belongsTo(SchoolModel::class, 'school_id');
     }
 
-    public function getPriceMonth()
+    public function getPriceMonth(): float
     {
         return round($this->type*$this->group->course->price);
     }
 
-    public function isByDateHere($date)
+    public function isByDateHere($date): bool
     {
         $event=Event::whereDate('created_at', $date)
             ->where('type', 'student')
@@ -151,14 +158,7 @@ class Student extends Authenticatable
         });
     }
 
-    /**
-     * Change activity log event description
-     *
-     * @param string $eventName
-     *
-     * @return string
-     */
-    public function getDescriptionForEvent($eventName)
+    public function getDescriptionForEvent(string $eventName): string
     {
         return __CLASS__ . " model has been {$eventName}";
     }

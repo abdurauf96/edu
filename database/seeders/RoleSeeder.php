@@ -43,7 +43,12 @@ class RoleSeeder extends Seeder
             ],
             [
                 'id'=>6,
-                'name'=>'reception',
+                'name'=>'sale-manager',
+                'guard_name'=>'user',
+            ],
+            [
+                'id'=>7,
+                'name'=>'personal-manager',
                 'guard_name'=>'user',
             ],
         ];

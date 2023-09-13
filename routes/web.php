@@ -1,27 +1,25 @@
 <?php
 
-use App\Http\Controllers\School\PaymentActivitiesController;
-use App\Http\Controllers\School\RoomsController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\School\RolesController;
-use App\Http\Controllers\School\MainController;
-use App\Http\Controllers\School\PermissionsController;
-use App\Http\Controllers\School\UsersController;
-use App\Http\Controllers\School\PaymentsController;
-use App\Http\Controllers\School\TeachersController;
-use App\Http\Controllers\School\CoursesController;
-use App\Http\Controllers\School\GroupsController;
-use App\Http\Controllers\School\StudentsController;
-use App\Http\Controllers\School\EventsController;
-use App\Http\Controllers\School\StaffsController;
-use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\School\AppealsController;
-use App\Http\Controllers\School\PlansController;
-use App\Http\Controllers\School\OrganizationsController;
-use App\Http\Controllers\School\ProfileController;
+use App\Http\Controllers\School\CoursesController;
+use App\Http\Controllers\School\EventsController;
+use App\Http\Controllers\School\GroupsController;
 use App\Http\Controllers\School\LoginsController;
+use App\Http\Controllers\School\MainController;
+use App\Http\Controllers\School\OrganizationsController;
+use App\Http\Controllers\School\PaymentActivitiesController;
+use App\Http\Controllers\School\PaymentsController;
+use App\Http\Controllers\School\PermissionsController;
+use App\Http\Controllers\School\PlansController;
+use App\Http\Controllers\School\ProfileController;
+use App\Http\Controllers\School\RoomsController;
+use App\Http\Controllers\School\StaffsController;
+use App\Http\Controllers\School\StudentsController;
+use App\Http\Controllers\School\TeachersController;
+use App\Http\Controllers\School\UsersController;
+use App\Http\Controllers\School\WaitingStudentsController;
 use App\Http\Controllers\Student\StudentController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +50,6 @@ Route::get('/download', function () {
 
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin','logout.user']], function () {
-    Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
     Route::get('user/{id}/archive', [UsersController::class, 'archive'])->name('user.archive');
@@ -129,8 +126,15 @@ Route::middleware(['auth:user', 'schoolStatus', 'role:admin|hr', 'logout.user'])
     Route::get('/staff/qrcode-download/{id}', [StaffsController::class, 'downloadStaffQrcode'])->name('downloadStaffQrcode');
 });
 
-require __DIR__.'/superadmin.php';
-require __DIR__.'/teacher.php';
+Route::middleware(['auth:user', 'schoolStatus', 'role:nasib', 'logout.user'])->prefix('school')->group(function () {
+    Route::get('/waiting-students/archive', [WaitingStudentsController::class, 'archive'])->name('waitingStudents.archive');
+    Route::resource('/waiting-students', WaitingStudentsController::class);
+    Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
+    Route::resource('appeals', AppealsController::class);
+});
+
+require __DIR__ . '/superadmin.php';
+require __DIR__ . '/teacher.php';
 require __DIR__ . '/auth.php';
 
 //student routes

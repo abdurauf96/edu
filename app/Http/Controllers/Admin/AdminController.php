@@ -5,20 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\District;
 use App\Models\Group;
-use App\Models\School;
-use App\Models\Student;
-use Illuminate\Http\Request;
 use App\Services\DashboardService;
-use Illuminate\Database\Eloquent\Builder;
 
 class AdminController extends Controller
 {
-    public $statService;
-
-    public function __construct(DashboardService $statService)
-    {
-        $this->statService=$statService;
-    }
+    public function __construct(public DashboardService $statService) {}
 
     public function dashboard()
     {

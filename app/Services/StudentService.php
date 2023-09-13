@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Services;
-use App\Models\Group;
-use App\Models\Student;
-use Illuminate\Support\Facades\DB;
-use App\Repositories\Interfaces\StudentRepositoryInterface;
-use App\Jobs\StudentStartedCourseJob;
+
 use App\Jobs\StudentChangeCourseJob;
+use App\Jobs\StudentStartedCourseJob;
+use App\Models\Group;
+use App\Models\StudentMessage;
+use App\Repositories\Interfaces\StudentRepositoryInterface;
 use App\Traits\Sertificate;
 use App\Traits\StudentContract;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class StudentService
 {
@@ -26,7 +28,8 @@ class StudentService
         return $this->studentRepo->findOne($id);
     }
 
-    public function create($request){
+    public function create($request): void
+    {
         $group=Group::find($request->group_id);
         $room_capacity=$group->room->room_capacity ?? 0 ;
         if($group->students->count()>=$room_capacity){
@@ -39,12 +42,12 @@ class StudentService
         });
     }
 
-    public function update($request, $id)
+    public function update($request, $id): void
     {
         $student=$this->studentRepo->update($request, $id);
     }
 
-    public function delete($id)
+    public function delete($id): RedirectResponse
     {
         $student = $this->studentRepo->findOne($id);
         \File::delete(public_path()."/admin/images/students/".$student->image);
@@ -53,7 +56,7 @@ class StudentService
         return redirect('school/students?year='.date('Y'))->with('flash_message', 'O`quvchi o`chirib yuborildi!');
     }
 
-    public function changeGroup($request)
+    public function changeGroup($request): void
     {
         $student=$this->studentRepo->findOne($request->student_id);
         $new_group=Group::find($request->new_group_id);
@@ -61,7 +64,7 @@ class StudentService
         $student->update(['group_id'=>$request->new_group_id]);
     }
 
-    public function addWaitingStudentToGroup($waitingStudent, $request)
+    public function addWaitingStudentToGroup($waitingStudent, $request): void
     {
         $group=Group::find($request->group_id);
         $room_capacity=$group->room->room_capacity ?? 0 ;
@@ -74,7 +77,8 @@ class StudentService
         generateQrcode($student->id, $student->qrcode, 'student');
     }
 
-    public function exportDataToAcademy($students){
+    public function exportDataToAcademy($students): array
+    {
         $data=[]; $i=1;
         foreach ($students as $student){
             $item['N']=$i;
@@ -95,7 +99,7 @@ class StudentService
         return $data;
     }
 
-    public function getByIds($ids){
+    public function getByIds($ids) {
         return $this->studentRepo->getByIds($ids);
     }
 
@@ -124,14 +128,12 @@ class StudentService
         return $this->studentRepo->countLeftThisMonth();
     }
 
-    public function storeMessage($data)
+    public function storeMessage($data): void
     {
-        \App\Models\StudentMessage::create([
+        StudentMessage::create([
             'student_id'=>$data['student_id'],
             'user_id'=>auth()->guard('user')->id(),
             'message'=>$data['message']
         ]);
     }
-
-
 }
