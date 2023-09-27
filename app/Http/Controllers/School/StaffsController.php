@@ -8,49 +8,29 @@ use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\Organization;
 use App\Repositories\Interfaces\StaffRepositoryInterface;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class StaffsController extends Controller
 {
-    public $staffRepo;
+    public function __construct(public StaffRepositoryInterface $staffRepo) {}
 
-    public function __construct(StaffRepositoryInterface $staffRepo)
+    public function index(Request $request): View
     {
-        $this->staffRepo=$staffRepo;
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index(Request $request)
-    {
-
         //$staffs = $this->staffRepo->getAll();
         $organizations = Organization::school()->latest()->get();
 
         return view('school.staffs.index', compact('organizations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
+    public function create(): View
     {
         $organizations = Organization::school()->latest()->get();
         return view('school.staffs.create', compact('organizations'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
 			'name' => 'required',
@@ -61,43 +41,21 @@ class StaffsController extends Controller
         return redirect('school/staffs')->with('flash_message', 'Xodim qo`shildi!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show($id)
+    public function show($id): View
     {
         $staff = $this->staffRepo->findOne($id);
 
         return view('school.staffs.show', compact('staff'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit($id)
+    public function edit($id): View
     {
         $staff = $this->staffRepo->findOne($id);
         $organizations = Organization::school()->latest()->get();
         return view('school.staffs.edit', compact('staff', 'organizations'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $this->validate($request, [
 			'name' => 'required'
@@ -107,21 +65,14 @@ class StaffsController extends Controller
         return redirect('school/staffs')->with('flash_message', 'Xodim yangilandi!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         Staff::destroy($id);
 
         return redirect('school/staffs')->with('flash_message', 'Xodim o`chirib yuborildi!');
     }
 
-    public function staffEvent($id)
+    public function staffEvent($id): View
     {
         $staff = $this->staffRepo->findOne($id);
 

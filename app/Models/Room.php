@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
-    use LogsActivity;
-    use SoftDeletes;
-
+    use LogsActivity, SoftDeletes;
 
     /**
      * The database table used by the model.
@@ -33,20 +33,18 @@ class Room extends Model
      */
     protected $fillable = ['room_number', 'room_capacity'];
 
-    public function groups()
+    public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
     }
 
-    /**
-     * Change activity log event description
-     *
-     * @param string $eventName
-     *
-     * @return string
-     */
-    public function getDescriptionForEvent($eventName)
+    public function getDescriptionForEvent(string $eventName): string
     {
         return __CLASS__ . " model has been {$eventName}";
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults();
     }
 }

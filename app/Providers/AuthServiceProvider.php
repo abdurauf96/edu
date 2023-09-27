@@ -26,8 +26,16 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(GateContract $gate)
+    public function boot(GateContract $gate): void
     {
+        parent::registerPolicies($gate);
+
+        // Implicitly grant "Super Admin" role all permissions
+        // This work in the app by using gate-related functions like auth()->user->can()
+        $gate->before(function ($user, $ability) {
+            return $user->hasRole('super-admin') ? true : null;
+        });
+
 //        parent::registerPolicies($gate);
 //
 //        try {

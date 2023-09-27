@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Guruh</label>
-                        <select name="group_id" id="" class="form-control">
+                        <select name="group_id" id="" class="form-control select2">
                             @foreach($groups as $gr)
                                 <option @isset($student) {{ $student->group_id==$gr->id ? 'selected' : '' }} @endisset value="{{ $gr->id }}">
                                     {{ $gr->name }}</option>

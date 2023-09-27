@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -16,7 +17,7 @@ class RoleController extends Controller
         $perPage = 15;
 
         if (!empty($keyword)) {
-            $roles = Role::where('name', 'LIKE', "%$keyword%")->orWhere('label', 'LIKE', "%$keyword%")
+            $roles = Role::where('name', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
             $roles = Role::latest()->paginate($perPage);
@@ -35,9 +36,11 @@ class RoleController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $this->validate($request, ['name' => 'required']);
+        $validated = $request->validate([
+            'name' => 'required|unique:roles,name',
+        ]);
 
-        $role = Role::create($request->all());
+        Role::create($validated);
 //        $role->permissions()->detach();
 
 //        if ($request->has('permissions')) {
@@ -47,30 +50,27 @@ class RoleController extends Controller
 //            }
 //        }
 
-        return redirect('admin/roles')->with('flash_message', 'Role added!');
+        return redirect()->route('admin.roles.index')->with('flash_message', 'Role added!');
     }
 
-    public function show($id): View
+    public function show(Role $role): View
     {
-        $role = Role::findOrFail($id);
-
         return view('admin.roles.show', compact('role'));
     }
 
-    public function edit($id): View
+    public function edit(Role $role): View
     {
-        $role = Role::findOrFail($id);
-//        $permissions = Permission::select('id', 'name', 'label')->get()->pluck('label', 'name');
+        $permissions = Permission::all();
 
-        return view('admin.roles.edit', compact('role'));
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, Role $role): RedirectResponse
     {
-        $this->validate($request, ['name' => 'required']);
-
-        $role = Role::findOrFail($id);
-        $role->update($request->all());
+        $validated = $request->validate([
+            'name' => 'required|unique:roles,name,' . $role->id,
+        ]);
+        $role->update($validated);
 //        $role->permissions()->detach();
 //
 //        if ($request->has('permissions')) {
@@ -80,13 +80,31 @@ class RoleController extends Controller
 //            }
 //        }
 
-        return redirect('admin/roles')->with('flash_message', 'Role updated!');
+        return redirect()->route('admin.roles.index')->with('flash_message', 'Role updated!');
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy(Role $role): RedirectResponse
     {
-        Role::destroy($id);
+        $role->delete();
 
-        return redirect('admin/roles')->with('flash_message', 'Role deleted!');
+        return back()->with('flash_message', 'Role deleted!');
+    }
+
+    public function givePermission(Request $request, Role $role): RedirectResponse
+    {
+        if ($role->hasPermissionTo($request->get('permission'))) {
+            return back()->with('flash_message', 'Permission exists');
+        }
+        $role->givePermissionTo($request->get('permission'));
+        return back()->with('flash_message', 'Permission added to this: "'. $role->name .'" role');
+    }
+
+    public function revokePermission(Role $role, Permission $permission): RedirectResponse
+    {
+        if ($role->hasPermissionTo($permission)) {
+            $role->revokePermissionTo($permission);
+            return back()->with('flash_message', 'Permission revoked');
+        }
+        return back()->with('flash_message', 'Permission not exists on this role');
     }
 }

@@ -12,88 +12,52 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Teacher;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Jobs\StudentFinishedCourseJob;
 
 class GroupsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
-
-
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         return view('school.groups.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
+    public function create(): View
     {
         $courses = Course::school()->get();
         $teachers = Teacher::school()->whereStatus(1)->get();
         $rooms = Room::latest()->get();
+
         return view('school.groups.create', compact('courses', 'teachers','rooms'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(GroupRequest $request)
+    public function store(GroupRequest $request): RedirectResponse
     {
         $requestData = $request->all();
         Group::create($requestData);
         return redirect('school/groups')->with('flash_message', 'Guruh qo`shildi!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show($id)
+    public function show($id): View
     {
-        $group = Group::withCourseName()->withTeacherName()->findOrFail($id);
+        $group = Group::withCourseName()->withTeacherName()->withRoomNumber()->findOrFail($id);
+
         return view('school.groups.show', compact('group'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit($id)
+    public function edit($id): View
     {
         $group = Group::findOrFail($id);
         $courses = Course::school()->get();
         $teachers = Teacher::school()->whereStatus(1)->get();
         $rooms = Room::latest()->get();
+
         return view('school.groups.edit', compact('group', 'courses', 'teachers', 'rooms'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update(GroupRequest $request, $id)
+    public function update(GroupRequest $request, $id): RedirectResponse
     {
         $group = Group::findOrFail($id);
         if($request->last_month_debt){
@@ -107,21 +71,14 @@ class GroupsController extends Controller
         return redirect('school/groups')->with('flash_message', 'Guruh yangilandi!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         Group::destroy($id);
 
         return redirect('school/groups')->with('flash_message', 'Guruh o`chirib yuborildi!');
     }
 
-    public function selectManagers(Request $request)
+    public function selectManagers(Request $request): RedirectResponse|View
     {
         if($request->isMethod('post')){
             Group::findOrFail($request->group_id)->update(['user_id'=>auth()->guard('user')->id()]);

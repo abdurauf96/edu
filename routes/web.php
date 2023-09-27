@@ -9,7 +9,6 @@ use App\Http\Controllers\School\MainController;
 use App\Http\Controllers\School\OrganizationsController;
 use App\Http\Controllers\School\PaymentActivitiesController;
 use App\Http\Controllers\School\PaymentsController;
-use App\Http\Controllers\School\PermissionsController;
 use App\Http\Controllers\School\PlansController;
 use App\Http\Controllers\School\ProfileController;
 use App\Http\Controllers\School\RoomsController;
@@ -50,7 +49,6 @@ Route::get('/download', function () {
 
 //routes for only school admin
 Route::group(['prefix' => 'school', 'middleware' => ['auth:user','role:admin','logout.user']], function () {
-    Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
     Route::get('user/{id}/archive', [UsersController::class, 'archive'])->name('user.archive');
     Route::resource('logins', LoginsController::class);
@@ -115,7 +113,6 @@ Route::middleware(['auth:user', 'schoolStatus', 'role:admin|reception','logout.u
     Route::resource('/waiting-students', WaitingStudentsController::class);
 });
 
-
 // admin and HR routes
 Route::middleware(['auth:user', 'schoolStatus', 'role:admin|hr', 'logout.user'])->prefix('school')->group(function () {
     Route::resource('/organizations', OrganizationsController::class);
@@ -124,13 +121,6 @@ Route::middleware(['auth:user', 'schoolStatus', 'role:admin|hr', 'logout.user'])
     Route::get('/staff/card-generate/{id}', [StaffsController::class, 'generateCard'])->name('generateStaffCard');
     Route::get('/staff/card-download/{idcard}', [StaffsController::class, 'downloadCard'])->name('downloadCard');
     Route::get('/staff/qrcode-download/{id}', [StaffsController::class, 'downloadStaffQrcode'])->name('downloadStaffQrcode');
-});
-
-Route::middleware(['auth:user', 'schoolStatus', 'role:nasib', 'logout.user'])->prefix('school')->group(function () {
-    Route::get('/waiting-students/archive', [WaitingStudentsController::class, 'archive'])->name('waitingStudents.archive');
-    Route::resource('/waiting-students', WaitingStudentsController::class);
-    Route::get('/bot-students', [StudentsController::class, 'botStudents'])->name('botStudents');
-    Route::resource('appeals', AppealsController::class);
 });
 
 require __DIR__ . '/superadmin.php';

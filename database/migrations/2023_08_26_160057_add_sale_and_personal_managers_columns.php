@@ -22,7 +22,8 @@ class AddSaleAndPersonalManagersColumns extends Migration
             $table->integer('personal_manager_id')->nullable();
             $table->boolean('is_come_open_lesson')->default(false);
             $table->boolean('is_has_computer')->default(false);
-            $table->boolean('is_informed ')->default(false);
+            $table->boolean('is_downloaded_app')->default(false);
+            $table->boolean('is_given_open_lesson ')->default(false);
             $table->boolean('is_contract_given')->default(false);
             $table->boolean('is_payed')->default(false);
         });

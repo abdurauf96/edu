@@ -30,7 +30,7 @@
                             <tr>
                                 <th>ID</th><td>{{ $waitingstudent->id }}</td>
                             </tr>
-                            <tr><th> Kurs </th><td> {{ $waitingstudent->course_id }} </td></tr>
+                            <tr><th> Kurs </th><td> {{ $waitingstudent->course->name }} </td></tr>
                             <tr><th> F.I.O </th><td> {{ $waitingstudent->name }} </td></tr>
                             <tr><th> Telefon </th><td> {{ $waitingstudent->phone }} </td></tr>
                             <tr><th> Tug'ilgan yili </th><td> {{ $waitingstudent->year }} </td></tr>

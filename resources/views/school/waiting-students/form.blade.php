@@ -29,10 +29,10 @@
 </div>
 
 <div class="form-group">
-    <label for="">Tuman, SHahar</label>
-    <select name="district_id" class="form-control select2" required>
+    <label for="district_id">Tuman, SHahar</label>
+    <select name="district_id" id="district_id" class="form-control select2" required>
         @foreach ($districts as $district)
-            <option @isset($student) {{ $waitingstudent->district_id==$district->id ? 'selected' : '' }} @endisset value="{{ $district->id }}">{{ $district->name }} </option>
+            <option @isset($waitingstudent) {{ $waitingstudent->district_id==$district->id ? 'selected' : '' }} @endisset value="{{ $district->id }}">{{ $district->name }} </option>
         @endforeach
     </select>
 </div>

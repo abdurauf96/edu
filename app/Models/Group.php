@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use \App\Traits\School;
-
 
 class Group extends Model
 {
@@ -48,12 +49,12 @@ class Group extends Model
         $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $this->attributes['start_date'])->addMonths($this->course->duration);
     }
 
-    public function room()
+    public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);
     }
 
-    public function teacher()
+    public function teacher(): BelongsTo
     {
         return $this->belongsTo(Teacher::class);
     }
@@ -76,12 +77,17 @@ class Group extends Model
             ->whereColumn('id', 'groups.teacher_id'));
     }
 
-    public function course()
+    public function scopeWithRoomNumber($query){
+        $query->addSubSelect('room_number',Room::select('room_number')
+            ->whereColumn('id', 'groups.room_id'));
+    }
+
+    public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function allStudents()
+    public function allStudents(): HasMany
     {
         return $this->hasMany(Student::class)->latest();
     }
@@ -103,14 +109,7 @@ class Group extends Model
         });
     }
 
-    /**
-     * Change activity log event description
-     *
-     * @param string $eventName
-     *
-     * @return string
-     */
-    public function getDescriptionForEvent($eventName)
+    public function getDescriptionForEvent(string $eventName): string
     {
         return __CLASS__ . " model has been {$eventName}";
     }

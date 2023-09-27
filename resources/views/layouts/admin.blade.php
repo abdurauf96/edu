@@ -71,7 +71,8 @@
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i class="fas fa-users-cog"></i><span>Ma'muriyat</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('admin.users.index') }}">Foydalanuvchilar</a></li>
-                    <li><a class="nav-link" href="{{ route('admin.roles.index') }}">Ro'llar</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.roles.index') }}">Rollar</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.permissions.index') }}">Permissionlar</a></li>
                 </ul>
               </li>
               <li class="dropdown">

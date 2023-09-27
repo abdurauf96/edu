@@ -1,12 +1,16 @@
-@extends('layouts.school')
+@extends('layouts.admin')
+
+@section('title')
+    Yaratish
+@endsection
 
 @section('content')
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">Create Permission</div>
-            <div class="box-body">
-                <a href="{{ url('/school/permissions') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">Yangi yaratish</div>
+            <div class="card-body">
+                <a href="{{ url('/admin/permissions') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                 <br />
                 <br />
 
@@ -20,7 +24,7 @@
 
                 {!! Form::open(['url' => '/admin/permissions', 'class' => 'form-horizontal']) !!}
 
-                @include ('school.permissions.form', ['formMode' => 'create'])
+                @include ('admin.permissions.form', ['formMode' => 'create'])
 
                 {!! Form::close() !!}
 

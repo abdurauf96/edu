@@ -18,7 +18,9 @@ class WaitingStudentsArchive extends Component
     public function saveStatus()
     {
         foreach ($this->results as $id => $value){
-            WaitingStudent::onlyTrashed()->where('id',$id)->update(['call_result'=>$value]);
+            $existingValue = WaitingStudent::onlyTrashed()->where('id', $id)->value('call_result');
+            $newValue = $existingValue.' '.$value;
+            WaitingStudent::onlyTrashed()->where('id',$id)->update(['call_result'=>$newValue]);
         }
         $this->results=[];
     }
